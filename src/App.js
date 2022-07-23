@@ -9,32 +9,36 @@ import Member from "./pages/Member";
 import Recipes from "./pages/Recipes";
 import SuMap from "./pages/SuMap";
 import Login from "./pages/Login";
+import NoFound from "./pages/noFound";
 
 function App() {
     const [auth, setAuth] = useState(false);
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<h1>Home</h1>} />
-                <Route path="/suyoung" element={<Home auth={auth} />} />
-                <Route path="/suyoung/Act" element={<Act auth={auth} />} />
                 <Route
-                    path="/suyoung/Booking"
-                    element={<Booking auth={auth} />}
+                    path="/"
+                    element={
+                        <>
+                            <h1>Welcome Home</h1>{" "}
+                            <p>please insert suyouong in your URL, thanks.</p>
+                        </>
+                    }
                 />
-                <Route
-                    path="/suyoung/Member"
-                    element={<Member auth={auth} />}
-                />
-                <Route
-                    path="/suyoung/Recipes"
-                    element={<Recipes auth={auth} />}
-                />
-                <Route path="/suyoung/SuMap" element={<SuMap auth={auth} />} />
-                <Route
-                    path="/suyoung/Login"
-                    element={<Login auth={auth} setAuth={setAuth} />}
-                />
+                <Route path="/suyoung">
+                    <Route index element={<Home auth={auth} />} />
+                    <Route path="Act" element={<Act auth={auth} />} />
+                    <Route path="Booking" element={<Booking auth={auth} />} />
+                    <Route path="Member" element={<Member auth={auth} />} />
+                    <Route path="Recipes" element={<Recipes auth={auth} />} />
+                    <Route path="SuMap" element={<SuMap auth={auth} />} />
+                    <Route
+                        path="Login"
+                        element={<Login auth={auth} setAuth={setAuth} />}
+                    />
+                    {/* 404未找到的頁面路由，需放在最下方 */}
+                    <Route path="*" element={<NoFound />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
