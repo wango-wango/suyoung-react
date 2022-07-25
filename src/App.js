@@ -25,7 +25,7 @@ function App() {
                         </>
                     }
                 />
-                <Route path="/suyoung">
+                <Route path="/shuyoung">
                     <Route index element={<Home auth={auth} />} />
                     <Route path="Act" element={<Act auth={auth} />} />
                     <Route path="Booking" element={<Booking auth={auth} />} />
