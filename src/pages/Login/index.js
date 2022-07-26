@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import MLogin from "./components/MLogin";
+import Footer from "../../components/footer";
 
-function Index(props) {
-    return <div>Login</div>;
-}
+const Index = () => {
+    return (
+        <>
+            <MLogin />
+            <Footer />
+        </>
+    );
+};
 
 export default Index;
