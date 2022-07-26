@@ -119,6 +119,7 @@ p {
     justify-content: space-between;
     align-items: center;
     padding: var(--h5_text) var(--h2_text) var(--h5_text) var(--h2_text);
+    z-index: 2;
 
     .left-logo {
         img {
