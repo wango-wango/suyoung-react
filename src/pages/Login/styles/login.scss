@@ -6,7 +6,7 @@
 
 body {
     height: 100vh;
-    background-image: url("../src/bg\ 1.svg");
+    background-image: url("../../../../public/member_img/bg\ 1.svg");
     background-position: 50% 40%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -74,7 +74,7 @@ input:valid ~ label {
 }
 
 form {
-    .btn {
+    .login-btn {
         text-align: center;
         button {
             background-color: #468484;

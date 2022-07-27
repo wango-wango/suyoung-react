@@ -1,8 +1,9 @@
+import "../styles/login.scss";
 import React from "react";
-import "../../style";
-import "./styles/login";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const login = () => {
+const MLogin = () => {
     return (
         <>
             <main>
@@ -20,28 +21,28 @@ const login = () => {
                                 <input type="text" required />
                                 <label>Password</label>
                             </div>
-                            <div className="btn">
+                            <div className="login-btn">
                                 <button className="submit-login">登入</button>
                             </div>
                         </form>
                         <div className="third-party">
                             <div className="google-login">
-                                <a href="#">
+                                <Link to="/shuyoung">
                                     login with google
                                     <img
-                                        src="../../../public/member_img/google-icon.svg"
+                                        src="/member_img/google-icon.svg"
                                         alt=""
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <div className="facebook-login">
-                                <a href="#">
+                                <Link to="/shuyoung">
                                     login with facebook
                                     <img
-                                        src="../../../public/member_img/facebook.svg"
+                                        src="/member_img/facebook.svg"
                                         alt=""
                                     />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -51,4 +52,4 @@ const login = () => {
     );
 };
 
-export default login;
+export default MLogin;
