@@ -36,7 +36,13 @@ function App() {
                     />
                     <Route path="/shuyoung">
                         <Route index element={<Home auth={auth} />} />
-                        <Route path="Act" element={<Act auth={auth} />} />
+                        <Route path="Act">
+                            <Route index element={<Act auth={auth} />} />
+                            {/* <Route path="Atv" element={<Atv auth={auth} />} />
+                            <Route path="Float" element={<Float auth={auth} />} />
+                            <Route path="Night" element={<Night auth={auth} />} />
+                            <Route path="Upstream" element={<Upstream auth={auth} />} /> */}
+                        </Route>
                         <Route path="Booking">
                             <Route index element={<Booking auth={auth} />} />
                             {/* <Route path="Create" element={<Create />} /> */}
