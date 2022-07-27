@@ -18,26 +18,28 @@ body {
 //nav-bar
 
 main {
-    height: 85vh;
+    min-height: calc(100% - 300px);
 }
 
 //form
 
-.group {
-    position: relative;
-    margin-bottom: 45px;
+.login-container {
+    .title {
+        padding: 20px 0;
+        font-size: 20px;
+        color: #ffffff;
+        letter-spacing: 5px;
+        font-weight: 300;
+        text-shadow: 0px 0px 10px #000;
+    }
+
+    .group {
+        position: relative;
+        margin-bottom: 45px;
+    }
 }
 
-.title {
-    padding: 20px 0;
-    font-size: 20px;
-    color: #ffffff;
-    letter-spacing: 5px;
-    font-weight: 300;
-    text-shadow: 0px 0px 10px #000;
-}
-
-input {
+input.login-input {
     width: 280px;
     font-size: 18px;
     padding: 10px 10px 10px 30px;
@@ -48,21 +50,23 @@ input {
     border-radius: 20px;
     color: #224040;
 }
-input:focus {
+input.login-input:focus {
     outline: 2px solid #224040;
 }
 
-label {
-    color: #999;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 30px;
-    top: 7px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
+.login-container {
+    label {
+        color: #999;
+        font-size: 18px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 30px;
+        top: 7px;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
 }
 
 /* active state */
@@ -73,35 +77,37 @@ input:valid ~ label {
     color: #fba63a;
 }
 
-form {
-    .login-btn {
-        text-align: center;
-        button {
-            background-color: #468484;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 1.5rem;
-            color: #ffffff;
-            cursor: pointer;
+.login-container {
+    form {
+        .login-btn {
+            text-align: center;
+            button {
+                background-color: #468484;
+                border: none;
+                padding: 10px 30px;
+                border-radius: 1.5rem;
+                color: #ffffff;
+                cursor: pointer;
 
-            &:hover {
-                box-shadow: 0px 0px 10px #62b6b6;
-            }
+                &:hover {
+                    box-shadow: 0px 0px 10px #62b6b6;
+                }
 
-            &:active {
-                box-shadow: 0px 0px 20px #62b6b6;
-                transition: all 0.1s ease;
+                &:active {
+                    box-shadow: 0px 0px 20px #62b6b6;
+                    transition: all 0.1s ease;
+                }
             }
         }
-    }
 
-    a {
-        text-decoration: none;
-        color: #fba63a;
-        font-size: 14px;
+        a {
+            text-decoration: none;
+            color: #fba63a;
+            font-size: 14px;
 
-        &:hover {
-            color: #fcd29b;
+            &:hover {
+                color: #fcd29b;
+            }
         }
     }
 }
@@ -209,51 +215,6 @@ form {
                     }
                 }
             }
-        }
-    }
-}
-
-footer {
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    height: 300px;
-    align-items: center;
-    background-color: #224040;
-    color: white;
-
-    .footer_left {
-        margin: 0 auto;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
-        align-items: center;
-
-        .footer_logo {
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .big_title {
-                font-size: x-large;
-                font-weight: 400;
-            }
-            .footer_icon {
-                font-size: x-large;
-            }
-        }
-    }
-
-    .footer_right {
-        margin: 0 auto;
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: column;
-        align-items: flex-end;
-        li {
-            font-size: larger;
-            font-weight: 400;
         }
     }
 }

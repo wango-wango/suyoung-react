@@ -1,7 +1,7 @@
 // 1. 這裡導入所有要預設變數覆蓋
 // --------------------------------
-$primary:      #224040;
-$secondary:     #952e1f;
+$primary: #224040;
+$secondary: #952e1f;
 
 // $btn-border-radius:0;
 
@@ -9,9 +9,13 @@ $secondary:     #952e1f;
 
 // 2. 導入bootstrap所有的樣式與預設變數
 // --------------------------------
-@import '~bootstrap/scss/bootstrap';
-// --------------------------------
+@import "~bootstrap/scss/bootstrap";
 
+ul {
+    padding: 0;
+    margin: 0;
+}
+// --------------------------------
 
 // 3. 其它要導入覆蓋掉原本的預設bootstrap樣式要放在這下面
 // 全站都會使用的共同樣式
@@ -91,7 +95,6 @@ p {
     margin: auto;
 }
 
-
 //----------input&label-----------//
 /* input LABEL */
 @mixin input_label {
@@ -124,10 +127,10 @@ p {
     }
     &:focus ~ label,
     &:invalid ~ label {
-    top: calc((var(--h5_text)) * (-1));
-    font-size: var(--text_size);
-    color: var(--primary_color);
-}
+        top: calc((var(--h5_text)) * (-1));
+        font-size: var(--text_size);
+        color: var(--primary_color);
+    }
 }
 
 // input 外面包一層div群組
@@ -210,4 +213,3 @@ html {
 }
 
 // --------------------------------
-
