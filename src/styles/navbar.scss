@@ -84,7 +84,8 @@ p {
         padding: 10px;
     }
 
-    100% {}
+    100% {
+    }
 }
 
 @keyframes pulse-fade {
@@ -98,7 +99,7 @@ p {
     }
 
     100% {
-        opacity: 0.0;
+        opacity: 0;
         padding: 25px;
     }
 }
@@ -106,7 +107,7 @@ p {
 .darker {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    transition: all .5s ease-out;
+    transition: all 0.5s ease-out;
 }
 
 .nav-container {
@@ -189,7 +190,6 @@ p {
         align-items: center;
         z-index: 3;
 
-
         .login,
         .cart {
             text-decoration: none;
@@ -198,35 +198,31 @@ p {
             margin: 0 var(--text_size);
             display: flex;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             width: 40px;
             height: 40px;
-            svg{
+            svg {
                 transition: all 0.5s ease-in-out;
-            }          
+            }
         }
         .login {
-            @media screen and (max-width:768px) {
+            @media screen and (max-width: 768px) {
                 display: none;
             }
-            &:hover svg{
+            &:hover svg {
                 transform: rotate(45deg);
                 color: #468484;
             }
         }
-        .cart{
+        .cart {
             &:hover svg {
                 transform: rotate(-25deg);
                 color: #468484;
             }
-            a.active{
+            a.active {
                 color: var(--background_color);
             }
         }
-        
-
-
-
 
         .hamburger {
             display: none;
@@ -241,7 +237,6 @@ p {
             }
 
             &::before {
-
                 content: "";
                 position: absolute;
                 top: 50%;
@@ -286,7 +281,6 @@ p {
 }
 
 .nav-container {
-
     .nav-links {
         display: none;
     }
@@ -309,14 +303,9 @@ p {
             pointer-events: none;
             color: var(--background_color);
 
-
-
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-
-
-
 
             li {
                 font-size: var(--h4_text);
@@ -411,13 +400,6 @@ p {
     }
 }
 
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html {
     width: 100%;
     height: 100%;
@@ -467,5 +449,4 @@ html {
     background-color: #ccc;
     width: 100%;
     height: 100vh;
-
 }
