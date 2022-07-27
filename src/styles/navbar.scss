@@ -112,14 +112,14 @@ p {
 .nav-container {
     width: 100%;
     max-width: 2000px;
-    // overflow: hidden;
-    // max-width: 1680px;
+    overflow: hidden;
+    max-width: 1680px;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: var(--h5_text) var(--h2_text) var(--h5_text) var(--h2_text);
-    z-index: 2;
+    
 
     .left-logo {
         img {
@@ -262,14 +262,14 @@ p {
                 border-radius: 50%;
             }
 
-            //end of inner
-            &:hover {
-                animation: pulse 1s ease-out infinite;
+            // //end of inner
+            // &:hover {
+            //     animation: pulse 1s ease-out infinite;
 
-                &::before {
-                    animation: pulse-fade 1s ease-out infinite;
-                }
-            }
+            //     &::before {
+            //         animation: pulse-fade 1s ease-out infinite;
+            //     }
+            // }
 
             //end of :hover
             &:active {
@@ -293,6 +293,7 @@ p {
 
     @media screen and (max-width: 768px) {
         .nav-links {
+            z-index: 2;
             position: fixed;
             right: 0;
             top: 0;
