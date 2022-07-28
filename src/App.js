@@ -23,6 +23,7 @@ import Cart from "./pages/Carts";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/footer";
 import Layout from "./components/Layout";
+import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
 
 function App() {
     const [auth, setAuth] = useState(false);
@@ -64,7 +65,10 @@ function App() {
                                             index
                                             element={<Booking auth={auth} />}
                                         />
-                                        {/* <Route path="Create" element={<Create />} /> */}
+                                        <Route
+                                            path="BookingDetail"
+                                            element={<BookingDetail />}
+                                        />
                                     </Route>
 
                                     <Route path="Member">
