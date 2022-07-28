@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/act.scss";
+import { useBackground } from "../../utils/useBackground";
 function Atv(props) {
+    const { setBackground } = useBackground();
+
+    useEffect(() => {
+        setBackground("bg1.svg");
+    }, []);
     return (
         <>
         <section>
