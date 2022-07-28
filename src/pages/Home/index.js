@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import "./styles/index.scss"
+import { useBackground } from "../../utils/useBackground";
 
 function Index(props) {
+    
+    //更換背景
+    const { setBackground } = useBackground();
+
+    useEffect(() => {
+        setBackground("bg1.svg");
+    }, []);
 
     // //偵聽滑動事件
     // useEffect(() => {

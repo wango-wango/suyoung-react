@@ -88,16 +88,14 @@ button.daylight {
 
 html {
     body {
-        min-height: 100%;
-        background-image: url("../../../../public/member_img/bg\ 1.svg");
-        background-position: 50% 40%;
-        background-size: cover;
-        background-repeat: no-repeat;
+        // min-height: 100%;
+        // background-image: url("../../../../public/member_img/bg\ 1.svg");
+        // background-position: 50% 40%;
+        // background-size: cover;
+        // background-repeat: no-repeat;
 
         @media screen and (max-width: 768px) {
             background-position: 50% 58%;
-            background-size: auto;
-            background-repeat: no-repeat;
         }
     }
 }

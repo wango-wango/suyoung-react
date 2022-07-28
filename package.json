@@ -9,6 +9,7 @@
     "animejs": "^3.2.1",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "fontawesome": "^5.6.3",
     "framer-motion": "^6.5.1",
@@ -28,7 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=3777 react-scripts start",
+    "start": "cross-env PORT=3777 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
