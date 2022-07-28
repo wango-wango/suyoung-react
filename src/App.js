@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
 import { ThemeProvider } from "./utils/useBackground";
 
-import { UseSpinner } from "./useSpinner";
+import { useSpinner } from "./useSpinner";
 
 // import 路由
 import Home from "./pages/Home";
@@ -25,7 +25,8 @@ import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
 function App() {
     const [auth, setAuth] = useState(false);
 
-    const { spinner, setLoading } = UseSpinner(1300);
+    const { spinner, setLoading } = useSpinner(1300);
+
     return (
         <>
             <BrowserRouter>
