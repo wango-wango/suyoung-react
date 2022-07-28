@@ -49,7 +49,7 @@ function Index(props) {
     </section>
     <section>
         <div id="welcome">
-            <div className="border-light border-bottom lrSpace">
+            <div className="border-light border-bottom lrSpace p-sm-4">
                 <h2 className="textCenter">Welcome  to  ShuYoung</h2>
             </div>
         </div>
@@ -57,33 +57,33 @@ function Index(props) {
     <section>
         <div id="room">
             <div className="lrSpace p-lg-5">
-                <h4 className="textCenter p-lg-5">房型介紹</h4>
+                <h4 className="textCenter p-lg-5 p-sm-4">房型介紹</h4>
             </div>
-            <div className="lrSpace p-lg-5">
+            <div className="lrSpace p-lg-5 p-sm-3">
                 <div className="d-flex justify-content-around roomIcon">
-                    <div className="">
+                    <div className="p-sm-3">
                         <img src="/index_imgs/camp.png" alt=""/>
                     </div>
-                    <div className="">
+                    <div className="p-sm-3">
                         <img src="/index_imgs/family.png" alt=""/>
                     </div>
-                    <div className="roomActive">
+                    <div className="roomActive p-sm-3">
                         <img src="/index_imgs/beauty.png" alt=""/>
                     </div>
-                    <div className="">
+                    <div className="p-sm-3">
                         <img src="/index_imgs/van.png" alt=""/>
                     </div>
                 </div>
             </div>
             <div className="lrSpace">
-                <div className="d-flex justify-content-around roompic">
-                    <div className="roomActive">
+                <div className="d-flex justify-content-around p-3">
+                    <div className="roomActive roompic">
                         <img className="" src="/img/room/beauty/roomA 1.jpeg" alt=""/>
                     </div>
-                    <div className="">
+                    <div className="roompic">
                         <img className="" src="/img/room/beauty/roomA 2.jpeg" alt=""/>
                     </div>
-                    <div className="">
+                    <div className="roompic">
                         <img className="" src="/img/room/beauty/roomA 3.jpeg" alt=""/>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ function Index(props) {
             <div className="whitebg">
                 <div className="bgtextL">RECIPES</div>
             </div>
-            <div className="recipesRow d-flex justify-content-center">
+            <div className="recipesRow">
                 <div className="square">
                     <div className="sqContent">
                         <div className="sqTitle">天菜大廚</div>

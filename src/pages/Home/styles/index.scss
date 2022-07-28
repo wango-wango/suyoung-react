@@ -25,8 +25,6 @@ body {
     position: relative;
     background-color: #210002;
     width: 100%;
-    height: 800px;
-    padding-bottom: 100px;
 }
 #map {
     position: relative;
@@ -75,6 +73,8 @@ h1 {
 
 }
 .roompic {
+    
+    margin: 0 10%;
     img{
         width: 200px;
         border-radius: 1.5rem;
@@ -84,13 +84,13 @@ h1 {
 
 .roomTitle {
     color: #ffffff;
-    margin: 60px 30% 20px 30%;
+    margin: 60px 20% 20px 20%;
 }
 
 .roomDes {
     p {
         color: #ffffff;
-        margin: 0 30%;
+        margin: 0 20%;
     }
 }
 
@@ -130,7 +130,7 @@ h1 {
             grid-template-columns: repeat(2, 1fr);
         }
     }
-    @media (min-width: 800px) {
+    @media (min-width: 1040px) {
         .actrow {
             grid-template-columns: repeat(4, 1fr);
         }
@@ -298,14 +298,33 @@ background-repeat: no-repeat;
     --f: 700ms;
     --g: cubic-bezier(0.19, 1, 0.22, 1);
 }
+
+.recipesRow {
+    display: grid;
+    grid-gap: 1rem;
+    padding: 1rem;
+    max-width: 70%;
+    margin: 0 auto;
+    justify-items: center;
+    font-family: var(--font-sans);
+    }
+    @media (min-width: 1200px) {
+        .recipesRow {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+
 .square {
     position: relative;
     top: -150px;
+    display: flex;
+    align-items: flex-end;
     width: 400px;
     height: 400px;
     overflow: hidden;
     border-radius: 1.5rem;
-    margin: 0 100px;
+    margin-bottom: 50px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.3), 0 4px 4px rgba(0, 0, 0, 0.3), 0 8px 8px rgba(0, 0, 0, 0.3), 0 16px 16px rgba(0, 0, 0, 0.3);
     img{
         width: 400px;
