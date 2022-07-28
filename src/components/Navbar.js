@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/navbar.scss";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import AuthContext from "../pages/Login/sub-pages/AuthContext";
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
+
+    const { authorized, account, logout } = useContext(AuthContext);
+
+    console.log(AuthContext);
+
     return (
         <>
             <nav>
@@ -31,14 +38,33 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div className="right-icon">
-                        <div className="login">
-                            <Link to="/shuyoung/Login">
-                                <FaUserCircle
-                                    className="iconLogin"
-                                    size="30px"
-                                />
-                            </Link>
-                        </div>
+                        {authorized ? (
+                            <>
+                                <div className="login">
+                                    <Link to="/shuyoung">
+                                        <FiLogOut
+                                            className="iconLogin"
+                                            size="30px"
+                                            onClick={() => {
+                                                logout();
+                                            }}
+                                        />
+                                    </Link>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="login">
+                                    <Link to="/shuyoung/Login">
+                                        <FaUserCircle
+                                            className="iconLogin"
+                                            size="30px"
+                                        />
+                                    </Link>
+                                </div>
+                            </>
+                        )}
+
                         <div className="cart">
                             <Link
                                 to="/shuyoung/Cart"
@@ -81,11 +107,33 @@ export default function Navbar() {
                         <li className={isActive ? "fade" : null}>
                             <Link to="/shuyoung/Booking">預約訂位</Link>
                         </li>
-                        <li className={isActive ? "fade" : null}>
-                            <Link to="/shuyoung/Login" className="login-button">
-                                登入/註冊
-                            </Link>
-                        </li>
+
+                        {authorized ? (
+                            <>
+                                <li className={isActive ? "fade" : null}>
+                                    <Link
+                                        to="/shuyoung/Login"
+                                        className="login-button"
+                                        onClick={() => {
+                                            logout();
+                                        }}
+                                    >
+                                        登出
+                                    </Link>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li className={isActive ? "fade" : null}>
+                                    <Link
+                                        to="/shuyoung/Login"
+                                        className="login-button"
+                                    >
+                                        登入/註冊
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </nav>
