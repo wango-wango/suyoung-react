@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
 
+import { UseSpinner } from "./useSpinner";
+
 // import 路由
 import Home from "./pages/Home";
 import Act from "./pages/Act";
@@ -19,6 +21,8 @@ import Footer from "./components/footer";
 
 function App() {
     const [auth, setAuth] = useState(false);
+
+    const { spinner, setLoading } = UseSpinner(1300);
     return (
         <>
             <BrowserRouter>
