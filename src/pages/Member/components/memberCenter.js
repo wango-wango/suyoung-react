@@ -20,13 +20,15 @@ import { Link } from "react-router-dom";
 const MemberCenter = () => {
     const [step, setStep] = useState(0);
 
-    const { spinner, setLoading } = useSpinner(45555300);
+    const { spinner, setLoading } = useSpinner(700000000);
+
+    useEffect(() => {
+        setLoading(true);
+    }, [setLoading]);
 
     //==============dark mode============
 
     useEffect(() => {
-        setLoading(true);
-
         console.log("spinner appears");
 
         const moonPath =
@@ -37,41 +39,41 @@ const MemberCenter = () => {
 
         let toggle = false;
 
-        // darkMode.addEventListener("click", () => {
-        //     const timeline = anime.timeline({
-        //         duration: 750,
-        //         easing: "easeOutExpo",
-        //     });
+        darkMode.addEventListener("click", () => {
+            const timeline = anime.timeline({
+                duration: 750,
+                easing: "easeOutExpo",
+            });
 
-        //     timeline
-        //         .add({
-        //             targets: ".moon",
-        //             d: [{ value: toggle ? moonPath : sunPath }], //moonPath ->sunpath
-        //         })
-        //         .add(
-        //             {
-        //                 targets: "#dark_mode",
-        //                 rotate: toggle ? 0 : 320,
-        //             },
-        //             "-=350"
-        //         )
-        //         .add(
-        //             {
-        //                 targets: "",
-        //                 backgroundColor: toggle
-        //                     ? "rgba(255,255,255)"
-        //                     : "rgba(22,22,22)",
-        //                 color: toggle ? "rgba(22,22,22)" : "rgba(255,255,255)",
-        //             },
-        //             "-=700"
-        //         );
+            timeline
+                .add({
+                    targets: ".moon",
+                    d: [{ value: toggle ? moonPath : sunPath }], //moonPath ->sunpath
+                })
+                .add(
+                    {
+                        targets: "#dark_mode",
+                        rotate: toggle ? 0 : 320,
+                    },
+                    "-=350"
+                )
+                .add(
+                    {
+                        targets: "",
+                        backgroundColor: toggle
+                            ? "rgba(255,255,255)"
+                            : "rgba(22,22,22)",
+                        color: toggle ? "rgba(22,22,22)" : "rgba(255,255,255)",
+                    },
+                    "-=700"
+                );
 
-        //     if (!toggle) {
-        //         toggle = true;
-        //     } else {
-        //         toggle = false;
-        //     }
-        // });
+            if (!toggle) {
+                toggle = true;
+            } else {
+                toggle = false;
+            }
+        });
     }, []);
 
     //==============dark mode end============
