@@ -101,21 +101,21 @@ function Index(props) {
         <div id="act" >
             <div className="bgtext">ACTIVITY</div>
             <div className="actrow">
-                <div className="actCard actimg1">
+                <div className="actCard">
                     <div className="actContent">
                         <h2 className="title">漂流探險</h2>
                         <p className="cardDes">每個人都不得不面對這些問題。在面對這種問題時，務必詳細考慮漂流的各種可能。</p>
                         <button className="btn btn-dark">MORE</button>
                     </div>
                 </div>
-                <div className="actCard actimg2">
+                <div className="actCard">
                     <div className="actContent">
                         <h2 className="title">夜遊觀月</h2>
                         <p className="cardDes">我想，把夜遊的意義想清楚，對各位來說並不是一件壞事。荀況相信，賢能不待次而舉。</p>
                         <button className="btn btn-dark">MORE</button>
                     </div>
                 </div>
-                <div className="actCard actimg3">
+                <div className="actCard">
                     <div className="actContent">
                         <h2 className="title">親子溯溪</h2>
                         <p className="cardDes">親子溯溪可以說是有著成為常識的趨勢。一般來講，我們都必須務必慎重的考慮考慮。</p>
@@ -138,7 +138,7 @@ function Index(props) {
                 <div className="bgtextL">RECIPES</div>
             </div>
             <div className="recipesRow d-flex justify-content-center">
-                <div className="square sq2">
+                <div className="square">
                     <div className="sqContent">
                         <div className="sqTitle">天菜大廚</div>
                         <div className="squareDes">若無法徹底理解廚師，恐怕會是人類的一大遺憾。

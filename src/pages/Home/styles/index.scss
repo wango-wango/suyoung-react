@@ -221,27 +221,27 @@ h1 {
     border: none;
 }
 
-.actimg1 {
+.actCard:nth-child(1):before {
 background-image: url(../../../../public/act_imgs/float01.jpg);
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
 }
-.actimg2 {
+.actCard:nth-child(2):before {
     background-image: url(../../../../public/act_imgs/night04.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.actimg3 {
+.actCard:nth-child(3):before {
     background-image: url(../../../../public/act_imgs/upstream01.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.actimg4 {
+.actCard:nth-child(4):before {
     background-image: url(../../../../public/act_imgs/atv02.jpg);
     background-size: cover;
     background-position: center;
@@ -311,14 +311,14 @@ background-repeat: no-repeat;
         width: 400px;
     }
 }
-.sq1 {
+.square:nth-child(1):before {
     background-image: url(../../../../public/index_imgs/rescipes1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.sq2 {
+.square:nth-child(2):before {
     background-image: url(../../../../public/index_imgs/rescipes2.jpg);
     background-size: cover;
     background-position: center;
