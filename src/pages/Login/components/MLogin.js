@@ -1,7 +1,6 @@
 import "../styles/login.scss";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MLogin = () => {
     const [myform, setMyform] = useState({
