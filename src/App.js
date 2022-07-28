@@ -9,9 +9,9 @@ import { useSpinner } from "./useSpinner";
 // import 路由
 import Home from "./pages/Home";
 import Atv from "./pages/Act/Atv";
-import Float from "./pages/Act/sub-pages/Float";
-import Night from "./pages/Act/sub-pages/Night";
-import Upstream from "./pages/Act/sub-pages/Upstream";
+import Float from "./pages/Act/Float";
+import Night from "./pages/Act/Night";
+import Upstream from "./pages/Act/Upstream";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 import Recipes from "./pages/Recipes";

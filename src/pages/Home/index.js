@@ -86,13 +86,13 @@ function Index(props) {
             <div className="lrSpace">
                 <div className="d-flex justify-content-around p-3">
                     <div className="roomActive roompic">
-                        <img className="" src="/img/room/beauty/roomA 1.jpeg" alt=""/>
+                        <img className="" src="/room_imgs/beauty/roomA1.jpeg" alt=""/>
                     </div>
                     <div className="roompic">
-                        <img className="" src="/img/room/beauty/roomA 2.jpeg" alt=""/>
+                        <img className="" src="/room_imgs/beauty/roomA2.jpeg" alt=""/>
                     </div>
                     <div className="roompic">
-                        <img className="" src="/img/room/beauty/roomA 3.jpeg" alt=""/>
+                        <img className="" src="/room_imgs/beauty/roomA3.jpeg" alt=""/>
                     </div>
                 </div>
             </div>
