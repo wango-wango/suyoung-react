@@ -1,6 +1,6 @@
 import "../styles/login.scss";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MLogin = () => {
     const [myform, setMyform] = useState({
@@ -14,6 +14,8 @@ const MLogin = () => {
         console.log({ id, val });
         setMyform({ ...myform, [id]: val });
     };
+
+    const navigate = useNavigate();
 
     const whenSubmit = (event) => {
         event.preventDefault();
@@ -33,6 +35,7 @@ const MLogin = () => {
                 console.log(result);
                 if (result.success) {
                     localStorage.setItem("auth", JSON.stringify(result.data));
+                    navigate("/shuyoung/Member");
                 } else {
                     alert("帳密錯誤");
                 }

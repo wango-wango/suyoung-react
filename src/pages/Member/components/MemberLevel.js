@@ -1,18 +1,38 @@
 import React from "react";
 import "../styles/member-level.scss";
+import { motion } from "framer-motion";
 
 const MemberLevel = () => {
     return (
         <>
-            <div className="member-body">
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="member-body"
+            >
                 <div className="title">會員等級</div>
                 <div className="flex-container">
                     <div className="left">
-                        <div className="member-name">
-                            <img src="./src/avatar.png" alt="" />
+                        <motion.div
+                            className="member-name"
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                                duration: 0.5,
+                            }}
+                        >
+                            <img src="/member_img/avatar.png" alt="" />
                             <div>Shinder Lin</div>
-                        </div>
-                        <div className="member-level-card">
+                        </motion.div>
+                        <motion.div
+                            className="member-level-card"
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                                duration: 0.5,
+                            }}
+                        >
                             <div className="top-title">
                                 <div className="left">
                                     <svg
@@ -65,10 +85,17 @@ const MemberLevel = () => {
                                     優惠
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                     <div className="right">
-                        <div className="line-container">
+                        <motion.div
+                            className="line-container"
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                                duration: 0.5,
+                            }}
+                        >
                             <div className="outdoor-beginner active">
                                 <div className="top-title">
                                     <div className="left">
@@ -248,10 +275,10 @@ const MemberLevel = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </>
     );
 };

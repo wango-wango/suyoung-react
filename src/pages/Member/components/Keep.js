@@ -1,12 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/member-keep.scss";
+import { motion } from "framer-motion";
+import KeepCard from "./keepCard";
 
 const Keep = () => {
     return (
         <>
             <>
-                <div className="member-body">
+                <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="member-body"
+                >
                     <div className="keep-title">收藏清單</div>
                     <div className="checkbox">
                         <label>
@@ -35,84 +42,12 @@ const Keep = () => {
                         </label>
                     </div>
                     <div className="keep-card-container">
-                        <div className="keep-card">
-                            <div className="keep-card-img">
-                                <img
-                                    src="./src/baikang-yuan-VDYAsdbHVhc-unsplash.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="keep-card-title">房型1</div>
-                            <div className="keep-card-content">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Adipisci, voluptatum voluptas.
-                                Quo consequatur culpa tempore corporis quisquam.
-                                Facere ea sint tenetur qui odit magnam ex
-                                ducimus laboriosam blanditiis. Totam, eos.
-                            </div>
-                            <div className="keep-card-button">
-                                <Link to="/">看更多</Link>
-                            </div>
-                        </div>
-                        <div className="keep-card">
-                            <div className="keep-card-img">
-                                <img
-                                    src="./src/baikang-yuan-VDYAsdbHVhc-unsplash.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="keep-card-title">房型1</div>
-                            <div className="keep-card-content">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Adipisci, voluptatum voluptas.
-                                Quo consequatur culpa tempore corporis quisquam.
-                                Facere ea sint tenetur qui odit magnam ex
-                                ducimus laboriosam blanditiis. Totam, eos.
-                            </div>
-                            <div className="keep-card-button">
-                                <Link to="/">看更多</Link>
-                            </div>
-                        </div>
-                        <div className="keep-card">
-                            <div className="keep-card-img">
-                                <img
-                                    src="./src/baikang-yuan-VDYAsdbHVhc-unsplash.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="keep-card-title">房型1</div>
-                            <div className="keep-card-content">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Adipisci, voluptatum voluptas.
-                                Quo consequatur culpa tempore corporis quisquam.
-                                Facere ea sint tenetur qui odit magnam ex
-                                ducimus laboriosam blanditiis. Totam, eos.
-                            </div>
-                            <div className="keep-card-button">
-                                <Link to="/">看更多</Link>
-                            </div>
-                        </div>
-                        <div className="keep-card">
-                            <div className="keep-card-img">
-                                <img
-                                    src="./src/baikang-yuan-VDYAsdbHVhc-unsplash.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="keep-card-title">房型1</div>
-                            <div className="keep-card-content">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Adipisci, voluptatum voluptas.
-                                Quo consequatur culpa tempore corporis quisquam.
-                                Facere ea sint tenetur qui odit magnam ex
-                                ducimus laboriosam blanditiis. Totam, eos.
-                            </div>
-                            <div className="keep-card-button">
-                                <Link to="/">看更多</Link>
-                            </div>
-                        </div>
+                        <KeepCard />
+                        <KeepCard />
+                        <KeepCard />
+                        <KeepCard />
                     </div>
-                </div>
+                </motion.div>
             </>
         </>
     );
