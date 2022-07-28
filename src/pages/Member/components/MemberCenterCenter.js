@@ -1,6 +1,8 @@
 import React from "react";
 import MemberCenter from "./MemberCenter";
 import "../styles/member-center-01.scss";
+import Tilty from "react-tilty";
+import { motion } from "framer-motion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
@@ -13,7 +15,12 @@ import { Link } from "react-router-dom";
 const MemberCenterCenter = () => {
     return (
         <>
-            <div className="member-body">
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="member-body"
+            >
                 <div className="cover-image-container">
                     <div className="cover-image"></div>
                     <button>
@@ -22,11 +29,11 @@ const MemberCenterCenter = () => {
                     </button>
                 </div>
                 <div className="member-container">
-                    <div
+                    <Tilty
                         className="member-card"
-                        data-tilt
-                        data-tilt-glare
-                        data-tilt-max-glare="0.8"
+                        glare
+                        scale={1.05}
+                        maxGlare={0.5}
                     >
                         <div className="member-card-left">
                             <img
@@ -76,7 +83,8 @@ const MemberCenterCenter = () => {
                                 註冊日期：2022-05-18
                             </div>
                         </div>
-                    </div>
+                    </Tilty>
+
                     <div className="weather-widget">
                         <div className="area-title">台灣，宜蘭市</div>
                         <div className="weather-content">
@@ -121,7 +129,7 @@ const MemberCenterCenter = () => {
                         <div className="swiper-pagination"></div>
                     </Swiper>
                 </div>
-            </div>
+            </motion.div>
         </>
     );
 };

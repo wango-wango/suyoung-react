@@ -1,10 +1,16 @@
 import React from "react";
 import "../styles/member-coupon.scss";
+import { motion } from "framer-motion";
 
 const Coupon = () => {
     return (
         <>
-            <div className="member-body">
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="member-body"
+            >
                 <div className="coupon-container">
                     <div className="title">我的優惠券</div>
                     <div className="coupon-box">
@@ -170,7 +176,7 @@ const Coupon = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </>
     );
 };

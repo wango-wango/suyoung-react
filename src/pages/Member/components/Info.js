@@ -1,10 +1,16 @@
 import React from "react";
 import "../styles/member-form.scss";
+import { motion } from "framer-motion";
 
 const Info = () => {
     return (
         <>
-            <div className="member-body">
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="member-body"
+            >
                 <div className="title">會員資料</div>
                 <div className="form-container">
                     <div className="left">
@@ -82,7 +88,7 @@ const Info = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </>
     );
 };
