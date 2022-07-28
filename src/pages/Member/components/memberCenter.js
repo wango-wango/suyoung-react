@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react";
 import "../styles/member-center.scss";
-// import "../styles/member-center-01.scss";
 
 import MemberCenterCenter from "./MemberCenterCenter";
 import Coupon from "./Coupon";
@@ -11,6 +10,8 @@ import Password from "./Password";
 import MemberLevel from "./MemberLevel";
 import CreditCard from "./CreditCard";
 
+import { useSpinner } from "../../../useSpinner";
+
 import { gsap } from "gsap";
 import anime from "animejs";
 
@@ -19,9 +20,15 @@ import { Link } from "react-router-dom";
 const MemberCenter = () => {
     const [step, setStep] = useState(0);
 
+    const { spinner, setLoading } = useSpinner(45555300);
+
     //==============dark mode============
 
     useEffect(() => {
+        setLoading(true);
+
+        console.log("spinner appears");
+
         const moonPath =
             "M 27.5 0 C 34.791 0 41.79 2.899 46.945 8.055 C 52.101 13.21 55 20.209 55 27.5 C 55 34.791 52.101 41.79 46.945 46.945 C 41.79 52.101 34.791 55 27.5 55 C 20.209 55 13.21 52.101 8.055 46.945 C 2.899 41.79 0 34.791 0 27.5 C 0 20.209 2.899 13.21 8.055 8.055 C 13.21 2.899 20.209 0 27.5 0 Z";
         const sunPath =
@@ -30,43 +37,41 @@ const MemberCenter = () => {
 
         let toggle = false;
 
-        darkMode.addEventListener("click", () => {
-            //anime.js
-            //여기에 타임라인을 더한다
-            const timeline = anime.timeline({
-                duration: 750,
-                easing: "easeOutExpo",
-            });
-            //add 다르 애니메이션 타임라인에
-            timeline
-                .add({
-                    targets: ".moon",
-                    d: [{ value: toggle ? moonPath : sunPath }], //moonPath ->sunpath
-                })
-                .add(
-                    {
-                        targets: "#dark_mode",
-                        rotate: toggle ? 0 : 320,
-                    },
-                    "-=350"
-                )
-                .add(
-                    {
-                        targets: "",
-                        backgroundColor: toggle
-                            ? "rgba(255,255,255)"
-                            : "rgba(22,22,22)",
-                        color: toggle ? "rgba(22,22,22)" : "rgba(255,255,255)",
-                    },
-                    "-=700"
-                );
+        // darkMode.addEventListener("click", () => {
+        //     const timeline = anime.timeline({
+        //         duration: 750,
+        //         easing: "easeOutExpo",
+        //     });
 
-            if (!toggle) {
-                toggle = true;
-            } else {
-                toggle = false;
-            }
-        });
+        //     timeline
+        //         .add({
+        //             targets: ".moon",
+        //             d: [{ value: toggle ? moonPath : sunPath }], //moonPath ->sunpath
+        //         })
+        //         .add(
+        //             {
+        //                 targets: "#dark_mode",
+        //                 rotate: toggle ? 0 : 320,
+        //             },
+        //             "-=350"
+        //         )
+        //         .add(
+        //             {
+        //                 targets: "",
+        //                 backgroundColor: toggle
+        //                     ? "rgba(255,255,255)"
+        //                     : "rgba(22,22,22)",
+        //                 color: toggle ? "rgba(22,22,22)" : "rgba(255,255,255)",
+        //             },
+        //             "-=700"
+        //         );
+
+        //     if (!toggle) {
+        //         toggle = true;
+        //     } else {
+        //         toggle = false;
+        //     }
+        // });
     }, []);
 
     //==============dark mode end============
@@ -95,7 +100,15 @@ const MemberCenter = () => {
 
     return (
         <>
+            {spinner}
             <section className="member-center member-center-center day-light">
+                {/* <button
+                    onClick={() => {
+                        setLoading((pre) => !pre);
+                    }}
+                >
+                    123
+                </button> */}
                 <button className="daylight" onClick={myFunction}>
                     <svg
                         id="dark_mode"

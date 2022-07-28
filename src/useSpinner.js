@@ -1,17 +1,18 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect } from "react";
 
 import Spinner from "./components/spinner";
 
-export function UseSpinner(timeout = 2000) {
+export function useSpinner(timeout = 2000) {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (loading) {
+        if (loading)
             setTimeout(() => {
                 setLoading(false);
             }, timeout);
-        }
     }, [loading]);
+
+    //const SpinnerComponent = ({ loading }) => <Spinner loading={loading} />
 
     return {
         spinner: <Spinner loading={loading} />,

@@ -1,9 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
 
-.spinner-text {
+div.spinner-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: "Open Sans", sans-serif;
+    position: absolute;
     font-weight: 600;
     font-size: 40px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-color: rgb(197, 130, 130);
+    z-index: 999;
 }
 
 .spinner-text {
