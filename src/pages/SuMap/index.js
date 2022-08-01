@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from 'react';
+ import ReactDOM from 'react-dom/client';
+// import './index.css';
+import App from './App';
+// import reportWebVitals from './reportWebVitals';
+ const root = ReactDOM.createRoot(document.getElementById('root'));
 
-import { useBackground } from "../../utils/useBackground";
+ root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-function Index(props) {
-    const { setBackground } = useBackground();
-
-    useEffect(() => {
-        setBackground("bg1.svg");
-    }, []);
-
-    return <div>SuMap</div>;
-}
-
-export default Index;
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// reportWebVitals();
