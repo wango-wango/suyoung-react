@@ -5,7 +5,6 @@ import Process from "./components/Process";
 import ShoppingCart from "./sub-pages/ShoppingCart"
 import CreditCard from "./sub-pages/CreditCard";
 import OrderDetail from "./sub-pages/OrderDetail";
-import fake from "./sub-pages/fake";
 import './styles/item.scss';
 
 function Index(props) {
@@ -34,7 +33,6 @@ function Index(props) {
         progressNames={progressNames}
         />
         <BlockComponent setStep={setStep}/>
-        <fake />
     </div>
     {step === 1 ?  <AddOn/> : null}
     </>

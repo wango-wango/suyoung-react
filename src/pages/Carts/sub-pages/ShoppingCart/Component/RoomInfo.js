@@ -43,25 +43,23 @@ function RoomInfo(props) {
     setMycartDisplay(newMycartDisplay)
   }, [mycart])
 
-  // 更新購物車中的商品數量
-  const updateCartToLocalStorage = (item, isAdded = true) => {
-    console.log(item, isAdded)
+  // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
+  const delItem = (item) => {
+    // 先複製原有的購物車內容
     const currentCart = JSON.parse(localStorage.getItem('roomItem')) || []
 
-    // find if the product in the localstorage with its id
+    // 找尋是否有此筆item.id的對應資料
     const index = currentCart.findIndex((v) => v.sid === item.sid)
 
-    console.log('index', index)
-    // found: index! == -1
     if (index > -1) {
-      isAdded ? currentCart[index].amount++ : currentCart[index].amount--
+      // 找到的話就透過splice來移除array中的那個物件
+      // 再更新至localStorage cart之中並且更新Mycart
+      currentCart.splice(index, 1)
+      localStorage.setItem('roomItem', JSON.stringify(currentCart))
+      setMycart(currentCart)
+
+      updateQty()
     }
-
-    localStorage.setItem('roomItem', JSON.stringify(currentCart))
-
-    // 設定資料
-    setMycart(currentCart)
-    updateQty()
   }
 
 
@@ -84,7 +82,9 @@ function RoomInfo(props) {
                         <p>天數：兩晚</p>
                         <div class="amount_and_del">
                             <p>價格：${item.room_price}</p>
-                        <button class="del_btn">
+                        <button class="del_btn" onClick={() => {
+                delItem(item)
+              }}>
                         刪除
                         </button>
                         </div>
