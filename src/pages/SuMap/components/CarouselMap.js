@@ -20,7 +20,7 @@ const CarouselMap = (props) => {
                 }}>
                   <Carousel
                     data={data[props.step]}
-                    time={2000}
+                    time={1500}
                     width="650px"
                     height="350px"
                     opacity="1"
@@ -33,7 +33,7 @@ const CarouselMap = (props) => {
                     dots={true}
                     pauseIconColor="white"
                     pauseIconSize="40px"
-                    slideBackgroundColor="darkgrey"
+                    slideBackgroundColor="white"
                     slideImageFit="cover"
                     thumbnails={true}
                     thumbnailWidth="100px"
