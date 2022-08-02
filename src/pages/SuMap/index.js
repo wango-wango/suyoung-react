@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import '../styles/footer.scss'
+// import '../styles/navbar.scss'
+// import '../css/su_map.css'
+import './SuMap.css'
 
-import { useBackground } from "../../utils/useBackground";
+import SuMapContent from "./components/SuMapContent";
 
-function Index(props) {
-    const { setBackground } = useBackground();
-
-    useEffect(() => {
-        setBackground("bg1.svg");
-    }, []);
-
-    return <div>SuMap</div>;
+function  SuMap(){
+    return(
+        <div>
+        <SuMapContent/>
+        </div>
+    )
 }
 
-export default Index;
+export default SuMap
