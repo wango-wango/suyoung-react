@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
 import { ThemeProvider } from "./utils/useBackground";
-
+import { BookingProvider } from "./utils/useBookingList";
 import { useSpinner } from "./useSpinner";
 
 // import 路由
@@ -35,76 +35,95 @@ function App() {
             <BrowserRouter>
                 <AuthProvider>
                     <ThemeProvider>
-                        <Layout>
-                            <Routes>
-                                <Route
-                                    path="/"
-                                    element={
-                                        <>
-                                            <h1>Welcome Home</h1>{" "}
-                                            <p>
-                                                please insert suyouong in your
-                                                URL, thanks.
-                                            </p>
-                                        </>
-                                    }
-                                />
-                                <Route path="/shuyoung">
+                        <BookingProvider>
+                            <Layout>
+                                <Routes>
                                     <Route
-                                        index
-                                        element={<Home auth={auth} />}
-                                    />
-                                    <Route path="Act">
-                                        <Route path="Atv" element={<Atv auth={auth} />}/>
-                                        <Route path="Float" element={<Float auth={auth} />}/>
-                                        <Route path="Night" element={<Night auth={auth} />}/>
-                                        <Route path="Upstream" element={<Upstream auth={auth} />}/>
-                                    </Route>
-                                    <Route path="Booking">
-                                        <Route
-                                            index
-                                            element={<Booking auth={auth} />}
-                                        />
-                                        <Route
-                                            path="BookingDetail"
-                                            element={<BookingDetail />}
-                                        />
-                                    </Route>
-
-                                    <Route path="Member">
-                                        <Route
-                                            index
-                                            element={<Member auth={auth} />}
-                                        />
-                                        {/* <Route path="Coupon" element={<Coupon />} />
-                            <Route path="Keep" element={<Keep />} /> */}
-                                    </Route>
-                                    <Route
-                                        path="Recipes"
-                                        element={<Recipes auth={auth} />}
-                                    />
-                                    <Route
-                                        path="SuMap"
-                                        element={<SuMap auth={auth} />}
-                                    />
-                                    <Route
-                                        path="Cart"
-                                        element={<Cart auth={auth} />}
-                                    />
-                                    <Route
-                                        path="Login"
+                                        path="/"
                                         element={
-                                            <Login
-                                                auth={auth}
-                                                setAuth={setAuth}
-                                            />
+                                            <>
+                                                <h1>Welcome Home</h1>{" "}
+                                                <p>
+                                                    please insert suyouong in
+                                                    your URL, thanks.
+                                                </p>
+                                            </>
                                         }
                                     />
-                                    {/* 404未找到的頁面路由，需放在最下方 */}
-                                    <Route path="*" element={<NoFound />} />
-                                </Route>
-                            </Routes>
-                        </Layout>
+                                    <Route path="/shuyoung">
+                                        <Route
+                                            index
+                                            element={<Home auth={auth} />}
+                                        />
+                                        <Route path="Act">
+                                            <Route
+                                                path="Atv"
+                                                element={<Atv auth={auth} />}
+                                            />
+                                            <Route
+                                                path="Float"
+                                                element={<Float auth={auth} />}
+                                            />
+                                            <Route
+                                                path="Night"
+                                                element={<Night auth={auth} />}
+                                            />
+                                            <Route
+                                                path="Upstream"
+                                                element={
+                                                    <Upstream auth={auth} />
+                                                }
+                                            />
+                                        </Route>
+
+                                        <Route path="Booking">
+                                            <Route
+                                                index
+                                                element={
+                                                    <Booking auth={auth} />
+                                                }
+                                            />
+                                            <Route
+                                                path="BookingDetail"
+                                                element={<BookingDetail />}
+                                            />
+                                        </Route>
+
+                                        <Route path="Member">
+                                            <Route
+                                                index
+                                                element={<Member auth={auth} />}
+                                            />
+                                            {/* <Route path="Coupon" element={<Coupon />} />
+                            <Route path="Keep" element={<Keep />} /> */}
+                                        </Route>
+                                        <Route
+                                            path="Recipes"
+                                            element={<Recipes auth={auth} />}
+                                        />
+                                        <Route
+                                            path="SuMap"
+                                            element={<SuMap auth={auth} />}
+                                        />
+                                        <Route
+                                            path="Cart"
+                                            element={<Cart auth={auth} />}
+                                        />
+                                        <Route
+                                            path="Login"
+                                            element={
+                                                <Login
+                                                    auth={auth}
+                                                    setAuth={setAuth}
+                                                />
+                                            }
+                                        />
+                                        {/* 404未找到的頁面路由，需放在最下方 */}
+                                        <Route path="*" element={<NoFound />} />
+                                    </Route>
+                                </Routes>
+                            </Layout>
+                        </BookingProvider>
                     </ThemeProvider>
                 </AuthProvider>
             </BrowserRouter>
