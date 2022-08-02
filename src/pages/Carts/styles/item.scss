@@ -459,14 +459,12 @@ width: 75%;
 margin: 0 auto;
 margin-top: 1rem;
 padding-bottom: 1rem;
-display: flex;
 border-top: 1px solid black;
 }
 
 
 
 .room_pic {
-width: 40%;
 padding-top: 1rem;
 }
 
@@ -481,14 +479,13 @@ padding-top: 1.2rem;
 }
 
 .room_detail{
-width: 70%;
 padding-top: 1rem;
 padding-left: 0.5rem;
 }
 
 .room_detail p {
 font-size: 10px;
-line-height: 0;
+line-height: 1;
 }
 
 .amount_and_del{
