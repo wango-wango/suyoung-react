@@ -4,16 +4,16 @@
 import './SuMap.css'
 
 
-import SuMapNav from "./components/SuMapNav";
+// import SuMapNav from "./components/SuMapNav";
 import SuMapContent from "./components/SuMapContent";
-import SuMapFooter from "./components/SuMapFooter";
+// import SuMapFooter from "./components/SuMapFooter";
 
 function  SuMap(){
     return(
         <div>
-        <SuMapNav/>
+        {/* <SuMapNav/> */}
         <SuMapContent/>
-        <SuMapFooter/>
+        {/* <SuMapFooter/> */}
         
         </div>
     )

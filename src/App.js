@@ -15,7 +15,7 @@ import Upstream from "./pages/Act/Upstream";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 import Recipes from "./pages/Recipes";
-import SuMap from "./pages/SuMap";
+import SuMap from "./pages/SuMap/SuMap";
 import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
 // import Create from "./pages/Booking/sub-pages/Create";

@@ -1,4 +1,5 @@
 import { Carousel } from 'react-carousel-minimal';
+import { FaBullseye } from 'react-icons/fa';
 import data from './MapPicture.json'
 
 const CarouselMap = (props) => {
