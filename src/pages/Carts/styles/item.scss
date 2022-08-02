@@ -1,0 +1,734 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+// background-image: url(../item/img/bg.jpg);
+background-size: cover;
+background-attachment: fixed;
+font-family: 'Noto Sans TC', sans-serif;
+list-style: none;
+margin: 0;
+padding: 0;
+width: 100%;
+box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px)
+{   
+
+
+.w70{
+    width: 70%;
+}
+
+.web_none{
+    display:none;
+}
+
+.bg {
+    background-color: #224040;
+}
+
+
+.card{
+    margin: 0 auto;
+}
+
+.first_component{
+    margin: 0 auto;
+    width: 90%;
+    background-color: rgba(242,242,242,0.4);
+    border-radius: 12px;
+}
+
+.first_component_title{
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    font-size: 48px;
+    color: black;
+}
+
+
+.room_info_and_web_component1{
+    display: flex;
+    // position: relative;
+}
+
+.web_component1{
+    width: 30%;
+    height: 600px;
+    // margin-left: 1rem;
+    margin: 1rem 4.5rem 1rem 0rem;
+    background-color: white;
+    border-radius: 12px;
+    font-size: 24px;
+    margin-top: 1rem;
+}
+
+.web_component1_img{
+    width: 30%;
+    padding-top: 1rem;
+    padding-left: 2.3rem;
+
+}
+
+.room_info{
+    // margin: 0 auto;
+    margin: 1rem 4.5rem;
+    display:flex;
+    border-top: 1px solid black;
+}
+
+
+
+.room_pic {
+    width: 40%;
+    padding-top: 1rem;
+}
+
+.room_pic img{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.room_pic p{
+    font-size: 14px;
+    padding-top: 1.2rem;
+}
+
+.room_detail{
+    width: 60%;
+    padding-top: 1rem;
+    padding-left: 1rem;
+}
+
+.room_detail p {
+    font-size: 24px;
+    line-height: 1.6;
+    // padding-bottom: 0.3rem;
+}
+
+.amount_and_del{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.del_btn{
+    width: 15%;
+    font-size: 20px;
+    background-color: #FFBC67;
+    border-radius: 4px;
+    // margin-left: 5rem;
+    // margin-top: 1rem;
+    float: right;
+}
+
+.second_component{
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 90%;
+    background-color: rgba(242,242,242,0.4);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.detail_price{
+    margin: 0 auto;
+    width: 80%;
+    padding:1rem 0 1rem 0;
+}
+
+
+
+.detail_price p{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size:24px;
+}
+
+.first_colum{
+    display: flex;
+    border-top: 1px solid #f2f2f2;
+    justify-content: space-between;
+}
+
+.first_colum p{
+    display: flex;
+}
+
+.room_price_1{
+    justify-content: start;
+}
+
+.room_price_2{
+    justify-content: end;
+}
+
+.totalPrice{
+    border-top: 1px solid #000000;
+}
+
+.checkoutbtn{
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.checkoutbtn button{
+    height: 50px;
+    border-radius: 50px;
+    font-size: 24px;
+}
+
+.stillBuy{
+    width: 50%;
+}
+
+.checkOut{
+    width: 50%;
+    margin-top: 1rem;
+    background-color: black;
+    color:#f2f2f2;
+}
+
+.third_component{
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 90%;
+    background-color: rgba(242,242,242,0.4);
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 5rem;
+}
+
+.food_add_on{
+    margin: 0 auto;
+    padding-bottom: 4rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.food_add_on_card-title{
+    padding-top: 1rem;
+}
+
+.food_add_on_card{
+    // margin: 0 auto;
+    margin-top: 2rem;
+    width: 20%;
+    background-color: #ffff;
+    border-radius: 12px;
+    padding-bottom: 0.8rem;
+}
+
+.food_add_on_card img{
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+}
+
+.food_add_on_title{
+    margin: 0 auto;
+    width: 90%;
+    padding-top: 2rem;
+    font-size: 36px;
+}
+
+.food_add_on_title p{
+    font-size: 36px;
+}
+
+.card-body{
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 0.2rem;
+    line-height: 2;
+}
+
+.event_price{
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.event_select_quan{
+    width: 30%;
+}
+
+.add_on_btn{
+    width: 40%;
+    border-radius: 4px;
+    background-color: #952E1f;
+    color: #fff;
+    font-size: 12px;
+    margin-left: 1rem;
+}
+.title{
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 1rem;
+    line-height: 2;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 36px;
+}
+
+.title_f{
+    display: flex;
+    justify-content:space-between;
+}
+
+.title_f p{
+    font-size: 34px;
+}
+
+.order_totalAmont{
+    font-weight:bold;
+}
+
+.detail{
+    padding-top: 2rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.item_detail{
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+.item_detail img{
+    border-radius: 4px;
+    width: 240px;
+    height: 180px;
+}
+
+.item_detail_text{
+    padding-left: 2rem;
+    line-height: 2;
+    align-items: center;
+    font-size: 24px;
+}
+
+.event_detail{
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+.event_detail img{
+    border-radius: 4px;
+    width: 240px;
+    height: 180px;
+}
+
+.event_detail_text{
+    padding-left: 2rem;
+    line-height: 2;
+    align-items: center;
+    font-size: 24px;
+}
+
+.food_detail{
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+.food_detail img{
+    border-radius: 4px;
+    width: 240px;
+    height: 180px;
+}
+
+.food_detail_text{
+    padding-left: 2rem;
+    line-height: 2;
+    align-items: center;
+    font-size: 24px;
+}
+
+.backtoHomepage{
+    width: 100%;
+    text-align: center;
+    padding: 3rem 0 3rem 0;
+}
+
+.backtoHomepage button{
+    width: 10%;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 24px;
+    color: #FFFFFF;
+    background-color: black;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 768px)
+{   
+
+.mb_none{
+display:none;
+}
+
+.room_info_and_web_component1{
+    margin-bottom: 2rem;
+}
+
+
+.p-cart_step_item {
+display: flex;
+align-items: center;
+justify-content: center;
+background: #f2f2f2;
+color: #fff;
+width: calc(100% / 4);
+height: 25px;
+position: relative;
+font-size: 12px;
+}
+
+.p-cart_step {
+width: 100%;
+margin: 100px 50px 0 0;
+line-height: 20px;
+list-style: none;
+display: flex;
+justify-content: center;
+text-align: center;
+padding-top: 1rem;
+}
+
+
+
+.bg {
+background-color: #224040;
+}
+
+
+.card{
+margin: 0 auto;
+}
+
+.first_component{
+margin: 0 auto;
+width: 90%;
+background-color: rgba(242,242,242,0.4);
+border-radius: 12px;
+
+}
+
+.first_component_title{
+display: flex;
+justify-content: center;
+padding-top: 1rem;
+font-size: 16px;
+}
+
+.active{
+clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
+background-color: #224040;
+}
+
+.nonactive1{
+clip-path: polygon(94% 0, 100% 50%, 94% 100%, 0% 100%, 6% 50%, 0% 0%);
+color:black;
+}
+
+.nonactive2{
+clip-path: polygon(94% 0, 100% 50%, 94% 100%, 0% 100%, 6% 50%, 0% 0%);
+color:black;
+}
+
+.room_info{
+width: 75%;
+margin: 0 auto;
+margin-top: 1rem;
+padding-bottom: 1rem;
+display: flex;
+border-top: 1px solid black;
+}
+
+
+
+.room_pic {
+width: 40%;
+padding-top: 1rem;
+}
+
+.room_pic img{
+width: 100%;
+border-radius: 4px;
+}
+
+.room_pic p{
+font-size: 14px;
+padding-top: 1.2rem;
+}
+
+.room_detail{
+width: 70%;
+padding-top: 1rem;
+padding-left: 0.5rem;
+}
+
+.room_detail p {
+font-size: 10px;
+line-height: 0;
+}
+
+.amount_and_del{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.del_btn{
+width: 25%;
+font-size: 10px;
+background-color: #FFBC67;
+border-radius: 4px;
+}
+
+.second_component{
+margin: 0 auto;
+margin-top: 1rem;
+width: 90%;
+background-color: rgba(242,242,242,0.4);
+border-radius: 12px;
+font-size: 14px;
+}
+
+.detail_price{
+margin: 0 auto;
+width: 70%;
+padding:1rem 0 1rem 0;
+}
+
+.detail_price p{
+padding-top: 1rem;
+padding-bottom: 1rem;
+}
+
+.first_colum{
+display: flex;
+justify-content: space-between;
+}
+
+.first_colum p{
+display: flex;
+}
+
+.room_price_1{
+justify-content: start;
+}
+
+.room_price_2{
+justify-content: end;
+}
+
+.totalPrice{
+border-top: 1px solid black;
+}
+
+.checkoutbtn{
+width: 100%;
+// display: flex;
+// align-items: center;
+margin: auto;
+// list-style: none;
+text-align: center;
+}
+
+.checkoutbtn button{
+width: 30%;
+height: 24px;
+border-radius: 50px;
+font-size: 12px;
+}
+
+.stillBuy{
+margin-right: 1rem;
+}
+
+.checkOut{
+background-color: black;
+color:#ffff;
+}
+
+.third_component{
+margin: 0 auto;
+margin-top: 1rem;
+width: 90%;
+background-color: rgba(242,242,242,0.4);
+border-radius: 12px;
+font-size: 14px;
+margin-bottom: 1rem;
+
+}
+
+.food_add_on{
+margin:  auto;
+padding-bottom: 1rem;
+padding-left: 2rem;
+width: 90%;
+// display: flex;
+// justify-content: space-between;
+// align-items: center;
+}
+
+.food_add_on_card{
+margin-left: 0.5rem;
+margin-top: 0.5rem;
+width: 40%;
+display: inline-block;
+background-color: #ffff;
+border-radius: 12px;
+padding-bottom: 0.8rem;
+}
+
+.food_add_on_card img{
+width: 100%;
+border-radius: 12px 12px 0 0;
+}
+
+.food_add_on_title{
+margin: 0 auto;
+width: 80%;
+padding-top: 1rem;
+}
+
+.card-body{
+text-align: center;
+padding-top: 0.2rem;
+padding-bottom: 0.2rem;
+}
+
+.event_price{
+padding-top: 0.4rem;
+padding-bottom: 0.4rem;
+}
+
+.event_select_quan{
+width: 30%;
+}
+
+.add_on_btn{
+width: 40%;
+border-radius: 4px;
+background-color: #952E1f;
+color: #fff;
+font-size: 12px;
+margin-left: 0.5rem;
+}
+
+//OrderDetail:css
+
+.order_detail{
+    margin: 0 auto;
+    width: 80%;
+    background-color: rgba(242,242,242,0.4);
+    border-radius: 12px;
+    margin-top: 2rem;
+}
+
+.title{
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 1rem;
+    line-height: 2;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 12px;
+}
+
+.order_totalAmont{
+    font-weight:bold;
+}
+
+.detail{
+    padding-top: 2rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.item_detail{
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+.item_detail img{
+    border-radius: 4px;
+    width: 73px;
+    height: 61px;
+}
+
+.item_detail_text{
+    padding-left: 2rem;
+    line-height: 1.5;
+    align-items: center;
+    font-size: 12px;
+}
+
+.event_detail{
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+.event_detail img{
+    border-radius: 4px;
+    width: 73px;
+    height: 61px;
+}
+
+.event_detail_text{
+    padding-left: 2rem;
+    line-height: 1.5;
+    align-items: center;
+    font-size: 12px;
+}
+
+.food_detail{
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+.food_detail img{
+    border-radius: 4px;
+    width: 73px;
+    height: 61px;
+}
+
+.food_detail_text{
+    padding-left: 2rem;
+    line-height: 1.5;
+    align-items: center;
+    font-size: 12px;
+}
+
+.backtoHomepage{
+    width: 100%;
+    text-align: center;
+    padding: 3rem 0 3rem 0;
+}
+
+.backtoHomepage button{
+    width: 20%;
+    border-radius: 50px;
+    font-size: 12px;
+    color: #FFFFFF;
+    background-color: black;
+}
+}
