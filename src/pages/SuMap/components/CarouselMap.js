@@ -20,7 +20,7 @@ const CarouselMap = (props) => {
                 }}>
                   <Carousel
                     data={data[props.step]}
-                    time={3000}
+                    time={1000}
                     width="650px"
                     height="350px"
                     opacity="1"
