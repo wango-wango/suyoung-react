@@ -4,7 +4,8 @@ import "../styles/member-credit-card.scss";
 import { motion } from "framer-motion";
 import CreditCardCard from "./CreditCardCard";
 
-const CreditCard = () => {
+const CreditCard = (props) => {
+    const { auth } = props;
     return (
         <>
             <motion.div

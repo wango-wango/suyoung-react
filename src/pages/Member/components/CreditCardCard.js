@@ -1,6 +1,7 @@
 import React from "react";
 
-const CreditCardCard = () => {
+const CreditCardCard = (props) => {
+    const { auth } = props;
     return (
         <>
             <div className="credit-card">

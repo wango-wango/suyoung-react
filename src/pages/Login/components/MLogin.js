@@ -1,7 +1,7 @@
 import "../styles/login.scss";
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../sub-pages/AuthContext";
+import { useAuth } from "../sub-pages/AuthProvider";
 import axios from "axios";
 
 const MLogin = () => {
@@ -10,11 +10,7 @@ const MLogin = () => {
         password: "",
     });
 
-    // const [auth, setAuth] = useState(false);
-
-    const { login, sid, setAuth, ...auth } = useContext(AuthContext);
-
-    console.log(auth);
+    const { setAuth, ...auth } = useAuth();
 
     const changeFields = (event) => {
         const id = event.target.id;
@@ -45,11 +41,14 @@ const MLogin = () => {
             .then((r) => r.json())
             .then((result) => {
                 if (result.success) {
+                    console.log(result);
                     alert("登入成功，即將跳轉至會員頁面");
                     localStorage.setItem("auth", JSON.stringify(result.data));
-                    // setAuth(true);
 
-                    login();
+                    setAuth({
+                        ...result.data.row,
+                        authorized: true,
+                    });
                     navigate("/shuyoung/Member");
                 } else if (result.code === 401) {
                     alert("查無此帳號，請先申請會員");

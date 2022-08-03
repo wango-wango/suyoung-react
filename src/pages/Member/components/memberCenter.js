@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
 import "../styles/member-center.scss";
 import { useContext } from "react";
-import AuthContext from "../../Login/sub-pages/AuthContext";
 
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import MemberCenterCenter from "./MemberCenterCenter";
 import Coupon from "./Coupon";
 import Info from "./Info";
@@ -14,26 +14,15 @@ import CreditCard from "./CreditCard";
 
 import { useSpinner } from "../../../useSpinner";
 
-import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
-
-import { gsap } from "gsap";
 import anime from "animejs";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const MemberCenter = () => {
-    useEffect(() => {
-        if (auth.authorized === true) {
-            getUserData();
-        }
-    }, []);
+    const { setAuth, ...auth } = useAuth();
 
     const [step, setStep] = useState(0);
-
-    const { sid, ...auth } = useContext(AuthContext);
-
-    const { memberData, setMemberData } = MemberInfo();
 
     const { spinner, setLoading } = useSpinner(4000);
 
@@ -41,15 +30,24 @@ const MemberCenter = () => {
         setLoading(true);
     }, [setLoading]);
 
+    useEffect(() => {
+        if (auth.authorized === true) {
+            getUserData();
+        }
+    }, [auth.authorized]);
+
     const getUserData = async () => {
-        await axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
-            if (res) {
-                console.log(res.data.user);
-                setMemberData({ ...res.data.user });
-            } else {
-                alert("查無會員資料");
-            }
-        });
+        await axios
+            .get(`http://localhost:3700/member/${auth.m_id}`)
+            .then((res) => {
+                if (res) {
+                    console.log(res.data.user);
+                    const newAuth = res.data.user;
+                    setAuth({ ...auth, ...newAuth });
+                } else {
+                    alert("查無會員資料");
+                }
+            });
     };
 
     //==============dark mode============
@@ -221,9 +219,9 @@ const MemberCenter = () => {
                                             setStep(6);
                                         }}
                                     >
-                                        <img src={memberData.m_avatar} alt="" />
-                                        {memberData.m_last_name}
-                                        {memberData.m_first_name}
+                                        <img src={auth.m_avatar} alt="" />
+                                        {auth.m_last_name}
+                                        {auth.m_first_name}
                                     </div>
                                 </li>
                             </ul>
@@ -326,7 +324,7 @@ const MemberCenter = () => {
                                 </div>
                             </div>
                         </div>
-                        <BlockComponent member={memberData} />
+                        <BlockComponent auth={auth} setAuth={setAuth} />
                     </div>
                 </div>
             </section>

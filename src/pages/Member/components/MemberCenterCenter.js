@@ -5,6 +5,7 @@ import Tilty from "react-tilty";
 import AuthContext from "../../Login/sub-pages/AuthContext";
 
 import { motion } from "framer-motion";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
@@ -14,10 +15,8 @@ import "swiper/css/pagination";
 
 import { Link } from "react-router-dom";
 
-const MemberCenterCenter = (props) => {
-    const { member } = props;
-
-    const { ...auth } = useContext(AuthContext);
+const MemberCenterCenter = () => {
+    const { setAuth, ...auth } = useAuth();
 
     return (
         <>
@@ -44,7 +43,7 @@ const MemberCenterCenter = (props) => {
                         <div className="member-card-left">
                             <img
                                 className="avatar"
-                                src={member.m_avatar}
+                                src={auth.m_avatar}
                                 alt=""
                             />
                             <img
@@ -55,8 +54,8 @@ const MemberCenterCenter = (props) => {
                         </div>
                         <div className="member-card-right">
                             <div className="member-name">
-                                {member.m_last_name}
-                                {member.m_first_name}
+                                {auth.m_last_name}
+                                {auth.m_first_name}
                             </div>
                             <div className="member-title-container">
                                 <div className="title-icon">
@@ -89,7 +88,7 @@ const MemberCenterCenter = (props) => {
                                 </div>
                             </div>
                             <div className="register-date">
-                                註冊日期：{member.create_at}
+                                註冊日期：{auth.create_at}
                             </div>
                         </div>
                     </Tilty>

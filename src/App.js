@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
-import { MemberProvider } from "./pages/Login/sub-pages/MemberProvider";
 import { ThemeProvider } from "./utils/useBackground";
 import { BookingProvider } from "./utils/useBookingList";
 import { useSpinner } from "./useSpinner";
@@ -26,21 +25,16 @@ import Cart from "./pages/Carts";
 import Layout from "./components/Layout";
 import MRegister from "./pages/Register/components/MRegister";
 import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
-import SuMapBeauty from "./pages/SuMap/SuMapBeauty"
+import SuMapBeauty from "./pages/SuMap/SuMapBeauty";
 
 function App() {
-    const [auth, setAuth] = useState(false);
-
-    const { spinner, setLoading } = useSpinner(1300);
-
     return (
         <>
             <BrowserRouter>
                 <AuthProvider>
-                    <MemberProvider>
-                        <ThemeProvider>
-                            <BookingProvider>
-                                <Layout>
+                    <ThemeProvider>
+                        <BookingProvider>
+                            <Layout>
                                 <Routes>
                                     <Route
                                         path="/"
@@ -55,37 +49,30 @@ function App() {
                                         }
                                     />
                                     <Route path="/shuyoung">
-                                        <Route
-                                            index
-                                            element={<Home auth={auth} />}
-                                        />
+                                        <Route index element={<Home />} />
                                         <Route path="Act">
                                             <Route
                                                 path="Atv"
-                                                element={<Atv auth={auth} />}
+                                                element={<Atv />}
                                             />
                                             <Route
                                                 path="Float"
-                                                element={<Float auth={auth} />}
+                                                element={<Float />}
                                             />
                                             <Route
                                                 path="Night"
-                                                element={<Night auth={auth} />}
+                                                element={<Night />}
                                             />
                                             <Route
                                                 path="Upstream"
-                                                element={
-                                                    <Upstream auth={auth} />
-                                                }
+                                                element={<Upstream />}
                                             />
                                         </Route>
 
                                         <Route path="Booking">
                                             <Route
                                                 index
-                                                element={
-                                                    <Booking auth={auth} />
-                                                }
+                                                element={<Booking />}
                                             />
                                             <Route
                                                 path="BookingDetail"
@@ -94,46 +81,27 @@ function App() {
                                         </Route>
 
                                         <Route path="Member">
-                                            <Route
-                                                index
-                                                element={<Member auth={auth} />}
-                                            />
+                                            <Route index element={<Member />} />
                                             {/* <Route path="Coupon" element={<Coupon />} />
-                                    <Route path="Keep" element={<Keep />} /> */}
+                                            <Route path="Keep" element={<Keep />} /> */}
                                         </Route>
                                         <Route
                                             path="Recipes"
-                                            element={<Recipes auth={auth} />}
+                                            element={<Recipes />}
                                         />
                                         <Route path="SuMap">
-                                            <Route
-                                                index
-                                                element={<SuMap auth={auth} />}
-                                            />
+                                            <Route index element={<SuMap />} />
                                             <Route
                                                 path="beauty"
-                                                element={<SuMapBeauty auth={auth} />}
+                                                element={<SuMapBeauty />}
                                             />
                                         </Route>
-                                        <Route
-                                            path="Cart"
-                                            element={<Cart auth={auth} />}
-                                        />
+                                        <Route path="Cart" element={<Cart />} />
                                         <Route path="Join">
-                                            <Route
-                                                index
-                                                element={
-                                                    <Login
-                                                        auth={auth}
-                                                        setAuth={setAuth}
-                                                    />
-                                                }
-                                            />
+                                            <Route index element={<Login />} />
                                             <Route
                                                 path="Register"
-                                                element={
-                                                    <MRegister auth={auth} />
-                                                }
+                                                element={<MRegister />}
                                             />
                                         </Route>
                                         {/* 404未找到的頁面路由，需放在最下方 */}
@@ -141,13 +109,8 @@ function App() {
                                     </Route>
                                 </Routes>
                             </Layout>
-                       
-                   
-                            </BookingProvider>
-                   
-                    
-                        </ThemeProvider>
-                    </MemberProvider>
+                        </BookingProvider>
+                    </ThemeProvider>
                 </AuthProvider>
             </BrowserRouter>
         </>

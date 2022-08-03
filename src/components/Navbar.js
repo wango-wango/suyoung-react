@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../styles/navbar.scss";
 import axios from "axios";
+import { useAuth } from "../pages/Login/sub-pages/AuthProvider";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -9,11 +10,7 @@ import AuthContext from "../pages/Login/sub-pages/AuthContext";
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
 
-    const [userData, setUserData] = useState({});
-
-    const { setAuth, sid, login, logout, ...auth } = useContext(AuthContext);
-
-    console.log(auth);
+    const { authorized, logout } = useAuth();
 
     return (
         <>
@@ -41,10 +38,10 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div className="right-icon">
-                        {auth.authorized ? (
+                        {authorized ? (
                             <>
                                 <div className="login">
-                                    <Link to="/shuyoung">
+                                    <Link className="auth" to="/shuyoung">
                                         <FiLogOut
                                             className="iconLogin"
                                             size="30px"
@@ -58,7 +55,7 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <div className="login">
-                                    <Link to="/shuyoung/Join">
+                                    <Link className="auth" to="/shuyoung/Join">
                                         <FaUserCircle
                                             className="iconLogin"
                                             size="30px"
@@ -71,7 +68,7 @@ export default function Navbar() {
                         <div className="cart">
                             <Link
                                 to="/shuyoung/Cart"
-                                className={isActive ? "active" : null}
+                                className={isActive ? " auth active" : "auth"}
                             >
                                 <FaShoppingCart
                                     className="iconCart"
@@ -111,7 +108,7 @@ export default function Navbar() {
                             <Link to="/shuyoung/Booking">預約訂位</Link>
                         </li>
 
-                        {auth.authorized ? (
+                        {authorized ? (
                             <>
                                 <li className={isActive ? "fade" : null}>
                                     <Link

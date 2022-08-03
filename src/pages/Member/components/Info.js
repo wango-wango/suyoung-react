@@ -2,15 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import "../styles/member-form.scss";
 import { motion } from "framer-motion";
 import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
-import AuthContext from "../../Login/sub-pages/AuthContext";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
 
 import TWZipCode from "./TWZipCode";
 import axios from "axios";
 
-const Info = (props) => {
-    const { member } = props;
-
-    const { memberData, setMemberData } = MemberInfo();
+const Info = () => {
+    const { setAuth, ...auth } = useAuth();
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -22,19 +20,17 @@ const Info = (props) => {
 
     //選擇檔案更動時建立預覽圖
 
-    const { ...auth } = useContext(AuthContext);
-
     const [fields, setFields] = useState({
-        m_id: member.m_id,
-        lastname: member.m_last_name,
-        avatar: member.m_avatar,
-        firstname: member.m_first_name,
-        birthday: member.m_birthday,
-        email: member.m_email,
-        phone: member.m_phone,
-        address: member.m_addr,
-        county: member.m_city,
-        area: member.m_area,
+        m_id: auth.m_id,
+        lastname: auth.m_last_name,
+        avatar: auth.m_avatar,
+        firstname: auth.m_first_name,
+        birthday: auth.m_birthday,
+        email: auth.m_email,
+        phone: auth.m_phone,
+        address: auth.m_addr,
+        county: auth.m_city,
+        area: auth.m_area,
     });
 
     const handleFieldsChange = (e) => {
@@ -45,7 +41,7 @@ const Info = (props) => {
         e.preventDefault();
 
         const res = await axios.put(
-            `http://localhost:3700/member/${member.m_id}`,
+            `http://localhost:3700/member/${auth.m_id}`,
             fields
         );
 
@@ -54,6 +50,8 @@ const Info = (props) => {
 
     const changeHandler = (e) => {
         const file = e.target.files[0];
+
+        console.log(file.name);
 
         if (file) {
             setIsFilePicked(true);
@@ -66,35 +64,67 @@ const Info = (props) => {
         }
     };
 
-    const handleSubmission = () => {
-        const formData = new FormData();
-
-        formData.append("avatar", selectedFile);
-
-        fetch(
-            "http://localhost:3700/member/upload-avatar", //server url
-            {
-                method: "POST",
-                body: formData,
-            }
-        )
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result);
-                setImgServerUrl(
-                    "http://localhost:3700/avatar_img/" + result.data.name
-                );
-            })
-            .catch((error) => {
-                console.error("Error:", error);
+    const getUserData = async () => {
+        await axios
+            .get(`http://localhost:3700/member/${auth.sid}`)
+            .then((res) => {
+                if (res) {
+                    console.log(res.data.user);
+                    setAuth({ ...auth, ...res.data.user });
+                } else {
+                    alert("查無會員資料");
+                }
             });
     };
 
-    useEffect(() => {
-        if (imgServerUrl) {
-            setMemberData({ ...memberData, m_avatar: imgServerUrl });
-        }
-    }, [imgServerUrl]);
+    // const handleSubmission = () => {
+    //     const formData = new FormData();
+
+    //     formData.append("avatar", selectedFile);
+
+    //     fetch(
+    //         "http://localhost:3700/member/upload-avatar", //server url
+    //         {
+    //             method: "POST",
+    //             body: formData,
+    //         }
+    //     )
+    //         .then((response) => response.json())
+    //         .then((result) => {
+    //             console.log(result);
+    //             setImgServerUrl(
+    //                 "http://localhost:3700/avatar_img/" + result.data.name
+    //             );
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error:", error);
+    //         });
+    // };
+
+    const tryUpload = async () => {
+        const url = {
+            avatar: `http://localhost:3700/avatar_img/${selectedFile.name}`,
+            sid: auth.m_id,
+        };
+
+        const res = await axios.put(
+            "http://localhost:3700/member/try-upload",
+            url
+        );
+
+        setImgServerUrl(url.avatar);
+
+        setAuth({ ...auth, m_avatar: url.avatar });
+
+        // getUserData();
+
+        console.log(res);
+    };
+
+    // useEffect(() => {
+    //     if (imgServerUrl !== "") {
+    //     }
+    // }, [imgServerUrl]);
 
     useEffect(() => {
         if (!selectedFile) {
@@ -154,7 +184,7 @@ const Info = (props) => {
                                             name="lastname"
                                             type="text"
                                             placeholder="姓"
-                                            defaultValue={member.m_last_name}
+                                            defaultValue={auth.m_last_name}
                                             onChange={handleFieldsChange}
                                         />
                                     </div>
@@ -166,7 +196,7 @@ const Info = (props) => {
                                             type="text"
                                             name="firstname"
                                             placeholder="名"
-                                            defaultValue={member.m_first_name}
+                                            defaultValue={auth.m_first_name}
                                             onChange={handleFieldsChange}
                                         />
                                     </div>
@@ -178,7 +208,7 @@ const Info = (props) => {
                                     <input
                                         name="birthday"
                                         type="date"
-                                        defaultValue={member.m_birthday}
+                                        defaultValue={auth.m_birthday}
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
@@ -190,7 +220,7 @@ const Info = (props) => {
                                         name="email"
                                         type="email"
                                         placeholder="電子郵件"
-                                        defaultValue={member.m_email}
+                                        defaultValue={auth.m_email}
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
@@ -202,7 +232,7 @@ const Info = (props) => {
                                         name="phone"
                                         type="text"
                                         placeholder="行動電話"
-                                        defaultValue={member.m_phone}
+                                        defaultValue={auth.m_phone}
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
@@ -230,7 +260,7 @@ const Info = (props) => {
                                     <input
                                         name="address"
                                         type="text"
-                                        defaultValue={member.m_addr}
+                                        defaultValue={auth.m_addr}
                                         placeholder="地址"
                                         onChange={handleFieldsChange}
                                     />
@@ -262,7 +292,7 @@ const Info = (props) => {
                                     onChange={changeHandler}
                                 />
                             </label>
-                            <button onClick={handleSubmission}>送出</button>
+                            <button onClick={tryUpload}>確定</button>
                         </div>
                     </div>
                 </div>
