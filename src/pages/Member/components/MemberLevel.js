@@ -1,8 +1,11 @@
 import React from "react";
 import "../styles/member-level.scss";
 import { motion } from "framer-motion";
+import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
 
 const MemberLevel = () => {
+    const { memberData, setMemberData } = MemberInfo();
+
     return (
         <>
             <motion.div
@@ -22,8 +25,11 @@ const MemberLevel = () => {
                                 duration: 0.5,
                             }}
                         >
-                            <img src="/member_img/avatar.png" alt="" />
-                            <div>Shinder Lin</div>
+                            <img src={memberData.m_avatar} alt="" />
+                            <div>
+                                {memberData.m_last_name}
+                                {memberData.m_first_name}
+                            </div>
                         </motion.div>
                         <motion.div
                             className="member-level-card"

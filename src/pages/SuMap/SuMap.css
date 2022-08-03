@@ -89,7 +89,7 @@
     }
   }
   
-  .nav-container {
+  .nav-container-sumap {
     width: 100%;
     margin: auto;
     display: -webkit-box;
@@ -106,7 +106,7 @@
     height:10vh ;
   }
   
-  .nav-container .left-logo img {
+  .nav-container-sumap .left-logo img {
     width: 6rem;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
@@ -114,18 +114,18 @@
             animation: logo 1s 1;
   }
   
-  .nav-container .left-logo:hover img {
+  .nav-container-sumap .left-logo:hover img {
     -webkit-transform: translateY(-10px);
             transform: translateY(-10px);
   }
   
-  .nav-container .nav-li {
+  .nav-container-sumap .nav-li {
     font-weight: 500;
     -webkit-animation: nav 2s 1;
             animation: nav 2s 1;
   }
   
-  .nav-container .nav-li ul {
+  .nav-container-sumap .nav-li ul {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -137,39 +137,39 @@
             flex: 0 0 60%;
   }
   
-  .nav-container .nav-li ul li {
+  .nav-container-sumap .nav-li ul li {
     list-style-type: none;
     padding: 20px;
   }
   
-  .nav-container .nav-li ul li a {
+  .nav-container-sumap .nav-li ul li a {
     font-size: 20px;
     text-decoration: none;
     color: #224040;
   }
   
-  .nav-container .nav-li ul li.login {
+  .nav-container-sumap .nav-li ul li.login {
     border: 1px solid #224040;
     padding: 10px 20px;
     border-radius: 1.5rem;
   }
   
-  .nav-container .nav-li ul li.login:hover {
+  .nav-container-sumap .nav-li ul li.login:hover {
     background-color: #224040;
   }
   
-  .nav-container .nav-li ul li.login:hover a {
+  .nav-container-sumap .nav-li ul li.login:hover a {
     color: #ffffff;
   }
   
-  .nav-container .nav-li ul li.hover:hover {
+  .nav-container-sumap .nav-li ul li.hover:hover {
     padding-bottom: 5px;
     border-bottom: 2px solid #224040;
     -webkit-transition: 0.5s all ease;
     transition: 0.5s all ease;
   }
   
-  .nav-container .right-icon {
+  .nav-container-sumap .right-icon {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -177,28 +177,28 @@
             animation: icon 2s 1;
   }
   
-  .nav-container .right-icon .login a,
-  .nav-container .right-icon .cart a {
+  .nav-container-sumap .right-icon .login a,
+  .nav-container-sumap .right-icon .cart a {
     text-decoration: none;
     color: #224040;
   }
   
-  .nav-container .right-icon .login a .fa-solid,
-  .nav-container .right-icon .cart a .fa-solid {
+  .nav-container-sumap .right-icon .login a .fa-solid,
+  .nav-container-sumap .right-icon .cart a .fa-solid {
     padding: 15px;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
   
-  .nav-container .right-icon .login:hover .fa-cart-shopping,
-  .nav-container .right-icon .cart:hover .fa-cart-shopping {
+  .nav-container-sumap .right-icon .login:hover .fa-cart-shopping,
+  .nav-container-sumap .right-icon .cart:hover .fa-cart-shopping {
     -webkit-transform: rotate(-25deg);
             transform: rotate(-25deg);
     color: #468484;
   }
   
-  .nav-container .right-icon .login:hover .fa-circle-user,
-  .nav-container .right-icon .cart:hover .fa-circle-user {
+  .nav-container-sumap .right-icon .login:hover .fa-circle-user,
+  .nav-container-sumap .right-icon .cart:hover .fa-circle-user {
     -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
     color: #468484;
@@ -319,9 +319,37 @@
 .window_des{
     display: flex;
     width: 350px;
-    height: 600px;
+    height: 500px;
     text-align: center;
+    flex-direction: column;
+    background-color: #ccc;
+    border-radius: 1.5rem;
 }
+
+.des_picture_wangmei1{
+    width: 300px;
+    height: 200px;
+    text-align: center;
+    padding-top: 80px;
+    padding-left: 45px;
+}
+
+.des_picture_wangmei2{
+    width: 300px;
+    height: 200px;
+    text-align: center;
+    padding-top: 40px;
+    padding-left: 35px;
+}
+
+.des_picture_wangmei3{
+    width: 300px;
+    height: 200px;
+    text-align: center;
+    padding-top: 55px;
+    padding-left: 50px;
+}
+
 
 .popup_content_right{
     display: flex;

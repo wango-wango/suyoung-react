@@ -1,19 +1,31 @@
 import "../styles/login.scss";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../sub-pages/AuthContext";
+import axios from "axios";
 
 const MLogin = () => {
     const [myform, setMyform] = useState({
-        username: "",
+        account: "",
         password: "",
     });
+
+    // const [auth, setAuth] = useState(false);
+
+    const { login, sid, setAuth, ...auth } = useContext(AuthContext);
+
+    console.log(auth);
 
     const changeFields = (event) => {
         const id = event.target.id;
         const val = event.target.value;
-        console.log({ id, val });
+
         setMyform({ ...myform, [id]: val });
     };
+
+    // useEffect(() => {
+    //     console.log("auth change!!!!");
+    // }, [auth]);
 
     const navigate = useNavigate();
 
@@ -32,12 +44,17 @@ const MLogin = () => {
         })
             .then((r) => r.json())
             .then((result) => {
-                console.log(result);
                 if (result.success) {
+                    alert("登入成功，即將跳轉至會員頁面");
                     localStorage.setItem("auth", JSON.stringify(result.data));
+                    // setAuth(true);
+
+                    login();
                     navigate("/shuyoung/Member");
+                } else if (result.code === 401) {
+                    alert("查無此帳號，請先申請會員");
                 } else {
-                    alert("帳密錯誤");
+                    alert("帳號或密碼錯誤");
                 }
             });
     };
@@ -45,6 +62,7 @@ const MLogin = () => {
     return (
         <>
             <main>
+                <Link to="/shuyoung/join/register">會員註冊</Link>
                 <div className="login-container">
                     <div className="login-title">舒營-會員登入</div>
                     <div className="login-card">

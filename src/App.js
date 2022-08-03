@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
+import { MemberProvider } from "./pages/Login/sub-pages/MemberProvider";
 import { ThemeProvider } from "./utils/useBackground";
 import { BookingProvider } from "./utils/useBookingList";
 import { useSpinner } from "./useSpinner";
@@ -23,6 +24,7 @@ import Cart from "./pages/Carts";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/footer";
 import Layout from "./components/Layout";
+import MRegister from "./pages/Register/components/MRegister";
 import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
 import SuMapBeauty from "./pages/SuMap/SuMapBeauty"
 
@@ -35,9 +37,10 @@ function App() {
         <>
             <BrowserRouter>
                 <AuthProvider>
-                    <ThemeProvider>
-                        <BookingProvider>
-                            <Layout>
+                    <MemberProvider>
+                        <ThemeProvider>
+                            <BookingProvider>
+                                <Layout>
                                 <Routes>
                                     <Route
                                         path="/"
@@ -96,7 +99,7 @@ function App() {
                                                 element={<Member auth={auth} />}
                                             />
                                             {/* <Route path="Coupon" element={<Coupon />} />
-                            <Route path="Keep" element={<Keep />} /> */}
+                                    <Route path="Keep" element={<Keep />} /> */}
                                         </Route>
                                         <Route
                                             path="Recipes"
@@ -116,22 +119,35 @@ function App() {
                                             path="Cart"
                                             element={<Cart auth={auth} />}
                                         />
-                                        <Route
-                                            path="Login"
-                                            element={
-                                                <Login
-                                                    auth={auth}
-                                                    setAuth={setAuth}
-                                                />
-                                            }
-                                        />
+                                        <Route path="Join">
+                                            <Route
+                                                index
+                                                element={
+                                                    <Login
+                                                        auth={auth}
+                                                        setAuth={setAuth}
+                                                    />
+                                                }
+                                            />
+                                            <Route
+                                                path="Register"
+                                                element={
+                                                    <MRegister auth={auth} />
+                                                }
+                                            />
+                                        </Route>
                                         {/* 404未找到的頁面路由，需放在最下方 */}
                                         <Route path="*" element={<NoFound />} />
                                     </Route>
                                 </Routes>
                             </Layout>
-                        </BookingProvider>
-                    </ThemeProvider>
+                       
+                   
+                            </BookingProvider>
+                   
+                    
+                        </ThemeProvider>
+                    </MemberProvider>
                 </AuthProvider>
             </BrowserRouter>
         </>

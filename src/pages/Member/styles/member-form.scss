@@ -47,7 +47,7 @@
                 padding: var(--text_size) 30px;
                 border-radius: var(--h3_text);
                 background-color: #fff6e7;
-                margin: 24px 0;
+                margin: 24px 10px 24px 0;
 
                 @media screen and (max-width: 519px) {
                     padding: var(--text_size) 28px;
@@ -161,5 +161,20 @@
             bottom: -30px;
             text-shadow: 0px 0px 10px var(--transparent);
         }
+    }
+}
+
+.update-password {
+    text-shadow: 0px 0px 10px var(--transparent);
+    .update-password {
+        padding: 15px 0;
+    }
+    input {
+        @include input_style;
+        margin-top: 5px;
+    }
+    button {
+        margin-top: 20px;
+        @include p_button;
     }
 }

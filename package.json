@@ -18,6 +18,7 @@
     "date-fns": "^2.29.1",
     "dotenv": "^16.0.1",
     "fontawesome": "^5.6.3",
+    "formik": "^2.2.9",
     "framer-motion": "^6.5.1",
     "gsap": "^3.10.4",
     "multer": "^1.4.5-lts.1",
@@ -33,9 +34,12 @@
     "react-tilty": "^2.0.3",
     "sass": "^1.54.0",
     "sass-loader": "^13.0.2",
+    "sweetalert2": "^11.4.24",
+    "sweetalert2-react-content": "^5.0.2",
     "styled-components": "^5.3.5",
     "swiper": "^8.3.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "cross-env PORT=3777 react-scripts start",
