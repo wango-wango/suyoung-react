@@ -3,7 +3,7 @@ import React from 'react'
 
 
 function RoomLt(props) {
-    const {setStep} = props;
+    const {setStep, sum} = props;
   return (
     <div class="web_component1 mb_none">
     <img
@@ -14,7 +14,7 @@ function RoomLt(props) {
     <div class="detail_price">
         <div class="first_colum">
             <p class="room_price_1">房價</p>
-            <p class="room_price_2">$47660</p>
+            <p class="room_price_2">${sum}</p>
         </div>
 
         <p class="none">活動</p>

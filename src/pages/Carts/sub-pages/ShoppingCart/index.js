@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import AddOn from './Component/AddOn';
 import RoomInfo from './Component/RoomInfo';
 import RoomLt from './Component/RoomLt';
@@ -7,6 +7,8 @@ import '../../styles/item.scss';
 
 function Index(props) {
     const {setStep, cartQty, setCartQty, updateQty} = props;
+    const [sum, setSum] = useState();
+
   return (
     <>
     <h1 className="first_component_title">SHOPPING CART</h1>
@@ -15,11 +17,13 @@ function Index(props) {
     <RoomInfo  
             updateQty={updateQty}
             cartQty={cartQty}
-            setCartQty={setCartQty}/>
+            setCartQty={setCartQty}
+            setSum={setSum}
+            />
     </div>
        
-        <RoomLt setStep={setStep}/>
-        <RoomMo setStep={setStep}/>  
+        <RoomLt setStep={setStep} sum={sum}/>
+        <RoomMo setStep={setStep} sum={sum}/>  
     </div>
     </>
   )

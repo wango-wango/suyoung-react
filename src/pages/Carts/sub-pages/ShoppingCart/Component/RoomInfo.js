@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 function RoomInfo(props) {
 
-    const { updateQty } = props
+    const { updateQty, setSum } = props
     const [mycart, setMycart] = useState([])
     const [mycartDisplay, setMycartDisplay] = useState([])
   
@@ -67,6 +67,7 @@ function RoomInfo(props) {
       for (let i = 0; i < items.length; i++) {
         total += items[i].room_price
       }
+      setSum(total);
       return total
     }
 
@@ -103,26 +104,9 @@ function RoomInfo(props) {
   </>
   )
 
-  const ScPriceRow = (
-    <>
-      {/* 總金額列 */}
-      <div className="w-100 priceRow px-0">
-        <div className=" col-10 bdBottom d-flex flex-column align-items-center py-5 mx-auto">
-          <div className="w-100 d-flex jus justify-content-end my-2 px-0">
-            <div className="totalPriceFont col-3 px-0">總計</div>
-            <div className="totalPriceFont-med col-3 px-0">
-              NT<scspan>{sum(mycartDisplay)}</scspan>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-
   return (
     <>
       {displayItems}
-      {ScPriceRow}
     </>
   )
 }
