@@ -16,7 +16,7 @@ function Index(props) {
 
     // 用get 取得所有的值
     const getData = () => {
-        Axios.get("http://localhost:3700/booking/select?").then((response) => {
+        Axios.get("http://localhost:3700/booking/select").then((response) => {
             setRoomList(response.data);
             console.log(response.data);
         });

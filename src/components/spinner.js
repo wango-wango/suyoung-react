@@ -1,3 +1,4 @@
+import { spinner } from "fontawesome";
 import React, { useEffect } from "react";
 import "../styles/spinner.css";
 
@@ -5,9 +6,14 @@ const Spinner = ({ loading = false }) => {
     //spinner==============================
     useEffect(() => {
         if (loading) {
+            window.addEventListener("load", () => {
+                const spinnerText = document.querySelector(".spinner-text");
+
+                spinnerText.classList.add(".fade-out");
+            });
+
             let wordElements = document.getElementsByClassName("word");
 
-            console.log(wordElements);
             // 拿到所有 CLASS 裡面有 word 的 DOM 元件(陣列)
 
             let wordIndex = 0;
@@ -52,6 +58,11 @@ const Spinner = ({ loading = false }) => {
                         ? words[0]
                         : words[wordIndex + 1];
 
+                if (!nextWord) {
+                    clearInterval(changeWordID);
+                    return;
+                }
+
                 for (let i = 0; i < currentWord.length; i++) {
                     setTimeout(function () {
                         currentWord[i].className = "letter out";
@@ -70,7 +81,7 @@ const Spinner = ({ loading = false }) => {
             }
 
             changeWord();
-            setInterval(changeWord, 4000);
+            const changeWordID = setInterval(changeWord, 2000);
         }
     }, [loading]);
     //==============================spinner
@@ -83,6 +94,7 @@ const Spinner = ({ loading = false }) => {
                         id="spinner-text"
                         style={{
                             fontSize: "3rem",
+                            color: "#fff",
                         }}
                     >
                         Shuyoung is
