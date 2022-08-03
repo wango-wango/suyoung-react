@@ -24,6 +24,7 @@ import Cart from "./pages/Carts";
 // import Footer from "./components/footer";
 import Layout from "./components/Layout";
 import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
+import SuMapBeauty from "./pages/SuMap/SuMapBeauty"
 
 function App() {
     const [auth, setAuth] = useState(false);
@@ -101,10 +102,16 @@ function App() {
                                             path="Recipes"
                                             element={<Recipes auth={auth} />}
                                         />
-                                        <Route
-                                            path="SuMap"
-                                            element={<SuMap auth={auth} />}
-                                        />
+                                        <Route path="SuMap">
+                                            <Route
+                                                index
+                                                element={<SuMap auth={auth} />}
+                                            />
+                                            <Route
+                                                path="beauty"
+                                                element={<SuMapBeauty auth={auth} />}
+                                            />
+                                        </Route>
                                         <Route
                                             path="Cart"
                                             element={<Cart auth={auth} />}

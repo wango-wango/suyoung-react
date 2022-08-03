@@ -26,12 +26,15 @@ return <div className="svg_box">
         {/* 輪播墻外掛https://reactjsexample.com/easy-to-use-responsive-and-customizable-carousel-component-for-react/  */}
         <React.Fragment>
           <div className='popup_window'>
-            {/* 之後再做新的分頁去做切換？ */}
-            {/* TODO:輪播墻的內容要如何使用json檔呈現？本身是套件好像不能擅自更動？ */}
-
-            <div className='popup_content_right'>
-
-            </div>
+          <div className='window_des'>
+            <img src="public/map_imgs/wangmei1.png" alt="" />
+          </div>
+          <div className='window_des'>
+          <img src="public/map_imgs/wangmei1.png" alt="" />
+          </div>
+          <div className='window_des'>
+          <img src="public/map_imgs/wangmei1.png" alt="" />
+          </div>
             <button className='popup_exit_btn' onClick={modalClose}>
               X
             </button>

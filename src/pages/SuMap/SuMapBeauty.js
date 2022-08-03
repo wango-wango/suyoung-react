@@ -12,10 +12,7 @@ import SuMapBeautyContent from './components/SuMapBeautyContent';
 function  SuMap(){
     return(
         <div>
-        <SuMapNav/>
-    <SuMapBeautyContent/>
-        <SuMapFooter/>
-        
+    <SuMapBeautyContent/>     
         </div>
     )
 }
