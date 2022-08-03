@@ -27,15 +27,21 @@ return <div className="svg_box">
         <React.Fragment>
           <div className='popup_window'>
           <div className='window_des'>
-            <img src="public/map_imgs/wangmei1.png" alt="" />
+          <div className='des_picture_wangmei1'>
+            <img src="http://localhost:3777/map_imgs/wangmei1.png" alt="" />
+            </div>
           </div>
           <div className='window_des'>
-          <img src="public/map_imgs/wangmei1.png" alt="" />
+          <div className='des_picture_wangmei2'>
+          <img src="http://localhost:3777/map_imgs/wangmei2.png" alt="" />
+          </div>
           </div>
           <div className='window_des'>
-          <img src="public/map_imgs/wangmei1.png" alt="" />
+          <div className='des_picture_wangmei3'>
+          <img src="http://localhost:3777/map_imgs/wangmei3.png" alt="" />
           </div>
-            <button className='popup_exit_btn' onClick={modalClose}>
+          </div>
+            <button className='popup_exit_btn' onClick={()=>{window.location.href="http://localhost:3777/shuyoung/SuMap"}}>
               X
             </button>
           </div>

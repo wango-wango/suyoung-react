@@ -8,8 +8,15 @@ import SuMapNav from "./components/SuMapNav";
 // import SuMapContent from "./components/SuMapContent";
 import SuMapFooter from "./components/SuMapFooter";
 import SuMapBeautyContent from './components/SuMapBeautyContent';
+import { useBackground } from "../../utils/useBackground";
 
 function  SuMap(){
+    const { setBackground } = useBackground();
+
+    useEffect(() => {
+        setBackground("green_map.svg");
+    }, []);
+    
     return(
         <div>
     <SuMapBeautyContent/>     
