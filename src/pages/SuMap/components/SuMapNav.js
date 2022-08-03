@@ -4,7 +4,7 @@ import Logo from './Logo.svg'
 function SuMapNav(props) {
   
   return (
-    <div className='nav-container'>
+    <div className='nav-container-sumap'>
       <div className='left-logo'>
         <a href='#/'>
           <img src={Logo} alt='' />
