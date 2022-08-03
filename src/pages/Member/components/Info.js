@@ -16,7 +16,7 @@ const Info = (props) => {
 
     const [isFilePicked, setIsFilePicked] = useState(false);
 
-    const [preview, setPreview] = useState(member.m_avatar);
+    const [preview, setPreview] = useState("");
 
     const [imgServerUrl, setImgServerUrl] = useState("");
 
@@ -55,51 +55,60 @@ const Info = (props) => {
     const changeHandler = (e) => {
         const file = e.target.files[0];
 
-        console.log(file);
-
         if (file) {
             setIsFilePicked(true);
             setSelectedFile(file);
-            setImgServerUrl("");
+            // setImgServerUrl("");
         } else {
             setIsFilePicked(false);
             setSelectedFile(null);
-            setImgServerUrl("");
+            // setImgServerUrl("");
         }
     };
 
     const handleSubmission = () => {
-        console.log("123");
         const formData = new FormData();
 
         formData.append("avatar", selectedFile);
 
-        fetch(`http://localhost:3700/member/upload-avatar/${member.m_id}`, {
-            method: "POST",
-            body: formData,
-        })
+        fetch(
+            "http://localhost:3700/member/upload-avatar", //server url
+            {
+                method: "POST",
+                body: formData,
+            }
+        )
             .then((response) => response.json())
             .then((result) => {
                 console.log(result);
-
                 setImgServerUrl(
-                    "http://localhost:3700/avatar_imgs/" + result.data.name
-                );
-
-                setMemberData({
-                    ...memberData,
-                    m_avatar:
-                        "http://localhost:3700/avatar_imgs/" + result.data.name,
-                });
-
-                setPreview(
-                    "http://localhost:3700/avatar_imgs/" + result.data.name
+                    "http://localhost:3700/avatar_img/" + result.data.name
                 );
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
     };
+
+    useEffect(() => {
+        if (imgServerUrl) {
+            setMemberData({ ...memberData, m_avatar: imgServerUrl });
+        }
+    }, [imgServerUrl]);
+
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview("");
+            return;
+        }
+
+        const objectUrl = URL.createObjectURL(selectedFile);
+        console.log(objectUrl);
+        setPreview(objectUrl);
+
+        // 當元件unmounted時清除記憶體
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedFile]);
 
     //拖曳上傳
     useEffect(() => {
@@ -110,13 +119,13 @@ const Info = (props) => {
 
         // const dropZone = document.querySelector(".drop-zone");
 
-        if (avatar.src !== "") {
-            label.classList.add("active");
-            para.style.display = "none";
-        }
+        // if (avatar.src !== "") {
+        //     label.classList.add("light-active");
+        //     para.style.display = "none";
+        // }
 
         input.addEventListener("change", (e) => {
-            label.classList.add("active");
+            label.classList.add("light-active");
             para.style.display = "none";
         });
 
@@ -124,25 +133,6 @@ const Info = (props) => {
         //     input.click();
         // });
     }, []);
-
-    useEffect(() => {
-        if (!selectedFile) {
-            // setPreview("");
-            return;
-        }
-
-        const objectUrl = URL.createObjectURL(selectedFile);
-        console.log(objectUrl);
-        setPreview(objectUrl);
-
-        //元件unMount時清除記憶體
-
-        return () => URL.revokeObjectURL(objectUrl);
-    }, [selectedFile]);
-
-    useEffect(() => {
-        setFields({ ...fields, avatar: preview });
-    }, [preview]);
 
     return (
         <>
@@ -152,7 +142,7 @@ const Info = (props) => {
                 transition={{ duration: 0.5 }}
                 className="member-body"
             >
-                <div className="title">會員資料</div>
+                <div className="member-title">會員資料</div>
                 <div className="form-container">
                     <div className="left">
                         <form onSubmit={handleUpdate}>
@@ -240,24 +230,23 @@ const Info = (props) => {
                                     <input
                                         name="address"
                                         type="text"
+                                        defaultValue={member.m_addr}
                                         placeholder="地址"
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
                             </div>
 
-                            <button type="submit" onClick={handleSubmission}>
-                                更新檔案
-                            </button>
+                            <button type="submit">更新檔案</button>
                         </form>
                     </div>
                     <div className="right">
-                        <div className="title">上傳大頭貼：</div>
+                        <div className="member-title">上傳大頭貼：</div>
                         <div>
                             <label htmlFor="file" className="file-input">
                                 <div className="drop-zone">
                                     <p className="para">請選擇檔案</p>
-                                    {preview && (
+                                    {preview === "" ? null : (
                                         <img
                                             className="avatar"
                                             src={preview}
@@ -269,11 +258,11 @@ const Info = (props) => {
                                     type="file"
                                     name="file"
                                     id="file"
-                                    multiple
                                     accept="image/*"
                                     onChange={changeHandler}
                                 />
                             </label>
+                            <button onClick={handleSubmission}>送出</button>
                         </div>
                     </div>
                 </div>

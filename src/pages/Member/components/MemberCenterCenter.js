@@ -44,7 +44,7 @@ const MemberCenterCenter = (props) => {
                         <div className="member-card-left">
                             <img
                                 className="avatar"
-                                src="/member_img/avatar.png"
+                                src={member.m_avatar}
                                 alt=""
                             />
                             <img

@@ -194,13 +194,13 @@
                     flex: 1 1 80%;
                 }
             }
-            .active {
+            .light-active {
                 background-image: linear-gradient(var(--cardBackground));
             }
         }
         .line-container {
             position: relative;
-            .line {
+            .light-line {
                 position: absolute;
                 width: 77.55px;
                 height: 1px;
@@ -226,7 +226,7 @@
                     animation: animate-line 2s linear 3s forwards;
                 }
 
-                & ~ .line {
+                & ~ .light-line {
                     top: 186px;
                 }
             }

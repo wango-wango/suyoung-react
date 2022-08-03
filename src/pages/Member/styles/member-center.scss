@@ -102,9 +102,10 @@ html {
 
 section.member-center {
     // height: 90%;
+
     min-height: 900px;
     max-width: 1535px;
-    margin: auto;
+    margin: 100px auto;
     background-color: rgba(0, 0, 0, 0.41);
     background-color: var(--themeColor);
     box-shadow: 0 4px 9px rgba(0, 0, 0, 0.211);

@@ -67,8 +67,8 @@ const MLogin = () => {
                     <div className="login-title">舒營-會員登入</div>
                     <div className="login-card">
                         <form onSubmit={whenSubmit}>
-                            <div className="title">帳號：</div>
-                            <div className="group">
+                            <div className="account-title">帳號：</div>
+                            <div className="account-group">
                                 <input
                                     className="login-input"
                                     type="text"
@@ -80,8 +80,8 @@ const MLogin = () => {
                                 />
                                 <label>Username</label>
                             </div>
-                            <div className="title">密碼：</div>
-                            <div className="group">
+                            <div className="account-title">密碼：</div>
+                            <div className="account-group">
                                 <input
                                     className="login-input"
                                     type="text"

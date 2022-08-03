@@ -33,6 +33,8 @@ export const AuthProvider = ({ children }) => {
 
     const [auth, setAuth] = useState(localAuth);
 
+    const [memberData, setMemberData] = useState({});
+
     const navigate = useNavigate();
 
     const logout = () => {
@@ -41,8 +43,20 @@ export const AuthProvider = ({ children }) => {
         navigate("/Shuyoung/login");
     };
 
-    const login = () => {
+    // const getUserData = async () => {};
+
+    const login = async () => {
         setAuth({ ...localAuth, authorized: true });
+        await axios
+            .get(`http://localhost:3700/member/${auth.sid}`)
+            .then((res) => {
+                if (res) {
+                    console.log(res.data.user);
+                    setMemberData({ ...res.data.user });
+                } else {
+                    alert("查無會員資料");
+                }
+            });
     };
 
     // const checkAuth = async () => {
@@ -65,6 +79,8 @@ export const AuthProvider = ({ children }) => {
             value={{
                 ...auth,
                 setAuth,
+                ...memberData,
+                setMemberData,
                 logout,
                 login,
             }}

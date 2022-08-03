@@ -23,15 +23,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const MemberCenter = () => {
+    useEffect(() => {
+        if (auth.authorized === true) {
+            getUserData();
+        }
+    }, []);
+
     const [step, setStep] = useState(0);
 
     const { sid, ...auth } = useContext(AuthContext);
 
     const { memberData, setMemberData } = MemberInfo();
-
-    // console.log(auth);
-
-    // const [fields, setFields] = useState({});
 
     const { spinner, setLoading } = useSpinner(4000);
 
@@ -39,16 +41,7 @@ const MemberCenter = () => {
         setLoading(true);
     }, [setLoading]);
 
-    // useEffect(() => {
-    //     if (authorized === true) {
-    //         console.log("getting user data");
-    //         getUserData();
-    //     }
-    // }, [authorized]);
-
     const getUserData = async () => {
-        // const memberId = JSON.parse(localStorage.getItem("auth")).sid;
-
         await axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
             if (res) {
                 console.log(res.data.user);
@@ -57,15 +50,7 @@ const MemberCenter = () => {
                 alert("查無會員資料");
             }
         });
-
-        // console.log(res);
     };
-
-    useEffect(() => {
-        if (auth.authorized === true) {
-            getUserData();
-        }
-    }, []);
 
     //==============dark mode============
 

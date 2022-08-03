@@ -13,7 +13,7 @@ const CreditCard = () => {
                 transition={{ duration: 0.5 }}
                 className="member-body"
             >
-                <div className="title">信用卡管理</div>
+                <div className="member-title">信用卡管理</div>
                 <div className="credit-card-container">
                     <CreditCardCard />
                     <div className="card-btn">
