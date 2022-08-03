@@ -1,5 +1,7 @@
 import { React, useEffect, useState } from "react";
 import "../styles/member-center.scss";
+import { useContext } from "react";
+import AuthContext from "../../Login/sub-pages/AuthContext";
 
 import MemberCenterCenter from "./MemberCenterCenter";
 import Coupon from "./Coupon";
@@ -12,25 +14,62 @@ import CreditCard from "./CreditCard";
 
 import { useSpinner } from "../../../useSpinner";
 
+import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
+
 import { gsap } from "gsap";
 import anime from "animejs";
 
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const MemberCenter = () => {
     const [step, setStep] = useState(0);
 
-    const { spinner, setLoading } = useSpinner(700000000);
+    const { sid, ...auth } = useContext(AuthContext);
+
+    const { memberData, setMemberData } = MemberInfo();
+
+    // console.log(auth);
+
+    // const [fields, setFields] = useState({});
+
+    const { spinner, setLoading } = useSpinner(4000);
 
     useEffect(() => {
         setLoading(true);
     }, [setLoading]);
 
+    // useEffect(() => {
+    //     if (authorized === true) {
+    //         console.log("getting user data");
+    //         getUserData();
+    //     }
+    // }, [authorized]);
+
+    const getUserData = async () => {
+        // const memberId = JSON.parse(localStorage.getItem("auth")).sid;
+
+        await axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
+            if (res) {
+                console.log(res.data.user);
+                setMemberData({ ...res.data.user });
+            } else {
+                alert("查無會員資料");
+            }
+        });
+
+        // console.log(res);
+    };
+
+    useEffect(() => {
+        if (auth.authorized === true) {
+            getUserData();
+        }
+    }, []);
+
     //==============dark mode============
 
     useEffect(() => {
-        console.log("spinner appears");
-
         const moonPath =
             "M 27.5 0 C 34.791 0 41.79 2.899 46.945 8.055 C 52.101 13.21 55 20.209 55 27.5 C 55 34.791 52.101 41.79 46.945 46.945 C 41.79 52.101 34.791 55 27.5 55 C 20.209 55 13.21 52.101 8.055 46.945 C 2.899 41.79 0 34.791 0 27.5 C 0 20.209 2.899 13.21 8.055 8.055 C 13.21 2.899 20.209 0 27.5 0 Z";
         const sunPath =
@@ -197,11 +236,9 @@ const MemberCenter = () => {
                                             setStep(6);
                                         }}
                                     >
-                                        <img
-                                            src="/member_img/avatar.png"
-                                            alt=""
-                                        />
-                                        Shinder Lin
+                                        <img src={memberData.m_avatar} alt="" />
+                                        {memberData.m_last_name}
+                                        {memberData.m_first_name}
                                     </div>
                                 </li>
                             </ul>
@@ -304,7 +341,7 @@ const MemberCenter = () => {
                                 </div>
                             </div>
                         </div>
-                        <BlockComponent />
+                        <BlockComponent member={memberData} />
                     </div>
                 </div>
             </section>

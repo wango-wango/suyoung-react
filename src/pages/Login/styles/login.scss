@@ -31,6 +31,21 @@ main {
     .group {
         position: relative;
         margin-bottom: 45px;
+        .member-eye-button {
+            border: none;
+            background-color: transparent;
+            padding: 0;
+            position: absolute;
+            right: -3px;
+            top: 12px;
+            svg {
+                width: 50px;
+                color: var(--primary_color);
+            }
+        }
+        #error-text {
+            color: var(--error_color);
+        }
     }
 }
 
@@ -331,6 +346,10 @@ input:valid ~ label {
                     .group {
                         label {
                             font-size: 12px;
+                        }
+                        .member-eye-button {
+                            top: 6px;
+                            right: -7px;
                         }
                     }
                 }

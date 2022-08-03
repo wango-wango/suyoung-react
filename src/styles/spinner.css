@@ -10,11 +10,16 @@ div.spinner-text {
     top: 0;
     left: 0;
     font-size: 40px;
-    background-color: var(--brown_color);
+    background-color: var(--primary_color_600);
     width: 100vw;
     height: 100vh;
     margin: auto;
     z-index: 99;
+    transition: opacity 0.5s;
+}
+
+.spinner-text.fade-out {
+    opacity: 0;
 }
 
 .spinner-text {
@@ -67,7 +72,7 @@ p.spinner-text {
 }
 
 .wisteria {
-    color: #8e44ad;
+    color: #ec391e;
 }
 
 .belize {
@@ -75,7 +80,7 @@ p.spinner-text {
 }
 
 .pomegranate {
-    color: #c0392b;
+    color: #fff6e7;
 }
 
 .green {
@@ -83,5 +88,5 @@ p.spinner-text {
 }
 
 .midnight {
-    color: #2c3e50;
+    color: #62b6b6;
 }

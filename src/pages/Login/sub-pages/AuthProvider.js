@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         token: "",
     };
 
-    //check if localStorage has member info
+    //check if localStorage has member token
 
     const localAuthStr = localStorage.getItem("auth");
 
@@ -37,12 +37,16 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("auth");
-        setAuth({ ...unAuthState });
+        setAuth({ ...unAuthState, authorized: false });
         navigate("/Shuyoung/login");
     };
 
+    const login = () => {
+        setAuth({ ...localAuth, authorized: true });
+    };
+
     // const checkAuth = async () => {
-    //     const res = await axios.get("http://localhost:3700/join/login", {
+    //     const res = await axios.get("http://localhost:3700/join/check-login", {
     //         withCredentials: true,
     //     });
 
@@ -62,6 +66,7 @@ export const AuthProvider = ({ children }) => {
                 ...auth,
                 setAuth,
                 logout,
+                login,
             }}
         >
             {children}

@@ -209,22 +209,22 @@ html {
     }
 }
 
-@media screen and (max-width: 420px) {
-    html {
-        body {
-            .member-center {
-                .member-container {
-                    .member-flex-box {
-                        .member-body {
-                            .input_group {
-                                flex-direction: column;
-                                width: 50%;
-                                margin: auto;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+// @media screen and (max-width: 420px) {
+//     html {
+//         body {
+//             .member-center {
+//                 .member-container {
+//                     .member-flex-box {
+//                         .member-body {
+//                             .input_group {
+//                                 flex-direction: column;
+//                                 width: 50%;
+//                                 margin: auto;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

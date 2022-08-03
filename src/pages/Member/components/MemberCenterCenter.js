@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import MemberCenter from "./MemberCenter";
 import "../styles/member-center-01.scss";
 import Tilty from "react-tilty";
+import AuthContext from "../../Login/sub-pages/AuthContext";
+
 import { motion } from "framer-motion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,7 +14,11 @@ import "swiper/css/pagination";
 
 import { Link } from "react-router-dom";
 
-const MemberCenterCenter = () => {
+const MemberCenterCenter = (props) => {
+    const { member } = props;
+
+    const { ...auth } = useContext(AuthContext);
+
     return (
         <>
             <motion.div
@@ -48,7 +54,10 @@ const MemberCenterCenter = () => {
                             />
                         </div>
                         <div className="member-card-right">
-                            <div className="member-name">Shinder Lin</div>
+                            <div className="member-name">
+                                {member.m_last_name}
+                                {member.m_first_name}
+                            </div>
                             <div className="member-title-container">
                                 <div className="title-icon">
                                     <svg
@@ -80,7 +89,7 @@ const MemberCenterCenter = () => {
                                 </div>
                             </div>
                             <div className="register-date">
-                                註冊日期：2022-05-18
+                                註冊日期：{member.create_at}
                             </div>
                         </div>
                     </Tilty>
