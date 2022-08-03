@@ -58,9 +58,17 @@ function RoomInfo(props) {
       localStorage.setItem('roomItem', JSON.stringify(currentCart))
       setMycart(currentCart)
 
-      updateQty()
     }
   }
+
+    // 計算總價用的函式
+    const sum = (items) => {
+      let total = 0
+      for (let i = 0; i < items.length; i++) {
+        total += items[i].room_price
+      }
+      return total
+    }
 
 
   const displayItems = (<>
@@ -95,9 +103,26 @@ function RoomInfo(props) {
   </>
   )
 
+  const ScPriceRow = (
+    <>
+      {/* 總金額列 */}
+      <div className="w-100 priceRow px-0">
+        <div className=" col-10 bdBottom d-flex flex-column align-items-center py-5 mx-auto">
+          <div className="w-100 d-flex jus justify-content-end my-2 px-0">
+            <div className="totalPriceFont col-3 px-0">總計</div>
+            <div className="totalPriceFont-med col-3 px-0">
+              NT<scspan>{sum(mycartDisplay)}</scspan>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+
   return (
     <>
       {displayItems}
+      {ScPriceRow}
     </>
   )
 }
