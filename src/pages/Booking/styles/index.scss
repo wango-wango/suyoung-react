@@ -1,3 +1,5 @@
+@import "rsuite/dist/rsuite.css";
+
 @media screen and (max-width: 2560px) {
     :root {
         //各種顏色
@@ -69,6 +71,14 @@
             box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
             /* Lowering the shadow */
             color: var(--brown_color);
+        }
+    }
+
+    .css-1smlk3z-MuiPaper-root {
+        div {
+            div {
+                color: rgba(255, 255, 255, 0) !important;
+            }
         }
     }
 
@@ -206,30 +216,73 @@
                 @include card_background();
                 display: flex;
                 justify-content: space-between;
-                padding: 0 5%;
+                padding: 0 1%;
 
-                // input style
-                input {
-                    @include input_style;
-                    width: 100%;
+
+                .dateRangePicker {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
 
-                //label style
-                label {
-                    @include input_label;
+                .booking_person {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding: 1rem;
+
+                    label {
+                        margin: auto;
+                    }
+
+                    input {
+                        text-align: center;
+                        font-size: var(--subtitle_text);
+                        display: block;
+                        border: none;
+                        background-color: #fff6e7;
+                        border-radius: var(--h3_text);
+                        color: var(--primary_color);
+                    }
+
+                    .rs-input-number-btn-group-vertical {
+                        display: none;
+                    }
+                }
+
+                .booking_result_date {
+                    span {
+                        font-size: var(--subtitle_text);
+                    }
+
+                    p {
+                        margin: 0;
+                        padding: 0.3rem;
+                    }
+
+
                 }
 
                 .booking_result {
                     display: flex;
-                    flex-direction: column;
+                    align-items: center;
                     justify-content: center;
 
                     @media screen and (max-width:768px) {
                         display: none;
                     }
 
+                    p {
+                        margin: 0;
+                        padding: 0.3rem;
+                    }
+
                     span {
-                        font-size: var(--h5_text);
+                        font-size: var(--subtitle_text);
+                    }
+
+                    .booking_result_datePicer {
+                        display: flex;
                     }
                 }
             }
@@ -265,6 +318,7 @@
 
         &::-webkit-scrollbar-thumb {
             background-color: rgba(36, 42, 32, 0.2);
+            border-radius: 5px;
         }
 
 
@@ -435,72 +489,46 @@
                 @media screen and (max-width: 768px) {
                     display: none;
                 }
-
-                .range_container {
+                .rs-row{
+                    width: 100%;
                     display: flex;
                     flex-direction: column;
-                    width: 80%;
-                    margin: 5% auto;
-                }
-
-                .sliders_control {
-                    position: relative;
-                    min-height: 50px;
-                }
-
-                .form_control {
-                    position: relative;
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: var(--text_size);
-                    color: #635a5a;
-                }
-
-                input[type="range"]::-webkit-slider-thumb {
-                    -webkit-appearance: none;
-                    pointer-events: all;
-                    width: var(--subtitle_text);
-                    height: var(--subtitle_text);
-                    background-color: #fff;
-                    border-radius: 50%;
-                    box-shadow: 0 0 0 1px #c6c6c6;
-                    cursor: pointer;
-
-                    &:hover {
-                        background: var(--input_color);
+                    padding: 1rem;
+                    margin: 0;
+                    .rs-slider{
+                        .rs-slider-bar{
+                            .rs-slider-progress-bar{
+                                background-color: var(--primary_color_500);
+                            }
+                        }
                     }
-
-                    &:active {
-                        background-color: #fff;
-                        box-shadow: 0 0 9px var(--primary_color_500);
-                        -webkit-box-shadow: 0 0 9px var(--primary_color_500);
+                    .rs-slider-handle::before{
+                        border: 2px solid var(--primary_color);
+                        box-shadow: none;
                     }
-                }
-
-                input[type="number"] {
-                    background-color: var(--input_color);
-                    border-radius: var(--h5_text);
-                    color: #c6c6c6;
-                    width: 100px;
-                    height: var(--h4_text);
-                    font-size: var(--subtitle_text);
-                    text-align: center;
-                    border: none;
-                }
-
-                input[type="range"] {
-                    -webkit-appearance: none;
-                    appearance: none;
-                    height: 2px;
-                    width: 100%;
-                    position: absolute;
-                    background-color: #c6c6c6;
-                    pointer-events: none;
-                }
-
-                #fromSlider {
-                    height: 0;
-                    z-index: 1;
+                    .custom-slider {
+                        margin-top: 18px;
+                        .active{
+                            clip-path:none;
+                            box-shadow: none;
+                        }
+                        .rs-slider-handle {
+                            top: -6px;
+                            background-color: var(--primary_color);
+                            text-align: center;
+                            padding: 3px;
+                            margin-left: -16px;
+                            cursor: pointer;
+                        }
+    
+                        &.rs-slider-dragging .rs-slider-handle,
+                        &.rs-slider-dragging .rs-slider-handle:hover {
+                            box-shadow: none;
+                            transform: scale(1.2);
+                        }
+                    }
+                    
+    
                 }
 
             }
@@ -860,6 +888,7 @@
                 }
 
                 &::-webkit-scrollbar-thumb {
+                    border-radius: 5px;
                     background-color: rgba(36, 42, 32, 0.2);
                 }
             }
@@ -873,7 +902,6 @@
 
                 .room_card_img_area {
                     width: 60%;
-
                     @include card_background();
                     padding: 20px;
                     margin-top: 2rem;
