@@ -6,10 +6,16 @@ import { useBackground } from "../../utils/useBackground";
 function Index(props) {
     
     //更換背景
+    // const { setBackgroundColor } = useBackgroundColor();
+
+    // useEffect(() => {
+    //     setBackgroundColor("#ffaf1b");
+    // }, []);
+
     const { setBackground } = useBackground();
 
     useEffect(() => {
-        setBackground("bg1.svg");
+        setBackground("");
     }, []);
 
     // //偵聽滑動事件

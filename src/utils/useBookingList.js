@@ -9,7 +9,12 @@ export const BookingProvider = ({ children }) => {
         adults: "",
         kids: "",
         startDate: "",
-        EndDate: "",
+        endDate: "",
+        perNignt: "",
+        roomType: [],
+        priceA: "",
+        priceB: "",
+        tagList: [],
     });
 
     return (

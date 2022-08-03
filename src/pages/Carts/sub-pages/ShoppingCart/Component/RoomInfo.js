@@ -104,6 +104,22 @@ function RoomInfo(props) {
   </>
   )
 
+  const ScPriceRow = (
+    <>
+      {/* 總金額列 */}
+      <div className="w-100 priceRow px-0">
+        <div className=" col-10 bdBottom d-flex flex-column align-items-center py-5 mx-auto">
+          <div className="w-100 d-flex jus justify-content-end my-2 px-0">
+            <div className="totalPriceFont col-3 px-0">總計</div>
+            <div className="totalPriceFont-med col-3 px-0">
+              NT<span>{sum(mycartDisplay)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+
   return (
     <>
       {displayItems}
