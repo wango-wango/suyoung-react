@@ -4,16 +4,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
 import { MemberProvider } from "./pages/Login/sub-pages/MemberProvider";
 import { ThemeProvider } from "./utils/useBackground";
-
+import { BookingProvider } from "./utils/useBookingList";
 import { useSpinner } from "./useSpinner";
 
 // import 路由
 import Home from "./pages/Home";
-import Act from "./pages/Act";
+import Atv from "./pages/Act/Atv";
+import Float from "./pages/Act/Float";
+import Night from "./pages/Act/Night";
+import Upstream from "./pages/Act/Upstream";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 import Recipes from "./pages/Recipes";
-import SuMap from "./pages/SuMap";
+import SuMap from "./pages/SuMap/SuMap";
 import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
 // import Create from "./pages/Booking/sub-pages/Create";
@@ -22,6 +25,8 @@ import Cart from "./pages/Carts";
 // import Footer from "./components/footer";
 import Layout from "./components/Layout";
 import MRegister from "./pages/Register/components/MRegister";
+import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
+import SuMapBeauty from "./pages/SuMap/SuMapBeauty"
 
 function App() {
     const [auth, setAuth] = useState(false);
@@ -34,7 +39,8 @@ function App() {
                 <AuthProvider>
                     <MemberProvider>
                         <ThemeProvider>
-                            <Layout>
+                            <BookingProvider>
+                                <Layout>
                                 <Routes>
                                     <Route
                                         path="/"
@@ -53,10 +59,27 @@ function App() {
                                             index
                                             element={<Home auth={auth} />}
                                         />
-                                        <Route
-                                            path="Act"
-                                            element={<Act auth={auth} />}
-                                        />
+                                        <Route path="Act">
+                                            <Route
+                                                path="Atv"
+                                                element={<Atv auth={auth} />}
+                                            />
+                                            <Route
+                                                path="Float"
+                                                element={<Float auth={auth} />}
+                                            />
+                                            <Route
+                                                path="Night"
+                                                element={<Night auth={auth} />}
+                                            />
+                                            <Route
+                                                path="Upstream"
+                                                element={
+                                                    <Upstream auth={auth} />
+                                                }
+                                            />
+                                        </Route>
+
                                         <Route path="Booking">
                                             <Route
                                                 index
@@ -64,7 +87,10 @@ function App() {
                                                     <Booking auth={auth} />
                                                 }
                                             />
-                                            {/* <Route path="Create" element={<Create />} /> */}
+                                            <Route
+                                                path="BookingDetail"
+                                                element={<BookingDetail />}
+                                            />
                                         </Route>
 
                                         <Route path="Member">
@@ -73,16 +99,22 @@ function App() {
                                                 element={<Member auth={auth} />}
                                             />
                                             {/* <Route path="Coupon" element={<Coupon />} />
-                            <Route path="Keep" element={<Keep />} /> */}
+                                    <Route path="Keep" element={<Keep />} /> */}
                                         </Route>
                                         <Route
                                             path="Recipes"
                                             element={<Recipes auth={auth} />}
                                         />
-                                        <Route
-                                            path="SuMap"
-                                            element={<SuMap auth={auth} />}
-                                        />
+                                        <Route path="SuMap">
+                                            <Route
+                                                index
+                                                element={<SuMap auth={auth} />}
+                                            />
+                                            <Route
+                                                path="beauty"
+                                                element={<SuMapBeauty auth={auth} />}
+                                            />
+                                        </Route>
                                         <Route
                                             path="Cart"
                                             element={<Cart auth={auth} />}
@@ -109,6 +141,11 @@ function App() {
                                     </Route>
                                 </Routes>
                             </Layout>
+                       
+                   
+                            </BookingProvider>
+                   
+                    
                         </ThemeProvider>
                     </MemberProvider>
                 </AuthProvider>
