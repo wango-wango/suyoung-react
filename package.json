@@ -31,6 +31,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-tilty": "^2.0.3",
+    "rsuite": "^5.16.3",
     "sass": "^1.54.0",
     "sass-loader": "^13.0.2",
     "styled-components": "^5.3.5",
