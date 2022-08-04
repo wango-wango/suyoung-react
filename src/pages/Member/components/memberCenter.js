@@ -220,8 +220,8 @@ const MemberCenter = () => {
                                         }}
                                     >
                                         <img src={auth.m_avatar} alt="" />
-                                        {auth.m_last_name}
                                         {auth.m_first_name}
+                                        {auth.m_last_name}
                                     </div>
                                 </li>
                             </ul>

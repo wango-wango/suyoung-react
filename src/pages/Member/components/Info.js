@@ -45,6 +45,8 @@ const Info = () => {
             fields
         );
 
+        alert("資料修改完成");
+
         console.log(res);
     };
 
