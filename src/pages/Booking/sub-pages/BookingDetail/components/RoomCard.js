@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useBookingList } from "../../../../../utils/useBookingList";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,15 +10,20 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 // import required modules
-import { FreeMode, Navigation, Thumbs } from "swiper";
+import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper";
 
 function RoomCard(props) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const { roomList, tagList, picList } = props;
+
+    if (roomList.length === 0 || tagList.length === 0 || picList.length === 0)
+        return <></>;
+
     return (
         <>
-            <div class="room_Card">
-                <div class="room_pic">
-                    <div class="swiper_container">
+            <div className="room_Card">
+                <div className="room_pic">
+                    <div className="swiper_container">
                         <Swiper
                             style={{
                                 "--swiper-navigation-color": "#fff",
@@ -26,46 +32,29 @@ function RoomCard(props) {
                             loop={true}
                             spaceBetween={10}
                             navigation={true}
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            }}
                             thumbs={{ swiper: thumbsSwiper }}
-                            modules={[FreeMode, Navigation, Thumbs]}
+                            modules={[Autoplay, FreeMode, Navigation, Thumbs]}
                             className="mySwiper2"
                         >
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA1.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA2.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA3.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA4.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA5.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA6.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
+                            {picList.map((pv, pi) => {
+                                return (
+                                    <SwiperSlide key={pi}>
+                                        <img
+                                            src={
+                                                "/room_imgs/" +
+                                                pv.room_folder +
+                                                "/" +
+                                                pv.pic_name
+                                            }
+                                            alt=""
+                                        />
+                                    </SwiperSlide>
+                                );
+                            })}
                         </Swiper>
                         <Swiper
                             onSwiper={setThumbsSwiper}
@@ -73,58 +62,55 @@ function RoomCard(props) {
                             spaceBetween={10}
                             slidesPerView={4}
                             freeMode={true}
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            }}
                             watchSlidesProgress={true}
-                            modules={[FreeMode, Navigation, Thumbs]}
+                            modules={[Autoplay, FreeMode, Navigation, Thumbs]}
                             className="mySwiper"
                         >
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA1.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA2.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA3.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA4.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA5.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img
-                                    src="/room_imgs/beauty/roomA6.jpeg"
-                                    alt=""
-                                />
-                            </SwiperSlide>
+                            {picList.map((pv, pi) => {
+                                return (
+                                    <SwiperSlide key={pi}>
+                                        <img
+                                            src={
+                                                "/room_imgs/" +
+                                                pv.room_folder +
+                                                "/" +
+                                                pv.pic_name
+                                            }
+                                            alt=""
+                                        />
+                                    </SwiperSlide>
+                                );
+                            })}
                         </Swiper>
                     </div>
                 </div>
-                <div class="room_content">
-                    <div class="room_card_title">
-                        <h3>I'm title</h3>
+                <div className="room_content">
+                    <div className="room_card_title">
+                        <h3>{roomList[0].room_name}</h3>
                     </div>
-                    <div class="room_card_subtitle">
-                        <h4>I'm subtitle</h4>
+                    <div className="room_card_subtitle">
+                        <h4>
+                            {roomList[0].person_num}人房{" "}
+                            {roomList[0].person_num / 2}
+                            張雙人床
+                        </h4>
                     </div>
-                    <div class="room_card_tag"></div>
-                    <div class="room_card_paragraph">
+
+                    <div className="room_card_tag">
+                        {tagList.map((t, ti) => {
+                            return (
+                                <div className="room_card_tag_btn" key={ti}>
+                                    <span className="text">{t.type}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="room_card_paragraph">
                         <p>※注意事項</p>
                         <p>1. 入住時間：12:00 PM</p>
                         <p>2. 退房時間：隔日11:00AM以前</p>
@@ -143,9 +129,9 @@ function RoomCard(props) {
                             營區停車場僅供車輛停放之用，營區對停放之車輛不負保管責任。
                         </p>
                     </div>
-                    <div class="room_card_Price">
+                    <div className="room_card_Price">
                         <p>TWD:</p>
-                        <h4>16800</h4>
+                        <h4>{roomList[0].room_price}</h4>
                         <p>晚</p>
                     </div>
                 </div>
@@ -153,7 +139,5 @@ function RoomCard(props) {
         </>
     );
 }
-
-RoomCard.propTypes = {};
 
 export default RoomCard;
