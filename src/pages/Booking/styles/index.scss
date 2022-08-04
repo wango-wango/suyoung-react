@@ -903,8 +903,8 @@
                 .room_card_img_area {
                     width: 60%;
                     @include card_background();
-                    padding: 20px;
-                    margin-top: 2rem;
+                    padding: 2rem;
+                    
 
                     .room_card_img {
                         width: 100%;
@@ -922,12 +922,13 @@
                     width: 40%;
                     height: 100%;
                     @include card_background();
-                    margin-top: 20px;
+                    margin-top: 2rem;
 
                     .room_card_title,
                     .room_card_subtitle {
                         width: 85%;
                         margin: auto;
+                        padding-bottom: 1rem;
                     }
 
                     .room_card_tag {
@@ -936,6 +937,7 @@
                         flex-wrap: wrap;
                         justify-content: flex-start;
                         margin: auto;
+                        padding-bottom: 1rem;
 
                         // border: 1px solid red;
                         .room_card_tag_btn {
@@ -1074,26 +1076,37 @@
 
                     .room_card_Price {
                         display: flex;
-                        width: 85%;
+                        width: 80%;
                         justify-content: space-evenly;
                         align-items: baseline;
-                        margin: auto;
+                        margin: 0.5rem auto;
                         border-bottom: 1px solid var(--primary_color_900);
-                        padding: 3px var(--subtitle_text);
+                        padding: 0.5rem;
+                        p,h4{
+                            margin: 0;
+                        }
                     }
 
                     .room_card_button_area {
                         width: 85%;
                         margin: auto;
                         padding: var(--h5_text) 0;
+                        a{
+                            text-decoration: none;
+                        }
 
                         .room_card_button {
                             display: block;
                             @include p_button;
-                            width: 150px;
-                            height: 50px;
+                            width: 130px;
+                            height: 40px;
                             border-radius: 50px;
                             margin: auto;
+                            
+                            span{
+                                letter-spacing: 0.5rem;
+                                text-align: center;
+                            }
                         }
                     }
                 }

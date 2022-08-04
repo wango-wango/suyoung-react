@@ -1,28 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function DetailPictures(props) {
+    const { picList } = props;
+
     gsap.registerPlugin(ScrollTrigger);
 
     useEffect(() => {
-        const roomDetailContainer = document.querySelector(
-            ".room_detail_container"
-        );
-        let htmlContainer = "";
+        if (picList.length === 0) return;
 
-        for (let i = 0; i < 6; i++) {
-            htmlContainer += `<div class="detail_up_content filled-text${
-                i + 1
-            }">BEDROOM VIEW</div>
-            <div class="detail_up_content outline-text${
-                i + 1
-            }">BEDROOM VIEW</div>
-            <img class="image${i + 1}" src="/room_imgs/family/family-typeA${
-                i + 1
-            }.jpeg" />`;
-        }
-        roomDetailContainer.innerHTML = htmlContainer;
         for (let i = 1; i <= 5; i += 2) {
             gsap.to(`.filled-text${i}, .outline-text${i}`, {
                 scrollTrigger: {
@@ -40,7 +27,6 @@ function DetailPictures(props) {
                     start: "top bottom",
                     end: "bottom top",
                     scrub: 1,
-                    // markers: true,
                 },
                 x: -500,
             });
@@ -62,23 +48,46 @@ function DetailPictures(props) {
                     start: "top bottom",
                     end: "bottom top",
                     scrub: 1,
-                    // markers: true,
                 },
                 x: 500,
             });
         }
-    }, []);
+    }, [picList]);
 
+    if (picList.length === 0) return;
     return (
         <>
-            <div class="room_detail_container">
-                <div class="detail_up_content filled-text1">BEDROOM VIEW</div>
-                <div class="detail_up_content outline-text1">BEDROOM VIEW</div>
-                <img
-                    class="image1"
-                    src="/room_imgs/beauty/roomA1.jpeg"
-                    alt=""
-                />
+            <div className="room_detail_container">
+                {picList.map((pv, pi) => {
+                    return (
+                        <Fragment key={pi}>
+                            <div
+                                className={
+                                    "detail_up_content filled-text" + (pi + 1)
+                                }
+                            >
+                                {pv.room_folder}ROOM VIEW
+                            </div>
+                            <div
+                                className={
+                                    "detail_up_content outline-text" + (pi + 1)
+                                }
+                            >
+                                {pv.room_folder}ROOM VIEW
+                            </div>
+                            <img
+                                className={"image" + (pi + 1)}
+                                src={
+                                    "/room_imgs/" +
+                                    pv.room_folder +
+                                    "/" +
+                                    pv.pic_name
+                                }
+                                alt=""
+                            />
+                        </Fragment>
+                    );
+                })}
             </div>
         </>
     );

@@ -17,7 +17,7 @@ function Index(props) {
             <section className="Booking">
                 <div className="Booking_container">
                     <BookingArea />
-                    <div class="room_area_flex">
+                    <div className="room_area_flex">
                         <BookingFilter />
                         <BookingCard />
                     </div>
