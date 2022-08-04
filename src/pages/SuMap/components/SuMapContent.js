@@ -6,6 +6,8 @@ import CarouselMap from './CarouselMap'
 import CarouselMapDesc from './CarouselMapDesc'
 import MapCont from './MapCont'
 import MapBeauty from './MapBeauty'
+import MapYourself from './MapYourself'
+import MapFamily from './MapFamily'
 
 const SuMapContent = (props) => {
 
@@ -16,9 +18,9 @@ const SuMapContent = (props) => {
 
   const [step, setStep] = useState(0)
   // 動態元件
-  const components = [MapCont,MapBeauty,];
+  const components = [[MapCont,MapBeauty],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily]];
 
-  const BlockComponent = components[step];
+  const BlockComponent = components[contentIndex][step];
   const modalOpen = (i) => {
     // 這裡設定content要抓取的資料索引值
     setContentIndex(i)
