@@ -5,6 +5,7 @@ import Axios from "axios";
 import { BK_GET_LIST } from "../config/ajax-path";
 import { useBookingList } from "../../../utils/useBookingList";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 function BookingCard(props) {
     // 所有room 列表
@@ -12,18 +13,28 @@ function BookingCard(props) {
     // 所有Tag 列表
     const [tagList, setTagList] = useState([]);
 
+    // useContext
     const { BookingList, setBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
+
+    // 準備傳到後端的資料
     const [memberKeep, setMemberKeep] = useState({
         roomSid: "",
         memberId: "",
         favType: 1,
     });
 
-    const keepHandler = (v) => {
-        const roomSid = v;
+    // 判斷是否回傳值給 memberKeep
+    const keepHandler = (e) => {
+        const checked = e.target.checked;
+        const roomSid = e.target.value;
         const memberId = auth.m_id;
-        setMemberKeep({ ...memberKeep, roomSid: roomSid, memberId: memberId });
+        if (checked)
+            setMemberKeep({
+                ...memberKeep,
+                roomSid: roomSid,
+                memberId: memberId,
+            });
     };
     /*
         roomSid: "",
@@ -44,8 +55,8 @@ function BookingCard(props) {
         Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
-            console.log(response.data);
-            console.log(auth.sid);
+            // console.log(response.data);
+            // console.log(auth.sid);
         });
     };
 
@@ -57,27 +68,10 @@ function BookingCard(props) {
     }, []);
     useEffect(() => {
         if (memberKeep.memberId !== "" && memberKeep.roomSid !== "") {
-            console.log("aaa");
             postData();
         }
     }, [memberKeep]);
 
-    // const [dimensions, setDimensions] = React.useState({
-    //     width: window.innerWidth,
-    // });
-
-    // useEffect(() => {
-    //     function handleResize() {
-    //         setDimensions({
-    //             width: window.innerWidth,
-    //         });
-    //     }
-
-    //     window.addEventListener("resize", handleResize);
-    //     return (_) => {
-    //         window.removeEventListener("resize", handleResize);
-    //     };
-    // }, []);
     return (
         <>
             <div className="room_card_flex">
@@ -129,29 +123,41 @@ function BookingCard(props) {
                                         <p>晚</p>
                                     </div>
                                     <div className="room_card_button_area">
-                                        <Link to="/shuyoung/Booking/BookingDetail">
-                                            <button
-                                                className="room_card_button"
-                                                onClick={() => {
-                                                    setBookingList({
-                                                        ...BookingList,
-                                                        roomSid: v.sid,
-                                                        adults: 4,
-                                                        kids: 2,
-                                                    });
-                                                }}
+                                        <div class="room_card_btn_area">
+                                            <Link to="/shuyoung/Booking/BookingDetail">
+                                                <button
+                                                    className="room_card_button"
+                                                    onClick={() => {
+                                                        setBookingList({
+                                                            ...BookingList,
+                                                            roomSid: v.sid,
+                                                            adults: 4,
+                                                            kids: 2,
+                                                        });
+                                                    }}
+                                                >
+                                                    <span>點我訂房</span>
+                                                </button>
+                                            </Link>
+                                        </div>
+
+                                        <div class="keep_button">
+                                            <input
+                                                className="checkbox-tools"
+                                                type="checkbox"
+                                                name="keep"
+                                                id={"keepBtn" + i}
+                                                value={v.sid}
+                                                onClick={keepHandler}
+                                            />
+                                            <label
+                                                className="for-checkbox-tools"
+                                                htmlFor={"keepBtn" + i}
                                             >
-                                                <span>點我訂房</span>
-                                            </button>
-                                        </Link>
-                                        <button
-                                            className="room_card_button"
-                                            onClick={() => {
-                                                keepHandler(v.sid);
-                                            }}
-                                        >
-                                            <span>點我收藏</span>
-                                        </button>
+                                                <AiOutlineHeart className="outlineHeart" />
+                                                <AiFillHeart className="fillHeart" />
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
