@@ -10,7 +10,7 @@ const MLogin = () => {
         password: "",
     });
 
-    const { setAuth, ...auth } = useAuth();
+    const { setAuth } = useAuth();
 
     const changeFields = (event) => {
         const id = event.target.id;
@@ -41,12 +41,10 @@ const MLogin = () => {
             .then((r) => r.json())
             .then((result) => {
                 if (result.success) {
-                    console.log(result);
-                    alert("登入成功，即將跳轉至會員頁面");
                     localStorage.setItem("auth", JSON.stringify(result.data));
-
+                    alert("登入成功，即將跳轉至會員頁面");
                     setAuth({
-                        ...result.data.row,
+                        ...result.data,
                         authorized: true,
                     });
                     navigate("/shuyoung/Member");

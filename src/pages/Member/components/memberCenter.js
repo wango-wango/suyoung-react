@@ -38,12 +38,12 @@ const MemberCenter = () => {
 
     const getUserData = async () => {
         await axios
-            .get(`http://localhost:3700/member/${auth.m_id}`)
+            .get(`http://localhost:3700/member/${auth.sid}`)
             .then((res) => {
                 if (res) {
                     console.log(res.data.user);
                     const newAuth = res.data.user;
-                    setAuth({ ...auth, ...newAuth });
+                    setAuth({ authorized: true, ...newAuth });
                 } else {
                     alert("查無會員資料");
                 }
