@@ -3,7 +3,7 @@ import data from './Content.json'
 
 const CarouselMapDesc = (props) => {
   const mapData = [...data]
-
+  const {setStep} = props;
   const { title, content } = mapData[props.step]
 
   return (
@@ -13,7 +13,7 @@ const CarouselMapDesc = (props) => {
       <p>{content}</p>
       <div>
         <br />
-        <button className='seemore_map' onClick={()=>{window.location.href="http://localhost:3777/shuyoung/sumap/beauty"}}>點擊查看更多</button>
+        <button className='seemore_map' onClick={()=>{setStep(1)}}>點擊查看更多</button>
       </div>
     </Fragment>
   )
