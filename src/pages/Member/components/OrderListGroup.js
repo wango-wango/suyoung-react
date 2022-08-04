@@ -129,10 +129,10 @@ const OrderListGroup = () => {
                                 </div>
                             </div>
                             <div className="total-price">
-                                <div className="btn">
+                                <div className="checkmore-btn">
                                     <a href="#">點我看地圖</a>
                                 </div>
-                                <div className="btn">
+                                <div className="checkmore-btn">
                                     <a href="#">點我看房型介紹</a>
                                 </div>
                                 <div>

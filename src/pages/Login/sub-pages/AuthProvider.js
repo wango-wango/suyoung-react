@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
         account: "",
         token: "",
     };
+
     // 先查看 localStorage 的資料是否表示已登入
     const localAuthStr = localStorage.getItem("auth");
     let localAuth = { ...unAuthState };
@@ -25,11 +26,12 @@ export const AuthProvider = ({ children }) => {
         try {
             localAuth = JSON.parse(localAuthStr);
             if (localAuth.account && localAuth.token) {
-                localAuth = { ...localAuth };
+                localAuth = { ...localAuth, authorized: true };
             }
         } catch (ex) {}
     }
-    const [auth, setAuth] = useState({ ...localAuth.row, authorized: true });
+
+    const [auth, setAuth] = useState(localAuth);
 
     const navigate = useNavigate();
 
@@ -39,20 +41,15 @@ export const AuthProvider = ({ children }) => {
         navigate("/Shuyoung/login");
     };
 
-    // // const getUserData = async () => {};
-
     // const login = async () => {
-    //     setAuth({ ...localAuth, authorized: true });
-    //     await axios
-    //         .get(`http://localhost:3700/member/${auth.sid}`)
-    //         .then((res) => {
-    //             if (res) {
-    //                 console.log(res.data.user);
-    //                 setMemberData({ ...res.data.user });
-    //             } else {
-    //                 alert("查無會員資料");
-    //             }
-    //         });
+    //     await axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
+    //         if (res) {
+    //             console.log(res.data.user);
+    //             setMemberData({ ...res.data.user });
+    //         } else {
+    //             alert("查無會員資料");
+    //         }
+    //     });
     // };
 
     return (

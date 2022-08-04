@@ -1,57 +1,64 @@
-import { Carousel } from 'react-carousel-minimal';
+// import { Carousel } from 'react-carousel-minimal';
+import ImageGallery from 'react-image-gallery';
+import React from 'react';
 import { FaBullseye } from 'react-icons/fa';
-import data from './MapPicture.json'
+import data from './MapPicture2.json'
 
 const CarouselMap = (props) => {
+      return <ImageGallery 
+      items={data[props.step]}
+      />;
+      // 要則帶入參數？是不是class就沒辦法處理
+      // https://github.com/xiaolin/react-image-gallery
+    }
 
-    const captionStyle = {
-            fontSize: '2em',
-            fontWeight: 'bold',
-          }
-    const slideNumberStyle = {
-            fontSize: '20px',
-            fontWeight: 'bold',
-          }
-    return (
-            <div className="App">
-              <div style={{ textAlign: "center" }}>
-                <div style={{
-                  padding: "0 20px"
-                }}>
-                  <Carousel
-                    data={data[props.step]}
-                    time={1500}
-                    width="650px"
-                    height="350px"
-                    opacity="1"
-                    captionStyle={captionStyle}
-                    radius="10px"
-                    slideNumber={true}
-                    slideNumberStyle={slideNumberStyle}
-                    captionPosition="bottom"
-                    automatic={true}
-                    dots={true}
-                    pauseIconColor="white"
-                    pauseIconSize="40px"
-                    slideBackgroundColor="white"
-                    slideImageFit="cover"
-                    thumbnails={true}
-                    thumbnailWidth="100px"
-                    style={{
-                      textAlign: "center",
-                      maxWidth: "850px",
-                      maxHeight: "500px",
-                      margin: "40px auto",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          );   
-
-}
 
 export default CarouselMap;
+
+// const captionStyle = {
+//   fontSize: '2em',
+//   fontWeight: 'bold',
+// }
+// const slideNumberStyle = {
+//   fontSize: '20px',
+//   fontWeight: 'bold',
+// }
+// return (
+//   <div className="App">
+//     <div style={{ textAlign: "center" }}>
+//       <div style={{
+//         padding: "0 20px"
+//       }}>
+//         <Carousel
+//           data={data[props.step]}
+//           time={1500}
+//           width="650px"
+//           height="350px"
+//           opacity="1"
+//           captionStyle={captionStyle}
+//           radius="10px"
+//           slideNumber={true}
+//           slideNumberStyle={slideNumberStyle}
+//           captionPosition="bottom"
+//           automatic={true}
+//           dots={true}
+//           pauseIconColor="white"
+//           pauseIconSize="40px"
+//           slideBackgroundColor="white"
+//           slideImageFit="cover"
+//           thumbnails={true}
+//           thumbnailWidth="100px"
+//           style={{
+//             textAlign: "center",
+//             maxWidth: "850px",
+//             maxHeight: "500px",
+//             margin: "40px auto",
+//           }}
+//         />
+//       </div>
+//     </div>
+//   </div>
+// );   
 
 // function App() {
 //  const data = [
