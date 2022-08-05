@@ -1,12 +1,14 @@
 // import { Carousel } from 'react-carousel-minimal';
 import ImageGallery from 'react-image-gallery';
 import React from 'react';
-import { FaBullseye } from 'react-icons/fa';
-import data from './MapPicture2.json'
+// import { FaBullseye } from 'react-icons/fa';
+import data from './MapPicture.json'
 
 const CarouselMap = (props) => {
       return <ImageGallery 
       items={data[props.step]}
+      autoPlay={true}
+
       />;
       // 要則帶入參數？是不是class就沒辦法處理
       // https://github.com/xiaolin/react-image-gallery
