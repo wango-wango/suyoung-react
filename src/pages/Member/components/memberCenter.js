@@ -33,21 +33,23 @@ const MemberCenter = () => {
     useEffect(() => {
         if (auth.authorized === true) {
             getUserData();
+            console.log("getting userdata");
         }
     }, [auth.authorized]);
 
-    const getUserData = async () => {
-        await axios
-            .get(`http://localhost:3700/member/${auth.sid}`)
-            .then((res) => {
-                if (res) {
-                    console.log(res.data.user);
-                    const newAuth = res.data.user;
-                    setAuth({ authorized: true, ...newAuth });
-                } else {
-                    alert("查無會員資料");
-                }
-            });
+    const sid = JSON.parse(localStorage.getItem("auth")).sid;
+    console.log(sid);
+
+    const getUserData = () => {
+        axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
+            if (res) {
+                console.log(res.data.user);
+                const newAuth = res.data.user;
+                setAuth({ authorized: true, ...newAuth });
+            } else {
+                alert("查無會員資料");
+            }
+        });
     };
 
     //==============dark mode============
@@ -220,8 +222,7 @@ const MemberCenter = () => {
                                         }}
                                     >
                                         <img src={auth.m_avatar} alt="" />
-                                        {auth.m_first_name}
-                                        {auth.m_last_name}
+                                        {auth.m_last_name} {auth.m_first_name}
                                     </div>
                                 </li>
                             </ul>

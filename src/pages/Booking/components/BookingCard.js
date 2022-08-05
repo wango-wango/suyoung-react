@@ -45,7 +45,7 @@ function BookingCard(props) {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
             console.log(response.data);
-            console.log(auth.sid);
+            console.log(auth.m_id);
         });
     };
 

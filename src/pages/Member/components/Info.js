@@ -23,8 +23,8 @@ const Info = () => {
     const [fields, setFields] = useState({
         m_id: auth.m_id,
         lastname: auth.m_last_name,
-        avatar: auth.m_avatar,
         firstname: auth.m_first_name,
+        avatar: auth.m_avatar,
         birthday: auth.m_birthday,
         email: auth.m_email,
         phone: auth.m_phone,
@@ -32,6 +32,17 @@ const Info = () => {
         county: auth.m_city,
         area: auth.m_area,
     });
+
+    const getUserData = () => {
+        axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
+            if (res) {
+                console.log(res.data.user);
+                setAuth({ ...auth, ...res.data.user });
+            } else {
+                alert("查無會員資料");
+            }
+        });
+    };
 
     const handleFieldsChange = (e) => {
         setFields({ ...fields, [e.target.name]: e.target.value });
@@ -46,6 +57,8 @@ const Info = () => {
         );
 
         alert("資料修改完成");
+
+        getUserData();
 
         console.log(res);
     };
@@ -64,19 +77,6 @@ const Info = () => {
             setSelectedFile(null);
             // setImgServerUrl("");
         }
-    };
-
-    const getUserData = async () => {
-        await axios
-            .get(`http://localhost:3700/member/${auth.sid}`)
-            .then((res) => {
-                if (res) {
-                    console.log(res.data.user);
-                    setAuth({ ...auth, ...res.data.user });
-                } else {
-                    alert("查無會員資料");
-                }
-            });
     };
 
     // const handleSubmission = () => {
@@ -294,7 +294,12 @@ const Info = () => {
                                     onChange={changeHandler}
                                 />
                             </label>
-                            <button onClick={tryUpload}>確定</button>
+                            <button
+                                className="avatar-check"
+                                onClick={tryUpload}
+                            >
+                                確定
+                            </button>
                         </div>
                     </div>
                 </div>

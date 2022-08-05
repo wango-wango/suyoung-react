@@ -54,8 +54,7 @@ const MemberCenterCenter = () => {
                         </div>
                         <div className="member-card-right">
                             <div className="member-name">
-                                {auth.m_last_name}
-                                {auth.m_first_name}
+                                {auth.m_last_name} {auth.m_first_name}
                             </div>
                             <div className="member-title-container">
                                 <div className="title-icon">

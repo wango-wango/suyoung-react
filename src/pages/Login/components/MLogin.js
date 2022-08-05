@@ -43,6 +43,7 @@ const MLogin = () => {
                 if (result.success) {
                     localStorage.setItem("auth", JSON.stringify(result.data));
                     alert("登入成功，即將跳轉至會員頁面");
+                    console.log({ ...result.data });
                     setAuth({
                         ...result.data,
                         authorized: true,
