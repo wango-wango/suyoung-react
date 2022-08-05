@@ -45,11 +45,12 @@
         object-fit: cover;
     }
 }
-
-h1 {
-    color: #ffffff;
+.weatherCtrl {
+    position: absolute;
+    top: 150px;
+    left: 100px;
+    z-index: 10;
 }
-
 .textCenter {
     text-align: center;
 }
@@ -183,13 +184,6 @@ h1 {
     padding: 5rem 5rem 1rem 5rem;
     transition: transform var(--d) var(--e);
     z-index: 1;
-}
-
-.title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    line-height: 1.2;
-    text-align: left;
 }
 
 .cardDes {
