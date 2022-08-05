@@ -18,9 +18,13 @@ const SuMapContent = (props) => {
 
   const [step, setStep] = useState(0)
   // 動態元件
-  const components = [[MapCont,MapBeauty],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily]];
+  const components = [[MapCont,MapBeauty],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily],[MapCont,MapFamily],[MapCont,MapFamily],[MapCont,MapFamily]];
 
   const BlockComponent = components[contentIndex][step];
+
+// const components = [MapCont, MapBeauty]
+// const BlockComponent = components[step]
+
   const modalOpen = (i) => {
     // 這裡設定content要抓取的資料索引值
     setContentIndex(i)
@@ -28,6 +32,9 @@ const SuMapContent = (props) => {
     setDisplayModal(true)
     // setStep(i);
   }
+console.log(modalOpen.setmapPicIndex)
+
+
   const modalClose = () => {
     setDisplayModal(false)
   }
