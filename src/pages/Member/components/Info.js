@@ -2,40 +2,47 @@ import React, { useContext, useEffect, useState } from "react";
 import "../styles/member-form.scss";
 import { motion } from "framer-motion";
 import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
-import AuthContext from "../../Login/sub-pages/AuthContext";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
 
 import TWZipCode from "./TWZipCode";
 import axios from "axios";
 
-const Info = (props) => {
-    const { member } = props;
-
-    const { memberData, setMemberData } = MemberInfo();
+const Info = () => {
+    const { setAuth, ...auth } = useAuth();
 
     const [selectedFile, setSelectedFile] = useState(null);
 
     const [isFilePicked, setIsFilePicked] = useState(false);
 
-    const [preview, setPreview] = useState(member.m_avatar);
+    const [preview, setPreview] = useState("");
 
     const [imgServerUrl, setImgServerUrl] = useState("");
 
     //選擇檔案更動時建立預覽圖
 
-    const { ...auth } = useContext(AuthContext);
-
     const [fields, setFields] = useState({
-        m_id: member.m_id,
-        lastname: member.m_last_name,
-        avatar: member.m_avatar,
-        firstname: member.m_first_name,
-        birthday: member.m_birthday,
-        email: member.m_email,
-        phone: member.m_phone,
-        address: member.m_addr,
-        county: member.m_city,
-        area: member.m_area,
+        m_id: auth.m_id,
+        lastname: auth.m_last_name,
+        firstname: auth.m_first_name,
+        avatar: auth.m_avatar,
+        birthday: auth.m_birthday,
+        email: auth.m_email,
+        phone: auth.m_phone,
+        address: auth.m_addr,
+        county: auth.m_city,
+        area: auth.m_area,
     });
+
+    const getUserData = () => {
+        axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
+            if (res) {
+                console.log(res.data.user);
+                setAuth({ ...auth, ...res.data.user });
+            } else {
+                alert("查無會員資料");
+            }
+        });
+    };
 
     const handleFieldsChange = (e) => {
         setFields({ ...fields, [e.target.name]: e.target.value });
@@ -45,9 +52,13 @@ const Info = (props) => {
         e.preventDefault();
 
         const res = await axios.put(
-            `http://localhost:3700/member/${member.m_id}`,
+            `http://localhost:3700/member/${auth.m_id}`,
             fields
         );
+
+        alert("資料修改完成");
+
+        getUserData();
 
         console.log(res);
     };
@@ -55,51 +66,81 @@ const Info = (props) => {
     const changeHandler = (e) => {
         const file = e.target.files[0];
 
-        console.log(file);
+        console.log(file.name);
 
         if (file) {
             setIsFilePicked(true);
             setSelectedFile(file);
-            setImgServerUrl("");
+            // setImgServerUrl("");
         } else {
             setIsFilePicked(false);
             setSelectedFile(null);
-            setImgServerUrl("");
+            // setImgServerUrl("");
         }
     };
 
-    const handleSubmission = () => {
-        console.log("123");
-        const formData = new FormData();
+    // const handleSubmission = () => {
+    //     const formData = new FormData();
 
-        formData.append("avatar", selectedFile);
+    //     formData.append("avatar", selectedFile);
 
-        fetch(`http://localhost:3700/member/upload-avatar/${member.m_id}`, {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result);
+    //     fetch(
+    //         "http://localhost:3700/member/upload-avatar", //server url
+    //         {
+    //             method: "POST",
+    //             body: formData,
+    //         }
+    //     )
+    //         .then((response) => response.json())
+    //         .then((result) => {
+    //             console.log(result);
+    //             setImgServerUrl(
+    //                 "http://localhost:3700/avatar_img/" + result.data.name
+    //             );
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error:", error);
+    //         });
+    // };
 
-                setImgServerUrl(
-                    "http://localhost:3700/avatar_imgs/" + result.data.name
-                );
+    const tryUpload = async () => {
+        const url = {
+            avatar: `http://localhost:3700/avatar_img/${selectedFile.name}`,
+            sid: auth.m_id,
+        };
 
-                setMemberData({
-                    ...memberData,
-                    m_avatar:
-                        "http://localhost:3700/avatar_imgs/" + result.data.name,
-                });
+        const res = await axios.put(
+            "http://localhost:3700/member/try-upload",
+            url
+        );
 
-                setPreview(
-                    "http://localhost:3700/avatar_imgs/" + result.data.name
-                );
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        setImgServerUrl(url.avatar);
+
+        setAuth({ ...auth, m_avatar: url.avatar });
+
+        // getUserData();
+
+        console.log(res);
     };
+
+    // useEffect(() => {
+    //     if (imgServerUrl !== "") {
+    //     }
+    // }, [imgServerUrl]);
+
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview("");
+            return;
+        }
+
+        const objectUrl = URL.createObjectURL(selectedFile);
+        console.log(objectUrl);
+        setPreview(objectUrl);
+
+        // 當元件unmounted時清除記憶體
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedFile]);
 
     //拖曳上傳
     useEffect(() => {
@@ -110,13 +151,13 @@ const Info = (props) => {
 
         // const dropZone = document.querySelector(".drop-zone");
 
-        if (avatar.src !== "") {
-            label.classList.add("active");
-            para.style.display = "none";
-        }
+        // if (avatar.src !== "") {
+        //     label.classList.add("light-active");
+        //     para.style.display = "none";
+        // }
 
         input.addEventListener("change", (e) => {
-            label.classList.add("active");
+            label.classList.add("light-active");
             para.style.display = "none";
         });
 
@@ -124,25 +165,6 @@ const Info = (props) => {
         //     input.click();
         // });
     }, []);
-
-    useEffect(() => {
-        if (!selectedFile) {
-            // setPreview("");
-            return;
-        }
-
-        const objectUrl = URL.createObjectURL(selectedFile);
-        console.log(objectUrl);
-        setPreview(objectUrl);
-
-        //元件unMount時清除記憶體
-
-        return () => URL.revokeObjectURL(objectUrl);
-    }, [selectedFile]);
-
-    useEffect(() => {
-        setFields({ ...fields, avatar: preview });
-    }, [preview]);
 
     return (
         <>
@@ -152,7 +174,7 @@ const Info = (props) => {
                 transition={{ duration: 0.5 }}
                 className="member-body"
             >
-                <div className="title">會員資料</div>
+                <div className="member-title">會員資料</div>
                 <div className="form-container">
                     <div className="left">
                         <form onSubmit={handleUpdate}>
@@ -164,7 +186,7 @@ const Info = (props) => {
                                             name="lastname"
                                             type="text"
                                             placeholder="姓"
-                                            defaultValue={member.m_last_name}
+                                            defaultValue={auth.m_last_name}
                                             onChange={handleFieldsChange}
                                         />
                                     </div>
@@ -176,7 +198,7 @@ const Info = (props) => {
                                             type="text"
                                             name="firstname"
                                             placeholder="名"
-                                            defaultValue={member.m_first_name}
+                                            defaultValue={auth.m_first_name}
                                             onChange={handleFieldsChange}
                                         />
                                     </div>
@@ -188,7 +210,7 @@ const Info = (props) => {
                                     <input
                                         name="birthday"
                                         type="date"
-                                        defaultValue={member.m_birthday}
+                                        defaultValue={auth.m_birthday}
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
@@ -200,7 +222,7 @@ const Info = (props) => {
                                         name="email"
                                         type="email"
                                         placeholder="電子郵件"
-                                        defaultValue={member.m_email}
+                                        defaultValue={auth.m_email}
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
@@ -212,7 +234,7 @@ const Info = (props) => {
                                         name="phone"
                                         type="text"
                                         placeholder="行動電話"
-                                        defaultValue={member.m_phone}
+                                        defaultValue={auth.m_phone}
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
@@ -240,24 +262,23 @@ const Info = (props) => {
                                     <input
                                         name="address"
                                         type="text"
+                                        defaultValue={auth.m_addr}
                                         placeholder="地址"
                                         onChange={handleFieldsChange}
                                     />
                                 </div>
                             </div>
 
-                            <button type="submit" onClick={handleSubmission}>
-                                更新檔案
-                            </button>
+                            <button type="submit">更新檔案</button>
                         </form>
                     </div>
                     <div className="right">
-                        <div className="title">上傳大頭貼：</div>
+                        <div className="member-title">上傳大頭貼：</div>
                         <div>
                             <label htmlFor="file" className="file-input">
                                 <div className="drop-zone">
                                     <p className="para">請選擇檔案</p>
-                                    {preview && (
+                                    {preview === "" ? null : (
                                         <img
                                             className="avatar"
                                             src={preview}
@@ -269,11 +290,16 @@ const Info = (props) => {
                                     type="file"
                                     name="file"
                                     id="file"
-                                    multiple
                                     accept="image/*"
                                     onChange={changeHandler}
                                 />
                             </label>
+                            <button
+                                className="avatar-check"
+                                onClick={tryUpload}
+                            >
+                                確定
+                            </button>
                         </div>
                     </div>
                 </div>

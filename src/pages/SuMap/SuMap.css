@@ -1,9 +1,11 @@
 
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 .svg_box{
   height: 90vh;
   width: 100%;
   background-color: #BCD38D;
-  background-image: url('./components/mapfinal187502.svg');
+  background-image: url('../../../public/map_imgs/mapfinal187503.svg');
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -269,6 +271,54 @@ transition: all 0.5s;
 }
 
 .buqiuren:hover{
+    transform: scale(1.15);
+    transition: 0.5s;
+   }
+
+   .buqiuren2{
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    right: 400px;
+    bottom: 335px;
+}
+
+.buqiuren2:hover{
+    transform: scale(1.15);
+    transition: 0.5s;
+   }
+
+.buqiuren3{
+    position: absolute;
+    width: 120px;
+    height: 100px;
+    left: 780px;
+    bottom: 365px;
+}
+
+.buqiuren3:hover{
+    transform: scale(1.15);
+    transition: 0.5s;
+   }
+
+   .luyingche1{
+    position: absolute;
+    left: 580px;
+    bottom: 105px;
+}
+
+   .luyingche1:hover{
+    transform: scale(1.15);
+    transition: 0.5s;
+   }
+
+   .luyingche2{
+    position: absolute;
+    left: 380px;
+    bottom: 35px;
+}
+
+   .luyingche2:hover{
     transform: scale(1.15);
     transition: 0.5s;
    }

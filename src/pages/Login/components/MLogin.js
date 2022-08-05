@@ -1,7 +1,7 @@
 import "../styles/login.scss";
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../sub-pages/AuthContext";
+import { useAuth } from "../sub-pages/AuthProvider";
 import axios from "axios";
 
 const MLogin = () => {
@@ -10,11 +10,7 @@ const MLogin = () => {
         password: "",
     });
 
-    // const [auth, setAuth] = useState(false);
-
-    const { login, sid, setAuth, ...auth } = useContext(AuthContext);
-
-    console.log(auth);
+    const { setAuth } = useAuth();
 
     const changeFields = (event) => {
         const id = event.target.id;
@@ -45,11 +41,13 @@ const MLogin = () => {
             .then((r) => r.json())
             .then((result) => {
                 if (result.success) {
-                    alert("登入成功，即將跳轉至會員頁面");
                     localStorage.setItem("auth", JSON.stringify(result.data));
-                    // setAuth(true);
-
-                    login();
+                    alert("登入成功，即將跳轉至會員頁面");
+                    console.log({ ...result.data });
+                    setAuth({
+                        ...result.data,
+                        authorized: true,
+                    });
                     navigate("/shuyoung/Member");
                 } else if (result.code === 401) {
                     alert("查無此帳號，請先申請會員");
@@ -67,8 +65,8 @@ const MLogin = () => {
                     <div className="login-title">舒營-會員登入</div>
                     <div className="login-card">
                         <form onSubmit={whenSubmit}>
-                            <div className="title">帳號：</div>
-                            <div className="group">
+                            <div className="account-title">帳號：</div>
+                            <div className="account-group">
                                 <input
                                     className="login-input"
                                     type="text"
@@ -80,8 +78,8 @@ const MLogin = () => {
                                 />
                                 <label>Username</label>
                             </div>
-                            <div className="title">密碼：</div>
-                            <div className="group">
+                            <div className="account-title">密碼：</div>
+                            <div className="account-group">
                                 <input
                                     className="login-input"
                                     type="text"

@@ -14,7 +14,7 @@ const MemberLevel = () => {
                 transition={{ duration: 0.5 }}
                 className="member-body"
             >
-                <div className="title">會員等級</div>
+                <div className="member-title">會員等級</div>
                 <div className="flex-container">
                     <div className="left">
                         <motion.div
@@ -102,7 +102,7 @@ const MemberLevel = () => {
                                 duration: 0.5,
                             }}
                         >
-                            <div className="outdoor-beginner active">
+                            <div className="outdoor-beginner light-active">
                                 <div className="top-title">
                                     <div className="left">
                                         <svg
@@ -138,7 +138,7 @@ const MemberLevel = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="line"></div>
+                            <div className="light-line"></div>
                             <div className="medium-outdoor-player">
                                 <div className="top-title">
                                     <div className="left">
@@ -177,10 +177,10 @@ const MemberLevel = () => {
                                                     width="78.8125"
                                                     height="81"
                                                     filterUnits="userSpaceOnUse"
-                                                    color-interpolation-filters="sRGB"
+                                                    colorInterpolationFilters="sRGB"
                                                 >
                                                     <feFlood
-                                                        flood-opacity="0"
+                                                        floodOpacity="0"
                                                         result="BackgroundImageFix"
                                                     />
                                                     <feColorMatrix
@@ -224,7 +224,7 @@ const MemberLevel = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="line"></div>
+                            <div className="light-line"></div>
                             <div className="advanced-outdoor-player">
                                 <div className="top-title">
                                     <div className="left">

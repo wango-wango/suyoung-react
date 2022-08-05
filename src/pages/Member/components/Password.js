@@ -47,7 +47,7 @@ const Password = (props) => {
             transition={{ duration: 0.5 }}
             className="member-body"
         >
-            <div className="title">修改密碼</div>
+            <div className="member-title">修改密碼</div>
             <div className="update-password">
                 <form onSubmit={handleUpdate}>
                     <div>

@@ -4,6 +4,10 @@ import React, { useState } from 'react'
 import Modal from './Modal/Modal'
 import CarouselMap from './CarouselMap'
 import CarouselMapDesc from './CarouselMapDesc'
+import MapCont from './MapCont'
+import MapBeauty from './MapBeauty'
+import MapYourself from './MapYourself'
+import MapFamily from './MapFamily'
 
 const SuMapContent = (props) => {
 
@@ -12,6 +16,15 @@ const SuMapContent = (props) => {
   const [contentIndex, setContentIndex] = useState(0)
   const [mapPicIndex,setmapPicIndex] =useState(0)
 
+  const [step, setStep] = useState(0)
+  // 動態元件
+  const components = [[MapCont,MapBeauty],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily],[MapCont,MapFamily],[MapCont,MapFamily],[MapCont,MapFamily]];
+
+  const BlockComponent = components[contentIndex][step];
+
+// const components = [MapCont, MapBeauty]
+// const BlockComponent = components[step]
+
   const modalOpen = (i) => {
     // 這裡設定content要抓取的資料索引值
     setContentIndex(i)
@@ -19,10 +32,14 @@ const SuMapContent = (props) => {
     setDisplayModal(true)
     // setStep(i);
   }
+console.log(modalOpen.setmapPicIndex)
+
 
   const modalClose = () => {
     setDisplayModal(false)
   }
+
+
 
 
 return <div className="svg_box">
@@ -35,21 +52,7 @@ return <div className="svg_box">
         </div>
         <Modal show={displayModal} modalClose={modalClose}>
         {/* 輪播墻外掛https://reactjsexample.com/easy-to-use-responsive-and-customizable-carousel-component-for-react/  */}
-        <React.Fragment>
-          <div className='popup_window'>
-            <CarouselMap step={mapPicIndex}/>
-            {/* TODO:輪播墻的內容要如何使用json檔呈現？本身是套件好像不能擅自更動？ */}
-            {/* 這裡呈現資料，content與contentIndex會找到對應的 */}
-            {/* {content[contentIndex]} */}
-            <div className='popup_content_right'>
-              <CarouselMapDesc step={contentIndex} />
-              {/*TODO:這邊是要怎麼去呈現CarouselMapDesc的內容（隨著內容點擊切換component的資料） step={step} ？ */}
-            </div>
-            <button className='popup_exit_btn' onClick={modalClose}>
-              X
-            </button>
-          </div>
-        </React.Fragment>
+        <BlockComponent setDisplayModal={setDisplayModal} mapPicIndex={mapPicIndex} contentIndex={contentIndex} setStep={setStep}/>
       </Modal>
     </div>
 </div>

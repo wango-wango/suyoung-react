@@ -4,7 +4,8 @@ import "../styles/member-credit-card.scss";
 import { motion } from "framer-motion";
 import CreditCardCard from "./CreditCardCard";
 
-const CreditCard = () => {
+const CreditCard = (props) => {
+    const { auth } = props;
     return (
         <>
             <motion.div
@@ -13,7 +14,7 @@ const CreditCard = () => {
                 transition={{ duration: 0.5 }}
                 className="member-body"
             >
-                <div className="title">信用卡管理</div>
+                <div className="member-title">信用卡管理</div>
                 <div className="credit-card-container">
                     <CreditCardCard />
                     <div className="card-btn">

@@ -2,7 +2,8 @@ import React from "react";
 import "../styles/member-coupon.scss";
 import { motion } from "framer-motion";
 
-const Coupon = () => {
+const Coupon = (props) => {
+    const { auth } = props;
     return (
         <>
             <motion.div
@@ -12,7 +13,7 @@ const Coupon = () => {
                 className="member-body"
             >
                 <div className="coupon-container">
-                    <div className="title">我的優惠券</div>
+                    <div className="member-title">我的優惠券</div>
                     <div className="coupon-box">
                         <div className="left">
                             <div className="coupon">

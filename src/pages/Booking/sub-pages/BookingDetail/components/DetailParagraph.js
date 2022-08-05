@@ -1,64 +1,73 @@
 import React, { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+    ScrollMotionContainer,
+    ScrollMotionItem,
+} from "../../../components/scrollMotion";
 
 function DetailParagraph(props) {
-    gsap.registerPlugin(ScrollTrigger);
+    const { ruleList } = props;
+    console.log(ruleList);
+
     useEffect(() => {
-        // 製作內容文字(到時候撈資料庫跑map)
-        const roomDetailParagraph = document.querySelector(
-            ".room_detail_paragraph"
-        );
-        let htmlContainer = "";
-
-        for (let i = 0; i < 6; i++) {
-            htmlContainer += `<div class="project-trigger">
-            <div class="description">
-                <h3 class="project-text">Title</h3>
-                <h4 class="project-text">November 2020</h4>
-                <p class="project-text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Fuga impedit numquam modi accusamus iusto eaque
-                    libero velit saepe tempore!
-                </p>
-            </div>
-        </div>`;
-        }
-        roomDetailParagraph.innerHTML = htmlContainer;
-
+        if (ruleList.length === 0) return;
         // gsap 特效
-        const projectTriggers = document.querySelectorAll(".project-trigger");
+    }, [ruleList]);
 
-        projectTriggers.forEach(addTimeline);
-
-        function addTimeline(description, index) {
-            const text = description.querySelectorAll(".project-text");
-
-            const timeline = gsap
-                .timeline({
-                    scrollTrigger: {
-                        trigger: description,
-                        start: "center bottom",
-                        ease: "power2",
-                        toggleActions: "play none none reverse",
-                    },
-                })
-
-                .from(
-                    text,
-                    {
-                        y: 100,
-                        opacity: 0,
-                        duration: 1,
-                        stagger: 0.2,
-                    },
-                    "-=0.5"
-                );
-        }
-    }, []);
+    if (ruleList.length === 0) return;
     return (
         <>
-            <div className="room_detail_paragraph"></div>
+            <div className="room_detail_paragraph">
+                <ScrollMotionContainer element="div" className="description">
+                    <ScrollMotionItem element="h4" className="project-text">
+                        營業時間
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        check-in : {ruleList[0].check_in}
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        check-in : {ruleList[0].check_out}
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        Business-time : {ruleList[0].Business_hour}
+                    </ScrollMotionItem>
+                </ScrollMotionContainer>
+
+                <ScrollMotionContainer element="div" className="description">
+                    <ScrollMotionItem element="h4" className="project-text">
+                        Check-in Roles
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        {ruleList[0].Checkin_Roles}
+                    </ScrollMotionItem>
+                </ScrollMotionContainer>
+
+                <ScrollMotionContainer element="div" className="description">
+                    <ScrollMotionItem element="h4" className="project-text">
+                        Pets-Roles
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        {ruleList[0].Pets_Roles}
+                    </ScrollMotionItem>
+                </ScrollMotionContainer>
+
+                <ScrollMotionContainer element="div" className="description">
+                    <ScrollMotionItem element="h4" className="project-text">
+                        Room Info
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        {ruleList[0].hotel_Info}
+                    </ScrollMotionItem>
+                </ScrollMotionContainer>
+
+                <ScrollMotionContainer element="div" className="description">
+                    <ScrollMotionItem element="h4" className="project-text">
+                        Precautions
+                    </ScrollMotionItem>
+                    <ScrollMotionItem element="p" className="project-text">
+                        {ruleList[0].Precautions}
+                    </ScrollMotionItem>
+                </ScrollMotionContainer>
+            </div>
         </>
     );
 }

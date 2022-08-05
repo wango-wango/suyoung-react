@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 
 import axios from "axios";
 
-import AuthContext from "./AuthContext";
-
 import { useNavigate } from "react-router-dom";
+
+const AuthContext = createContext({
+    authorized: false,
+    sid: 0,
+    account: "",
+    token: "",
+});
 
 export const AuthProvider = ({ children }) => {
     const unAuthState = {
@@ -14,19 +19,14 @@ export const AuthProvider = ({ children }) => {
         token: "",
     };
 
-    //check if localStorage has member token
-
+    // 先查看 localStorage 的資料是否表示已登入
     const localAuthStr = localStorage.getItem("auth");
-
     let localAuth = { ...unAuthState };
-
     if (localAuthStr) {
         try {
             localAuth = JSON.parse(localAuthStr);
-
-            if (localAuth.token) {
+            if (localAuth.account && localAuth.token) {
                 localAuth = { ...localAuth, authorized: true };
-                console.log(localAuth);
             }
         } catch (ex) {}
     }
@@ -37,28 +37,20 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("auth");
-        setAuth({ ...unAuthState, authorized: false });
+        setAuth({ authorized: false, sid: 0, token: "" });
         navigate("/Shuyoung/login");
     };
 
-    const login = () => {
-        setAuth({ ...localAuth, authorized: true });
-    };
-
-    // const checkAuth = async () => {
-    //     const res = await axios.get("http://localhost:3700/join/check-login", {
-    //         withCredentials: true,
+    // const login = async () => {
+    //     await axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
+    //         if (res) {
+    //             console.log(res.data.user);
+    //             setMemberData({ ...res.data.user });
+    //         } else {
+    //             alert("查無會員資料");
+    //         }
     //     });
-
-    //     if (res.data.message === "authorized") {
-    //         const userId = res.data.user.userId;
-    //         setAuth({ isAuth: true, userId });
-    //     }
     // };
-
-    // useEffect(() => {
-    //     checkAuth();
-    // }, []);
 
     return (
         <AuthContext.Provider
@@ -66,10 +58,10 @@ export const AuthProvider = ({ children }) => {
                 ...auth,
                 setAuth,
                 logout,
-                login,
             }}
         >
             {children}
         </AuthContext.Provider>
     );
 };
+export const useAuth = () => useContext(AuthContext);

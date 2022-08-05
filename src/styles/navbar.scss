@@ -120,7 +120,6 @@ p {
     justify-content: space-between;
     align-items: center;
     padding: var(--h5_text) var(--h2_text) var(--h5_text) var(--h2_text);
-    
 
     .left-logo {
         img {
@@ -206,6 +205,10 @@ p {
             }
         }
         .login {
+            a.auth {
+                color: inherit;
+            }
+
             @media screen and (max-width: 768px) {
                 display: none;
             }
@@ -215,6 +218,9 @@ p {
             }
         }
         .cart {
+            a.auth {
+                color: inherit;
+            }
             &:hover svg {
                 transform: rotate(-25deg);
                 color: #468484;

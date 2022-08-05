@@ -157,8 +157,8 @@ p {
 
 
 
-    .room_order_detail {
-        height: 91vh;
+.room_order_detail {
+        // height: 90vh;
         position: relative;
 
         .room_order_container {
@@ -178,14 +178,13 @@ p {
                     width: 70%;
                     display: flex;
                     flex-direction: column;
-                    // justify-content: space-between;
-                    // gap: 2rem;
                     margin-right: 2rem;
 
 
                     .room_Card {
                         width: 100%;
                         @include card_background();
+                        
                         display: flex;
                         margin: 0;
                         padding: 2rem ;
@@ -200,11 +199,9 @@ p {
                                 background: rgba(255, 255, 255, 0.4);
                                 font-size: var(--text_size);
                                 color: var(--primary_color_900);
-
                                 padding: 0;
-
                                 overflow: hidden;
-
+                                border-radius: 1rem;
 
                                 .swiper {
                                     width: 100%;
@@ -213,7 +210,7 @@ p {
 
                                 .swiper-slide {
                                     text-align: center;
-                                    font-size: 18px;
+                                    font-size: var(--text_size);
                                     background: #fff;
 
                                     /* Center slide text vertically */
@@ -236,13 +233,14 @@ p {
                                     width: 100%;
                                     height: 100%;
                                     object-fit: cover;
+                                    border-radius: 0;
                                 }
 
                                 .swiper {
                                     width: 100%;
                                     height: 300px;
-                                    margin-left: auto;
-                                    margin-right: auto;
+                                    
+                                    margin: 0 auto 1rem;
                                 }
 
                                 .swiper-slide {
@@ -253,18 +251,21 @@ p {
                                 .mySwiper2 {
                                     height: 80%;
                                     width: 100%;
+                                    border-radius: 1rem;
                                 }
 
                                 .mySwiper {
                                     height: 20%;
                                     box-sizing: border-box;
                                     padding: 10px 0;
+                                    
                                 }
 
                                 .mySwiper .swiper-slide {
                                     width: 25%;
                                     height: 100%;
                                     opacity: 0.4;
+                                    
                                 }
 
                                 .mySwiper .swiper-slide-thumb-active {
@@ -276,6 +277,7 @@ p {
                                     width: 100%;
                                     height: 100%;
                                     object-fit: cover;
+                                    border-radius: 1rem;
                                 }
 
                             }
@@ -479,8 +481,7 @@ p {
                             display: flex;
                             flex-wrap: wrap;
                             justify-content: flex-start;
-                            margin: auto;
-                            margin: 1rem 3rem;
+                            margin: 1rem 0rem;
 
                             .room_equipment_btn {
                                 border: 1px solid var(--primary_color);
@@ -507,6 +508,7 @@ p {
                 .room_col_right {
                     width: 30%;
                     @include card_background();
+                    margin: 0;
 
 
                     .booking_detail_area {
@@ -622,7 +624,7 @@ p {
             a {
                 padding-top: 70px;
                 position: absolute;
-                bottom: -120px;
+                bottom: -95px;
                 left: 50%;
                 z-index: 2;
                 display: inline-block;
@@ -654,14 +656,14 @@ p {
             }
         
         }
-    }
+}
 
 
 
 
 .room_detail_up {
     padding: var(--h2_text);
-    height: 275vh;
+    height: 360vh;
     background-color: #415f4d;
 
 
@@ -671,165 +673,171 @@ p {
     letter-spacing: 1.2px;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
-
-    .detail_up_title {
-        color: var(--background_color);
-        margin: auto;
-        text-align: center;
-
-    }
-
-    .room_detail_container {
-        // display: flex;
-        // flex-direction: column;
-        // gap: var(--text_size);
-        .filled-text1,
-        .filled-text2,
-        .filled-text3,
-        .filled-text4,
-        .filled-text5,
-        .filled-text6 {
-            z-index: 1;
-            font-size: var(--h1_text);
-            font-weight: 600;
+   
+        .detail_up_title {
             color: var(--background_color);
+            margin: auto;
+            text-align: center;
+    
         }
-
-        .outline-text1,
-        .outline-text2,
-        .outline-text3,
-        .outline-text4,
-        .outline-text5,
-        .outline-text6 {
-            z-index: 3;
-            font-size: var(--h1_text);
-            font-weight: 600;
-            -webkit-text-stroke-width: calc((var(--text_size)) / 3);
-            -webkit-text-stroke-color: var(--background_color);
-            color: transparent;
+    
+        .room_detail_container {
+            // background-color: #ec391e;
+            // display: flex;
+            // flex-direction: column;
+            // gap: var(--text_size);
+            .filled-text1,
+            .filled-text2,
+            .filled-text3,
+            .filled-text4,
+            .filled-text5,
+            .filled-text6 {
+                z-index: 1;
+                font-size: var(--h1_text);
+                font-weight: 600;
+                color: var(--background_color);
+            }
+    
+            .outline-text1,
+            .outline-text2,
+            .outline-text3,
+            .outline-text4,
+            .outline-text5,
+            .outline-text6 {
+                z-index: 3;
+                font-size: var(--h1_text);
+                font-weight: 600;
+                -webkit-text-stroke-width: calc((var(--text_size)) / 3);
+                -webkit-text-stroke-color: var(--background_color);
+                color: transparent;
+            }
+    
+            .image1,
+            .image2,
+            .image3,
+            .image4,
+            .image5,
+            .image6 {
+                z-index: 2;
+                height: var(--gsap_pos);
+                width: auto;
+            }
+    
+            .image1 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) / 2);
+                left: var(--gsap_pos);
+            }
+    
+            .image2 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 1.5 + (var(--gsap_gap)) * 1);
+                right: var(--gsap_pos);
+            }
+    
+            .image3 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 2.5 + (var(--gsap_gap)) * 2);
+                left: var(--gsap_pos);
+            }
+    
+            .image4 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 3.5 + (var(--gsap_gap)) * 3);
+                right: var(--gsap_pos);
+            }
+    
+            .image5 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 4.5 + (var(--gsap_gap)) * 4);
+                left: var(--gsap_pos);
+            }
+    
+            .image6 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 5.5 + (var(--gsap_gap)) * 5);
+                right: var(--gsap_pos);
+            }
+    
+            .filled-text1,
+            .outline-text1 {
+                position: absolute;
+                top: var(--gsap_pos);
+                left: var(--h1_text);
+            }
+    
+            .filled-text2,
+            .outline-text2 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 2 + var(--gsap_gap));
+                right: var(--h1_text);
+            }
+    
+            .filled-text3,
+            .outline-text3 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 3 + (var(--gsap_gap)) * 2);
+                left: var(--h1_text);
+            }
+    
+            .filled-text4,
+            .outline-text4 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 4 + (var(--gsap_gap)) * 3);
+                right: var(--h1_text);
+            }
+    
+            .filled-text5,
+            .outline-text5 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 5 + (var(--gsap_gap)) * 4);
+                left: var(--h1_text);
+            }
+    
+            .filled-text6,
+            .outline-text6 {
+                position: absolute;
+                top: calc((var(--gsap_pos)) * 6 + (var(--gsap_gap)) * 5);
+                right: var(--h1_text);
+            }
+    
         }
-
-        .image1,
-        .image2,
-        .image3,
-        .image4,
-        .image5,
-        .image6 {
-            z-index: 2;
-            height: var(--gsap_pos);
-            width: auto;
-        }
-
-        .image1 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) / 2);
-            left: var(--gsap_pos);
-        }
-
-        .image2 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 1.5 + (var(--gsap_gap)) * 1);
-            right: var(--gsap_pos);
-        }
-
-        .image3 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 2.5 + (var(--gsap_gap)) * 2);
-            left: var(--gsap_pos);
-        }
-
-        .image4 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 3.5 + (var(--gsap_gap)) * 3);
-            right: var(--gsap_pos);
-        }
-
-        .image5 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 4.5 + (var(--gsap_gap)) * 4);
-            left: var(--gsap_pos);
-        }
-
-        .image6 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 5.5 + (var(--gsap_gap)) * 5);
-            right: var(--gsap_pos);
-        }
-
-        .filled-text1,
-        .outline-text1 {
-            position: absolute;
-            top: var(--gsap_pos);
-            left: var(--h1_text);
-        }
-
-        .filled-text2,
-        .outline-text2 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 2 + var(--gsap_gap));
-            right: var(--h1_text);
-        }
-
-        .filled-text3,
-        .outline-text3 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 3 + (var(--gsap_gap)) * 2);
-            left: var(--h1_text);
-        }
-
-        .filled-text4,
-        .outline-text4 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 4 + (var(--gsap_gap)) * 3);
-            right: var(--h1_text);
-        }
-
-        .filled-text5,
-        .outline-text5 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 5 + (var(--gsap_gap)) * 4);
-            left: var(--h1_text);
-        }
-
-        .filled-text6,
-        .outline-text6 {
-            position: absolute;
-            top: calc((var(--gsap_pos)) * 6 + (var(--gsap_gap)) * 5);
-            right: var(--h1_text);
-        }
-
-    }
+    
+    
 }
 
 .room_detail_down {
     width: 100%;
     background-color: var(--primary_color_900);
     padding: 4rem;
-
-    .description {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        margin: auto;
-        width: 50%;
-        color: var(--background_color);
-
-        h3,
-        h4,
-        p {
-            margin-top: 1rem;
-            width: 100%;
+    .room_detail_paragraph{
+        .description {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: auto;
+            width: 50%;
+            color: var(--background_color);
+    
+            h3,
+            h4,
+            p {
+                margin-top: 1rem;
+                width: 100%;
+            }
+    
         }
-
     }
+    
 }
 
 .guess_you_like {
     background-color: var(--brown_color);
-    height: 100vh;
+    
     .guess_container {
         width: 85%;
         margin: auto;
+        padding: 4rem;
         .guess_title {
             margin: auto;
             h1{
@@ -840,6 +848,7 @@ p {
         .guess_card_flex{
             display: flex;
             .guess_card{
+                padding: 1rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -849,6 +858,7 @@ p {
                 background-color: rgba(255, 255, 255, 0.257);
                 width: calc((var(--h1_text)) * 4);
                 .guess_images{
+                    
                     width: 85%;
                     margin: var(--text_size);
                     height: 0;

@@ -108,8 +108,8 @@ const MRegister = () => {
                         >
                             {({ isSubmitting }) => (
                                 <Form>
-                                    <div className="title">帳號：</div>
-                                    <div className="group">
+                                    <div className="account-title">帳號：</div>
+                                    <div className="account-group">
                                         <Field
                                             autoComplete="off"
                                             className="login-input"
@@ -127,8 +127,8 @@ const MRegister = () => {
 
                                         <label>Username</label>
                                     </div>
-                                    <div className="title">密碼：</div>
-                                    <div className="group">
+                                    <div className="account-title">密碼：</div>
+                                    <div className="account-group">
                                         <Field
                                             autoComplete="off"
                                             className="login-input"
@@ -163,8 +163,8 @@ const MRegister = () => {
 
                                         <label>Password</label>
                                     </div>
-                                    <div className="title">email:</div>
-                                    <div className="group">
+                                    <div className="account-title">email:</div>
+                                    <div className="account-group">
                                         <Field
                                             autoComplete="off"
                                             className="login-input"

@@ -9,7 +9,15 @@ export const BookingProvider = ({ children }) => {
         adults: "",
         kids: "",
         startDate: "",
-        EndDate: "",
+        endDate: "",
+        perNignt: "",
+        roomType: [],
+        startPrice: "",
+        endPrice: "",
+        tagCheck: [],
+        popular: "",
+        recommand: "",
+        roomSelector: [],
     });
 
     return (
