@@ -19,7 +19,7 @@ import SuMap from "./pages/SuMap/SuMap";
 import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
 // import Create from "./pages/Booking/sub-pages/Create";
-import Cart from "./pages/Carts";
+import Cart from "./pages/Carts/CartItem";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/footer";
 import Layout from "./components/Layout";
