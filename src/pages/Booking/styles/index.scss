@@ -74,14 +74,6 @@
         }
     }
 
-    .css-1smlk3z-MuiPaper-root {
-        div {
-            div {
-                color: rgba(255, 255, 255, 0) !important;
-            }
-        }
-    }
-
     // 東方神秘力量
     @mixin eastern_mistery_force {
         width: 85%;
@@ -201,92 +193,94 @@
             @include eastern_mistery_force;
             background-color: rgba($color: #fff, $alpha: 0.4);
             padding: var(--subtitle_text);
-            height: 90vh;
+            height: 87vh;
             margin-top: 0;
             // overflow: hidden;
 
 
-
-            .booking_area {
-                position: sticky;
-                top: 0;
-                animation: bookingArea 1s ease;
-                width: 100%;
-                height: 10%;
-                @include card_background();
-                display: flex;
-                justify-content: space-between;
-                padding: 0 1%;
-
-
-                .dateRangePicker {
+            .booking_area_container{
+                .booking_area {
+                    position: sticky;
+                    top: 0;
+                    animation: bookingArea 1s ease;
+                    width: 100%;
+                    height: 10%;
+                    @include card_background();
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .booking_person {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    padding: 1rem;
-
-                    label {
-                        margin: auto;
-                    }
-
-                    input {
-                        text-align: center;
-                        font-size: var(--subtitle_text);
-                        display: block;
-                        border: none;
-                        background-color: #fff6e7;
-                        border-radius: var(--h3_text);
-                        color: var(--primary_color);
-                    }
-
-                    .rs-input-number-btn-group-vertical {
-                        display: none;
-                    }
-                }
-
-                .booking_result_date {
-                    span {
-                        font-size: var(--subtitle_text);
-                    }
-
-                    p {
-                        margin: 0;
-                        padding: 0.3rem;
-                    }
-
-
-                }
-
-                .booking_result {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    @media screen and (max-width:768px) {
-                        display: none;
-                    }
-
-                    p {
-                        margin: 0;
-                        padding: 0.3rem;
-                    }
-
-                    span {
-                        font-size: var(--subtitle_text);
-                    }
-
-                    .booking_result_datePicer {
+                    justify-content: space-between;
+                    padding: 0 1%;
+    
+    
+                    .dateRangePicker {
                         display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+    
+                    .booking_person {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        padding: 1rem;
+    
+                        label {
+                            margin: auto;
+                        }
+    
+                        input {
+                            text-align: center;
+                            font-size: var(--subtitle_text);
+                            display: block;
+                            border: none;
+                            background-color: #fff6e7;
+                            border-radius: var(--h3_text);
+                            color: var(--primary_color);
+                        }
+    
+                        .rs-input-number-btn-group-vertical {
+                            display: none;
+                        }
+                    }
+    
+                    .booking_result_date {
+                        span {
+                            font-size: var(--subtitle_text);
+                        }
+    
+                        p {
+                            margin: 0;
+                            padding: 0.3rem;
+                        }
+    
+    
+                    }
+    
+                    .booking_result {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+    
+                        @media screen and (max-width:768px) {
+                            display: none;
+                        }
+    
+                        p {
+                            margin: 0;
+                            padding: 0.3rem;
+                        }
+    
+                        span {
+                            font-size: var(--subtitle_text);
+                        }
+    
+                        .booking_result_datePicer {
+                            display: flex;
+                        }
                     }
                 }
+    
             }
-
+            
 
         }
 
@@ -309,28 +303,44 @@
             overflow: hidden;
         }
 
-        &::-webkit-scrollbar {
-            background-color: #7fa9a94c;
-            width: 10px;
-            border-radius: 5px;
+        // &::-webkit-scrollbar {
+        //     background-color: #7fa9a94c;
+        //     width: 10px;
+        //     border-radius: 5px;
 
-        }
+        // }
 
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba(36, 42, 32, 0.2);
-            border-radius: 5px;
-        }
+        // &::-webkit-scrollbar-thumb {
+        //     background-color: rgba(36, 42, 32, 0.2);
+        //     border-radius: 5px;
+        // }
 
 
-
-        .room_filter_area {
+        .room_filter_container{
             animation: filterArea 1s ease;
             width: 30%;
             height: 100%;
-            @include card_background();
             margin-top: 0;
             position: sticky;
             top: 0;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            &::-webkit-scrollbar {
+                background-color: #7fa9a94c;
+                width: 10px;
+                border-radius: 5px;
+    
+            }
+    
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(36, 42, 32, 0.2);
+                border-radius: 5px;
+            }
+        }
+        .room_filter_area {
+            
+            @include card_background();
+            
 
             @media screen and (max-width: 768px) {
                 z-index: 3;
@@ -392,14 +402,14 @@
                 font-size: var(--h5_text);
                 width: 100%;
                 padding-left: 1rem;
-                padding-bottom: 2rem;
+                padding-bottom: 1rem;
             }
 
             .room_filter_roomType {
 
                 width: 100%;
                 border-radius: 0.8rem;
-                padding: var(--subtitle_text) 6px;
+                padding: 1rem 6px;
 
                 @media screen and (max-width: 768px) {
                     display: none;
@@ -429,6 +439,7 @@
                     .checkbox-tools:checked+label,
                     .checkbox-tools:not(:checked)+label {
                         position: relative;
+                        top:0;
                         display: inline-block;
                         width: 100%;
 
@@ -436,7 +447,7 @@
                         font-size: var(--text_size);
                         line-height: var(--text_size);
                         letter-spacing: 3px;
-                        margin: var(--subtitle_text) 3px;
+                        margin: 3px;
                         text-align: center;
                         border-radius: 1rem;
                         overflow: hidden;
@@ -481,11 +492,93 @@
 
 
             }
+            .room_filter_roomSelect {
+
+                width: 100%;
+                border-radius: 0.8rem;
+                padding: 1rem 6px;
+
+                @media screen and (max-width: 768px) {
+                    display: none;
+                }
+
+
+
+                .roomSelect_area {
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+
+                    @media screen and (max-width: 1680px) {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        width: 100%;
+                    }
+
+                    [type="checkbox"]:checked,
+                    [type="checkbox"]:not(:checked) {
+                        position: absolute;
+                        width: 0;
+                        height: 0;
+                        visibility: hidden;
+                    }
+
+                    .checkbox-roomSelect:checked+label,
+                    .checkbox-roomSelect:not(:checked)+label {
+                        position: relative;
+                        top:0;
+                        display: inline-block;
+                        width: 23%;
+
+                        padding: var(--subtitle_text) 6px;
+                        font-size: var(--text_size);
+                        line-height: var(--text_size);
+                        letter-spacing: 3px;
+                        margin: 3px;
+                        text-align: center;
+                        border-radius: 1rem;
+                        overflow: hidden;
+                        cursor: pointer;
+                        color: #ccc;
+                        -webkit-transition: all 300ms linear;
+                        transition: all 300ms linear;
+
+                        @media screen and (max-width:1680px) {
+                            width: 40%;
+                            margin: 0.3rem;
+                        }
+                    }
+
+                    .checkbox-roomSelect:not(:checked)+label {
+                        background-color: var(--background_color);
+                        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+                    }
+
+                    .checkbox-roomSelect:checked+label {
+                        background-color: var(--primary_color_600);
+                        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                        color: var(--background_color);
+                    }
+
+                    .checkbox-roomSelect:not(:checked)+label:hover {
+                        color: var(--primary_color_600);
+                        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                    }
+                }
+
+
+
+
+            }
 
             .room_filter_price {
                 width: 100%;
-                margin-top: 2rem;
-
+                margin-bottom: 1rem;
+                .room_title{
+                    padding-bottom: 1rem;
+                }
                 @media screen and (max-width: 768px) {
                     display: none;
                 }
@@ -562,6 +655,7 @@
                     // 建立 label 初始樣式
                     &:checked+label,
                     &:not(:checked)+label {
+                        top:0;
                         position: relative;
                         display: inline-flex;
                         align-items: center;
@@ -732,6 +826,7 @@
                     &:checked+label,
                     &:not(:checked)+label {
                         position: relative;
+                        top: 0;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
@@ -879,6 +974,18 @@
         .room_card_flex {
             width: 70%;
             margin-right: 2rem;
+            overflow-y: auto;
+            &::-webkit-scrollbar {
+                background-color: #7fa9a94c;
+                width: 10px;
+                border-radius: 5px;
+    
+            }
+    
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(36, 42, 32, 0.2);
+                border-radius: 5px;
+            }
 
             @media screen and (max-width:768px) {
                 width: 100%;
@@ -1148,25 +1255,7 @@
                                 
                             }
 
-                            .checkbox-tools:not(:checked)+label {
-                                .outlineHeart{
-                                    display: block;
-                                }
-                                .fillHeart{
-                                    display: none;
-                                }
-
-                            }
-
-                            .checkbox-tools:checked+label {
-
-                                .outlineHeart{
-                                    display: none;
-                                }
-                                .fillHeart{
-                                    display: block;
-                                }
-                            }
+                            
                         }
                     }
                 }

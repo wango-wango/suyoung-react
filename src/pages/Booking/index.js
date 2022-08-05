@@ -4,9 +4,14 @@ import BookingCard from "./components/BookingCard";
 import BookingFilter from "./components/BookingFilter";
 import "./styles/index.scss";
 import { useBackground } from "../../utils/useBackground";
-
+import { useSpinner } from "../../useSpinner";
 function Index(props) {
     const { setBackground } = useBackground();
+    const { spinner, setLoading } = useSpinner(4000);
+
+    useEffect(() => {
+        setLoading(true);
+    }, [setLoading]);
 
     useEffect(() => {
         setBackground("bg1.svg");
@@ -14,9 +19,13 @@ function Index(props) {
 
     return (
         <>
+            {spinner}
             <section className="Booking">
                 <div className="Booking_container">
-                    <BookingArea />
+                    <div className="booking_area_container">
+                        <BookingArea />
+                    </div>
+
                     <div className="room_area_flex">
                         <BookingFilter />
                         <BookingCard />
