@@ -12,6 +12,8 @@ function BookingCard(props) {
     const [roomList, setRoomList] = useState([]);
     // 所有Tag 列表
     const [tagList, setTagList] = useState([]);
+    // 會員的 favList roomsid
+    const [favList, setFavList] = useState([]);
 
     // useContext
     const { BookingList, setBookingList } = useBookingList();
@@ -28,14 +30,28 @@ function BookingCard(props) {
     const keepHandler = (e) => {
         const checked = e.target.checked;
         const roomSid = e.target.value;
-        const memberId = auth.m_id;
-        if (checked)
+        const memberId = auth.sid;
+
+        if (checked) {
             setMemberKeep({
                 ...memberKeep,
                 roomSid: roomSid,
                 memberId: memberId,
             });
+        } else {
+            deleteKeep(roomSid);
+        }
     };
+
+    // 如果 keep 是 unchecked 刪除該筆資料
+    const deleteKeep = async (sid) => {
+        const room_sid = sid;
+        const res = await Axios.delete(
+            `${BK_GET_LIST}/deleteKeep?memberId=${auth.sid}&roomSid=${room_sid}`
+        );
+        console.log(res);
+    };
+
     /*
         roomSid: "",
         adults: "",
@@ -51,21 +67,34 @@ function BookingCard(props) {
         recommand: "",
     */
     // 用get 取得所有的值
-    const getData = () => {
-        Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
+    const getData = async () => {
+        await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
             // console.log(response.data);
             // console.log(auth.sid);
         });
+
+        // 取得所有favlist 的 roomSid
+        await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.sid}`).then(
+            (response) => {
+                // setFavList(response.data);
+                setFavList(response.data.map((v) => +v.fav_list_kind));
+            }
+        );
     };
 
+    // const getFavList = async
     const postData = async () => {
-        await Axios.post(`${BK_GET_LIST}/add`, memberKeep);
+        await Axios.post(`${BK_GET_LIST}/addKeep`, memberKeep);
     };
+
+    // 起始狀態先render getData
     useEffect(() => {
         getData();
     }, []);
+
+    // 當memberKeep改變才執行
     useEffect(() => {
         if (memberKeep.memberId !== "" && memberKeep.roomSid !== "") {
             postData();
@@ -123,7 +152,7 @@ function BookingCard(props) {
                                         <p>晚</p>
                                     </div>
                                     <div className="room_card_button_area">
-                                        <div class="room_card_btn_area">
+                                        <div className="room_card_btn_area">
                                             <Link to="/shuyoung/Booking/BookingDetail">
                                                 <button
                                                     className="room_card_button"
@@ -141,14 +170,24 @@ function BookingCard(props) {
                                             </Link>
                                         </div>
 
-                                        <div class="keep_button">
+                                        <div className="keep_button">
                                             <input
                                                 className="checkbox-tools"
                                                 type="checkbox"
                                                 name="keep"
                                                 id={"keepBtn" + i}
                                                 value={v.sid}
-                                                onClick={keepHandler}
+                                                onChange={keepHandler}
+                                                checked={
+                                                    favList.includes(v.sid) ===
+                                                    true
+                                                        ? true
+                                                        : false
+                                                }
+                                                // favList.includes(v.sid) ===
+                                                //     true
+                                                //         ? true
+                                                //         : false
                                             />
                                             <label
                                                 className="for-checkbox-tools"
