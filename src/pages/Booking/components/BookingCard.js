@@ -5,26 +5,53 @@ import Axios from "axios";
 import { BK_GET_LIST } from "../config/ajax-path";
 import { useBookingList } from "../../../utils/useBookingList";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 function BookingCard(props) {
     // 所有room 列表
     const [roomList, setRoomList] = useState([]);
     // 所有Tag 列表
     const [tagList, setTagList] = useState([]);
+    // 會員的 favList roomsid
+    const [favList, setFavList] = useState([]);
 
+    // useContext
     const { BookingList, setBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
+
+    // 準備傳到後端的資料
     const [memberKeep, setMemberKeep] = useState({
         roomSid: "",
         memberId: "",
         favType: 1,
     });
 
-    const keepHandler = (v) => {
-        const roomSid = v;
-        const memberId = auth.m_id;
-        setMemberKeep({ ...memberKeep, roomSid: roomSid, memberId: memberId });
+    // 判斷是否回傳值給 memberKeep
+    const keepHandler = (e) => {
+        const checked = e.target.checked;
+        const roomSid = e.target.value;
+        const memberId = auth.sid;
+
+        if (checked) {
+            setMemberKeep({
+                ...memberKeep,
+                roomSid: roomSid,
+                memberId: memberId,
+            });
+        } else {
+            deleteKeep(roomSid);
+        }
     };
+
+    // 如果 keep 是 unchecked 刪除該筆資料
+    const deleteKeep = async (sid) => {
+        const room_sid = sid;
+        const res = await Axios.delete(
+            `${BK_GET_LIST}/deleteKeep?memberId=${auth.sid}&roomSid=${room_sid}`
+        );
+        console.log(res);
+    };
+
     /*
         roomSid: "",
         adults: "",
@@ -40,44 +67,45 @@ function BookingCard(props) {
         recommand: "",
     */
     // 用get 取得所有的值
-    const getData = () => {
-        Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
+    const getData = async () => {
+        await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
+<<<<<<< HEAD
             console.log(response.data);
             console.log(auth.m_id);
+=======
+            // console.log(response.data);
+            // console.log(auth.sid);
+>>>>>>> 572a8ed572adfe631cfdb5d1f426eadb4ecba82a
         });
+
+        // 取得所有favlist 的 roomSid
+        await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.sid}`).then(
+            (response) => {
+                // setFavList(response.data);
+                setFavList(response.data.map((v) => +v.fav_list_kind));
+            }
+        );
     };
 
+    // const getFavList = async
     const postData = async () => {
-        await Axios.post(`${BK_GET_LIST}/add`, memberKeep);
+        await Axios.post(`${BK_GET_LIST}/addKeep`, memberKeep);
     };
+
+    // 起始狀態先render getData
     useEffect(() => {
         getData();
     }, []);
+
+    // 當memberKeep改變才執行
     useEffect(() => {
         if (memberKeep.memberId !== "" && memberKeep.roomSid !== "") {
-            console.log("aaa");
             postData();
         }
     }, [memberKeep]);
 
-    // const [dimensions, setDimensions] = React.useState({
-    //     width: window.innerWidth,
-    // });
-
-    // useEffect(() => {
-    //     function handleResize() {
-    //         setDimensions({
-    //             width: window.innerWidth,
-    //         });
-    //     }
-
-    //     window.addEventListener("resize", handleResize);
-    //     return (_) => {
-    //         window.removeEventListener("resize", handleResize);
-    //     };
-    // }, []);
     return (
         <>
             <div className="room_card_flex">
@@ -129,29 +157,51 @@ function BookingCard(props) {
                                         <p>晚</p>
                                     </div>
                                     <div className="room_card_button_area">
-                                        <Link to="/shuyoung/Booking/BookingDetail">
-                                            <button
-                                                className="room_card_button"
-                                                onClick={() => {
-                                                    setBookingList({
-                                                        ...BookingList,
-                                                        roomSid: v.sid,
-                                                        adults: 4,
-                                                        kids: 2,
-                                                    });
-                                                }}
+                                        <div className="room_card_btn_area">
+                                            <Link to="/shuyoung/Booking/BookingDetail">
+                                                <button
+                                                    className="room_card_button"
+                                                    onClick={() => {
+                                                        setBookingList({
+                                                            ...BookingList,
+                                                            roomSid: v.sid,
+                                                            adults: 4,
+                                                            kids: 2,
+                                                        });
+                                                    }}
+                                                >
+                                                    <span>點我訂房</span>
+                                                </button>
+                                            </Link>
+                                        </div>
+
+                                        <div className="keep_button">
+                                            <input
+                                                className="checkbox-tools"
+                                                type="checkbox"
+                                                name="keep"
+                                                id={"keepBtn" + i}
+                                                value={v.sid}
+                                                onChange={keepHandler}
+                                                checked={
+                                                    favList.includes(v.sid) ===
+                                                    true
+                                                        ? true
+                                                        : false
+                                                }
+                                                // favList.includes(v.sid) ===
+                                                //     true
+                                                //         ? true
+                                                //         : false
+                                            />
+                                            <label
+                                                className="for-checkbox-tools"
+                                                htmlFor={"keepBtn" + i}
                                             >
-                                                <span>點我訂房</span>
-                                            </button>
-                                        </Link>
-                                        <button
-                                            className="room_card_button"
-                                            onClick={() => {
-                                                keepHandler(v.sid);
-                                            }}
-                                        >
-                                            <span>點我收藏</span>
-                                        </button>
+                                                <AiOutlineHeart className="outlineHeart" />
+                                                <AiFillHeart className="fillHeart" />
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

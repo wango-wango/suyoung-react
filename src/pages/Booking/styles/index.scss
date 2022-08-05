@@ -489,29 +489,35 @@
                 @media screen and (max-width: 768px) {
                     display: none;
                 }
-                .rs-row{
+
+                .rs-row {
                     width: 100%;
                     display: flex;
                     flex-direction: column;
                     padding: 1rem;
                     margin: 0;
-                    .rs-slider{
-                        .rs-slider-bar{
-                            .rs-slider-progress-bar{
+
+                    .rs-slider {
+                        .rs-slider-bar {
+                            .rs-slider-progress-bar {
                                 background-color: var(--primary_color_500);
                             }
                         }
                     }
-                    .rs-slider-handle::before{
+
+                    .rs-slider-handle::before {
                         border: 2px solid var(--primary_color);
                         box-shadow: none;
                     }
+
                     .custom-slider {
                         margin-top: 18px;
-                        .active{
-                            clip-path:none;
+
+                        .active {
+                            clip-path: none;
                             box-shadow: none;
                         }
+
                         .rs-slider-handle {
                             top: -6px;
                             background-color: var(--primary_color);
@@ -520,15 +526,15 @@
                             margin-left: -16px;
                             cursor: pointer;
                         }
-    
+
                         &.rs-slider-dragging .rs-slider-handle,
                         &.rs-slider-dragging .rs-slider-handle:hover {
                             box-shadow: none;
                             transform: scale(1.2);
                         }
                     }
-                    
-    
+
+
                 }
 
             }
@@ -904,7 +910,7 @@
                     width: 60%;
                     @include card_background();
                     padding: 2rem;
-                    
+
 
                     .room_card_img {
                         width: 100%;
@@ -1082,7 +1088,9 @@
                         margin: 0.5rem auto;
                         border-bottom: 1px solid var(--primary_color_900);
                         padding: 0.5rem;
-                        p,h4{
+
+                        p,
+                        h4 {
                             margin: 0;
                         }
                     }
@@ -1091,21 +1099,73 @@
                         width: 85%;
                         margin: auto;
                         padding: var(--h5_text) 0;
-                        a{
-                            text-decoration: none;
+                        display: flex;
+                        justify-content: end;
+                        .room_card_btn_area{
+                            a {
+                                text-decoration: none;
+                            }
+                            .room_card_button {
+                                display: block;
+                                @include p_button;
+                                width: 130px;
+                                height: 40px;
+                                border-radius: 50px;
+                                margin: auto;
+    
+                                span {
+                                    letter-spacing: 0.5rem;
+                                    text-align: center;
+                                }
+                            }
+                        }
+                        
+
+                        [type="checkbox"]:checked,
+                        [type="checkbox"]:not(:checked) {
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            visibility: hidden;
                         }
 
-                        .room_card_button {
-                            display: block;
-                            @include p_button;
-                            width: 130px;
-                            height: 40px;
-                            border-radius: 50px;
-                            margin: auto;
-                            
-                            span{
-                                letter-spacing: 0.5rem;
-                                text-align: center;
+                        .keep_button {
+                            margin-right: 1rem;
+                            margin-left: 6rem;
+                            display: flex;
+                            align-items: center;
+                            .checkbox-tools:checked+label,
+                            .checkbox-tools:not(:checked)+label {
+                                position: relative;
+                                display: inline-block;
+                                width: 100%;
+                                top:0;
+                                padding: 0;
+                                font-size: var(--h5_text);
+                                cursor: pointer;
+                                color: var(--primary_color);
+                                transition: all 300ms linear;
+                                
+                            }
+
+                            .checkbox-tools:not(:checked)+label {
+                                .outlineHeart{
+                                    display: block;
+                                }
+                                .fillHeart{
+                                    display: none;
+                                }
+
+                            }
+
+                            .checkbox-tools:checked+label {
+
+                                .outlineHeart{
+                                    display: none;
+                                }
+                                .fillHeart{
+                                    display: block;
+                                }
                             }
                         }
                     }
