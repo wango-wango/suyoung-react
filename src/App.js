@@ -70,9 +70,7 @@ function App() {
                                             />
                                             <Route
                                                 path="ActReservation"
-                                                element={
-                                                    <ActReservation/>
-                                                }
+                                                element={<ActReservation />}
                                             />
                                         </Route>
 

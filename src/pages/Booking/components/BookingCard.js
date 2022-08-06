@@ -75,13 +75,8 @@ function BookingCard(props) {
         await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
-<<<<<<< HEAD
-            // console.log(response.data);
-            // console.log(auth.sid);
-=======
             console.log(response.data.roomList);
             console.log(auth.sid);
->>>>>>> 1ac2752af3685bc3041e2c863bd10be7a407fe49
         });
 
         // 取得所有favlist 的 roomSid
