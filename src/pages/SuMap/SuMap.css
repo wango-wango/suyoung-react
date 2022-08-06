@@ -1,6 +1,127 @@
 
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
+
+.yingbenbu,.xingkong,.qingzi1,.qingzi2,.buqiuren,.buqiuren2,.buqiuren3,.luyingche1,.luyingche2, .wangmei1, .wangmei2,.wangmei3{
+    display: none;
+}
+
+.aligncontent_mb{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.svg_box{
+    display: none;
+}
+
+.svg_box_mobile{
+    height: 90vh;
+    width: 300px;
+    height: 240px;
+    background-color: #BCD38D;
+    background-image: url(../../../public/map_imgs/beautyarea.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* margin-left: 30px; */
+}
+
+.svg_box_mobile1{
+    height: 90vh;
+    width: 300px;
+    height: 200px;
+    background-color: #BCD38D;
+    background-image: url(../../../public/map_imgs/camvanarea.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* margin-left: 30px; */
+}
+
+.svg_box_mobile2{
+    height: 90vh;
+    width: 300px;
+    height: 200px;
+    background-color: #BCD38D;
+    background-image: url(../../../public/map_imgs/yourself.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* margin-left: 30px; */
+}
+.svg_box_mobile3{
+    height: 90vh;
+    width: 300px;
+    height: 200px;
+    background-color: #BCD38D;
+    background-image: url(../../../public/map_imgs/family.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* margin-left: 30px; */
+}
+  
+  .map_content{
+      display: flex;
+      justify-content: start;
+      height: 100vh;
+  }
+  
+  .map_content_left{
+   display: none;
+  
+  }
+
+  .areacard_mobile{
+        display: flex;
+        width: 300px;
+        height: 330px;
+        text-align: center;
+        flex-direction: column;
+        background-color: #fff;
+        border-radius: 1.5rem;
+        /* margin-left: 40px; */
+        padding-top: 20px;
+    }
+
+    .titlearea_mobile{
+        display: flex;
+       /* padding-left: 50px; */
+       padding-bottom: 20px;
+    }
+
+    .titlearea_mobile1{
+        display: flex;
+        /* padding-left: 50px; */
+        padding-bottom: 20px;
+    }
+
+    .areacard_mobile h5{
+        display: flex;
+       padding: 20px;
+
+    }
+
+    .map_btn_mobile{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 200px;
+        height: 35px;
+        background-color: var(--secondary_color);
+        border-color: var(--secondary_color);
+        border-radius: 1.25rem;
+        padding-left: 40px;
+        color: white;
+        margin-left: 50px;
+    
+    }
+
+@media screen and (min-width:800px) {
+
+    .aligncontent_mb,.svg_box_mobile,.svg_box_mobile1,.svg_box_mobile2,.svg_box_mobile3,.map_content,.map_content_left,.areacard_mobile,.titlearea_mobile,.titlearea_mobile1,.map_btn_mobile{
+        display: none;
+    }
+
 .svg_box{
   height: 90vh;
   width: 100%;
@@ -8,7 +129,12 @@
   background-image: url('../../../public/map_imgs/mapfinal187503.svg');
   background-repeat: no-repeat;
   background-size: cover;
+  display: block;
 
+}
+.svg_box_mobile{
+    display: none;
+    
 }
 
 .map_content{
@@ -233,6 +359,7 @@ transition: all 0.5s;
     height: 150px;
     left: 110px;
     bottom: 190px;
+    display: block;
 }
 
 .yingbenbu:hover{
@@ -246,6 +373,7 @@ transition: all 0.5s;
     height: 100px;
     left: 120px;
     bottom: 420px;
+    display: block;
 }
 
 .xingkong:hover{
@@ -259,11 +387,13 @@ transition: all 0.5s;
     height: 80px;
     left: 340px;
     bottom: 360px;
+    display: block;
 }
 
 .qingzi1:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    
    }
 
 .qingzi2{
@@ -272,6 +402,7 @@ transition: all 0.5s;
     height: 80px;
     left: 560px;
     bottom: 440px;
+    display: block;
 }
 
 .qingzi2:hover{
@@ -285,6 +416,7 @@ transition: all 0.5s;
     height: 80px;
     left: 650px;
     bottom: 290px;
+    display: block;
 }
 
 .buqiuren:hover{
@@ -298,6 +430,7 @@ transition: all 0.5s;
     height: 100px;
     right: 400px;
     bottom: 335px;
+    display: block;
 }
 
 .buqiuren2:hover{
@@ -311,6 +444,7 @@ transition: all 0.5s;
     height: 100px;
     left: 780px;
     bottom: 365px;
+    display: block;
 }
 
 .buqiuren3:hover{
@@ -322,6 +456,7 @@ transition: all 0.5s;
     position: absolute;
     left: 580px;
     bottom: 105px;
+    display: block;
 }
 
    .luyingche1:hover{
@@ -333,6 +468,7 @@ transition: all 0.5s;
     position: absolute;
     left: 380px;
     bottom: 35px;
+    display: block;
 }
 
    .luyingche2:hover{
@@ -346,6 +482,7 @@ transition: all 0.5s;
     height: 100px;
     right:70px;
     bottom: 190px;
+    display: block;
 }
 
 .wangmei1:hover{
@@ -359,6 +496,7 @@ transition: all 0.5s;
     height: 130px;
     right: 300px;
     bottom: 130px;
+    display: block;
 }
 
 .wangmei2:hover{
@@ -372,6 +510,7 @@ transition: all 0.5s;
     height: 100px;
     right:25px;
     bottom: 60px;
+    display: block;
 }
 
 .wangmei3:hover{
@@ -388,6 +527,13 @@ transition: all 0.5s;
   top: 0;
   background-color: rgba(0,0,0,0.5);
 }
-
+}
 
   /* # sourceMappingURL=style.css.map */
+
+ 
+
+  
+
+ 
+  
