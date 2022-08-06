@@ -3,7 +3,7 @@ import React from 'react'
 
 
 function RoomLt(props) {
-    const {setStep, sum} = props;
+    const {setStep, sum, OrderSubmit} = props;
   return (
     <div class="web_component1 mb_none">
     <img
@@ -22,7 +22,7 @@ function RoomLt(props) {
         <p class="totalPrice">合計</p>
         <div class="checkoutbtn">
             <button class="stillBuy">繼續購物</button>
-            <button class="checkOut" onClick={()=>{setStep(2)}}>結帳</button>
+            <button class="checkOut" onClick={OrderSubmit}>結帳</button>
         </div>
     </div>
 </div>
