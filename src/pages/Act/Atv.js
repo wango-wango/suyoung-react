@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import { FontAwesomeIcon }from "fontawesome";
 
 function Atv(props) {
     const { setBackground } = useBackground();
@@ -23,7 +24,7 @@ function Atv(props) {
             let groups = gsap.utils.toArray(".actGroup");
             let toggles = gsap.utils.toArray(".actToggle");
             let listToggles = groups.map(createAnimation);
-    
+            
             toggles.forEach((toggle) => {
                 toggle.addEventListener("click", function () {
                     toggleMenu(toggle);
@@ -135,6 +136,7 @@ function Atv(props) {
                                 </SwiperSlide>
                             </Swiper>
                         </div>
+                        <div className="actDetailTitle"><h4>活動詳情</h4></div>
                         <div className="actContentCotainer">
                             <motion.div
                                 className="actGroup"
@@ -147,7 +149,7 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>活動介紹</h5></div>
+                                        <div className="top"><h5><i className="fa-solid fa-person-hiking mr-2"/>活動介紹</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -174,7 +176,7 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>活動收費</h5></div>
+                                        <div className="top"><h5><i class="fas fa-comment-dollar mr-2"></i>活動收費</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -197,7 +199,7 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>活動行程</h5></div>
+                                        <div className="top"><h5><i class="fas fa-calendar-check mr-2"></i>活動行程</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -229,7 +231,7 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>個人準備物品</h5></div>
+                                        <div className="top"><h5><i class="fas fa-binoculars mr-2"/>個人準備物品</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">

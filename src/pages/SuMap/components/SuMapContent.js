@@ -8,6 +8,10 @@ import MapCont from './MapCont'
 import MapBeauty from './MapBeauty'
 import MapYourself from './MapYourself'
 import MapFamily from './MapFamily'
+import MapVan from './MapVan'
+import MapFood from './MapFood'
+import MapStar from './MapStar'
+import MapAct from './MapAct'
 
 const SuMapContent = (props) => {
 
@@ -18,9 +22,13 @@ const SuMapContent = (props) => {
 
   const [step, setStep] = useState(0)
   // 動態元件
-  const components = [[MapCont,MapBeauty],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily]];
+  const components = [[MapCont,MapFood],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily],[MapCont,MapVan],[MapCont,MapStar],[MapCont,MapAct]];
 
   const BlockComponent = components[contentIndex][step];
+
+// const components = [MapCont, MapBeauty]
+// const BlockComponent = components[step]
+
   const modalOpen = (i) => {
     // 這裡設定content要抓取的資料索引值
     setContentIndex(i)
@@ -28,6 +36,9 @@ const SuMapContent = (props) => {
     setDisplayModal(true)
     // setStep(i);
   }
+console.log(modalOpen.setmapPicIndex)
+
+
   const modalClose = () => {
     setDisplayModal(false)
   }

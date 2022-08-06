@@ -12,6 +12,7 @@ import Atv from "./pages/Act/Atv";
 import Float from "./pages/Act/Float";
 import Night from "./pages/Act/Night";
 import Upstream from "./pages/Act/Upstream";
+import ActReservation from "./pages/Act/ActReservation";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 import Recipes from "./pages/Recipes";
@@ -19,7 +20,7 @@ import SuMap from "./pages/SuMap/SuMap";
 import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
 // import Create from "./pages/Booking/sub-pages/Create";
-import Cart from "./pages/Carts";
+import Cart from "./pages/Carts/CartItem";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/footer";
 import Layout from "./components/Layout";
@@ -66,6 +67,12 @@ function App() {
                                             <Route
                                                 path="Upstream"
                                                 element={<Upstream />}
+                                            />
+                                            <Route
+                                                path="ActReservation"
+                                                element={
+                                                    <ActReservation/>
+                                                }
                                             />
                                         </Route>
 

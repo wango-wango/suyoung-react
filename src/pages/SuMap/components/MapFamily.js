@@ -7,7 +7,7 @@ function MapFamily (props) {
     <div className='popup_window'>
           <div className='window_des'>
           <div className='des_picture_wangmei1'>
-            <img src="http://localhost:3777/map_imgs/wangmei1.png" alt="" />
+            <img src="http://localhost:3777/map_imgs/qingzi1.png" alt="" />
             </div>
             <div>
             <br />
@@ -21,8 +21,8 @@ function MapFamily (props) {
             </div>
           </div>
           <div className='window_des'>
-          <div className='des_picture_wangmei2'>
-          <img src="http://localhost:3777/map_imgs/wangmei2.png" alt="" />
+          <div className='des_picture_family2'>
+          <img src="http://localhost:3777/map_imgs/qingzi2.png" alt="" />
           </div>
           <div>
             <br />

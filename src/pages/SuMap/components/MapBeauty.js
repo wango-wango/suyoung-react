@@ -2,6 +2,7 @@ import React from 'react'
 
 
 function MapBeauty(props) {
+
   return (
     <>
     <div className='popup_window'>
@@ -52,9 +53,10 @@ function MapBeauty(props) {
                 
             </div>
           </div>
-            <button className='popup_exit_btn' onClick={()=>{window.location.href="http://localhost:3777/shuyoung/SuMap"}}>
+            <button className='popup_exit_btn' onClick={()=>{window.location.href="http://localhost:3777/shuyoung/SuMap"}} >
               X
             </button>
+            {/*  */}
           </div>
     </>
   )

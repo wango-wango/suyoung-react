@@ -17,6 +17,7 @@ export const BookingProvider = ({ children }) => {
         tagCheck: [],
         popular: "",
         recommand: "",
+        roomSelector: [],
     });
 
     return (

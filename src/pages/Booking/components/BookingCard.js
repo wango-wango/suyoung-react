@@ -38,6 +38,7 @@ function BookingCard(props) {
                 roomSid: roomSid,
                 memberId: memberId,
             });
+            setFavList([...favList, +roomSid]);
         } else {
             deleteKeep(roomSid);
         }
@@ -46,6 +47,9 @@ function BookingCard(props) {
     // 如果 keep 是 unchecked 刪除該筆資料
     const deleteKeep = async (sid) => {
         const room_sid = sid;
+        const oldFavList = favList;
+        const newFavList = oldFavList.filter((v) => v !== +sid);
+        setFavList(newFavList);
         const res = await Axios.delete(
             `${BK_GET_LIST}/deleteKeep?memberId=${auth.sid}&roomSid=${room_sid}`
         );
@@ -71,8 +75,13 @@ function BookingCard(props) {
         await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
+<<<<<<< HEAD
             // console.log(response.data);
             // console.log(auth.sid);
+=======
+            console.log(response.data.roomList);
+            console.log(auth.sid);
+>>>>>>> 1ac2752af3685bc3041e2c863bd10be7a407fe49
         });
 
         // 取得所有favlist 的 roomSid
@@ -160,8 +169,6 @@ function BookingCard(props) {
                                                         setBookingList({
                                                             ...bookingList,
                                                             roomSid: v.sid,
-                                                            adults: 4,
-                                                            kids: 2,
                                                         });
                                                     }}
                                                 >
@@ -177,13 +184,8 @@ function BookingCard(props) {
                                                 name="keep"
                                                 id={"keepBtn" + i}
                                                 value={v.sid}
-                                                onChange={keepHandler}
-                                                checked={
-                                                    favList.includes(v.sid) ===
-                                                    true
-                                                        ? true
-                                                        : false
-                                                }
+                                                onClick={keepHandler}
+
                                                 // favList.includes(v.sid) ===
                                                 //     true
                                                 //         ? true
@@ -193,8 +195,13 @@ function BookingCard(props) {
                                                 className="for-checkbox-tools"
                                                 htmlFor={"keepBtn" + i}
                                             >
-                                                <AiOutlineHeart className="outlineHeart" />
-                                                <AiFillHeart className="fillHeart" />
+                                                {favList.includes(v.sid) ? (
+                                                    <AiFillHeart className="fillHeart" />
+                                                ) : (
+                                                    <AiOutlineHeart className="outlineHeart" />
+                                                )}
+                                                {/* <AiOutlineHeart className="outlineHeart" />
+                                                <AiFillHeart className="fillHeart" /> */}
                                             </label>
                                         </div>
                                     </div>
