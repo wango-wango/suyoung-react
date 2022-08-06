@@ -60,7 +60,6 @@ const MLogin = () => {
     return (
         <>
             <main>
-                <Link to="/shuyoung/join/register">會員註冊</Link>
                 <div className="login-container">
                     <div className="login-title">舒營-會員登入</div>
                     <div className="login-card">
@@ -82,7 +81,7 @@ const MLogin = () => {
                             <div className="account-group">
                                 <input
                                     className="login-input"
-                                    type="text"
+                                    type="password"
                                     id="password"
                                     name="password"
                                     value={myform.password}

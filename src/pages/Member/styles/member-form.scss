@@ -100,6 +100,7 @@
 }
 
 .file-input {
+    cursor: pointer;
     display: grid;
     grid-template-areas: "stack";
     pointer-events: auto;
@@ -125,7 +126,8 @@
     }
 
     input {
-        opacity: 0;
+        display: none;
+        cursor: pointer;
     }
     .drop-zone {
         cursor: pointer;

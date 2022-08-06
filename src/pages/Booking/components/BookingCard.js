@@ -16,7 +16,7 @@ function BookingCard(props) {
     const [favList, setFavList] = useState([]);
 
     // useContext
-    const { BookingList, setBookingList } = useBookingList();
+    const { bookingList, setBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
 
     // 準備傳到後端的資料
@@ -71,13 +71,8 @@ function BookingCard(props) {
         await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
-<<<<<<< HEAD
-            console.log(response.data);
-            console.log(auth.m_id);
-=======
             // console.log(response.data);
             // console.log(auth.sid);
->>>>>>> 572a8ed572adfe631cfdb5d1f426eadb4ecba82a
         });
 
         // 取得所有favlist 的 roomSid
@@ -163,7 +158,7 @@ function BookingCard(props) {
                                                     className="room_card_button"
                                                     onClick={() => {
                                                         setBookingList({
-                                                            ...BookingList,
+                                                            ...bookingList,
                                                             roomSid: v.sid,
                                                             adults: 4,
                                                             kids: 2,
