@@ -6,8 +6,8 @@ function MapYourself (props) {
     <>
     <div className='popup_window'>
           <div className='window_des'>
-          <div className='des_picture_wangmei1'>
-            <img src="http://localhost:3777/map_imgs/wangmei1.png" alt="" />
+          <div className='des_picture_buqiuren1'>
+            <img src="http://localhost:3777/map_imgs/buqiuren.png" alt="" />
             </div>
             <div>
             <br />
@@ -22,7 +22,7 @@ function MapYourself (props) {
           </div>
           <div className='window_des'>
           <div className='des_picture_wangmei2'>
-          <img src="http://localhost:3777/map_imgs/wangmei2.png" alt="" />
+          <img src="http://localhost:3777/map_imgs/buqiuren2.png" alt="" />
           </div>
           <div>
             <br />
@@ -38,7 +38,7 @@ function MapYourself (props) {
           </div>
           <div className='window_des'>
           <div className='des_picture_wangmei3'>
-          <img src="http://localhost:3777/map_imgs/wangmei3.png" alt="" />
+          <img src="http://localhost:3777/map_imgs/buqiuren3.png" alt="" />
           </div>
           <div>
             <br />

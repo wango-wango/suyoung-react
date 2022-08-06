@@ -8,6 +8,10 @@ import MapCont from './MapCont'
 import MapBeauty from './MapBeauty'
 import MapYourself from './MapYourself'
 import MapFamily from './MapFamily'
+import MapVan from './MapVan'
+import MapFood from './MapFood'
+import MapStar from './MapStar'
+import MapAct from './MapAct'
 
 const SuMapContent = (props) => {
 
@@ -18,7 +22,7 @@ const SuMapContent = (props) => {
 
   const [step, setStep] = useState(0)
   // 動態元件
-  const components = [[MapCont,MapBeauty],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily],[MapCont,MapFamily],[MapCont,MapFamily],[MapCont,MapFamily]];
+  const components = [[MapCont,MapFood],[MapCont,MapBeauty],[MapCont,MapYourself],[MapCont,MapFamily],[MapCont,MapVan],[MapCont,MapStar],[MapCont,MapAct]];
 
   const BlockComponent = components[contentIndex][step];
 
