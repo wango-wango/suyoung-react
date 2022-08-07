@@ -13,7 +13,7 @@
 
 main {
     min-height: calc(100% - 300px);
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
 }
 
 //form
@@ -125,10 +125,57 @@ input:valid ~ label {
 //form end
 
 //login-card
+#mouse-parallax-container {
+    height: 100vh;
+    position: absolute;
+    top: 270px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    .layer1 {
+        position: absolute;
+        width: 110%;
+        right: 0;
+        left: 0;
+        z-index: 100;
+    }
+    .layer2 {
+        position: absolute;
+        width: 110%;
+        right: 0;
+        left: 0;
+        z-index: 4;
+    }
+    .layer3 {
+        position: absolute;
+        width: 100%;
+        right: 0;
+        left: 0;
+        z-index: 3;
+    }
+    .layer4 {
+        position: absolute;
+        width: 110%;
+        right: 0;
+        left: 0;
+        z-index: 2;
+    }
+    .layer5 {
+        position: absolute;
+        width: 110%;
+        right: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}
 
 .login-container {
     width: 100%;
-
+    min-height: 112vh;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -320,7 +367,7 @@ input:valid ~ label {
                     font-size: 18px;
                 }
                 .login-card {
-                    width: 80vw;
+                    width: 90vw;
 
                     .third-party {
                         display: flex;
@@ -340,15 +387,15 @@ input:valid ~ label {
                         font-size: 14px;
                     }
                     input {
-                        width: 180px;
+                        width: 250px;
                         padding: 6px 10px 3px 30px;
                     }
-                    .group {
+                    .account-group {
                         label {
                             font-size: 12px;
                         }
                         .member-eye-button {
-                            top: 6px;
+                            top: 6px !important;
                             right: -7px;
                         }
                     }
