@@ -1,20 +1,20 @@
 import React from 'react'
 
 
-function MapFamily (props) {
+function MapVan (props) {
   return (
     <>
     <div className='popup_window'>
           <div className='window_des'>
           <div className='des_picture_wangmei1'>
-            <img src="http://localhost:3777/map_imgs/qingzi1.png" alt="" />
+            <img src="http://localhost:3777/map_imgs/luyingche1.png" alt="" />
             </div>
             <div>
             <br />
-                <h5>親子同樂帳</h5>
+                <h5>賞星露營車</h5>
                 <br />
                 <div  className='des_content_wangmei'>
-                <p>舒營的親子同樂帳適合家裡有孩童的家庭入住，房內設有溜滑梯跟床鋪合一的遊樂設施，讓小朋友能夠玩的開心，此外也有提供童話書書櫃以及徹底消毒的手套布偶，讓您省去尋找床邊故事素材的煩惱。</p>
+                <p>舒營的賞星露營車是情侶遊客中的口碑好選擇，舒適大床、隔音好的內裝以及透明天窗，可以讓整體浪漫體驗大幅升級，此外車體外設有大吊床，可以讓您在外面也能體會chill浪漫的感覺。</p>
                 <br />
                 <button className='seemore_map_booking'>點擊前往訂房</button>
                 </div>
@@ -22,14 +22,14 @@ function MapFamily (props) {
           </div>
           <div className='window_des'>
           <div className='des_picture_family2'>
-          <img src="http://localhost:3777/map_imgs/qingzi2.png" alt="" />
+          <img src="http://localhost:3777/map_imgs/luyingche2.png" alt="" />
           </div>
           <div>
             <br />
-                <h5>闔家歡樂帳</h5>
+                <h5>望山露營車</h5>
                 <br />
                 <div  className='des_content_wangmei'>
-                <p>舒營的親子同樂帳適合家中有青少年的孩子入住，房內設有投影片大型熒幕，只要選擇闔家歡樂帳，即可至營本部租借遊戲機一台（如switch、PS5）此外電視也可鏈接串流影音服務，增添樂趣。</p>
+                <p>舒營的望山露營車是情侶遊客中的人氣好選擇，隔音好的內裝以及可一望山景的單面透明窗戶，可以讓整體浪漫體驗大幅升級，而車內還有另外一大特色為天花板電影院，可通過投影機播放串流影音也是一大特色。</p>
                 <br />
                 <button className='seemore_map_booking'>點擊前往訂房</button>
                 </div>
@@ -46,4 +46,4 @@ function MapFamily (props) {
 
 
 
-export default MapFamily
+export default MapVan

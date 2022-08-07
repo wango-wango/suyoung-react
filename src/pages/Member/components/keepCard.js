@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { TiDelete } from "react-icons/ti";
+import { useBookingList } from "../../../utils/useBookingList";
 
 const KeepCard = (props) => {
     const { ...auth } = useAuth();
+
+    const { bookingList, setBookingList } = useBookingList();
 
     const { favlist } = props;
 
@@ -58,7 +61,17 @@ const KeepCard = (props) => {
                             blanditiis. Totam, eos.
                         </div>
                         <div className="keep-card-button">
-                            <Link to="/">看更多</Link>
+                            <Link
+                                to="/shuyoung/Booking"
+                                onClick={() => {
+                                    setBookingList({
+                                        ...bookingList,
+                                        roomSelector: [v.room_name],
+                                    });
+                                }}
+                            >
+                                看更多
+                            </Link>
                         </div>
                     </motion.div>
                 );

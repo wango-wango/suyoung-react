@@ -32,13 +32,14 @@ export const AuthProvider = ({ children }) => {
     }
 
     const [auth, setAuth] = useState(localAuth);
+    // const [auth, setAuth] = useState({});
 
     const navigate = useNavigate();
 
     const logout = () => {
         localStorage.removeItem("auth");
         setAuth({ authorized: false, sid: 0, token: "" });
-        navigate("/Shuyoung/login");
+        navigate("/Shuyoung");
     };
 
     // const login = async () => {
