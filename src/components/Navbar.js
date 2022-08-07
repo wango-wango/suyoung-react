@@ -64,6 +64,35 @@ export default function Navbar() {
                                 </div>
                             </>
                         )}
+                        <div className="hover-list">
+                            {authorized ? (
+                                <ul>
+                                    <li>
+                                        <Link to="/shuyoung/member">
+                                            前往會員中心
+                                        </Link>
+                                    </li>
+                                    <li
+                                        onClick={() => {
+                                            logout();
+                                        }}
+                                    >
+                                        登出
+                                    </li>
+                                </ul>
+                            ) : (
+                                <ul>
+                                    <li>
+                                        <Link to="/shuyoung/join/register">
+                                            註冊會員
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/shuyoung/join">登入</Link>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
 
                         <div className="cart">
                             <Link

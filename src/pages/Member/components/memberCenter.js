@@ -23,7 +23,7 @@ const MemberCenter = () => {
     const { setAuth, ...auth } = useAuth();
 
     const [step, setStep] = useState(0);
-
+    const [authMember, setAuthMember] = useState({});
     const { spinner, setLoading } = useSpinner(4000);
 
     useEffect(() => {
@@ -37,15 +37,18 @@ const MemberCenter = () => {
         }
     }, [auth.authorized]);
 
-    const sid = JSON.parse(localStorage.getItem("auth")).sid;
-    console.log(sid);
-
     const getUserData = () => {
-        axios.get(`http://localhost:3700/member/${sid}`).then((res) => {
+        axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
             if (res) {
-                console.log(res.data.user);
-                const newAuth = res.data.user;
-                setAuth({ authorized: true, ...newAuth });
+                console.log(res);
+                // console.log(res.data.user.row);
+                // const newAuth = res.data.user;
+                // const oldrow = auth.row;
+                // const newrow = { ...oldrow, newAuth };
+                // setAuth({ ...auth, row: newrow });
+                // const authQQ = auth.row;
+                // setAuthMember({ ...authQQ });
+                // setAuth({ authorized: true, ...newAuth });
             } else {
                 alert("查無會員資料");
             }
