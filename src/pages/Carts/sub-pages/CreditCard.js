@@ -3,6 +3,7 @@ import Card from 'react-credit-cards';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Credit-Card.scss';
 
+
 import {
   formatCreditCardNumber,
   formatCVC,
@@ -11,6 +12,7 @@ import {
 } from './utils';
 
 import 'react-credit-cards/es/styles-compiled.css';
+
 
 export default class App extends React.Component {
   state = {
@@ -22,6 +24,7 @@ export default class App extends React.Component {
     focused: '',
     formData: null,
   };
+
 
   handleCallback = ({ issuer }, isValid) => {
     if (isValid) {
@@ -62,8 +65,8 @@ export default class App extends React.Component {
   };
 
   render(props) {
-    const { name, number, expiry, cvc, focused, issuer, formData } = this.state;
-    const {setStep} = this.props;
+    const { name, number, expiry, cvc, focused, issuer} = this.state;
+    const {setStep, handleSubmit} = this.props;
     return (
       <div key="Payment">
         <div className="App-payment">
@@ -79,11 +82,12 @@ export default class App extends React.Component {
             <form ref={(c) => (this.form = c)} onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <input
-                  type="tel"
+                  type="text"
                   name="number"
                   className="form-control"
-                  placeholder="Card Number"
+                  placeholder="卡號"
                   pattern="[\d| ]{16,22}"
+                  maxLength="19"
                   required
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
@@ -94,7 +98,7 @@ export default class App extends React.Component {
                   type="text"
                   name="name"
                   className="form-control"
-                  placeholder="Name"
+                  placeholder="姓名"
                   required
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
@@ -118,7 +122,8 @@ export default class App extends React.Component {
                     type="tel"
                     name="cvc"
                     className="form-control"
-                    placeholder="CVC"
+                    placeholder="卡片背後三碼"
+                    maxLength="3"
                     pattern="\d{3,4}"
                     required
                     onChange={this.handleInputChange}
@@ -128,7 +133,7 @@ export default class App extends React.Component {
               </div>
               <input type="hidden" name="issuer" value={issuer} />
               <div className="form-actions submit">
-                <button className="btn" onClick={()=>{setStep(3)}}>送出</button>
+                <button className="btn" onClick={handleSubmit} >送出</button>
               </div>
             </form>
           </div>

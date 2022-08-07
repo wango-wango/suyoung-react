@@ -1,10 +1,46 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "../styles/member-level.scss";
 import { motion } from "framer-motion";
-import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
 
 const MemberLevel = () => {
-    const { memberData, setMemberData } = MemberInfo();
+    const { ...auth } = useAuth();
+
+    const level = [
+        ["初級凹鬥玩家", "野外凹鬥玩家", "凹鬥大師"],
+        [
+            "Beginning outdoor player",
+            "Medium outdoor player",
+            "Advanced outdoor player",
+        ],
+        [9, 8, 7],
+    ];
+
+    let memberLevel = "";
+    let memberLevelEng = "";
+    let discount = "";
+    let nextDiscount = "";
+    let count = 0;
+    let nextLevel = "";
+
+    if (auth.m_score < 5000) {
+        count = 0;
+    } else if (auth.m_score > 5000 && auth.m_score < 15000) {
+        count = 1;
+    } else {
+        count = 2;
+    }
+
+    memberLevel = level[0][count];
+    memberLevelEng = level[1][count];
+    discount = level[2][count];
+    if (count < 2) {
+        nextDiscount = level[2][count + 1];
+        nextLevel = level[0][count + 1];
+    } else {
+        nextDiscount = level[2][count];
+        nextLevel = level[0][count];
+    }
 
     return (
         <>
@@ -25,10 +61,10 @@ const MemberLevel = () => {
                                 duration: 0.5,
                             }}
                         >
-                            <img src={memberData.m_avatar} alt="" />
+                            <img src={auth.m_avatar} alt="" />
                             <div>
-                                {memberData.m_last_name}
-                                {memberData.m_first_name}
+                                {auth.m_last_name}
+                                {auth.m_first_name}
                             </div>
                         </motion.div>
                         <motion.div
@@ -66,29 +102,29 @@ const MemberLevel = () => {
                                 </div>
                                 <div className="right">
                                     <div className="member-title">
-                                        初級凹鬥玩家
+                                        {memberLevel}
                                     </div>
                                     <div className="member-eng-title">
-                                        Beginner outdoor player
+                                        {memberLevelEng}
                                     </div>
                                 </div>
                             </div>
                             <div className="total-spend">
                                 <span>消費金額累計：</span>
-                                <span>NT$ 3,200 </span>
+                                <span>NT {auth.m_score} </span>
                             </div>
                             <div className="member-upgrade">
                                 <div className="one">
                                     <span>2022/12/31前再消費</span>
-                                    <span>NT$ 1,800</span>
+                                    <span>NT {15000 - auth.m_score}</span>
                                 </div>
                                 <div className="two">
                                     <span>可立即升級為</span>{" "}
-                                    <span>野外凹鬥專家</span>
+                                    <span>{nextLevel}</span>
                                 </div>
                                 <div className="three">
-                                    <span>享消費金額</span> <span>9 折</span>{" "}
-                                    優惠
+                                    <span>享消費金額</span>
+                                    <span> {discount}折 </span> 優惠
                                 </div>
                             </div>
                         </motion.div>
@@ -102,7 +138,11 @@ const MemberLevel = () => {
                                 duration: 0.5,
                             }}
                         >
-                            <div className="outdoor-beginner light-active">
+                            <div
+                                className={`outdoor-beginner ${
+                                    auth.m_score < 5000 ? "light-active" : ""
+                                }`}
+                            >
                                 <div className="top-title">
                                     <div className="left">
                                         <svg
@@ -133,13 +173,19 @@ const MemberLevel = () => {
                                             初級凹鬥玩家
                                         </div>
                                         <div className="member-eng-title">
-                                            Beginner outdoor player
+                                            Beginning outdoor player
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="light-line"></div>
-                            <div className="medium-outdoor-player">
+                            <div
+                                className={`outdoor-beginner ${
+                                    auth.m_score > 5000 && auth.m_score < 15000
+                                        ? "light-active"
+                                        : ""
+                                }`}
+                            >
                                 <div className="top-title">
                                     <div className="left">
                                         <svg
@@ -225,7 +271,11 @@ const MemberLevel = () => {
                                 </div>
                             </div>
                             <div className="light-line"></div>
-                            <div className="advanced-outdoor-player">
+                            <div
+                                className={`outdoor-beginner ${
+                                    auth.m_score > 15000 ? "light-active" : ""
+                                }`}
+                            >
                                 <div className="top-title">
                                     <div className="left">
                                         <svg
