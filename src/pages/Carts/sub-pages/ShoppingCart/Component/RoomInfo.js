@@ -107,23 +107,23 @@ function RoomInfo(props) {
     const displayItems = (<>
       {mycartDisplay.map((item,index)=>{
         return (
-                <div class="room_info"  key={item}>
-                    <div class="room_pic">
+                <div className="room_info"  key={item}>
+                    <div className="room_pic">
                         <img
                             src={`/room_imgs/camp/${item.room_image}`}
                             alt=""
                         />
                     </div>
-                    <div class="room_detail"
+                    <div className="room_detail"
                     >
                         <p>房型：{item.room_name}</p>
                         <p>入住：{item.start_date}</p>
                         <p>退房：{item.end_date}</p>
                         <p>人數：{item.num_adults}</p>
                         <p>天數：兩晚</p>
-                        <div class="amount_and_del">
+                        <div className="amount_and_del">
                             <p>價格：${item.price}</p>
-                        <button class="del_btn" onClick={()=>{DeleteCartItem(item)}}>
+                        <button className="del_btn" onClick={()=>{DeleteCartItem(item)}}>
                         刪除
                         </button>
                         </div>
