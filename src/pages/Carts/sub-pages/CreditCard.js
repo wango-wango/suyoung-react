@@ -66,7 +66,7 @@ export default class App extends React.Component {
 
   render(props) {
     const { name, number, expiry, cvc, focused, issuer} = this.state;
-    const {setStep, handleSubmit} = this.props;
+    const {handleSubmit} = this.props;
     return (
       <div key="Payment">
         <div className="App-payment">
