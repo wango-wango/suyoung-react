@@ -2,6 +2,7 @@ import React from 'react';
 import Card from 'react-credit-cards';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Credit-Card.scss';
+import { motion } from "framer-motion";
 
 
 import {
@@ -73,7 +74,14 @@ export default class App extends React.Component {
     const { name, number, expiry, cvc, focused, issuer} = this.state;
     const {handleSubmit} = this.props;
     return (
+    <>
+       <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >   
       <div key="Payment">
+      <h1 class="first_component_title">Payment Information</h1>
         <div className="App-payment">
           <div className="card_flex">
             <Card
@@ -133,20 +141,15 @@ export default class App extends React.Component {
                 </div>
               </div>
               <input type="hidden" name="issuer" value={issuer} />
-              <div className="form-actions submit">
-                <button className="btn" onClick={handleSubmit} >送出</button>
-              </div>
             </form>
           </div>
-          {/* {formData && (
-            <div className="App-highlight">
-              {formatFormData(formData).map((d, i) => (
-                <div key={i}>{d}</div>
-              ))}
-            </div>
-          )} */}
+          <div className="form-actions submit">
+                <button className="btn" onClick={handleSubmit} >送出</button>
+              </div>
         </div>
       </div>
+      </motion.div> 
+    </>  
     );
   }
 }

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import 'animate.css';
+import { motion } from "framer-motion";
 const _ = require('lodash');
 const Swal = require('sweetalert2')
 
 
 function RoomInfo(props) {
 
-    const { updateQty, setSum } = props
+    const { setSum } = props
     const [mycart, setMycart] = useState([])
     const [mycartDisplay, setMycartDisplay] = useState([])
   
@@ -107,6 +108,12 @@ function RoomInfo(props) {
     const displayItems = (<>
       {mycartDisplay.map((item,index)=>{
         return (
+          <motion.div
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >   
+            
                 <div className="room_info"  key={item}>
                     <div className="room_pic">
                         <img
@@ -129,6 +136,7 @@ function RoomInfo(props) {
                         </div>
                     </div>
                 </div>
+                </motion.div> 
   )
     })}
   </>
