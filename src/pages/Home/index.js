@@ -3,7 +3,7 @@ import axios from "axios"
 import Rellax from "rellax"
 import "./styles/index.scss"
 import { useBackground } from "../../utils/useBackground";
-import Weather from "../Home/components/Weather"
+import WeatherApp from "../Home/components/WeatherApp"
 function Index(props) {
 
 
@@ -29,7 +29,7 @@ function Index(props) {
     return (
     <>
     <section>
-        <div className="weatherCtrl"><Weather/></div>
+        <div className="weatherCtrl"><WeatherApp/></div>
         <div id="banner">
             <img className="animate"  src="/index_imgs/index_bg8.png" id="8" alt=""/>
             <img className="animate" data-rellax-speed="-9" data-rellax-zindex="5" src="/index_imgs/index_bg7.png" id="7" alt=""/>

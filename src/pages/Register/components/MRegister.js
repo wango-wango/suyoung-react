@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../Login/styles/login.scss";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
+import { useBackground } from "../../../utils/useBackground";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import {
+    MouseParallaxContainer,
+    MouseParallaxChild,
+} from "react-parallax-mouse";
+import { nodeName } from "rsuite/esm/DOMHelper";
 
 //============前端驗證=============
 
@@ -40,6 +47,12 @@ const validate = (values) => {
 //=============前端驗證結束==========
 
 const MRegister = () => {
+    const { setBackground } = useBackground();
+
+    useEffect(() => {
+        setBackground("bglayer.svg");
+    }, []);
+
     //hooks==============================
 
     const [passwordType, setPasswordType] = useState("password");
@@ -98,126 +111,183 @@ const MRegister = () => {
 
     return (
         <>
-            <main>
-                <div className="login-container">
-                    <div className="login-title">舒營-會員註冊</div>
-                    <div className="login-card">
-                        <Formik
-                            initialValues={formik.initialValues}
-                            onSubmit={whenSubmit}
-                        >
-                            {({ isSubmitting }) => (
-                                <Form>
-                                    <div className="account-title">帳號：</div>
-                                    <div className="account-group">
-                                        <Field
-                                            autoComplete="off"
-                                            className="login-input"
-                                            name="account"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.account}
-                                            type="text"
-                                        />
-                                        {showAccountError ? (
-                                            <span id="error-text">
-                                                {formik.errors.account}
-                                            </span>
-                                        ) : null}
-
-                                        <label>Username</label>
-                                    </div>
-                                    <div className="account-title">密碼：</div>
-                                    <div className="account-group">
-                                        <Field
-                                            autoComplete="off"
-                                            className="login-input"
-                                            name="password"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.password}
-                                            type={passwordType}
-                                        />
-                                        {showPasswordError ? (
-                                            <span id="error-text">
-                                                {formik.errors.password}
-                                            </span>
-                                        ) : null}
-                                        <button
-                                            type="button"
-                                            className="member-eye-button"
-                                            onClick={() => {
-                                                setPasswordType(
-                                                    passwordType === "text"
-                                                        ? "password"
-                                                        : "text"
-                                                );
-                                            }}
-                                        >
-                                            {passwordType === "text" ? (
-                                                <FaEyeSlash />
-                                            ) : (
-                                                <FaEye />
-                                            )}
-                                        </button>
-
-                                        <label>Password</label>
-                                    </div>
-                                    <div className="account-title">email:</div>
-                                    <div className="account-group">
-                                        <Field
-                                            autoComplete="off"
-                                            className="login-input"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            name="email"
-                                            value={formik.values.email}
-                                            type="text"
-                                        />
-                                        {showEmailError ? (
-                                            <span id="error-text">
-                                                {formik.errors.email}
-                                            </span>
-                                        ) : null}
-
-                                        <label>email</label>
-                                    </div>
-                                    <div className="login-btn">
-                                        <button
-                                            type="submit"
-                                            className="submit-login"
-                                            disabled={isSubmitting}
-                                        >
-                                            註冊
-                                        </button>
-                                    </div>
-                                </Form>
-                            )}
-                        </Formik>
-
-                        <div className="third-party">
-                            <div className="google-login">
-                                <Link to="/shuyoung">
-                                    login with google
-                                    <img
-                                        src="/member_img/google-icon.svg"
-                                        alt=""
+            <div className="login-container">
+                <div
+                    className="login-title"
+                    style={{ position: "absolute", zIndex: "11" }}
+                >
+                    舒營-會員註冊
+                </div>
+                <div
+                    className="login-card"
+                    style={{ position: "absolute", zIndex: "10" }}
+                >
+                    <Formik
+                        initialValues={formik.initialValues}
+                        onSubmit={whenSubmit}
+                    >
+                        {({ isSubmitting }) => (
+                            <Form>
+                                <div className="account-title">帳號：</div>
+                                <div className="account-group">
+                                    <Field
+                                        autoComplete="off"
+                                        className="login-input"
+                                        name="account"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.account}
+                                        type="text"
                                     />
-                                </Link>
-                            </div>
-                            <div className="facebook-login">
-                                <Link to="/shuyoung">
-                                    login with facebook
-                                    <img
-                                        src="/member_img/facebook.svg"
-                                        alt=""
+                                    {showAccountError ? (
+                                        <span id="error-text">
+                                            {formik.errors.account}
+                                        </span>
+                                    ) : null}
+
+                                    <label>Username</label>
+                                </div>
+                                <div className="account-title">密碼：</div>
+                                <div className="account-group">
+                                    <Field
+                                        autoComplete="off"
+                                        className="login-input"
+                                        name="password"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.password}
+                                        type={passwordType}
                                     />
-                                </Link>
-                            </div>
+                                    {showPasswordError ? (
+                                        <span id="error-text">
+                                            {formik.errors.password}
+                                        </span>
+                                    ) : null}
+                                    <button
+                                        type="button"
+                                        className="member-eye-button"
+                                        onClick={() => {
+                                            setPasswordType(
+                                                passwordType === "text"
+                                                    ? "password"
+                                                    : "text"
+                                            );
+                                        }}
+                                    >
+                                        {passwordType === "text" ? (
+                                            <FaEyeSlash />
+                                        ) : (
+                                            <FaEye />
+                                        )}
+                                    </button>
+
+                                    <label>Password</label>
+                                </div>
+                                <div className="account-title">email:</div>
+                                <div className="account-group">
+                                    <Field
+                                        autoComplete="off"
+                                        className="login-input"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        name="email"
+                                        value={formik.values.email}
+                                        type="text"
+                                    />
+                                    {showEmailError ? (
+                                        <span id="error-text">
+                                            {formik.errors.email}
+                                        </span>
+                                    ) : null}
+
+                                    <label>email</label>
+                                </div>
+                                <div className="login-btn">
+                                    <button
+                                        type="submit"
+                                        className="submit-login"
+                                        disabled={isSubmitting}
+                                    >
+                                        註冊
+                                    </button>
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
+
+                    <div className="third-party">
+                        <div className="google-login">
+                            <Link to="/shuyoung">
+                                login with google
+                                <img src="/member_img/google-icon.svg" alt="" />
+                            </Link>
+                        </div>
+                        <div className="facebook-login">
+                            <Link to="/shuyoung">
+                                login with facebook
+                                <img src="/member_img/facebook.svg" alt="" />
+                            </Link>
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
+            <MouseParallaxContainer
+                containerStyles={{ position: "absolute", zIndex: 5 }}
+            >
+                <MouseParallaxChild
+                    factorX={0.03}
+                    factorY={0.03}
+                    // updateStyles={{
+                    //     background: "transparent",
+                    //     backgroundPositionY: "50%",
+                    //     transform: "scale(1.2)",
+                    //     position: "absolute",
+                    //     filter: "blur(4px) brightness(50%)",
+                    //     backgroundSize: "auto",
+                    //     backgroundRepeat: "repeat",
+                    //     width: "100%",
+                    //     height: "100%",
+                    //     backfaceVisibility: "hidden",
+                    // }}
+                />
+
+                <MouseParallaxChild factorX={0.05} factorY={0.05}>
+                    <img
+                        className="layer5"
+                        src="/member_img/layer/layer5.svg"
+                        alt=""
+                    />
+                </MouseParallaxChild>
+
+                <MouseParallaxChild factorX={-0.05} factorY={-0.05}>
+                    <img
+                        className="layer4"
+                        src="/member_img/layer/layer4.svg"
+                        alt=""
+                    />
+                </MouseParallaxChild>
+                <MouseParallaxChild factorX={0.02} factorY={0.04}>
+                    <img
+                        className="layer3"
+                        src="/member_img/layer/layer3.svg"
+                        alt=""
+                    />
+                </MouseParallaxChild>
+                <MouseParallaxChild factorX={-0.04} factorY={0.04}>
+                    <img
+                        className="layer2"
+                        src="/member_img/layer/layer2.svg"
+                        alt=""
+                    />
+                </MouseParallaxChild>
+                <MouseParallaxChild factorX={0.05} factorY={-0.05}>
+                    <img
+                        className="layer1"
+                        src="/member_img/layer/layer1.svg"
+                        alt=""
+                    />
+                </MouseParallaxChild>
+            </MouseParallaxContainer>
         </>
     );
 };

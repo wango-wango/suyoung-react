@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import MRegister from "./components/MRegister";
-import { useBackground } from "../../utils/useBackground";
+import {
+    MouseParallaxContainer,
+    MouseParallaxChild,
+} from "react-parallax-mouse";
 
 const Index = () => {
-    const { setBackground } = useBackground();
-
-    useEffect(() => {
-        setBackground("bg1.svg");
-    }, []);
     return (
         <>
             <MRegister />
