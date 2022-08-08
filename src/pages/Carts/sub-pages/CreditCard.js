@@ -15,6 +15,8 @@ import 'react-credit-cards/es/styles-compiled.css';
 
 
 export default class App extends React.Component {
+  
+
   state = {
     number: '',
     name: '',
@@ -46,6 +48,9 @@ export default class App extends React.Component {
     } else if (target.name === 'cvc') {
       target.value = formatCVC(target.value);
     }
+    
+    //console.log(this.props)
+    this.props.setInputs({...this.props.inputs, [target.name]: target.value})
 
     this.setState({ [target.name]: target.value });
   };
