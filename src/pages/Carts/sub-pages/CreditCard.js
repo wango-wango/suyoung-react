@@ -93,7 +93,6 @@ export default class App extends React.Component {
                   placeholder="卡號"
                   pattern="[\d| ]{16,22}"
                   maxLength="19"
-                  required
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
                 />
@@ -104,7 +103,6 @@ export default class App extends React.Component {
                   name="name"
                   className="form-control"
                   placeholder="姓名"
-                  required
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
                 />
@@ -117,7 +115,6 @@ export default class App extends React.Component {
                     className="form-control"
                     placeholder="Valid Thru"
                     pattern="\d\d/\d\d"
-                    required
                     onChange={this.handleInputChange}
                     onFocus={this.handleInputFocus}
                   />
@@ -130,7 +127,6 @@ export default class App extends React.Component {
                     placeholder="卡片背後三碼"
                     maxLength="3"
                     pattern="\d{3,4}"
-                    required
                     onChange={this.handleInputChange}
                     onFocus={this.handleInputFocus}
                   />
