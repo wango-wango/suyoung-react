@@ -17,7 +17,17 @@ function BookingArea(props) {
     });
     const [adultValue, setAdultValue] = useState(0);
     const [kidsValue, setKidsValue] = useState(0);
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = "" + (d.getMonth() + 1),
+            day = "" + d.getDate(),
+            year = d.getFullYear();
 
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+
+        return [year, month, day].join("-");
+    };
     const handleMinusA = () => {
         if (adultValue > 0) {
             setAdultValue(parseInt(adultValue, 10) - 1);
@@ -81,8 +91,8 @@ function BookingArea(props) {
                             console.log(v);
                             setBookingList({
                                 ...bookingList,
-                                startDate: v[0].toDateString(),
-                                endDate: v[1].toDateString(),
+                                startDate: formatDate(v[0].toDateString()),
+                                endDate: formatDate(v[1].toDateString()),
                                 perNight: (v[1] - v[0]) / 86400000,
                             });
                             setDatePicer({
