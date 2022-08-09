@@ -34,7 +34,7 @@ function Index(props) {
         Axios.get(
             `${BK_GET_LIST}/selectRoom?roomSid=${bookingList.roomSid}&personNum=${bookingList.adults}`
         ).then((response) => {
-            setRoomList(response.data.roomList);
+            setRoomList(response.data.roomDetail);
             setTagList(response.data.tagList);
             setPicList(response.data.picList);
             setEqiList(response.data.eqiList);

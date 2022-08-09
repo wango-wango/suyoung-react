@@ -36,6 +36,7 @@
 .card_bg {
     @include card_background;
     background-color: #00000060;
+    padding-bottom: 30px;
 }
 
 .emf {
@@ -108,8 +109,7 @@
     }
 }
 
-////////////////////活動內容收縮設定
-/// 
+/////////////活動內容收縮設定
 .actContentCotainer {
     
     .actGroup {
@@ -164,6 +164,64 @@
 
 .calendar {
     margin: auto;
+    width: 80%;  
+    .calendarLeft {
+    background-color: #fff;
+    border-radius: 1.5rem;
+    margin-right: 30px;
+    }
+    .calendarRight {
+        color: #000;
+        background-color: #fff;
+        border-radius: 1.5rem;
+        .actOrder{
+            padding: 30px;
+            .orderItem{
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+.actRsTitle {
+    margin: auto;
+    width: 75%;
+    margin-top: 50px;
+    h4 {
+    color: #fff;
+    padding: 20px;
+    }
+}
+
+.actForm {
     width: 80%;
-    height: 700px;    
+    margin: auto;
+    
+    .actlabel {
+        color: #fff;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .actTitle {
+        @include input_style
+    }
+}
+
+.precautions{
+    width: 70%;
+    margin: auto;
+    color: #fff;
+    h5{
+        margin-bottom: 10px;
+        margin-top: 40px;
+    }
+    .agreeBtn {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        text-align: center;
+        .btn {
+            margin-bottom: 10px;
+        }
+    }
+
 }
