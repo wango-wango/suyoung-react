@@ -12,7 +12,7 @@ import Atv from "./pages/Act/Atv";
 import Float from "./pages/Act/Float";
 import Night from "./pages/Act/Night";
 import Upstream from "./pages/Act/Upstream";
-import ActReservation from "./pages/Act/actReservation";
+import ActReservation from "./pages/Act/ActReservation";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 import Recipes from "./pages/Recipes";
