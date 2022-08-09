@@ -498,6 +498,7 @@ border-top: 1px solid black;
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
+    border-bottom: 1px solid #000000;
 }
 
 .discount_wrap button{
@@ -533,6 +534,12 @@ border-radius: 4px;
 .room_pic p{
 font-size: 14px;
 padding-top: 1.2rem;
+}
+
+.second_colum{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .room_detail{
@@ -593,10 +600,6 @@ justify-content: start;
 
 .room_price_2{
 justify-content: end;
-}
-
-.totalPrice{
-border-top: 1px solid black;
 }
 
 .checkoutbtn{
