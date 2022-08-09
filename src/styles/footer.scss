@@ -9,6 +9,9 @@
         color: white;
         line-height: 2;
 
+        position: relative;
+        z-index: 999;
+
         .footer_left {
             margin: 0 auto;
             display: flex;

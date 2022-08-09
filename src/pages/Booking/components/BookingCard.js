@@ -56,23 +56,25 @@ function BookingCard(props) {
         console.log(res);
     };
 
-    /*
-        roomSid: "",
-        adults: "",
-        kids: "",
-        startDate: "",
-        endDate: "",
-        perNignt: "",
-        roomType: [],
-        startPrice: "",
-        endPrice: "",
-        tagCheck: [],
-        popular: "",
-        recommand: "",
-    */
+    // 從 bookingList解構
+    const {
+        adults,
+        startDate,
+        endDate,
+        roomType,
+        startPrice,
+        endPrice,
+        tagCheck,
+        popular,
+        recommend,
+        roomSelector,
+    } = bookingList;
+
     // 用get 取得所有的值
     const getData = async () => {
-        await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
+        await Axios.get(
+            `${BK_GET_LIST}/selectRoom?adults=${adults}&startDate=${startDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}`
+        ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
             console.log(response.data.roomList);
@@ -96,7 +98,8 @@ function BookingCard(props) {
     // 起始狀態先render getData
     useEffect(() => {
         getData();
-    }, []);
+        localStorage.setItem("Room", JSON.stringify(bookingList));
+    }, [bookingList]);
 
     // 當memberKeep改變才執行
     useEffect(() => {
@@ -164,6 +167,7 @@ function BookingCard(props) {
                                                         setBookingList({
                                                             ...bookingList,
                                                             roomSid: v.sid,
+                                                            adults: v.person_num,
                                                         });
                                                     }}
                                                 >
@@ -180,11 +184,6 @@ function BookingCard(props) {
                                                 id={"keepBtn" + i}
                                                 value={v.sid}
                                                 onClick={keepHandler}
-
-                                                // favList.includes(v.sid) ===
-                                                //     true
-                                                //         ? true
-                                                //         : false
                                             />
                                             <label
                                                 className="for-checkbox-tools"
@@ -195,8 +194,6 @@ function BookingCard(props) {
                                                 ) : (
                                                     <AiOutlineHeart className="outlineHeart" />
                                                 )}
-                                                {/* <AiOutlineHeart className="outlineHeart" />
-                                                <AiFillHeart className="fillHeart" /> */}
                                             </label>
                                         </div>
                                     </div>
@@ -205,7 +202,6 @@ function BookingCard(props) {
                         );
                     })}
             </div>
-            {/* <div>Rendered at {dimensions.width}</div> */}
         </>
     );
 }

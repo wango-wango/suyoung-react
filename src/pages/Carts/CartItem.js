@@ -43,11 +43,70 @@ function CartItem(props) {
 
     const [errors, setErrors] = useState([])
 
+    const [scOrderId, setScOrderId] = useState(0) //訂單編號
+
+    // async function addOrderToSever(e) {
+    //     const orderId = +new Date()
+    //     // setInputs({...inputs,
+    //     //   [inputs.orderIdNum]: orderId,})
+    //     setScOrderId(orderId)
+    //     let data = {
+    //       orderItems: [],
+    //     }
+    //     for (let item of orderItemsStr) {
+    //       const tempObj = {
+    //         orderId: orderId,
+    //         orderItemsId: item.id,
+    //         checkPrice: item.price,
+    //         checkQty: item.amount,
+    //         checkSubtotal: item.price * item.amount,
+    //       }
+    //       data.orderItems.push(tempObj)
+    //     }
+    //     //  `orderId`, `username`, `receiverName`, `receiverPhone`, `orderPrice`, `shippingType`, `shippingPrice`, `conStore`, `conAddress`, `homeAddress`, `paymentType`, `created_at`, `updated_at`
+    //     data.orderInfo = {
+    //       orderId: orderId,
+    //       // orderId: inputs.orderIdNum,
+    //       username: 'jessica',
+    //       receiverName: inputs.scname,
+    //       receiverPhone: inputs.phone,
+    //       orderPrice: sum(orderItemsStr) + shipPrice,
+    //       shippingType: shipType,
+    //       shippingPrice: shipPrice,
+    //       // conStore: seletedConCity+seletedConStore,
+    //       conStore: inputs.conType+inputs.conCity+inputs.conStore,
+    //       conAddress: selectedConAddress,
+    //       homeAddress: (country > -1  && township>-1)&& (postcodes[country][township]+countries[country]+townships[country][township]+inputs.homeAddress) ,
+    //       paymentType: paymentWay,
+    //     }
+    
+    //     // 連接的伺服器資料網址
+    //     const url = 'http://localhost:4567/cart/product/order/add'
+    
+    //     // 注意資料格式要設定，伺服器才知道是json格式
+    //     // 轉成json檔傳到伺服器
+    //     const request = new Request(url, {
+    //       method: 'POST',
+    //       body: JSON.stringify(data),
+    //       headers: new Headers({
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json',
+    //       }),
+    //     })
+    //     console.log('JSON', JSON.stringify(data))
+    //     // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
+    
+    //     const response = await fetch(request)
+    //     const dataRes = await response.json()
+    
+    //     console.log('伺服器回傳的json資料', dataRes)
+    //   }
+
     function HandleAlert() {
         Swal.fire({
             icon: 'success',
             title: '感謝購買',
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 3000
           })
       }
@@ -100,8 +159,8 @@ function CartItem(props) {
       }
     if (!_.isEmpty(orderItemsStr) && newErrors.length === 0 ) {
       // 購物車內有商品
-    HandleAlert();
-    //   await addOrderToSever();
+        HandleAlert();
+        //   await addOrderToSever();
       localStorage.removeItem('roomItem');
       setStep(3)
     }
@@ -129,6 +188,7 @@ function CartItem(props) {
         handleSubmit={handleSubmit}
         orderItemsStr={orderItemsStr}   
         HandleAlertBuy={ HandleAlertBuy}
+        HandleAlert={HandleAlert}
         />
     </div>
     {/* {step === 1 ?  <AddOn/> : null} */}

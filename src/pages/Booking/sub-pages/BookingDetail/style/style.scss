@@ -158,334 +158,160 @@ p {
 
 
 .room_order_detail {
-        // height: 90vh;
-        position: relative;
+    // height: 90vh;
+    position: relative;
 
-        .room_order_container {
-            @include eastern_mistery_force();
-            background-color: rgba($color: #fff, $alpha: 0.4);
-            padding: var(--subtitle_text);
-            margin-top: 0;
-            overflow: hidden;
+    .room_order_container {
+        @include eastern_mistery_force();
+        background-color: rgba($color: #fff, $alpha: 0.4);
+        padding: var(--subtitle_text);
+        margin-top: 0;
+        overflow: hidden;
 
-            .room_Rows {
-                width: 100%;
+        .room_Rows {
+            width: 100%;
+            display: flex;
+            margin: auto;
+
+
+            .room_col_left {
+                width: 70%;
                 display: flex;
-                margin: auto;
+                flex-direction: column;
+                margin-right: 2rem;
 
 
-                .room_col_left {
-                    width: 70%;
+                .room_Card {
+                    width: 100%;
+                    @include card_background();
+
                     display: flex;
-                    flex-direction: column;
-                    margin-right: 2rem;
+                    margin: 0;
+                    padding: 2rem;
 
+                    .room_pic {
+                        width: 60%;
+                        margin: 1rem;
 
-                    .room_Card {
-                        width: 100%;
-                        @include card_background();
-                        
-                        display: flex;
-                        margin: 0;
-                        padding: 2rem ;
+                        .swiper_container {
+                            position: relative;
+                            height: 100%;
+                            background: rgba(255, 255, 255, 0.4);
+                            font-size: var(--text_size);
+                            color: var(--primary_color_900);
+                            padding: 0;
+                            overflow: hidden;
+                            border-radius: 1rem;
 
-                        .room_pic {
-                            width: 60%;
-                            margin: 1rem;
-
-                            .swiper_container {
-                                position: relative;
+                            .swiper {
+                                width: 100%;
                                 height: 100%;
-                                background: rgba(255, 255, 255, 0.4);
+                            }
+
+                            .swiper-slide {
+                                text-align: center;
                                 font-size: var(--text_size);
-                                color: var(--primary_color_900);
-                                padding: 0;
-                                overflow: hidden;
+                                background: #fff;
+
+                                /* Center slide text vertically */
+                                display: -webkit-box;
+                                display: -ms-flexbox;
+                                display: -webkit-flex;
+                                display: flex;
+                                -webkit-box-pack: center;
+                                -ms-flex-pack: center;
+                                -webkit-justify-content: center;
+                                justify-content: center;
+                                -webkit-box-align: center;
+                                -ms-flex-align: center;
+                                -webkit-align-items: center;
+                                align-items: center;
+                            }
+
+                            .swiper-slide img {
+                                display: block;
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                border-radius: 0;
+                            }
+
+                            .swiper {
+                                width: 100%;
+                                height: 300px;
+
+                                margin: 0 auto 1rem;
+                            }
+
+                            .swiper-slide {
+                                background-size: cover;
+                                background-position: center;
+                            }
+
+                            .mySwiper2 {
+                                height: 80%;
+                                width: 100%;
                                 border-radius: 1rem;
+                            }
 
-                                .swiper {
-                                    width: 100%;
-                                    height: 100%;
-                                }
+                            .mySwiper {
+                                height: 20%;
+                                box-sizing: border-box;
+                                padding: 10px 0;
 
-                                .swiper-slide {
-                                    text-align: center;
-                                    font-size: var(--text_size);
-                                    background: #fff;
+                            }
 
-                                    /* Center slide text vertically */
-                                    display: -webkit-box;
-                                    display: -ms-flexbox;
-                                    display: -webkit-flex;
-                                    display: flex;
-                                    -webkit-box-pack: center;
-                                    -ms-flex-pack: center;
-                                    -webkit-justify-content: center;
-                                    justify-content: center;
-                                    -webkit-box-align: center;
-                                    -ms-flex-align: center;
-                                    -webkit-align-items: center;
-                                    align-items: center;
-                                }
+                            .mySwiper .swiper-slide {
+                                width: 25%;
+                                height: 100%;
+                                opacity: 0.4;
 
-                                .swiper-slide img {
-                                    display: block;
-                                    width: 100%;
-                                    height: 100%;
-                                    object-fit: cover;
-                                    border-radius: 0;
-                                }
+                            }
 
-                                .swiper {
-                                    width: 100%;
-                                    height: 300px;
-                                    
-                                    margin: 0 auto 1rem;
-                                }
+                            .mySwiper .swiper-slide-thumb-active {
+                                opacity: 1;
+                            }
 
-                                .swiper-slide {
-                                    background-size: cover;
-                                    background-position: center;
-                                }
-
-                                .mySwiper2 {
-                                    height: 80%;
-                                    width: 100%;
-                                    border-radius: 1rem;
-                                }
-
-                                .mySwiper {
-                                    height: 20%;
-                                    box-sizing: border-box;
-                                    padding: 10px 0;
-                                    
-                                }
-
-                                .mySwiper .swiper-slide {
-                                    width: 25%;
-                                    height: 100%;
-                                    opacity: 0.4;
-                                    
-                                }
-
-                                .mySwiper .swiper-slide-thumb-active {
-                                    opacity: 1;
-                                }
-
-                                .swiper-slide img {
-                                    display: block;
-                                    width: 100%;
-                                    height: 100%;
-                                    object-fit: cover;
-                                    border-radius: 1rem;
-                                }
-
+                            .swiper-slide img {
+                                display: block;
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                border-radius: 1rem;
                             }
 
                         }
 
-                        .room_content {
-
-                            width: 40%;
-                            @include card_background();
-                            margin: 1rem;
-
-                            .room_card_title,
-                            .room_card_subtitle {
-                                width: 85%;
-                                margin: auto;
-                                color: var(--primary_color);
-                                font-weight: 600;
-                            }
-
-                            .room_card_tag {
-                                width: 85%;
-                                display: flex;
-                                flex-wrap: wrap;
-                                justify-content: flex-start;
-                                margin: auto;
-
-                                // border: 1px solid red;
-                                .room_card_tag_btn {
-                                    position: relative;
-                                    display: inline-flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    text-align: center;
-                                    padding: 6px var(--subtitle_text);
-                                    font-size: var(--text_size);
-                                    line-height: var(--subtitle_text);
-                                    letter-spacing: 2px;
-                                    margin: 0 6px var(--subtitle_text) 6px;
-                                    text-align: center;
-                                    border-radius: 4px;
-                                    cursor: pointer;
-                                    color: var(--background_color);
-                                    text-transform: uppercase;
-                                    background-color: var(--primary_color_900);
-
-                                    &::before {
-                                        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-                                        position: absolute;
-                                        content: "";
-                                        top: -2px;
-                                        left: -2px;
-                                        width: calc(100% + 4px);
-                                        height: calc(100% + 4px);
-                                        border-radius: 4px;
-                                        z-index: -2;
-                                        background-image: linear-gradient(138deg,
-                                                var(--input_color),
-                                                var(--primary_color_500));
-                                        transition: all 0.5s linear;
-
-                                    }
-
-                                    // checkbox 點擊前的lebal 的偽元素 after
-                                    &::after {
-                                        position: absolute;
-                                        content: "";
-                                        top: -2px;
-                                        left: -2px;
-                                        width: calc(100% + 4px);
-                                        height: calc(100% + 4px);
-                                        border-radius: 4px;
-                                        z-index: -2;
-                                        background-color: var(--primary_color_900);
-                                        transition: all 0.5s linear;
-
-                                    }
-
-                                    // 文字的初始設定
-                                    .text {
-                                        position: relative;
-                                        display: inline-block;
-                                        opacity: 1;
-                                        font-size: var(--text_size);
-
-                                        &::after {
-                                            position: absolute;
-                                            content: "";
-                                            width: 0;
-                                            left: 0;
-                                            bottom: -10%;
-                                            margin-top: -1px;
-                                            height: 2px;
-                                            background-image: linear-gradient(138deg,
-                                                    var(--input_color),
-                                                    var(--primary_color_500));
-                                            z-index: 2;
-                                            width: 0;
-                                            transition: all 0.5s linear;
-                                        }
-                                    }
-
-                                    &:hover {
-                                        background-color: var(--primary_color_600);
-
-                                        ::before {
-                                            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-                                            position: absolute;
-                                            content: "";
-                                            top: -2px;
-                                            left: -2px;
-                                            width: calc(100% + 4px);
-                                            height: calc(100% + 4px);
-                                            border-radius: 4px;
-                                            z-index: -2;
-                                            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-                                            transition: all 0.5s linear;
-                                        }
-
-                                        //偽元素 after
-                                        &::after {
-                                            position: absolute;
-                                            content: "";
-                                            top: -2px;
-                                            left: -2px;
-                                            width: calc(100% + 4px);
-                                            height: calc(100% + 4px);
-                                            border-radius: 4px;
-                                            z-index: 1;
-                                            background-color: var(--primary_color_600);
-                                            opacity: 0;
-                                            transition: all 0.5s linear;
-                                        }
-
-                                        .text {
-                                            position: relative;
-                                            display: inline-block;
-                                            z-index: 3;
-                                            transition: all 0.5s linear;
-                                            opacity: 1;
-
-                                            &::after {
-                                                position: absolute;
-                                                content: "";
-                                                left: 0;
-                                                bottom: -10%;
-                                                margin-top: -1px;
-                                                height: 2px;
-                                                background-image: linear-gradient(138deg,
-                                                        var(--input_color),
-                                                        var(--primary_color_500));
-                                                z-index: 2;
-                                                width: 100%;
-                                                transition: all 0.5s linear;
-                                            }
-                                        }
-                                    }
-
-
-                                }
-                            }
-
-                            .room_card_paragraph {
-                                color: #999;
-                            }
-
-                            .room_card_Price {
-                                display: flex;
-                                width: 85%;
-                                justify-content: space-evenly;
-                                align-items: baseline;
-                                margin: auto;
-                                border-bottom: 1px solid var(--primary_color_900);
-                                padding: 3px var(--subtitle_text);
-                            }
-
-
-                        }
                     }
 
-                    .room_equipment {
+                    .room_content {
 
-                        width: 100%;
+                        width: 40%;
                         @include card_background();
-                        margin: 2rem 0 0 0;
-                        padding: 2rem;
+                        margin: 1rem;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
 
-                        .room_equipment_title {
-                            width: 100%;
+                        .room_card_title,
+                        .room_card_subtitle {
+                            width: 85%;
                             margin: auto;
-                            margin: 1rem ;
-
-                            h5 {
-                                padding: var(--text_size) auto;
-                                color: var(--primary_color);
-                            }
+                            color: var(--primary_color);
+                            font-weight: 600;
                         }
 
-                        .room_equipment_box {
-                            width: 100%;
+                        .room_card_tag {
+                            width: 85%;
                             display: flex;
                             flex-wrap: wrap;
                             justify-content: flex-start;
-                            margin: 1rem 0rem;
+                            margin: auto;
 
-                            .room_equipment_btn {
-                                border: 1px solid var(--primary_color);
-                                color: var(--primary_color);
+                            // border: 1px solid red;
+                            .room_card_tag_btn {
+                                position: relative;
+                                display: inline-flex;
                                 align-items: center;
                                 justify-content: center;
                                 text-align: center;
@@ -497,113 +323,312 @@ p {
                                 text-align: center;
                                 border-radius: 4px;
                                 cursor: pointer;
-                                font-size: var(--text_size);
+                                color: var(--background_color);
+                                text-transform: uppercase;
+                                background-color: var(--primary_color_900);
+
+                                &::before {
+                                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+                                    position: absolute;
+                                    content: "";
+                                    top: -2px;
+                                    left: -2px;
+                                    width: calc(100% + 4px);
+                                    height: calc(100% + 4px);
+                                    border-radius: 4px;
+                                    z-index: -2;
+                                    background-image: linear-gradient(138deg,
+                                            var(--input_color),
+                                            var(--primary_color_500));
+                                    transition: all 0.5s linear;
+
+                                }
+
+                                // checkbox 點擊前的lebal 的偽元素 after
+                                &::after {
+                                    position: absolute;
+                                    content: "";
+                                    top: -2px;
+                                    left: -2px;
+                                    width: calc(100% + 4px);
+                                    height: calc(100% + 4px);
+                                    border-radius: 4px;
+                                    z-index: -2;
+                                    background-color: var(--primary_color_900);
+                                    transition: all 0.5s linear;
+
+                                }
+
+                                // 文字的初始設定
+                                .text {
+                                    position: relative;
+                                    display: inline-block;
+                                    opacity: 1;
+                                    font-size: var(--text_size);
+
+                                    &::after {
+                                        position: absolute;
+                                        content: "";
+                                        width: 0;
+                                        left: 0;
+                                        bottom: -10%;
+                                        margin-top: -1px;
+                                        height: 2px;
+                                        background-image: linear-gradient(138deg,
+                                                var(--input_color),
+                                                var(--primary_color_500));
+                                        z-index: 2;
+                                        width: 0;
+                                        transition: all 0.5s linear;
+                                    }
+                                }
+
+                                &:hover {
+                                    background-color: var(--primary_color_600);
+
+                                    ::before {
+                                        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+                                        position: absolute;
+                                        content: "";
+                                        top: -2px;
+                                        left: -2px;
+                                        width: calc(100% + 4px);
+                                        height: calc(100% + 4px);
+                                        border-radius: 4px;
+                                        z-index: -2;
+                                        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                                        transition: all 0.5s linear;
+                                    }
+
+                                    //偽元素 after
+                                    &::after {
+                                        position: absolute;
+                                        content: "";
+                                        top: -2px;
+                                        left: -2px;
+                                        width: calc(100% + 4px);
+                                        height: calc(100% + 4px);
+                                        border-radius: 4px;
+                                        z-index: 1;
+                                        background-color: var(--primary_color_600);
+                                        opacity: 0;
+                                        transition: all 0.5s linear;
+                                    }
+
+                                    .text {
+                                        position: relative;
+                                        display: inline-block;
+                                        z-index: 3;
+                                        transition: all 0.5s linear;
+                                        opacity: 1;
+
+                                        &::after {
+                                            position: absolute;
+                                            content: "";
+                                            left: 0;
+                                            bottom: -10%;
+                                            margin-top: -1px;
+                                            height: 2px;
+                                            background-image: linear-gradient(138deg,
+                                                    var(--input_color),
+                                                    var(--primary_color_500));
+                                            z-index: 2;
+                                            width: 100%;
+                                            transition: all 0.5s linear;
+                                        }
+                                    }
+                                }
 
 
                             }
+                        }
+
+                        .room_card_paragraph {
+                            color: #999;
+                        }
+
+                        .room_card_Price {
+                            display: flex;
+                            width: 85%;
+                            justify-content: space-evenly;
+                            align-items: baseline;
+                            margin: auto;
+                            border-bottom: 1px solid var(--primary_color_900);
+                            padding: 3px var(--subtitle_text);
+                        }
+
+
+                    }
+                }
+
+                .room_equipment {
+
+                    width: 100%;
+                    @include card_background();
+                    margin: 2rem 0 0 0;
+                    padding: 2rem;
+
+                    .room_equipment_title {
+                        width: 100%;
+                        margin: auto;
+                        margin: 1rem;
+
+                        h5 {
+                            padding: var(--text_size) auto;
+                            color: var(--primary_color);
+                        }
+                    }
+
+                    .room_equipment_box {
+                        width: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: flex-start;
+                        margin: 1rem 0rem;
+
+                        .room_equipment_btn {
+                            border: 1px solid var(--primary_color);
+                            color: var(--primary_color);
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                            padding: 6px var(--subtitle_text);
+                            font-size: var(--text_size);
+                            line-height: var(--subtitle_text);
+                            letter-spacing: 2px;
+                            margin: 0 6px var(--subtitle_text) 6px;
+                            text-align: center;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            font-size: var(--text_size);
+
+
+                        }
+                    }
+                }
+            }
+
+            .room_col_right {
+                width: 30%;
+                @include card_background();
+                margin: 0;
+
+
+                .booking_detail_area {
+                    margin: 4rem 0;
+
+                    .booking_date_title {
+                        color: var(--primary_color);
+                        margin: 0 4rem;
+                    }
+
+                    .booking_date_in,
+                    .booking_date_out {
+                        margin: 2rem 4rem;
+
+                        input {
+                            @include input_style();  
+                            outline: 1px solid #224040;
+                            
+                            &~label,
+                            &~label {
+                                top: calc((var(--h5_text)) * (-1));
+                                font-size: var(--text_size);
+                                color: var(--primary_color);
+                            }
+
+                            text-align: center;
+                            width: 100%;
+                        }
+
+                        label {
+                            @include input_label();
+                        }
+
+                    }
+
+                    .booking_person {
+                        margin: 2rem 4rem;
+
+                        input {
+                            @include input_style();
+                            text-align: center;
+                            width: 100%;
+                            outline: 1px solid #224040;
+                            
+                            &~label,
+                            &~label {
+                                top: calc((var(--h5_text)) * (-1));
+                                font-size: var(--text_size);
+                                color: var(--primary_color);
+                            }
+                        }
+
+                        label {
+                            @include input_label();
                         }
                     }
                 }
 
-                .room_col_right {
-                    width: 30%;
-                    @include card_background();
-                    margin: 0;
+                .room_Result {
+                    color: var(--primary_color);
+                    margin: 3rem 0;
 
-
-                    .booking_detail_area {
-                        margin: 4rem 0;
-
-                        .booking_date_title {
-                            color: var(--primary_color);
-                            margin: 0 4rem;
-                        }
-
-                        .booking_date_in,
-                        .booking_date_out {
-                            margin: 2rem 4rem;
-
-                            input {
-                                @include input_style();
-                                width: 100%;
-                            }
-
-                            label {
-                                @include input_label();
-                            }
-
-                        }
-
-                        .booking_person {
-                            margin: 2rem 4rem;
-
-                            input {
-                                @include input_style();
-                                width: 100%;
-                            }
-
-                            label {
-                                @include input_label();
-                            }
-                        }
+                    .room_title {
+                        margin: 2rem 4rem;
                     }
 
-                    .room_Result {
-                        color: var(--primary_color);
-                        margin: 3rem 0;
+                    .room_result_type {
+                        .room_modify {
+                            display: flex;
+                            justify-content: space-between;
+                            margin: 2rem 4rem;
 
-                        .room_title {
+                        }
+
+                        .room_price {
+                            display: flex;
+                            justify-content: space-between;
                             margin: 2rem 4rem;
                         }
 
-                        .room_result_type {
-                            .room_modify {
-                                display: flex;
-                                justify-content: space-between;
-                                margin: 2rem 4rem;
+                        .room_add_bed {
+                            display: flex;
+                            justify-content: space-between;
+                            margin: 2rem 4rem;
+                        }
 
-                            }
+                        .room_result_total {
+                            display: flex;
+                            justify-content: space-between;
+                            margin: 2rem 4rem;
+                            padding-top: 2rem;
+                            border-top: 1px solid var(--primary_color);
+                        }
 
-                            .room_price {
-                                display: flex;
-                                justify-content: space-between;
-                                margin: 2rem 4rem;
-                            }
+                        .room_card_button_area {
+                            width: 85%;
+                            margin: auto;
+                            padding: var(--h5_text) 0;
+                            display: flex;
 
-                            .room_add_bed {
-                                display: flex;
-                                justify-content: space-between;
-                                margin: 2rem 4rem;
-                            }
+                            .room_card_button {
+                                display: block;
+                                @include p_button;
 
-                            .room_result_total {
-                                display: flex;
-                                justify-content: space-between;
-                                margin: 2rem 4rem;
-                                padding-top: 2rem;
-                                border-top: 1px solid var(--primary_color);
-                            }
-
-                            .room_card_button_area {
-                                width: 85%;
+                                width: 150px;
+                                height: 50px;
+                                border-radius: 50px;
                                 margin: auto;
-                                padding: var(--h5_text) 0;
 
-                                .room_card_button {
-                                    display: block;
-                                    @include p_button;
-                                    background-color: var(--secondary_color);
-                                    width: 150px;
-                                    height: 50px;
-                                    border-radius: 50px;
-                                    margin: auto;
-
+                                &:nth-child(1) {
+                                    background-color: var(--primary_color_600);
                                     &:hover {
-                                        background-color: #9e3222;
+                                        background-color: #1e6969;
                                         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.284);
                                         transform: translate(-3px, -3px);
                                     }
-
+    
                                     &:active {
                                         transform: scale(0.98);
                                         /* Scaling button to 0.98 to its original size */
@@ -612,50 +637,72 @@ p {
                                         color: var(--brown_color);
                                     }
                                 }
+
+                                &:nth-child(2) {
+                                    background-color: var(--secondary_color);
+                                    &:hover {
+                                        background-color: #9e3222;
+                                        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.284);
+                                        transform: translate(-3px, -3px);
+                                    }
+    
+                                    &:active {
+                                        transform: scale(0.98);
+                                        /* Scaling button to 0.98 to its original size */
+                                        box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+                                        /* Lowering the shadow */
+                                        color: var(--brown_color);
+                                    }
+                                }
+
+                                
                             }
                         }
                     }
                 }
             }
+        }
 
-        }
-        #scrolldown {
-            position: relative;
-            a {
-                padding-top: 70px;
-                position: absolute;
-                bottom: -95px;
-                left: 50%;
-                z-index: 2;
-                display: inline-block;
-                -webkit-transform: translate(0, -50%);
-                transform: translate(0, -50%);
-                color: #fff;
-                font: normal 400 20px/1 'Josefin Sans', sans-serif;
-                letter-spacing: .1em;
-                text-decoration: none;
-                transition: opacity .3s;
-        
-                &:hover {
-                    opacity: 0.5;
-                }
-        
-                span {
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    width: 24px;
-                    height: 24px;
-                    margin-left: -12px;
-                    border-left: 1px solid #fff;
-                    border-bottom: 1px solid #fff;
-                    transform: rotate(-45deg);
-                    animation: sdb05 1.5s infinite;
-                    box-sizing: border-box;
-                }
+    }
+
+    #scrolldown {
+        position: relative;
+
+        a {
+            padding-top: 70px;
+            position: absolute;
+            bottom: -95px;
+            left: 50%;
+            z-index: 2;
+            display: inline-block;
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            color: #fff;
+            font: normal 400 20px/1 'Josefin Sans', sans-serif;
+            letter-spacing: .1em;
+            text-decoration: none;
+            transition: opacity .3s;
+
+            &:hover {
+                opacity: 0.5;
             }
-        
+
+            span {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 24px;
+                height: 24px;
+                margin-left: -12px;
+                border-left: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+                transform: rotate(-45deg);
+                animation: sdb05 1.5s infinite;
+                box-sizing: border-box;
+            }
         }
+
+    }
 }
 
 
@@ -667,150 +714,152 @@ p {
     background-color: #415f4d;
 
 
-    
+
     position: relative;
     width: 100%;
     letter-spacing: 1.2px;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
-   
-        .detail_up_title {
+
+    .detail_up_title {
+        color: var(--background_color);
+        margin: auto;
+        text-align: center;
+
+    }
+
+    .room_detail_container {
+
+        // background-color: #ec391e;
+        // display: flex;
+        // flex-direction: column;
+        // gap: var(--text_size);
+        .filled-text1,
+        .filled-text2,
+        .filled-text3,
+        .filled-text4,
+        .filled-text5,
+        .filled-text6 {
+            z-index: 1;
+            font-size: var(--h1_text);
+            font-weight: 600;
             color: var(--background_color);
-            margin: auto;
-            text-align: center;
-    
         }
-    
-        .room_detail_container {
-            // background-color: #ec391e;
-            // display: flex;
-            // flex-direction: column;
-            // gap: var(--text_size);
-            .filled-text1,
-            .filled-text2,
-            .filled-text3,
-            .filled-text4,
-            .filled-text5,
-            .filled-text6 {
-                z-index: 1;
-                font-size: var(--h1_text);
-                font-weight: 600;
-                color: var(--background_color);
-            }
-    
-            .outline-text1,
-            .outline-text2,
-            .outline-text3,
-            .outline-text4,
-            .outline-text5,
-            .outline-text6 {
-                z-index: 3;
-                font-size: var(--h1_text);
-                font-weight: 600;
-                -webkit-text-stroke-width: calc((var(--text_size)) / 3);
-                -webkit-text-stroke-color: var(--background_color);
-                color: transparent;
-            }
-    
-            .image1,
-            .image2,
-            .image3,
-            .image4,
-            .image5,
-            .image6 {
-                z-index: 2;
-                height: var(--gsap_pos);
-                width: auto;
-            }
-    
-            .image1 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) / 2);
-                left: var(--gsap_pos);
-            }
-    
-            .image2 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 1.5 + (var(--gsap_gap)) * 1);
-                right: var(--gsap_pos);
-            }
-    
-            .image3 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 2.5 + (var(--gsap_gap)) * 2);
-                left: var(--gsap_pos);
-            }
-    
-            .image4 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 3.5 + (var(--gsap_gap)) * 3);
-                right: var(--gsap_pos);
-            }
-    
-            .image5 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 4.5 + (var(--gsap_gap)) * 4);
-                left: var(--gsap_pos);
-            }
-    
-            .image6 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 5.5 + (var(--gsap_gap)) * 5);
-                right: var(--gsap_pos);
-            }
-    
-            .filled-text1,
-            .outline-text1 {
-                position: absolute;
-                top: var(--gsap_pos);
-                left: var(--h1_text);
-            }
-    
-            .filled-text2,
-            .outline-text2 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 2 + var(--gsap_gap));
-                right: var(--h1_text);
-            }
-    
-            .filled-text3,
-            .outline-text3 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 3 + (var(--gsap_gap)) * 2);
-                left: var(--h1_text);
-            }
-    
-            .filled-text4,
-            .outline-text4 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 4 + (var(--gsap_gap)) * 3);
-                right: var(--h1_text);
-            }
-    
-            .filled-text5,
-            .outline-text5 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 5 + (var(--gsap_gap)) * 4);
-                left: var(--h1_text);
-            }
-    
-            .filled-text6,
-            .outline-text6 {
-                position: absolute;
-                top: calc((var(--gsap_pos)) * 6 + (var(--gsap_gap)) * 5);
-                right: var(--h1_text);
-            }
-    
+
+        .outline-text1,
+        .outline-text2,
+        .outline-text3,
+        .outline-text4,
+        .outline-text5,
+        .outline-text6 {
+            z-index: 3;
+            font-size: var(--h1_text);
+            font-weight: 600;
+            -webkit-text-stroke-width: calc((var(--text_size)) / 3);
+            -webkit-text-stroke-color: var(--background_color);
+            color: transparent;
         }
-    
-    
+
+        .image1,
+        .image2,
+        .image3,
+        .image4,
+        .image5,
+        .image6 {
+            z-index: 2;
+            height: var(--gsap_pos);
+            width: auto;
+        }
+
+        .image1 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) / 2);
+            left: var(--gsap_pos);
+        }
+
+        .image2 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 1.5 + (var(--gsap_gap)) * 1);
+            right: var(--gsap_pos);
+        }
+
+        .image3 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 2.5 + (var(--gsap_gap)) * 2);
+            left: var(--gsap_pos);
+        }
+
+        .image4 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 3.5 + (var(--gsap_gap)) * 3);
+            right: var(--gsap_pos);
+        }
+
+        .image5 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 4.5 + (var(--gsap_gap)) * 4);
+            left: var(--gsap_pos);
+        }
+
+        .image6 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 5.5 + (var(--gsap_gap)) * 5);
+            right: var(--gsap_pos);
+        }
+
+        .filled-text1,
+        .outline-text1 {
+            position: absolute;
+            top: var(--gsap_pos);
+            left: var(--h1_text);
+        }
+
+        .filled-text2,
+        .outline-text2 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 2 + var(--gsap_gap));
+            right: var(--h1_text);
+        }
+
+        .filled-text3,
+        .outline-text3 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 3 + (var(--gsap_gap)) * 2);
+            left: var(--h1_text);
+        }
+
+        .filled-text4,
+        .outline-text4 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 4 + (var(--gsap_gap)) * 3);
+            right: var(--h1_text);
+        }
+
+        .filled-text5,
+        .outline-text5 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 5 + (var(--gsap_gap)) * 4);
+            left: var(--h1_text);
+        }
+
+        .filled-text6,
+        .outline-text6 {
+            position: absolute;
+            top: calc((var(--gsap_pos)) * 6 + (var(--gsap_gap)) * 5);
+            right: var(--h1_text);
+        }
+
+    }
+
+
 }
 
 .room_detail_down {
     width: 100%;
     background-color: var(--primary_color_900);
     padding: 4rem;
-    .room_detail_paragraph{
+
+    .room_detail_paragraph {
         .description {
             display: flex;
             flex-direction: column;
@@ -818,36 +867,40 @@ p {
             margin: auto;
             width: 50%;
             color: var(--background_color);
-    
+
             h3,
             h4,
             p {
                 margin-top: 1rem;
                 width: 100%;
             }
-    
+
         }
     }
-    
+
 }
 
 .guess_you_like {
     background-color: var(--brown_color);
-    
+
     .guess_container {
         width: 85%;
         margin: auto;
         padding: 4rem;
+
         .guess_title {
             margin: auto;
-            h1{
+
+            h1 {
                 text-align: center;
                 color: var(--primary_color_900);
             }
         }
-        .guess_card_flex{
+
+        .guess_card_flex {
             display: flex;
-            .guess_card{
+
+            .guess_card {
                 padding: 1rem;
                 display: flex;
                 flex-direction: column;
@@ -857,25 +910,28 @@ p {
                 @include card_background();
                 background-color: rgba(255, 255, 255, 0.257);
                 width: calc((var(--h1_text)) * 4);
-                .guess_images{
-                    
+
+                .guess_images {
+
                     width: 85%;
                     margin: var(--text_size);
                     height: 0;
                     padding-bottom: 50%;
                     overflow: hidden;
-                    img{
+
+                    img {
                         width: 100%;
                     }
                 }
-                .guess_content{
+
+                .guess_content {
                     color: var(--primary_color_900);
                     width: 85%;
                     margin: var(--text_size);
                 }
             }
         }
-        
+
     }
 }
 

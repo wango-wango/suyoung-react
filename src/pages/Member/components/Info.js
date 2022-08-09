@@ -3,6 +3,8 @@ import "../styles/member-form.scss";
 import { motion } from "framer-motion";
 import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 import TWZipCode from "./TWZipCode";
 import axios from "axios";
@@ -48,12 +50,21 @@ const Info = () => {
         setFields({ ...fields, [e.target.name]: e.target.value });
     };
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
+    const handleUpdate = async (values) => {
+        // e.preventDefault();
+
+        console.log(values);
+
+        const county = fields.county;
+        const area = fields.area;
+
+        const finalForm = { ...values, county: county, area: area };
+
+        console.log(finalForm);
 
         const res = await axios.put(
             `http://localhost:3700/member/${auth.m_id}`,
-            fields
+            finalForm
         );
 
         alert("資料修改完成");
@@ -177,100 +188,156 @@ const Info = () => {
                 <div className="member-title">會員資料</div>
                 <div className="form-container">
                     <div className="left">
-                        <form onSubmit={handleUpdate}>
-                            <div className="name">
-                                <div>
-                                    <div className="last-name">姓：</div>
-                                    <div className="input_group">
-                                        <input
-                                            name="lastname"
-                                            type="text"
-                                            placeholder="姓"
-                                            defaultValue={auth.m_last_name}
-                                            onChange={handleFieldsChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="last-name">名：</div>
-                                    <div className="input_group">
-                                        <input
-                                            type="text"
-                                            name="firstname"
-                                            placeholder="名"
-                                            defaultValue={auth.m_first_name}
-                                            onChange={handleFieldsChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="last-name">會員生日：</div>
-                                <div className="input_group">
-                                    <input
-                                        name="birthday"
-                                        type="date"
-                                        defaultValue={auth.m_birthday}
-                                        onChange={handleFieldsChange}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="last-name">電子郵件：</div>
-                                <div className="input_group">
-                                    <input
-                                        name="email"
-                                        type="email"
-                                        placeholder="電子郵件"
-                                        defaultValue={auth.m_email}
-                                        onChange={handleFieldsChange}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="last-name">行動電話：</div>
-                                <div className="input_group">
-                                    <input
-                                        name="phone"
-                                        type="text"
-                                        placeholder="行動電話"
-                                        defaultValue={auth.m_phone}
-                                        onChange={handleFieldsChange}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div>會員地址：</div>
-                                {/* <select name="city" id="city">
-                                    <option value="" disabled selected>
-                                        請選擇
-                                    </option>
-                                </select>
-                                縣/市
-                                <select name="area" id="area">
-                                    <option value="" disabled selected>
-                                        請選擇
-                                    </option>
-                                </select>
-                                區
-                                 */}
-                                <TWZipCode
-                                    fields={fields}
-                                    setFields={setFields}
-                                />
-                                <div className="input_group">
-                                    <input
-                                        name="address"
-                                        type="text"
-                                        defaultValue={auth.m_addr}
-                                        placeholder="地址"
-                                        onChange={handleFieldsChange}
-                                    />
-                                </div>
-                            </div>
+                        <Formik
+                            initialValues={{
+                                lastname: auth.m_last_name,
+                                firstname: auth.m_first_name,
+                                birthday: auth.m_birthday,
+                                email: auth.m_email,
+                                phone: auth.m_phone,
+                                address: auth.m_addr,
+                            }}
+                            validationSchema={Yup.object({
+                                lastname: Yup.string()
+                                    .min(1, "至少需一個字")
+                                    .max(15, "不可超過15字")
+                                    .required("此欄位不可為空"),
+                                firstname: Yup.string()
+                                    .min(1, "至少需一個字")
+                                    .max(15, "不可超過15字")
+                                    .required("此欄位不可為空"),
+                                birthday:
+                                    Yup.string().required("此欄位不可為空"),
+                                email: Yup.string()
+                                    .email("請輸入有效的email格式")
+                                    .required("此欄位不可為空"),
+                                phone: Yup.string()
+                                    .matches(
+                                        /^09[0-9]{8}$/,
+                                        "請輸入正確的手機格式"
+                                    )
+                                    .required("此欄位不可為空"),
+                                address: Yup.string()
+                                    .min(1, "至少需一個字")
+                                    .max(50, "不可超過50字")
+                                    .required("此欄位不可為空"),
+                            })}
+                            onSubmit={(values) => {
+                                console.log(values);
+                                handleUpdate(values);
+                            }}
+                        >
+                            {(formik) => (
+                                <Form>
+                                    <div className="name">
+                                        <div>
+                                            <div className="last-name">
+                                                姓：
+                                            </div>
+                                            <div className="input_group">
+                                                <Field
+                                                    name="lastname"
+                                                    type="text"
+                                                    placeholder="姓"
+                                                    value={
+                                                        formik.values.lastname
+                                                    }
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                />
 
-                            <button type="submit">更新檔案</button>
-                        </form>
+                                                <ErrorMessage name="lastname" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="last-name">
+                                                名：
+                                            </div>
+                                            <div className="input_group">
+                                                <Field
+                                                    type="text"
+                                                    name="firstname"
+                                                    placeholder="名"
+                                                    value={
+                                                        formik.values.firstname
+                                                    }
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                />
+                                                <ErrorMessage name="firstname" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="last-name">
+                                            會員生日：
+                                        </div>
+                                        <div className="input_group">
+                                            <Field
+                                                name="birthday"
+                                                type="date"
+                                                value={formik.values.birthday}
+                                                onChange={formik.handleChange}
+                                            />
+                                            <ErrorMessage name="birthday" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="last-name">
+                                            電子郵件：
+                                        </div>
+                                        <div className="input_group">
+                                            <Field
+                                                name="email"
+                                                type="email"
+                                                placeholder="電子郵件"
+                                                value={formik.values.email}
+                                                onChange={formik.handleChange}
+                                            />
+                                            <ErrorMessage name="email" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="last-name">
+                                            行動電話：
+                                        </div>
+                                        <div className="input_group">
+                                            <Field
+                                                name="phone"
+                                                type="text"
+                                                placeholder="行動電話"
+                                                value={formik.values.phone}
+                                                onChange={formik.handleChange}
+                                            />
+                                            <ErrorMessage name="phone" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>會員地址：</div>
+                                        <TWZipCode
+                                            fields={fields}
+                                            setFields={setFields}
+                                        />
+                                        <div className="input_group">
+                                            <Field
+                                                name="address"
+                                                type="text"
+                                                value={formik.values.address}
+                                                onChange={formik.handleChange}
+                                                placeholder="地址"
+                                            />
+                                            <ErrorMessage name="address" />
+                                        </div>
+                                    </div>
+
+                                    <button type="submit">更新檔案</button>
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
                     <div className="right">
                         <div className="member-title">上傳大頭貼：</div>

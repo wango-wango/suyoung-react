@@ -9,9 +9,9 @@ function Index(props) {
     const { setBackground } = useBackground();
     const { spinner, setLoading } = useSpinner(4000);
 
-    useEffect(() => {
-        setLoading(true);
-    }, [setLoading]);
+    // useEffect(() => {
+    //     setLoading(true);
+    // }, [setLoading]);
 
     useEffect(() => {
         setBackground("bg1.svg");
