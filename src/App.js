@@ -7,6 +7,7 @@ import { BookingProvider } from "./utils/useBookingList";
 import { useSpinner } from "./useSpinner";
 
 // import 路由
+import Landing from "./pages/LandingPage";
 import Home from "./pages/Home";
 import Atv from "./pages/Act/Atv";
 import Float from "./pages/Act/Float";
@@ -53,6 +54,10 @@ function App() {
                                     />
                                     <Route path="/shuyoung">
                                         <Route index element={<Home />} />
+                                        <Route
+                                            path="Landing"
+                                            element={<Landing />}
+                                        />
                                         <Route path="Act">
                                             <Route
                                                 path="Atv"

@@ -12,12 +12,15 @@
     }
 
     .App-payment {
-      padding: 30px;
+      // padding: 30px;
     }
     
     form {
       margin: 30px auto 0;
       max-width: 400px;
+    }
+
+    .card_flex{
     }
   
     .form-group{
@@ -119,7 +122,9 @@
       color: #FFFFFF;
       background-color: #000000;
       height: 50px;
-      width: 30%;
+      width: 153.69px;
+      border-radius: 50px;
+      font-size: 24px;
   }
     
     @media screen and (max-width: 768px) {

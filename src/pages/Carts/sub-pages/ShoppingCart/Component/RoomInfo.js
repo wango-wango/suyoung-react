@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import 'animate.css';
+import { motion } from "framer-motion";
+const _ = require('lodash');
+const Swal = require('sweetalert2')
 
 
 function RoomInfo(props) {
 
-    const { updateQty, setSum } = props
+    const { setSum } = props
     const [mycart, setMycart] = useState([])
     const [mycartDisplay, setMycartDisplay] = useState([])
   
@@ -20,14 +24,14 @@ function RoomInfo(props) {
     }, [])
 
     // componentDidUpdate
-  useEffect(() => {
+    useEffect(() => {
     // mycartDisplay運算
     let newMycartDisplay = []
 
     //尋找mycartDisplay
     for (let i = 0; i < mycart.length; i++) {
       const index = newMycartDisplay.findIndex(
-        (value) => value.sid === mycart[i].sid
+        (value) => value.room_id === mycart[i].room_id
       )
       //有的話就數量+1
       if (index !== -1) {
@@ -43,13 +47,14 @@ function RoomInfo(props) {
     setMycartDisplay(newMycartDisplay)
   }, [mycart])
 
-  // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
-  const delItem = (item) => {
+
+    // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
+    const delItem = (item) => {
     // 先複製原有的購物車內容
     const currentCart = JSON.parse(localStorage.getItem('roomItem')) || []
 
     // 找尋是否有此筆item.id的對應資料
-    const index = currentCart.findIndex((v) => v.sid === item.sid)
+    const index = currentCart.findIndex((v) => v.room_id === item.room_id)
 
     if (index > -1) {
       // 找到的話就透過splice來移除array中的那個物件
@@ -58,47 +63,80 @@ function RoomInfo(props) {
       localStorage.setItem('roomItem', JSON.stringify(currentCart))
       setMycart(currentCart)
 
+      }
     }
-  }
 
+    function DeleteCartItem(item) {
+      Swal.fire({
+          title: '您確定要刪除此商品?',
+          text: "不再多考慮一下嘛!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '是的，刪除!',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+        }).then((result) => {
+          console.log(result.isConfirmed)
+          if (result.isConfirmed) {
+            delItem(item);
+            Swal.fire(
+              '已刪除!',
+              '您的商品已刪除！',
+              'success'
+            )
+          }
+        })
+    }
+    
     // 計算總價用的函式
     const sum = (items) => {
       let total = 0
       for (let i = 0; i < items.length; i++) {
-        total += items[i].room_price
+        total += items[i].price
       }
       setSum(total);
       return total
     }
 
 
-  const displayItems = (<>
-    {mycartDisplay.map((item,index)=>{
-      return (
-                <div class="room_info"  key={item.id}>
-                    <div class="room_pic">
+    const displayItems = (<>
+      {mycartDisplay.map((item,index)=>{
+        return (
+          <motion.div
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >   
+            
+                <div className="room_info"  key={item}>
+                    <div className="room_pic">
                         <img
                             src={`/room_imgs/camp/${item.room_image}`}
                             alt=""
                         />
                     </div>
-                    <div class="room_detail"
+                    <div className="room_detail"
                     >
                         <p>房型：{item.room_name}</p>
-                        <p>入住：2022/06/24</p>
-                        <p>退房：2022/06/26</p>
-                        <p>人數：{item.person_num}</p>
+                        <p>入住：{item.start_date}</p>
+                        <p>退房：{item.end_date}</p>
+                        <p>人數：{item.num_adults}</p>
                         <p>天數：兩晚</p>
-                        <div class="amount_and_del">
-                            <p>價格：${item.room_price}</p>
-                        <button class="del_btn" onClick={() => {
-                delItem(item)
-              }}>
+                        <div className="amount_and_del">
+                            <p>價格：${item.price}</p>
+                        <button className="del_btn" onClick={()=>{DeleteCartItem(item)}}>
                         刪除
                         </button>
                         </div>
                     </div>
                 </div>
+                </motion.div> 
   )
     })}
   </>

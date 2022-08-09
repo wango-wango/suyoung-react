@@ -23,8 +23,37 @@ function BookingFilter(props) {
     // tag 狀態
     const [tagValue, setTagValue] = useState([]);
 
+    // peoplesay
+    const [recommend, setRecommend] = useState(1);
+    const [popular, setPopular] = useState(1);
+
+    const popularHandler = (e) => {
+        const checked = e.target.checked;
+        if (checked) {
+            setPopular(0);
+            setBookingList({ ...bookingList, popular: popular });
+            console.log("b");
+        } else {
+            setPopular(1);
+            setBookingList({ ...bookingList, popular: popular });
+            console.log("d");
+        }
+    };
+    const recommendHandler = (e) => {
+        const checked = e.target.checked;
+        if (checked) {
+            setRecommend(0);
+            setBookingList({ ...bookingList, recommend: recommend });
+            console.log("a");
+        } else {
+            setRecommend(1);
+            setBookingList({ ...bookingList, recommend: recommend });
+            console.log("c");
+        }
+    };
     const RoomSelectHandler = (e) => {
         const value = e.target.value;
+        console.log(value);
         const checked = e.target.checked;
         if (checked) {
             // 拷貝並存進去新的value
@@ -74,7 +103,7 @@ function BookingFilter(props) {
             const newRoomType = oldRoomType.filter((v) => {
                 return v !== value;
             });
-            // 存回去TagCheck
+            // 存回去setBookingList
             setBookingList({
                 ...bookingList,
                 roomType: newRoomType,
@@ -130,9 +159,9 @@ function BookingFilter(props) {
         await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
             // setRoomList(response.data.roomList);
             const roomList = response.data.roomList;
-            // 製作一個陣列 只取 room_name
-            const newRoomList = roomList.map((v) => v.room_name);
-            setRoomList(newRoomList);
+            // // 製作一個陣列 只取 room_name
+            // const newRoomList = roomList.map((v) => v.room_name);
+            setRoomList(roomList);
         });
     };
     useEffect(() => {
@@ -161,7 +190,7 @@ function BookingFilter(props) {
                                 type="checkbox"
                                 name="tools"
                                 id="tool-1"
-                                value={"beauty"}
+                                value={1}
                                 onClick={RoomTypeHandler}
                             />
                             <label
@@ -176,7 +205,7 @@ function BookingFilter(props) {
                                 type="checkbox"
                                 name="tools"
                                 id="tool-2"
-                                value={"family"}
+                                value={2}
                                 onClick={RoomTypeHandler}
                             />
                             <label
@@ -191,7 +220,7 @@ function BookingFilter(props) {
                                 type="checkbox"
                                 name="tools"
                                 id="tool-3"
-                                value={"van"}
+                                value={3}
                                 onClick={RoomTypeHandler}
                             />
                             <label
@@ -206,7 +235,7 @@ function BookingFilter(props) {
                                 type="checkbox"
                                 name="tools"
                                 id="tool-4"
-                                value={"camp"}
+                                value={4}
                                 onClick={RoomTypeHandler}
                             />
                             <label
@@ -230,7 +259,7 @@ function BookingFilter(props) {
                                                 type="checkbox"
                                                 name="checkbox-roomSelect"
                                                 id={"roomSelect-" + i}
-                                                value={v}
+                                                value={v.sid}
                                                 onChange={RoomSelectHandler}
                                             />
                                             <label
@@ -238,7 +267,7 @@ function BookingFilter(props) {
                                                 htmlFor={"roomSelect-" + i}
                                             >
                                                 <span className="text">
-                                                    {v}
+                                                    {v.room_name}
                                                 </span>
                                             </label>
                                         </Fragment>
@@ -252,7 +281,9 @@ function BookingFilter(props) {
                             <Col md={20}>
                                 <RangeSlider
                                     progress
-                                    max={20000}
+                                    min={0}
+                                    step={10}
+                                    max={21000}
                                     value={value}
                                     onChange={(value) => {
                                         setValue(value);
@@ -268,7 +299,7 @@ function BookingFilter(props) {
                                 <InputGroup>
                                     <InputNumber
                                         min={0}
-                                        max={20000}
+                                        max={21000}
                                         value={value[0]}
                                         onChange={(nextValue) => {
                                             const [start, end] = value;
@@ -284,8 +315,8 @@ function BookingFilter(props) {
                                     />
                                     <InputGroup.Addon>to</InputGroup.Addon>
                                     <InputNumber
-                                        min={0}
-                                        max={20000}
+                                        min={800}
+                                        max={21000}
                                         value={value[1]}
                                         onChange={(nextValue) => {
                                             const [start, end] = value;
@@ -314,8 +345,12 @@ function BookingFilter(props) {
                                             type="checkbox"
                                             name="booking"
                                             id={"booking-" + (ti + 1)}
-                                            value={t.type}
+                                            value={t.t_id}
                                             onChange={tagHandler}
+                                            defaultChecked={
+                                                bookingList.roomSelector[0] ===
+                                                t.t_id
+                                            }
                                         />
                                         <label
                                             className="for-checkbox-booking"
@@ -340,6 +375,7 @@ function BookingFilter(props) {
                                 type="checkbox"
                                 name="peopole"
                                 id="people-1"
+                                onChange={popularHandler}
                             />
                             <label
                                 className="for-checkbox-people"
@@ -352,6 +388,7 @@ function BookingFilter(props) {
                                 type="checkbox"
                                 name="people"
                                 id="people-2"
+                                onChange={recommendHandler}
                             />
                             <label
                                 className="for-checkbox-people"

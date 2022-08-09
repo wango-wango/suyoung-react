@@ -2,6 +2,7 @@ import React from 'react';
 import Card from 'react-credit-cards';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Credit-Card.scss';
+import { motion } from "framer-motion";
 
 
 import {
@@ -15,6 +16,8 @@ import 'react-credit-cards/es/styles-compiled.css';
 
 
 export default class App extends React.Component {
+  
+
   state = {
     number: '',
     name: '',
@@ -46,6 +49,9 @@ export default class App extends React.Component {
     } else if (target.name === 'cvc') {
       target.value = formatCVC(target.value);
     }
+    
+    //console.log(this.props)
+    this.props.setInputs({...this.props.inputs, [target.name]: target.value})
 
     this.setState({ [target.name]: target.value });
   };
@@ -66,9 +72,16 @@ export default class App extends React.Component {
 
   render(props) {
     const { name, number, expiry, cvc, focused, issuer} = this.state;
-    const {setStep, handleSubmit} = this.props;
+    const {handleSubmit} = this.props;
     return (
+    <>
+       <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >   
       <div key="Payment">
+      <h1 className="first_component_title">Payment Information</h1>
         <div className="App-payment">
           <div className="card_flex">
             <Card
@@ -88,7 +101,6 @@ export default class App extends React.Component {
                   placeholder="卡號"
                   pattern="[\d| ]{16,22}"
                   maxLength="19"
-                  required
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
                 />
@@ -99,7 +111,6 @@ export default class App extends React.Component {
                   name="name"
                   className="form-control"
                   placeholder="姓名"
-                  required
                   onChange={this.handleInputChange}
                   onFocus={this.handleInputFocus}
                 />
@@ -112,7 +123,6 @@ export default class App extends React.Component {
                     className="form-control"
                     placeholder="Valid Thru"
                     pattern="\d\d/\d\d"
-                    required
                     onChange={this.handleInputChange}
                     onFocus={this.handleInputFocus}
                   />
@@ -125,27 +135,21 @@ export default class App extends React.Component {
                     placeholder="卡片背後三碼"
                     maxLength="3"
                     pattern="\d{3,4}"
-                    required
                     onChange={this.handleInputChange}
                     onFocus={this.handleInputFocus}
                   />
                 </div>
               </div>
               <input type="hidden" name="issuer" value={issuer} />
-              <div className="form-actions submit">
-                <button className="btn" onClick={handleSubmit} >送出</button>
-              </div>
             </form>
           </div>
-          {/* {formData && (
-            <div className="App-highlight">
-              {formatFormData(formData).map((d, i) => (
-                <div key={i}>{d}</div>
-              ))}
-            </div>
-          )} */}
+          <div className="form-actions submit">
+                <button className="btn" onClick={handleSubmit} >送出</button>
+              </div>
         </div>
       </div>
+      </motion.div> 
+    </>  
     );
   }
 }

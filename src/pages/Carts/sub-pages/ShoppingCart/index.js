@@ -7,7 +7,7 @@ import '../../styles/item.scss';
 const _ = require('lodash');
 
 function Index(props) {
-    const {setStep, roomItem, sum, setSum, orderItemsStr, HandleAlertBuy} = props;
+    const {setStep, roomItem, sum, setSum, orderItemsStr, HandleAlertBuy, HandleAlert} = props;
 
     // 處理訂單送出
     const OrderSubmit = async (e) => {

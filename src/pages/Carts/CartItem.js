@@ -7,10 +7,12 @@ import CreditCard from "./sub-pages/CreditCard";
 import OrderDetail from "./sub-pages/OrderDetail";
 import './styles/item.scss';
 import 'animate.css';
+import { useAuth } from "../../pages/Login/sub-pages/AuthProvider";
 const _ = require('lodash');
 const Swal = require('sweetalert2')
 
 function CartItem(props) {
+    const { setAuth, ...auth } = useAuth();
     const maxSteps = 3
 
     const [step, setStep] = useState(1)
@@ -43,9 +45,107 @@ function CartItem(props) {
 
     const [errors, setErrors] = useState([])
 
+    const [scOrderId, setScOrderId] = useState(0) //訂單編號
+
+    async function addOrderToSever(e) {
+        const orderId = +new Date()
+        setScOrderId(orderId)
+        let data = {
+          orderItems: [],
+        }
+        for (let item of orderItemsStr) {
+          const tempObj = {
+            orderId: orderId,
+            orderItemsId: item.id,
+            checkPrice: item.price,
+            checkQty: item.amount,
+            checkSubtotal: item.price * item.amount,
+          }
+          data.orderItems.push(tempObj)
+        }
+        //  `orderId`, `username`, `receiverName`, `receiverPhone`, `orderPrice`, `shippingType`, `shippingPrice`, `conStore`, `conAddress`, `homeAddress`, `paymentType`, `created_at`, `updated_at`
+        data.orderInfo = {
+          orderId: orderId,
+          // orderId: inputs.orderIdNum,
+          username: auth.m_id,
+          receiverName: inputs.scname,
+          receiverPhone: inputs.phone,
+          orderPrice: sum(orderItemsStr),
+        }
+    
+        // 連接的伺服器資料網址
+        const url = 'http://localhost:3700/cart/order/add'
+    
+        // 注意資料格式要設定，伺服器才知道是json格式
+        // 轉成json檔傳到伺服器
+        const request = new Request(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }),
+        })
+        console.log('JSON', JSON.stringify(data))
+        // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
+    
+        const response = await fetch(request)
+        const dataRes = await response.json()
+    
+        console.log('伺服器回傳的json資料', dataRes)
+      }
+
+      //將信用卡資訊寫入資料庫
+      // async function addCreditCardToSever(e) {
+      //   let data = {
+      //     creditInfo: [],
+      //   }
+      //   for (let item of orderItemsStr) {
+      //     const tempObj = {
+      //       orderId: orderId,
+      //       orderItemsId: item.id,
+      //       checkPrice: item.price,
+      //       checkQty: item.amount,
+      //       checkSubtotal: item.price * item.amount,
+      //     }
+      //     data.creditInfo.push(tempObj)
+      //   }
+      //   //  `orderId`, `username`, `receiverName`, `receiverPhone`, `orderPrice`, `shippingType`, `shippingPrice`, `conStore`, `conAddress`, `homeAddress`, `paymentType`, `created_at`, `updated_at`
+      //   data.orderInfo = {
+      //     orderId: orderId,
+      //     // orderId: inputs.orderIdNum,
+      //     username: auth.m_id,
+      //     receiverName: inputs.scname,
+      //     receiverPhone: inputs.phone,
+      //     orderPrice: sum(orderItemsStr),
+      //   }
+    
+      //   // 連接的伺服器資料網址
+      //   const url = 'http://localhost:3700/cart/order/add'
+    
+      //   // 注意資料格式要設定，伺服器才知道是json格式
+      //   // 轉成json檔傳到伺服器
+      //   const request = new Request(url, {
+      //     method: 'POST',
+      //     body: JSON.stringify(data),
+      //     headers: new Headers({
+      //       Accept: 'application/json',
+      //       'Content-Type': 'application/json',
+      //     }),
+      //   })
+      //   console.log('JSON', JSON.stringify(data))
+      //   // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
+    
+      //   const response = await fetch(request)
+      //   const dataRes = await response.json()
+    
+      //   console.log('伺服器回傳的json資料', dataRes)
+      // }  
+
     function HandleAlert() {
         Swal.fire({
-            icon: 'success',
+            imageUrl: '/cart_imgs/5.gif',
+            // icon: 'success',
             title: '感謝購買',
             showConfirmButton: false,
             timer: 3000
@@ -53,7 +153,8 @@ function CartItem(props) {
       }
       function HandleAlertBuy() {
         Swal.fire({
-            icon: 'error',
+            // icon: 'error',
+            imageUrl: '/cart_imgs/3.gif',
             title: '錯誤',
             text: '請先將商品加入購物車!',
             showClass: {
@@ -62,22 +163,22 @@ function CartItem(props) {
               hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
               },
-            timer: 2000
+            timer: 3000
           })
       }
       function HandleAlertData() {
         Swal.fire({
-            icon: 'error',
+            imageUrl: '/cart_imgs/warning.gif',
+            // icon: 'error',
             title: '錯誤',
             text: '有資料沒填喔～!',
-            timer: 2000
+            timer: 3000
           })
       }
        
     // 處理表單送出
   const handleSubmit = async (e) => {
     const newErrors = []
-    if(props.state){
         if (!inputs.number.trim()) {
           newErrors.push('number')
           setErrors(newErrors)
@@ -94,14 +195,14 @@ function CartItem(props) {
           newErrors.push('cvc')
           setErrors(newErrors)
         }
-      }
       if(newErrors.length !== 0){
         HandleAlertData()
       }
+      console.log(newErrors)     
     if (!_.isEmpty(orderItemsStr) && newErrors.length === 0 ) {
       // 購物車內有商品
-    HandleAlert();
-    //   await addOrderToSever();
+        HandleAlert();
+      //   await addOrderToSever();
       localStorage.removeItem('roomItem');
       setStep(3)
     }
@@ -111,6 +212,7 @@ function CartItem(props) {
     setStep(1)
     }
 }
+
 
     return<>
      <div className="first_component">
@@ -129,6 +231,7 @@ function CartItem(props) {
         handleSubmit={handleSubmit}
         orderItemsStr={orderItemsStr}   
         HandleAlertBuy={ HandleAlertBuy}
+        HandleAlert={HandleAlert}
         />
     </div>
     {/* {step === 1 ?  <AddOn/> : null} */}

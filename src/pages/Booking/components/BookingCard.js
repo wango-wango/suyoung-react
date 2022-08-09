@@ -56,23 +56,25 @@ function BookingCard(props) {
         console.log(res);
     };
 
-    /*
-        roomSid: "",
-        adults: "",
-        kids: "",
-        startDate: "",
-        endDate: "",
-        perNignt: "",
-        roomType: [],
-        startPrice: "",
-        endPrice: "",
-        tagCheck: [],
-        popular: "",
-        recommand: "",
-    */
+    // 從 bookingList解構
+    const {
+        adults,
+        startDate,
+        endDate,
+        roomType,
+        startPrice,
+        endPrice,
+        tagCheck,
+        popular,
+        recommend,
+        roomSelector,
+    } = bookingList;
+
     // 用get 取得所有的值
     const getData = async () => {
-        await Axios.get(`${BK_GET_LIST}/selectRoom`).then((response) => {
+        await Axios.get(
+            `${BK_GET_LIST}/selectRoom?adults=${adults}&startDate=${startDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}`
+        ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
             console.log(response.data.roomList);
@@ -96,7 +98,7 @@ function BookingCard(props) {
     // 起始狀態先render getData
     useEffect(() => {
         getData();
-    }, []);
+    }, [bookingList]);
 
     // 當memberKeep改變才執行
     useEffect(() => {
@@ -157,14 +159,32 @@ function BookingCard(props) {
                                     </div>
                                     <div className="room_card_button_area">
                                         <div className="room_card_btn_area">
-                                            <Link to="/shuyoung/Booking/BookingDetail">
+                                            <Link
+                                                to={
+                                                    bookingList &&
+                                                    bookingList.startDate &&
+                                                    bookingList.endDate &&
+                                                    bookingList.adults
+                                                        ? "/shuyoung/Booking/BookingDetail"
+                                                        : "/shuyoung/Booking"
+                                                }
+                                            >
                                                 <button
                                                     className="room_card_button"
                                                     onClick={() => {
-                                                        setBookingList({
-                                                            ...bookingList,
-                                                            roomSid: v.sid,
-                                                        });
+                                                        bookingList &&
+                                                        bookingList.startDate &&
+                                                        bookingList.endDate &&
+                                                        bookingList.adults
+                                                            ? setBookingList({
+                                                                  ...bookingList,
+                                                                  roomSid:
+                                                                      v.sid,
+                                                                  adults: v.person_num,
+                                                              })
+                                                            : alert(
+                                                                  "請輸入日期及入住人數."
+                                                              );
                                                     }}
                                                 >
                                                     <span>點我訂房</span>
@@ -180,11 +200,6 @@ function BookingCard(props) {
                                                 id={"keepBtn" + i}
                                                 value={v.sid}
                                                 onClick={keepHandler}
-
-                                                // favList.includes(v.sid) ===
-                                                //     true
-                                                //         ? true
-                                                //         : false
                                             />
                                             <label
                                                 className="for-checkbox-tools"
@@ -195,8 +210,6 @@ function BookingCard(props) {
                                                 ) : (
                                                     <AiOutlineHeart className="outlineHeart" />
                                                 )}
-                                                {/* <AiOutlineHeart className="outlineHeart" />
-                                                <AiFillHeart className="fillHeart" /> */}
                                             </label>
                                         </div>
                                     </div>
@@ -205,7 +218,6 @@ function BookingCard(props) {
                         );
                     })}
             </div>
-            {/* <div>Rendered at {dimensions.width}</div> */}
         </>
     );
 }
