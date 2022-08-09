@@ -81,7 +81,7 @@ export default class App extends React.Component {
                 transition={{ duration: 1 }}
             >   
       <div key="Payment">
-      <h1 class="first_component_title">Payment Information</h1>
+      <h1 className="first_component_title">Payment Information</h1>
         <div className="App-payment">
           <div className="card_flex">
             <Card
