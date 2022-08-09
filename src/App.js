@@ -52,7 +52,10 @@ function App() {
                                     />
                                     <Route path="/shuyoung">
                                         <Route index element={<Home />} />
-                                        <Route path="Landing" element={<Landing />} />
+                                        <Route
+                                            path="Landing"
+                                            element={<Landing />}
+                                        />
                                         <Route path="Act">
                                             <Route
                                                 path="Atv"
