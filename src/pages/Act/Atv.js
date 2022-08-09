@@ -78,7 +78,8 @@ function Atv(props) {
                             <div className="actChTitle">
                                 <h4>全地形沙灘車</h4>
                             </div>
-                            <button className="btn btn-dark">預約報名</button>
+
+                            <a className="btn btn-dark" href="">預約報名</a>
                         </div>
                         <div className="slider">
                             <Swiper

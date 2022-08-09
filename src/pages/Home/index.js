@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import Rellax from "rellax"
+import { motion } from "framer-motion"
 import "./styles/index.scss"
 import { useBackground } from "../../utils/useBackground";
 import WeatherApp from "../Home/components/WeatherApp"
 function Index(props) {
 
-
+    const scrollRef = useRef(null)
     const { setBackground } = useBackground();
 
     useEffect(() => {
@@ -39,6 +40,7 @@ function Index(props) {
             <img className="animate" data-rellax-speed="-5" src="/index_imgs/index_bg3.png" id="3" alt=""/>
             <img className="animate" data-rellax-speed="-4" src="/index_imgs/index_bg2.png" id="2" alt=""/>
             <img src="/index_imgs/index_bg.png" id="1" alt=""/>
+            <div className="trytry"></div>
         </div>
     </section>
     <section>
@@ -50,6 +52,12 @@ function Index(props) {
     </section>
     <section>
         <div id="room">
+        <div ref={scrollRef} style={{ overflow: "scroll" }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ root: scrollRef }}
+      />
             <div className="lrSpace p-lg-5">
                 <h4 className="textCenter p-lg-5 p-sm-4">房型介紹</h4>
             </div>
@@ -75,10 +83,10 @@ function Index(props) {
                         <img className="" src="/room_imgs/beauty/roomA1.jpeg" alt=""/>
                     </div>
                     <div className="roompic">
-                        <img className="" src="/room_imgs/beauty/roomA2.jpeg" alt=""/>
+                        <img className="" src="/room_imgs/beauty/roomA8.jpeg" alt=""/>
                     </div>
                     <div className="roompic">
-                        <img className="" src="/room_imgs/beauty/roomA3.jpeg" alt=""/>
+                        <img className="" src="/room_imgs/beauty/roomA11.jpeg" alt=""/>
                     </div>
                 </div>
             </div>
@@ -87,6 +95,7 @@ function Index(props) {
             </div>
             <div className="roomDes">
                 <p>需要考慮周詳冬天的影響及因應對策。儘管如此，我們仍然需要對冬天保持懷疑的態度。對於冬天，我們不能不去想，卻也不能走火入魔。在這種困難的抉擇下，本人思來想去，寢食難安。我們需要淘汰舊有的觀念，那麼，冬天對我來說有著舉足輕重的地位，必須要嚴肅認真的看待。</p>
+            </div>
             </div>
             <div className="line border-light border-bottom"></div>
         </div>
