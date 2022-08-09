@@ -111,7 +111,7 @@ const MRegister = () => {
 
     return (
         <>
-            <div className="login-container">
+            <div className="login-container register-container">
                 <div
                     className="login-title"
                     style={{ position: "absolute", zIndex: "11" }}
@@ -231,63 +231,6 @@ const MRegister = () => {
                     </div>
                 </div>
             </div>
-            <MouseParallaxContainer
-                containerStyles={{ position: "absolute", zIndex: 5 }}
-            >
-                <MouseParallaxChild
-                    factorX={0.03}
-                    factorY={0.03}
-                    // updateStyles={{
-                    //     background: "transparent",
-                    //     backgroundPositionY: "50%",
-                    //     transform: "scale(1.2)",
-                    //     position: "absolute",
-                    //     filter: "blur(4px) brightness(50%)",
-                    //     backgroundSize: "auto",
-                    //     backgroundRepeat: "repeat",
-                    //     width: "100%",
-                    //     height: "100%",
-                    //     backfaceVisibility: "hidden",
-                    // }}
-                />
-
-                <MouseParallaxChild factorX={0.05} factorY={0.05}>
-                    <img
-                        className="layer5"
-                        src="/member_img/layer/layer5.svg"
-                        alt=""
-                    />
-                </MouseParallaxChild>
-
-                <MouseParallaxChild factorX={-0.05} factorY={-0.05}>
-                    <img
-                        className="layer4"
-                        src="/member_img/layer/layer4.svg"
-                        alt=""
-                    />
-                </MouseParallaxChild>
-                <MouseParallaxChild factorX={0.02} factorY={0.04}>
-                    <img
-                        className="layer3"
-                        src="/member_img/layer/layer3.svg"
-                        alt=""
-                    />
-                </MouseParallaxChild>
-                <MouseParallaxChild factorX={-0.04} factorY={0.04}>
-                    <img
-                        className="layer2"
-                        src="/member_img/layer/layer2.svg"
-                        alt=""
-                    />
-                </MouseParallaxChild>
-                <MouseParallaxChild factorX={0.05} factorY={-0.05}>
-                    <img
-                        className="layer1"
-                        src="/member_img/layer/layer1.svg"
-                        alt=""
-                    />
-                </MouseParallaxChild>
-            </MouseParallaxContainer>
         </>
     );
 };

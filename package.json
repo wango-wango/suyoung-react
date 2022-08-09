@@ -30,6 +30,7 @@
     "react-parallax-mouse": "^1.7.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "react-spring": "^9.5.2",
     "react-tilty": "^2.0.3",
     "rellax": "^1.12.1",
     "rsuite": "^5.16.3",

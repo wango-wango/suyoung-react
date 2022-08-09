@@ -53,7 +53,7 @@ const OrderListGroup = () => {
             >
                 <div className="order-list-toggle">
                     <div className="img">
-                        <img src="/img/room/beauty/roomA9.jpeg" alt="" />
+                        <img src="/room_imgs/beauty/roomA9.jpeg" alt="" />
                     </div>
                     <div className="text">
                         <div className="top">狩獵帳（已完成）</div>
@@ -64,7 +64,7 @@ const OrderListGroup = () => {
                 </div>
                 <div className="order-list">
                     <div className="left">
-                        <img src="/img/room/beauty/roomA9.jpeg" alt="" />
+                        <img src="/room_imgs/beauty/roomA9.jpeg" alt="" />
                         <div className="temp-name">狩獵帳</div>
                         <div className="temp-amount">
                             帳數:<span>2</span>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Password = (props) => {
     const { member } = props;
@@ -10,6 +11,8 @@ const Password = (props) => {
         newPassword: "",
         comfirmPassword: "",
     });
+
+    const [passwordType, setPasswordType] = useState("password");
 
     const handleFieldsChange = (e) => {
         setPassword({
@@ -55,9 +58,26 @@ const Password = (props) => {
                         <div className="input_group">
                             <input
                                 name="oldPassword"
-                                type="password"
+                                type={passwordType}
                                 onChange={handleFieldsChange}
                             />
+                            <button
+                                type="button"
+                                className="member-eye-button"
+                                onClick={() => {
+                                    setPasswordType(
+                                        passwordType === "text"
+                                            ? "password"
+                                            : "text"
+                                    );
+                                }}
+                            >
+                                {passwordType === "text" ? (
+                                    <FaEyeSlash />
+                                ) : (
+                                    <FaEye />
+                                )}
+                            </button>
                         </div>
                     </div>
                     <div>
@@ -65,9 +85,26 @@ const Password = (props) => {
                         <div className="input_group">
                             <input
                                 name="newPassword"
-                                type="password"
+                                type={passwordType}
                                 onChange={handleFieldsChange}
                             />
+                            <button
+                                type="button"
+                                className="member-eye-button"
+                                onClick={() => {
+                                    setPasswordType(
+                                        passwordType === "text"
+                                            ? "password"
+                                            : "text"
+                                    );
+                                }}
+                            >
+                                {passwordType === "text" ? (
+                                    <FaEyeSlash />
+                                ) : (
+                                    <FaEye />
+                                )}
+                            </button>
                         </div>
                     </div>
                     <div>
@@ -75,12 +112,31 @@ const Password = (props) => {
                         <div className="input_group">
                             <input
                                 name="comfirmPassword"
-                                type="password"
+                                type={passwordType}
                                 onChange={handleFieldsChange}
                             />
+                            <button
+                                type="button"
+                                className="member-eye-button"
+                                onClick={() => {
+                                    setPasswordType(
+                                        passwordType === "text"
+                                            ? "password"
+                                            : "text"
+                                    );
+                                }}
+                            >
+                                {passwordType === "text" ? (
+                                    <FaEyeSlash />
+                                ) : (
+                                    <FaEye />
+                                )}
+                            </button>
                         </div>
                     </div>
-                    <button type="submit">修改密碼</button>
+                    <button className="submit-password" type="submit">
+                        修改密碼
+                    </button>
                 </form>
             </div>
         </motion.div>

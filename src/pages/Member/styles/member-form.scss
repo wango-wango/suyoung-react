@@ -189,7 +189,29 @@
         @include input_style;
         margin-top: 5px;
     }
-    button {
+
+    .input_group {
+        position: relative;
+        .member-eye-button {
+            border: none;
+            background-color: transparent;
+            position: absolute;
+            left: 286px;
+            top: 10px;
+
+            @media screen and (max-width: 375px) {
+                left: 159px;
+                top: 2px;
+            }
+
+            svg {
+                width: 50px;
+                color: var(--primary_color);
+            }
+        }
+    }
+
+    button.submit-password {
         margin-top: 20px;
         @include p_button;
     }
