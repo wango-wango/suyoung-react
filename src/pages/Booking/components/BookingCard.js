@@ -98,7 +98,6 @@ function BookingCard(props) {
     // 起始狀態先render getData
     useEffect(() => {
         getData();
-        localStorage.setItem("Room", JSON.stringify(bookingList));
     }, [bookingList]);
 
     // 當memberKeep改變才執行
@@ -160,15 +159,32 @@ function BookingCard(props) {
                                     </div>
                                     <div className="room_card_button_area">
                                         <div className="room_card_btn_area">
-                                            <Link to="/shuyoung/Booking/BookingDetail">
+                                            <Link
+                                                to={
+                                                    bookingList &&
+                                                    bookingList.startDate &&
+                                                    bookingList.endDate &&
+                                                    bookingList.adults
+                                                        ? "/shuyoung/Booking/BookingDetail"
+                                                        : "/shuyoung/Booking"
+                                                }
+                                            >
                                                 <button
                                                     className="room_card_button"
                                                     onClick={() => {
-                                                        setBookingList({
-                                                            ...bookingList,
-                                                            roomSid: v.sid,
-                                                            adults: v.person_num,
-                                                        });
+                                                        bookingList &&
+                                                        bookingList.startDate &&
+                                                        bookingList.endDate &&
+                                                        bookingList.adults
+                                                            ? setBookingList({
+                                                                  ...bookingList,
+                                                                  roomSid:
+                                                                      v.sid,
+                                                                  adults: v.person_num,
+                                                              })
+                                                            : alert(
+                                                                  "請輸入日期及入住人數."
+                                                              );
                                                     }}
                                                 >
                                                     <span>點我訂房</span>

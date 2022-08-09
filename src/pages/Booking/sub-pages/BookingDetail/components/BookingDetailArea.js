@@ -7,6 +7,20 @@ function BookingDetailArea(props) {
     const { bookingList, setBookingList } = useBookingList();
     console.log(bookingList);
 
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+
+    let tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const td = String(tomorrow.getDate()).padStart(2, "0");
+    const tm = String(tomorrow.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const tyyy = today.getFullYear();
+
+    today = yyyy + "-" + mm + "-" + dd;
+    tomorrow = tyyy + "-" + tm + "-" + td;
+
     if (roomList.length === 0) return <></>;
 
     return (
@@ -19,7 +33,7 @@ function BookingDetailArea(props) {
                     <input
                         type="text"
                         readOnly
-                        placeholder={bookingList.startDate}
+                        placeholder={bookingList.startDate || today}
                     />
                     <label htmlFor="">Date</label>
                 </div>
@@ -30,7 +44,7 @@ function BookingDetailArea(props) {
                     <input
                         type="text"
                         readOnly
-                        placeholder={bookingList.endDate}
+                        placeholder={bookingList.endDate || tomorrow}
                     />
                     <label htmlFor="">Date</label>
                 </div>
@@ -97,7 +111,29 @@ function BookingDetailArea(props) {
                     </div>
                     <div className="room_card_button_area">
                         <Link to="/shuyoung/Booking">
-                            <button className="room_card_button">返回</button>
+                            <button
+                                className="room_card_button"
+                                onClick={() => {
+                                    setBookingList({
+                                        ...bookingList,
+                                        roomSid: "",
+                                        adults: "",
+                                        kids: "",
+                                        startDate: "",
+                                        endDate: "",
+                                        perNight: "",
+                                        roomType: [],
+                                        startPrice: "",
+                                        endPrice: "",
+                                        tagCheck: [],
+                                        popular: "",
+                                        recommend: "",
+                                        roomSelector: [],
+                                    });
+                                }}
+                            >
+                                返回
+                            </button>
                         </Link>
                         <button className="room_card_button">前往結賬</button>
                     </div>

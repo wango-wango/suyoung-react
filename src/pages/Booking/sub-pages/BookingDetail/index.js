@@ -28,13 +28,20 @@ function Index(props) {
     const [eqiList, setEqiList] = useState([]);
     const [otherRoomList, setOtherRoomList] = useState([]);
     const [ruleList, setRuleList] = useState([]);
+
+    const room = JSON.parse(localStorage.getItem("Room"));
     // 用get 取得所有的值
     const getData = () => {
+        console.log(room.roomSid);
         // 用 queryString 把 roomSid 傳給後端
         Axios.get(
-            `${BK_GET_LIST}/selectRoom?roomSid=${bookingList.roomSid}&personNum=${bookingList.adults}`
+            `${BK_GET_LIST}/selectRoom?roomSid=${room.roomSid}&personNum=${room.adults}`
         ).then((response) => {
             setRoomList(response.data.roomDetail);
+            localStorage.setItem(
+                "roomItem",
+                JSON.stringify(response.data.roomDetail)
+            );
             setTagList(response.data.tagList);
             setPicList(response.data.picList);
             setEqiList(response.data.eqiList);
@@ -46,6 +53,7 @@ function Index(props) {
 
     useEffect(() => {
         getData();
+        localStorage.setItem("Room", JSON.stringify(bookingList));
     }, []);
 
     return (
