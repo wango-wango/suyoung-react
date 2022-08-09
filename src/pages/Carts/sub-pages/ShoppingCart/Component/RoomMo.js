@@ -17,7 +17,10 @@ function RoomMo(props) {
         <input placeholder="輸入折扣碼" type="text" className="discount__wrap__input field__error"></input>
         <button className="discount__wrap__apply">套用</button>
         </div>
-        <p className="totalPrice">合計</p>
+        <div className="second_colum">
+            <p className="totalPrice">合計</p>
+            <p className="">${sum}</p>
+        </div>
         <div className="checkoutbtn">
             <button className="stillBuy">繼續購物</button>
             <button className="checkOut" onClick={OrderSubmit} >結帳</button>
