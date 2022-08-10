@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { Link } from "react-router-dom";
 import "../styles/member-keep.scss";
 import { motion } from "framer-motion";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import KeepCard from "./keepCard";
+import KeepCard2 from './keepCard2';
 import axios from "axios";
 
 
 const Keep = () => {
     const { setAuth, ...auth } = useAuth();
 
-    const [favlist, setFavlist] = useState([]);
+    const [favlist1, setFavlist1] = useState([]);
+    const [favlist2 ,setFavlist2] = useState([]);
+
 
     useEffect(() => {
         const getData = async () => {
@@ -18,13 +21,26 @@ const Keep = () => {
                 `http://localhost:3700/member/favlist/${auth.m_id}`
             );
 
-            const favlist = res.data;
+            const favlist =res.data;
 
-            setFavlist(favlist);
+            setFavlist1(favlist.room);
+            setFavlist2(favlist.act);
         };
 
         getData();
-    }, [favlist]);
+    }, []);
+
+    const [isShow, setIsShow] = useState(true);
+    const [isShow2, setIsShow2] = useState(true);
+
+    const checkboxHandler =()=>{
+        setIsShow(!isShow);
+    }
+    const checkboxHandler2 =()=>{
+        setIsShow2(!isShow2);
+    }
+
+
 
     return (
         <>
@@ -39,31 +55,33 @@ const Keep = () => {
                     <div className="checkbox">
                         <label>
                             <input
+                                className="room-type"
                                 type="checkbox"
                                 name="room-type"
                                 value="房型"
+                                checked={isShow}
+                                onChange={checkboxHandler}
+                                
                             />
                             <span className="round button">房型</span>
                         </label>
                         <label>
                             <input
+                             className="act-type"
                                 type="checkbox"
                                 name="activity-type"
                                 value="活動"
+                                checked={isShow2}
+                                onChange={checkboxHandler2}
+                                
                             />
-                            <span className="round button">活動</span>
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="recipe-type"
-                                value="食譜"
-                            />
-                            <span className="round button">食譜</span>
+                            <span  className="round button">活動</span>
                         </label>
                     </div>
                     <div className="keep-card-container">
-                        <KeepCard favlist={favlist} />
+
+                    {isShow && <KeepCard favlist1={favlist1}  />}
+                    {isShow2 && <KeepCard2 favlist2={favlist2} />}
                     </div>
                 </motion.div>
             </>
