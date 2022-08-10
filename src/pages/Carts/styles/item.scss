@@ -16,8 +16,34 @@ width: 100%;
 box-sizing: border-box;
 }
 
+ @mixin p_button {
+        font-size: var(--button_text);
+        border-radius: 15px;
+        width: 130px;
+        height: 30px;
+        background-color: var(--primary_color);
+        color: white;
+        text-align: center;
+        justify-content: center;
+        border: none;
+
+        &:hover {
+            background-color: var(--primary_color_600);
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.284);
+            transform: translate(-3px, -3px);
+        }
+
+        &:active {
+            transform: scale(0.98);
+            /* Scaling button to 0.98 to its original size */
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+            color: var(--brown_color);
+        }
+    }
+
 @media screen and (min-width: 768px)
-{   
+{    
 
 
 .w100{
@@ -48,7 +74,7 @@ box-sizing: border-box;
 .first_component_title{
     display: flex;
     justify-content: center;
-    padding-top: 1rem;
+    padding-top: 4rem;
     font-size: 48px;
     color: black;
 }
@@ -210,10 +236,20 @@ box-sizing: border-box;
     align-items: center;
 }
 
+
+
 .checkoutbtn button{
+    @include p_button();
     height: 50px;
     border-radius: 50px;
     font-size: 24px;
+    
+    &:nth-child(2){
+        background-color: #952e1f;
+        &:hover {
+            background-color: var(--secondary_color);
+        }
+    }
 }
 
 .stillBuy{
