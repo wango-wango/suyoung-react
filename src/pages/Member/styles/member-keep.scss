@@ -67,6 +67,12 @@ html {
                                 .round {
                                     border-radius: 1.5rem;
                                     padding: 5px 25px;
+                                    @media screen and (max-width: 480px) {
+                                        padding: 5px 22px;
+                                    }
+                                    @media screen and (max-width: 375px) {
+                                        padding: 22px 5px;
+                                    }
                                 }
                             }
                         }
@@ -74,13 +80,19 @@ html {
                         .keep-card-container {
                             padding-top: 5%;
                             display: flex;
+                            gap: 5rem;
                             flex-wrap: wrap;
                             // padding-left: 6%;
 
-                            justify-content: space-between;
+                            // justify-content: space-between;
 
                             @media screen and (max-width: 1606px) {
-                                justify-content: space-evenly;
+                                // justify-content: space-evenly;
+                                gap: 0;
+                            }
+
+                            @media screen and (max-width: 528px) {
+                                justify-content: center;
                             }
 
                             .keep-card {

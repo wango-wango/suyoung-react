@@ -41,14 +41,10 @@ const MemberCenter = () => {
         axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
             if (res) {
                 console.log(res);
-                // console.log(res.data.user.row);
-                // const newAuth = res.data.user;
-                // const oldrow = auth.row;
-                // const newrow = { ...oldrow, newAuth };
-                // setAuth({ ...auth, row: newrow });
-                // const authQQ = auth.row;
-                // setAuthMember({ ...authQQ });
-                // setAuth({ authorized: true, ...newAuth });
+
+                const newAuth = res.data.user;
+
+                setAuth({ ...auth, ...newAuth });
             } else {
                 alert("查無會員資料");
             }

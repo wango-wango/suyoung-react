@@ -90,49 +90,52 @@ const Info = () => {
         }
     };
 
-    // const handleSubmission = () => {
-    //     const formData = new FormData();
+    const handleSubmission = () => {
+        const formData = new FormData();
 
-    //     formData.append("avatar", selectedFile);
+        formData.append("avatar", selectedFile);
 
-    //     fetch(
-    //         "http://localhost:3700/member/upload-avatar", //server url
-    //         {
-    //             method: "POST",
-    //             body: formData,
-    //         }
-    //     )
-    //         .then((response) => response.json())
-    //         .then((result) => {
-    //             console.log(result);
-    //             setImgServerUrl(
-    //                 "http://localhost:3700/avatar_img/" + result.data.name
-    //             );
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error:", error);
-    //         });
-    // };
+        console.log(formData);
 
-    const tryUpload = async () => {
-        const url = {
-            avatar: `http://localhost:3700/avatar_img/${selectedFile.name}`,
-            sid: auth.m_id,
-        };
-
-        const res = await axios.put(
-            "http://localhost:3700/member/try-upload",
-            url
-        );
-
-        setImgServerUrl(url.avatar);
-
-        setAuth({ ...auth, m_avatar: url.avatar });
-
-        // getUserData();
-
-        console.log(res);
+        fetch(
+            `http://localhost:3700/member/upload-avatar/${auth.m_id}`, //server url
+            {
+                method: "POST",
+                body: formData,
+            }
+        )
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result);
+                setImgServerUrl(
+                    "http://localhost:3700/avatar_img/" + result.data.name
+                );
+                getUserData();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     };
+
+    // const tryUpload = async () => {
+    //     const url = {
+    //         avatar: `http://localhost:3700/avatar_img/${selectedFile.name}`,
+    //         sid: auth.m_id,
+    //     };
+
+    //     const res = await axios.put(
+    //         "http://localhost:3700/member/try-upload",
+    //         url
+    //     );
+
+    //     setImgServerUrl(url.avatar);
+
+    //     setAuth({ ...auth, m_avatar: url.avatar });
+
+    //     // getUserData();
+
+    //     console.log(res);
+    // };
 
     // useEffect(() => {
     //     if (imgServerUrl !== "") {
@@ -363,7 +366,7 @@ const Info = () => {
                             </label>
                             <button
                                 className="avatar-check"
-                                onClick={tryUpload}
+                                onClick={handleSubmission}
                             >
                                 確定
                             </button>

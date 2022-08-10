@@ -18,16 +18,18 @@ import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 import Recipes from "./pages/Recipes";
 import SuMap from "./pages/SuMap/SuMap";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
 // import Create from "./pages/Booking/sub-pages/Create";
 import Cart from "./pages/Carts/CartItem";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/footer";
+import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import MRegister from "./pages/Register/components/MRegister";
 import BookingDetail from "./pages/Booking/sub-pages/BookingDetail";
 import SuMapBeauty from "./pages/SuMap/SuMapBeauty";
+import ForgotPassword from "./pages/Register/components/ForgotPassword";
 
 function App() {
     return (
@@ -108,10 +110,17 @@ function App() {
                                         </Route>
                                         <Route path="Cart" element={<Cart />} />
                                         <Route path="Join">
-                                            <Route index element={<Login />} />
+                                            <Route
+                                                index
+                                                element={<Register />}
+                                            />
                                             <Route
                                                 path="Register"
                                                 element={<MRegister />}
+                                            />
+                                            <Route
+                                                path="resetPassword"
+                                                element={<ForgotPassword />}
                                             />
                                         </Route>
                                         {/* 404未找到的頁面路由，需放在最下方 */}
