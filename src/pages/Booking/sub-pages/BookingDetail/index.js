@@ -62,7 +62,7 @@ function Index(props) {
     }, [roomList]);
 
     useEffect(() => {
-        localStorage.setItem("roomItem", JSON.stringify(localRoomList));
+        localStorage.setItem("roomItem", JSON.stringify([localRoomList]));
     }, [localRoomList]);
 
     return (

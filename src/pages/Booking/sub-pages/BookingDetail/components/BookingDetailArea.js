@@ -76,7 +76,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="modify_unit">
                             <p>
-                                <span>1</span>間
+                                <span>1</span> 間
                             </p>
                         </div>
                     </div>
@@ -88,7 +88,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="room_num">
                             <p>
-                                <span>{bookingList.perNight}</span>晚
+                                <span>{bookingList.perNight}</span> 晚
                             </p>
                         </div>
                     </div>
@@ -98,7 +98,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="add_bed_num">
                             <p>
-                                <span>{bookingList.kids}</span>床
+                                <span>{bookingList.kids || 0}</span> 床
                             </p>
                         </div>
                     </div>
