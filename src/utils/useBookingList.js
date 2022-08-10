@@ -18,6 +18,7 @@ export const BookingProvider = ({ children }) => {
         popular: "",
         recommend: "",
         roomSelector: [],
+        totalPrice:"",
     });
 
     return (

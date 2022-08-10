@@ -5,7 +5,7 @@ import { useBookingList } from "../../../../../utils/useBookingList";
 function BookingDetailArea(props) {
     const { roomList } = props;
     const { bookingList, setBookingList } = useBookingList();
-    console.log(bookingList);
+    // console.log(bookingList);
 
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, "0");
@@ -21,7 +21,26 @@ function BookingDetailArea(props) {
     today = yyyy + "-" + mm + "-" + dd;
     tomorrow = tyyy + "-" + tm + "-" + td;
 
+    useEffect(() => {
+        // 如果roomList 有值的話
+        if (roomList.length >= 1) {
+            const total =
+                roomList[0].room_price * bookingList.perNight +
+                bookingList.kids * 200;
+            setBookingList({ ...bookingList, totalPrice: total });
+            console.log(total);
+
+            const newLocalStorage = JSON.parse(localStorage.getItem("room"));
+            localStorage.setItem(
+                "room",
+                JSON.stringify({ ...newLocalStorage, totalPrice: total })
+            );
+        }
+    }, [roomList]);
+
     if (roomList.length === 0) return <></>;
+
+    // setBookingList({...bookingList,totalPrice: total});
 
     return (
         <>
@@ -76,7 +95,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="modify_unit">
                             <p>
-                                <span>1</span>間
+                                <span>1</span> 間
                             </p>
                         </div>
                     </div>
@@ -88,7 +107,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="room_num">
                             <p>
-                                <span>{bookingList.perNight}</span>晚
+                                <span>{bookingList.perNight}</span> 晚
                             </p>
                         </div>
                     </div>
@@ -98,16 +117,13 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="add_bed_num">
                             <p>
-                                <span>{bookingList.kids}</span>床
+                                <span>{bookingList.kids || 0}</span> 床
                             </p>
                         </div>
                     </div>
                     <div className="room_result_total">
                         <p>total:</p>
-                        <h5>
-                            {roomList[0].room_price * bookingList.perNight +
-                                bookingList.kids * 200}
-                        </h5>
+                        <h5>{bookingList.totalPrice}</h5>
                     </div>
                     <div className="room_card_button_area">
                         <Link to="/shuyoung/Booking">
@@ -129,6 +145,7 @@ function BookingDetailArea(props) {
                                         popular: "",
                                         recommend: "",
                                         roomSelector: [],
+                                        totalPrice: "",
                                     });
                                 }}
                             >

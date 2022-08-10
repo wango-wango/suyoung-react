@@ -8,6 +8,7 @@ import OrderDetail from "./sub-pages/OrderDetail";
 import './styles/item.scss';
 import 'animate.css';
 import { useAuth } from "../../pages/Login/sub-pages/AuthProvider";
+import { now } from "lodash";
 const _ = require('lodash');
 const Swal = require('sweetalert2')
 
@@ -53,28 +54,66 @@ function CartItem(props) {
         let data = {
           orderItems: [],
         }
+        const today = new Date();
+
+
         for (let item of orderItemsStr) {
-          const tempObj = {
-            orderId: orderId,
-            orderItemsId: item.id,
-            checkPrice: item.price,
-            checkQty: item.amount,
-            checkSubtotal: item.price * item.amount,
+          const roomObj = {
+            // orderId: orderId,
+            member_id : auth.sid,
+            room_id: item.sid,
+            room_type_id:item.room_type_id,
+            num_adults: item.adults,
+            num_children: (item.kids > 1) ? item.kids : 0,
+            start_date:item.startDate,
+            end_date:item.endDate,
+            Booking_Date:today.toLocaleDateString("zh-tw"),
+            price: item.room_price,
+
           }
-          data.orderItems.push(tempObj)
+          data.orderItems.push(roomObj)
         }
         //  `orderId`, `username`, `receiverName`, `receiverPhone`, `orderPrice`, `shippingType`, `shippingPrice`, `conStore`, `conAddress`, `homeAddress`, `paymentType`, `created_at`, `updated_at`
-        data.orderInfo = {
-          orderId: orderId,
-          // orderId: inputs.orderIdNum,
-          username: auth.m_id,
-          receiverName: inputs.scname,
-          receiverPhone: inputs.phone,
-          orderPrice: sum(orderItemsStr),
+        // data.orderInfo = {
+        //   orderId: orderId,
+        //   // orderId: inputs.orderIdNum,
+        //   username: auth.m_id,
+        //   receiverName: inputs.scname,
+        //   receiverPhone: inputs.phone,
+        // }
+    
+        // 連接的伺服器資料網址
+        const url = 'http://localhost:3700/cart/order/item/add'
+    
+        // 注意資料格式要設定，伺服器才知道是json格式
+        // 轉成json檔傳到伺服器
+        const request = new Request(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }),
+        })
+        console.log('JSON', JSON.stringify(data))
+        // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
+    
+        const response = await fetch(request)
+        const dataRes = await response.json()
+        
+        console.log(orderId)
+        console.log('伺服器回傳的json資料', dataRes)
+      }
+      //將信用卡資訊寫入資料庫
+      async function addCreditCardToSever(e) {
+        let data = {
+            member_id: auth.m_id,
+            card_number: inputs.number,
+            expire_date: inputs.expiry
         }
     
         // 連接的伺服器資料網址
-        const url = 'http://localhost:3700/cart/order/add'
+        const url = 'http://localhost:3700/cart/order/card/add'
     
         // 注意資料格式要設定，伺服器才知道是json格式
         // 轉成json檔傳到伺服器
@@ -93,54 +132,7 @@ function CartItem(props) {
         const dataRes = await response.json()
     
         console.log('伺服器回傳的json資料', dataRes)
-      }
-
-      //將信用卡資訊寫入資料庫
-      // async function addCreditCardToSever(e) {
-      //   let data = {
-      //     creditInfo: [],
-      //   }
-      //   for (let item of orderItemsStr) {
-      //     const tempObj = {
-      //       orderId: orderId,
-      //       orderItemsId: item.id,
-      //       checkPrice: item.price,
-      //       checkQty: item.amount,
-      //       checkSubtotal: item.price * item.amount,
-      //     }
-      //     data.creditInfo.push(tempObj)
-      //   }
-      //   //  `orderId`, `username`, `receiverName`, `receiverPhone`, `orderPrice`, `shippingType`, `shippingPrice`, `conStore`, `conAddress`, `homeAddress`, `paymentType`, `created_at`, `updated_at`
-      //   data.orderInfo = {
-      //     orderId: orderId,
-      //     // orderId: inputs.orderIdNum,
-      //     username: auth.m_id,
-      //     receiverName: inputs.scname,
-      //     receiverPhone: inputs.phone,
-      //     orderPrice: sum(orderItemsStr),
-      //   }
-    
-      //   // 連接的伺服器資料網址
-      //   const url = 'http://localhost:3700/cart/order/add'
-    
-      //   // 注意資料格式要設定，伺服器才知道是json格式
-      //   // 轉成json檔傳到伺服器
-      //   const request = new Request(url, {
-      //     method: 'POST',
-      //     body: JSON.stringify(data),
-      //     headers: new Headers({
-      //       Accept: 'application/json',
-      //       'Content-Type': 'application/json',
-      //     }),
-      //   })
-      //   console.log('JSON', JSON.stringify(data))
-      //   // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
-    
-      //   const response = await fetch(request)
-      //   const dataRes = await response.json()
-    
-      //   console.log('伺服器回傳的json資料', dataRes)
-      // }  
+      }  
 
     function HandleAlert() {
         Swal.fire({
@@ -202,7 +194,8 @@ function CartItem(props) {
     if (!_.isEmpty(orderItemsStr) && newErrors.length === 0 ) {
       // 購物車內有商品
         HandleAlert();
-      //   await addOrderToSever();
+        await addCreditCardToSever();
+        await addOrderToSever();
       localStorage.removeItem('roomItem');
       setStep(3)
     }

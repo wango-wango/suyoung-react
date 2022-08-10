@@ -6,6 +6,7 @@ import { BK_GET_LIST } from "../config/ajax-path";
 import { useBookingList } from "../../../utils/useBookingList";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import Swal from "sweetalert2";
 
 function BookingCard(props) {
     // 所有room 列表
@@ -172,19 +173,31 @@ function BookingCard(props) {
                                                 <button
                                                     className="room_card_button"
                                                     onClick={() => {
-                                                        bookingList &&
+                                                        if(bookingList &&
                                                         bookingList.startDate &&
                                                         bookingList.endDate &&
-                                                        bookingList.adults
-                                                            ? setBookingList({
-                                                                  ...bookingList,
+                                                        bookingList.adults){
+                                                            const newBookingList = {...bookingList,
                                                                   roomSid:
                                                                       v.sid,
                                                                   adults: v.person_num,
-                                                              })
-                                                            : alert(
-                                                                  "請輸入日期及入住人數."
-                                                              );
+                                                              };
+                                                            setBookingList(newBookingList);
+
+                                                            localStorage.setItem("room",JSON.stringify(newBookingList));
+                                                        }
+                                                        else{
+                                                            Swal.fire({
+                                                                  icon: "error",
+                                                                  title: "輸入資料有誤",
+                                                                  text: "請輸入訂房日期及人數!",
+                                                                  color: "#224040",
+                                                                  background:
+                                                                      "#FFF",
+                                                                  confirmButtonColor:
+                                                                      "#224040",
+                                                              });
+                                                        } 
                                                     }}
                                                 >
                                                     <span>點我訂房</span>

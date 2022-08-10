@@ -11,6 +11,7 @@ import GuessYouLike from "./components/GuessYouLike";
 import { BK_GET_LIST } from "../../config/ajax-path";
 import Axios from "axios";
 import { useBookingList } from "../../../../utils/useBookingList";
+import { useBookingCart } from "../../../../utils/useBookingCart";
 
 function Index(props) {
     // 來自useBackground 的設定
@@ -21,7 +22,9 @@ function Index(props) {
     }, []);
     // useContext 把房間的Sid 帶過來
     const { bookingList } = useBookingList();
+    const { bookingCart, setBookingCart } = useBookingCart();
 
+    // 接住來自後端的資料
     const [tagList, setTagList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [picList, setPicList] = useState([]);
@@ -29,19 +32,16 @@ function Index(props) {
     const [otherRoomList, setOtherRoomList] = useState([]);
     const [ruleList, setRuleList] = useState([]);
 
-    const room = JSON.parse(localStorage.getItem("Room"));
+    // 專門存來自bookingList 和 後端傳回來的roomList
+    const [localRoomList, setlocalRoomList] = useState([]);
+
     // 用get 取得所有的值
     const getData = () => {
-        console.log(room.roomSid);
         // 用 queryString 把 roomSid 傳給後端
         Axios.get(
-            `${BK_GET_LIST}/selectRoom?roomSid=${room.roomSid}&personNum=${room.adults}`
+            `${BK_GET_LIST}/selectRoom?roomSid=${bookingList.roomSid}&personNum=${bookingList.adults}`
         ).then((response) => {
             setRoomList(response.data.roomDetail);
-            localStorage.setItem(
-                "roomItem",
-                JSON.stringify(response.data.roomDetail)
-            );
             setTagList(response.data.tagList);
             setPicList(response.data.picList);
             setEqiList(response.data.eqiList);
@@ -53,8 +53,29 @@ function Index(props) {
 
     useEffect(() => {
         getData();
-        localStorage.setItem("Room", JSON.stringify(bookingList));
     }, []);
+
+    useEffect(() => {
+        if (roomList.length >= 1)
+            setlocalRoomList({ ...bookingList, ...roomList[0] });
+    }, [roomList]);
+
+    // 當 localRoomList 有值存進去後
+    // 把新的localRoomList 存進去 bookingCart 裡面
+    // 也同步存入 localStorage
+    useEffect(() => {
+        console.log(bookingCart.length);
+
+        let newArray = [];
+        if (bookingCart.length >= 2) {
+            newArray = [...bookingCart, localRoomList];
+        }else{
+            newArray = [localRoomList];
+        }
+
+        setBookingCart(newArray);
+        localStorage.setItem("roomItem", JSON.stringify(newArray));
+    }, [localRoomList]);
 
     return (
         <>
