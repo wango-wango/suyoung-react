@@ -11,6 +11,7 @@ import GuessYouLike from "./components/GuessYouLike";
 import { BK_GET_LIST } from "../../config/ajax-path";
 import Axios from "axios";
 import { useBookingList } from "../../../../utils/useBookingList";
+import { book } from "fontawesome";
 
 function Index(props) {
     // 來自useBackground 的設定
@@ -28,20 +29,20 @@ function Index(props) {
     const [eqiList, setEqiList] = useState([]);
     const [otherRoomList, setOtherRoomList] = useState([]);
     const [ruleList, setRuleList] = useState([]);
+    const [localRoomList, setlocalRoomList] = useState([]);
 
-    const room = JSON.parse(localStorage.getItem("Room"));
+    // localStorage.setItem("roomItem", bookingList, roomList);
     // 用get 取得所有的值
     const getData = () => {
-        console.log(room.roomSid);
         // 用 queryString 把 roomSid 傳給後端
         Axios.get(
-            `${BK_GET_LIST}/selectRoom?roomSid=${room.roomSid}&personNum=${room.adults}`
+            `${BK_GET_LIST}/selectRoom?roomSid=${bookingList.roomSid}&personNum=${bookingList.adults}`
         ).then((response) => {
             setRoomList(response.data.roomDetail);
-            localStorage.setItem(
-                "roomItem",
-                JSON.stringify(response.data.roomDetail)
-            );
+            // setlocalRoomList({
+            //     ...localRoomList,
+            //     rows: response.data.roomDetail,
+            // });
             setTagList(response.data.tagList);
             setPicList(response.data.picList);
             setEqiList(response.data.eqiList);
@@ -53,8 +54,16 @@ function Index(props) {
 
     useEffect(() => {
         getData();
-        localStorage.setItem("Room", JSON.stringify(bookingList));
+        setlocalRoomList(bookingList);
     }, []);
+
+    useEffect(() => {
+        setlocalRoomList({ ...bookingList, ...roomList[0] });
+    }, [roomList]);
+
+    useEffect(() => {
+        localStorage.setItem("roomItem", JSON.stringify(localRoomList));
+    }, [localRoomList]);
 
     return (
         <>
