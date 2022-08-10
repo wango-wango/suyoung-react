@@ -1,8 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect }  from 'react'
 import '../styles/item.scss';
+const _ = require('lodash')
 
 function OrderDetail(props) {
     const {setStep} = props;
+
+    const [order, setOrder] = useState([]);
+
+  //   async function getOrderFromServer() {
+  //   /* get orderid去取訂單資料 */
+  //   const url = 'http://localhost:3777/orderlist/' + scOrderId
+  //   console.log('scOrderId', scOrderId)
+
+  //   const request = new Request(url, {
+  //     method: 'GET',
+  //     headers: new Headers({
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     }),
+  //   })
+  //   const response = await fetch(request)
+  //   const dataRes = await response.json()
+  //   console.log('訂單dataRes', dataRes)
+  //   setOrder(dataRes)
+
+  //   console.log('訂單scOrderId', scOrderId)
+  //   // console.log('訂單order', order) //會是空的因為setOrder異步執行
+  // }
+  // useEffect(() => {
+  //   window.scrollTo(0, 0)
+  //   getOrderFromServer()
+  // }, [])
+
+  // useEffect(() => {
+  //   console.log('訂單order的變化', order)
+  // }, [order])
+
+
   return (
     <>
     <h1 className="first_component_title">訂單內容</h1>

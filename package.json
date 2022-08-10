@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chevrotain/cst-dts-gen": "^10.1.2",
     "@emotion/core": "^10.0.17",
     "@emotion/styled": "^10.0.17",
     "@pmndrs/branding": "^0.0.8",

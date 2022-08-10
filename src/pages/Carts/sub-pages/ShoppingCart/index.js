@@ -29,6 +29,7 @@ function Index(props) {
     <div className="w100">
     <RoomInfo  
             setSum={setSum}
+            orderItemsStr={orderItemsStr}
             />
     </div>
        

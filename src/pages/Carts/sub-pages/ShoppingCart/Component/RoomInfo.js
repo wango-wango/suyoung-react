@@ -10,6 +10,7 @@ function RoomInfo(props) {
     const { setSum } = props
     const [mycart, setMycart] = useState([])
     const [mycartDisplay, setMycartDisplay] = useState([])
+
   
     function getCartFromLocalStorage() {
       const newCart = localStorage.getItem('roomItem') || '[]'
@@ -98,7 +99,7 @@ function RoomInfo(props) {
     const sum = (items) => {
       let total = 0
       for (let i = 0; i < items.length; i++) {
-        total += items[i].price
+        total += items[i].room_price
       }
       setSum(total);
       return total
@@ -117,19 +118,19 @@ function RoomInfo(props) {
                 <div className="room_info"  key={item}>
                     <div className="room_pic">
                         <img
-                            src={`/room_imgs/camp/${item.room_image}`}
+                            src={`/room_imgs/${item.room_folder}/${item.room_image}`}
                             alt=""
                         />
                     </div>
                     <div className="room_detail"
                     >
                         <p>房型：{item.room_name}</p>
-                        <p>入住：{item.start_date}</p>
-                        <p>退房：{item.end_date}</p>
-                        <p>人數：{item.num_adults}</p>
-                        <p>天數：兩晚</p>
+                        <p>入住：{item.startDate}</p>
+                        <p>退房：{item.endDate}</p>
+                        <p>人數：{item.adults}</p>
+                        <p>天數：{item.perNight}</p>
                         <div className="amount_and_del">
-                            <p>價格：${item.price}</p>
+                            <p>價格：${item.room_price}</p>
                         <button className="del_btn" onClick={()=>{DeleteCartItem(item)}}>
                         刪除
                         </button>

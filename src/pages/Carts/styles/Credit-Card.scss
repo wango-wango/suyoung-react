@@ -1,10 +1,36 @@
   .first_component{
+    @mixin p_button {
+      font-size: var(--button_text);
+      border-radius: 15px;
+      width: 100px;
+      height: 30px;
+      background-color: var(--primary_color);
+      color: white;
+      text-align: center;
+      justify-content: center;
+      border: none;
+
+      &:hover {
+          background-color: var(--primary_color_600);
+          box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.284);
+          transform: translate(-3px, -3px);
+      }
+
+      &:active {
+          transform: scale(0.98);
+          /* Scaling button to 0.98 to its original size */
+          box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+          /* Lowering the shadow */
+          color: var(--brown_color);
+      }
+  }
+
     a {
       color: #666;
     }
     
     h1 {
-      margin: 0 0 10px;
+      margin: 0 0 4rem;
     }
     
     h4 {
@@ -119,6 +145,7 @@
   }
   
   .submit button{
+    @include p_button();
       color: #FFFFFF;
       background-color: #000000;
       height: 50px;
