@@ -106,11 +106,11 @@ function App() {
                                             
                                             <Route
                                                 path="Recipes"
-                                                element={<Recipes />}
+                                                
                                             >
                                                 <Route
                                                     index
-                                                    element={<RecipesPage2  />}
+                                                    element={<Recipes />}
                                                 />
                                                 <Route
                                                     path="recipesPage2"
