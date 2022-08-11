@@ -14,7 +14,7 @@ import Atv from "./pages/Act/Atv";
 import Float from "./pages/Act/Float";
 import Night from "./pages/Act/Night";
 import Upstream from "./pages/Act/Upstream";
-import ActReservation from "./pages/Act/ActReservation";
+import ActReservation from "./pages/Act/actReservation";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
 
@@ -106,18 +106,18 @@ function App() {
                                                 {/* <Route path="Coupon" element={<Coupon />} />
                                             <Route path="Keep" element={<Keep />} /> */}
                                             </Route>
-                                            
+
                                             <Route
                                                 path="Recipes"
                                                 element={<Recipes />}
                                             />
                                             <Route
                                                 path="/shuyoung/recipes/recipesPage2"
-                                                element={<RecipesPage2 auth={auth} />}
+                                                element={<RecipesPage2 />}
                                             />
                                             <Route
                                                 path="/shuyoung/recipes/photoWall"
-                                                element={<PhotoWall auth={auth} />}
+                                                element={<PhotoWall />}
                                             />
 
                                             <Route path="SuMap">
