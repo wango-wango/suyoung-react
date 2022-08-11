@@ -32,8 +32,7 @@ export default function Navbar() {
                             <li className="hover dropdown dropdown-2">
                                 活動導覽
                                 <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-2">
-                                    <li class="dropdown_item-1">
-                                    <Link to="/shuyoung/act/upstream">親子溯溪</Link></li>
+                                    <li class="dropdown_item-1"><Link to="/shuyoung/act/upstream">親子溯溪</Link></li>
                                     <li class="dropdown_item-2"><Link to="/shuyoung/act/float">漂流探險</Link></li>
                                     <li class="dropdown_item-3"><Link to="/shuyoung/act/night">夜遊觀星</Link></li>
                                     <li class="dropdown_item-4"><Link to="/shuyoung/act/atv">全地形車</Link></li>
