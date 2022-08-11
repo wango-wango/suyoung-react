@@ -6,6 +6,7 @@ import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
 
@@ -21,15 +22,22 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className="nav-li">
-                        <ul className="left">
+                        <ul className="left menu">
                             <li className="hover">
                                 <Link to="/shuyoung/SuMap">地圖</Link>
                             </li>
                             <li className="hover">
                                 <Link to="/shuyoung/recipes">舒營食譜</Link>
                             </li>
-                            <li className="hover">
-                                <Link to="/shuyoung/Act">活動導覽</Link>
+                            <li className="hover dropdown dropdown-2">
+                                活動導覽
+                                <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-2">
+                                    <li class="dropdown_item-1">
+                                    <Link to="/shuyoung/act/upstream">親子溯溪</Link></li>
+                                    <li class="dropdown_item-2"><Link to="/shuyoung/act/float">漂流探險</Link></li>
+                                    <li class="dropdown_item-3"><Link to="/shuyoung/act/night">夜遊觀星</Link></li>
+                                    <li class="dropdown_item-4"><Link to="/shuyoung/act/atv">全地形車</Link></li>
+                                </ul>
                             </li>
                             <li className="hover">
                                 <Link to="/shuyoung/Booking">預約訂位</Link>
