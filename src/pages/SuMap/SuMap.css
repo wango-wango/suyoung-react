@@ -258,6 +258,11 @@ transition: all 0.5s;
     padding-left: 45px;
 }
 
+.des_content_wangmei a{
+    text-decoration: none;
+
+}
+
 .des_picture_wangmei1{
     width: 300px;
     height: 200px;
@@ -347,6 +352,7 @@ transition: all 0.5s;
     margin-left: 50px;
 
 }
+
 .map_base{
     width: 1500px;
     height: 800px;
