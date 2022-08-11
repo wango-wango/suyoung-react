@@ -48,11 +48,13 @@
 .carousel_h {
     height: 300px;
 }
-
-input {
-    width: calc(var(--h4_text) * 10);
-    height: var(--h5_text);
+.j_container{
+    input {
+        width: calc(var(--h4_text) * 10);
+        height: var(--h5_text);
+    }
 }
+
 
 .flexing_card {
     /* width: 100px; */
