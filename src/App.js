@@ -25,10 +25,7 @@ import PhotoWall from "./pages/Recipes/components/photoWall";
 import SuMap from "./pages/SuMap/SuMap";
 // import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
-// import Create from "./pages/Booking/sub-pages/Create";
 import Cart from "./pages/Carts/CartItem";
-// import Navbar from "./components/Navbar";
-// import Footer from "./components/footer";
 import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import MRegister from "./pages/Register/components/MRegister";
@@ -110,15 +107,20 @@ function App() {
                                             <Route
                                                 path="Recipes"
                                                 element={<Recipes />}
-                                            />
-                                            <Route
-                                                path="/shuyoung/recipes/recipesPage2"
-                                                element={<RecipesPage2 auth={auth} />}
-                                            />
-                                            <Route
-                                                path="/shuyoung/recipes/photoWall"
-                                                element={<PhotoWall auth={auth} />}
-                                            />
+                                            >
+                                                <Route
+                                                    index
+                                                    element={<RecipesPage2  />}
+                                                />
+                                                <Route
+                                                    path="recipesPage2"
+                                                    element={<RecipesPage2  />}
+                                                />
+                                                <Route
+                                                    path="photoWall"
+                                                    element={<PhotoWall />}
+                                                />
+                                            </Route>
 
                                             <Route path="SuMap">
                                                 <Route
