@@ -20,6 +20,7 @@ function BookingCard(props) {
     const { bookingList, setBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
 
+
     // 準備傳到後端的資料
     const [memberKeep, setMemberKeep] = useState({
         roomSid: "",

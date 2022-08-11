@@ -33,7 +33,7 @@ function Index(props) {
     const [ruleList, setRuleList] = useState([]);
 
     // 專門存來自bookingList 和 後端傳回來的roomList
-    const [localRoomList, setlocalRoomList] = useState([]);
+    const [localRoomList, setlocalRoomList] = useState({});
 
     // 用get 取得所有的值
     const getData = () => {
@@ -64,17 +64,20 @@ function Index(props) {
     // 把新的localRoomList 存進去 bookingCart 裡面
     // 也同步存入 localStorage
     useEffect(() => {
-        console.log(bookingCart.length);
+        // 物件的 keys 是一個陣列
+        // 判斷如果第一個物件為空的 就跳過不做
+        if ((Object.keys(localRoomList).length === 0)) return;
 
         let newArray = [];
-        if (bookingCart.length >= 2) {
+        if (bookingCart.length > 0) {
             newArray = [...bookingCart, localRoomList];
-        }else{
+        } else {
             newArray = [localRoomList];
         }
 
-        setBookingCart(newArray);
         localStorage.setItem("roomItem", JSON.stringify(newArray));
+        console.log(newArray);
+        setBookingCart(newArray);
     }, [localRoomList]);
 
     return (

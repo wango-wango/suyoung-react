@@ -17,14 +17,15 @@ import Upstream from "./pages/Act/Upstream";
 import ActReservation from "./pages/Act/ActReservation";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
+
 import Recipes from "./pages/Recipes";
+import RecipesPage2 from "./pages/Recipes/components/recipesPage2";
+import PhotoWall from "./pages/Recipes/components/photoWall";
+
 import SuMap from "./pages/SuMap/SuMap";
 // import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
-// import Create from "./pages/Booking/sub-pages/Create";
 import Cart from "./pages/Carts/CartItem";
-// import Navbar from "./components/Navbar";
-// import Footer from "./components/footer";
 import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import MRegister from "./pages/Register/components/MRegister";
@@ -102,10 +103,25 @@ function App() {
                                                 {/* <Route path="Coupon" element={<Coupon />} />
                                             <Route path="Keep" element={<Keep />} /> */}
                                             </Route>
+                                            
                                             <Route
                                                 path="Recipes"
-                                                element={<Recipes />}
-                                            />
+                                                
+                                            >
+                                                <Route
+                                                    index
+                                                    element={<Recipes />}
+                                                />
+                                                <Route
+                                                    path="recipesPage2"
+                                                    element={<RecipesPage2  />}
+                                                />
+                                                <Route
+                                                    path="photoWall"
+                                                    element={<PhotoWall />}
+                                                />
+                                            </Route>
+
                                             <Route path="SuMap">
                                                 <Route
                                                     index
