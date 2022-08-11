@@ -281,7 +281,9 @@ function BookingFilter(props) {
                             <Col md={20}>
                                 <RangeSlider
                                     progress
-                                    max={20000}
+                                    min={0}
+                                    step={10}
+                                    max={21000}
                                     value={value}
                                     onChange={(value) => {
                                         setValue(value);
@@ -297,7 +299,7 @@ function BookingFilter(props) {
                                 <InputGroup>
                                     <InputNumber
                                         min={0}
-                                        max={20000}
+                                        max={21000}
                                         value={value[0]}
                                         onChange={(nextValue) => {
                                             const [start, end] = value;
@@ -313,8 +315,8 @@ function BookingFilter(props) {
                                     />
                                     <InputGroup.Addon>to</InputGroup.Addon>
                                     <InputNumber
-                                        min={0}
-                                        max={20000}
+                                        min={800}
+                                        max={21000}
                                         value={value[1]}
                                         onChange={(nextValue) => {
                                             const [start, end] = value;
@@ -345,6 +347,10 @@ function BookingFilter(props) {
                                             id={"booking-" + (ti + 1)}
                                             value={t.t_id}
                                             onChange={tagHandler}
+                                            defaultChecked={
+                                                bookingList.roomSelector[0] ===
+                                                t.t_id
+                                            }
                                         />
                                         <label
                                             className="for-checkbox-booking"

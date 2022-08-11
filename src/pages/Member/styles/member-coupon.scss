@@ -14,6 +14,7 @@ div.member-title {
             background-image: url("../../../../public/member_img/Anonymous_generic_ticket\ 1.svg");
             background-repeat: no-repeat;
             background-size: contain;
+            color: #fff;
             width: 400px;
             height: 200px;
             display: flex;
@@ -32,6 +33,24 @@ div.member-title {
             &:nth-child(4):hover {
                 filter: grayscale(1);
                 pointer-events: none;
+            }
+
+            .discount-name {
+                font-size: medium;
+                padding-bottom: 10px;
+            }
+            .discount-date {
+                padding: 5px 0;
+            }
+            .date {
+                padding-bottom: 15px;
+            }
+
+            .coupon-number {
+                font-size: 30px;
+                text-shadow: 1px 1px 8px #fbbc05;
+                font-weight: 700;
+                letter-spacing: 2px;
             }
         }
     }

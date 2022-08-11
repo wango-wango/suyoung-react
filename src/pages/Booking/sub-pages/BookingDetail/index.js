@@ -11,6 +11,7 @@ import GuessYouLike from "./components/GuessYouLike";
 import { BK_GET_LIST } from "../../config/ajax-path";
 import Axios from "axios";
 import { useBookingList } from "../../../../utils/useBookingList";
+import { useBookingCart } from "../../../../utils/useBookingCart";
 
 function Index(props) {
     // 來自useBackground 的設定
@@ -21,13 +22,19 @@ function Index(props) {
     }, []);
     // useContext 把房間的Sid 帶過來
     const { bookingList } = useBookingList();
+    const { bookingCart, setBookingCart } = useBookingCart();
 
+    // 接住來自後端的資料
     const [tagList, setTagList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [picList, setPicList] = useState([]);
     const [eqiList, setEqiList] = useState([]);
     const [otherRoomList, setOtherRoomList] = useState([]);
     const [ruleList, setRuleList] = useState([]);
+
+    // 專門存來自bookingList 和 後端傳回來的roomList
+    const [localRoomList, setlocalRoomList] = useState({});
+
     // 用get 取得所有的值
     const getData = () => {
         // 用 queryString 把 roomSid 傳給後端
@@ -47,6 +54,31 @@ function Index(props) {
     useEffect(() => {
         getData();
     }, []);
+
+    useEffect(() => {
+        if (roomList.length >= 1)
+            setlocalRoomList({ ...bookingList, ...roomList[0] });
+    }, [roomList]);
+
+    // 當 localRoomList 有值存進去後
+    // 把新的localRoomList 存進去 bookingCart 裡面
+    // 也同步存入 localStorage
+    useEffect(() => {
+        // 物件的 keys 是一個陣列
+        // 判斷如果第一個物件為空的 就跳過不做
+        if ((Object.keys(localRoomList).length === 0)) return;
+
+        let newArray = [];
+        if (bookingCart.length > 0) {
+            newArray = [...bookingCart, localRoomList];
+        } else {
+            newArray = [localRoomList];
+        }
+
+        localStorage.setItem("roomItem", JSON.stringify(newArray));
+        console.log(newArray);
+        setBookingCart(newArray);
+    }, [localRoomList]);
 
     return (
         <>

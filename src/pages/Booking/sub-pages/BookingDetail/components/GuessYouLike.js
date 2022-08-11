@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 function GuessYouLike(props) {
     const { otherRoomList } = props;
-    console.log(otherRoomList);
+    
 
     return (
         <>

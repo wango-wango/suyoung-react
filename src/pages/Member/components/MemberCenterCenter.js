@@ -20,6 +20,42 @@ import { Link } from "react-router-dom";
 const MemberCenterCenter = () => {
     const { setAuth, ...auth } = useAuth();
 
+    const level = [
+        ["初級凹鬥玩家", "野外凹鬥玩家", "凹鬥大師"],
+        [
+            "Beginning outdoor player",
+            "Medium outdoor player",
+            "Advanced outdoor player",
+        ],
+        [9, 8, 7],
+    ];
+
+    let memberLevel = "";
+    let memberLevelEng = "";
+    let discount = "";
+    let nextDiscount = "";
+    let count = 0;
+    let nextLevel = "";
+
+    if (auth.m_score < 5000) {
+        count = 0;
+    } else if (auth.m_score > 5000 && auth.m_score < 15000) {
+        count = 1;
+    } else {
+        count = 2;
+    }
+
+    memberLevel = level[0][count];
+    memberLevelEng = level[1][count];
+    discount = level[2][count];
+    if (count < 2) {
+        nextDiscount = level[2][count + 1];
+        nextLevel = level[0][count + 1];
+    } else {
+        nextDiscount = level[2][count];
+        nextLevel = level[0][count];
+    }
+
     return (
         <>
             <motion.div
@@ -84,8 +120,8 @@ const MemberCenterCenter = () => {
                                     </svg>
                                 </div>
                                 <div className="m-title">
-                                    <div>初級凹鬥玩家</div>
-                                    <div>Outdoor Beginner</div>
+                                    <div>{memberLevel}</div>
+                                    <div>{memberLevelEng}</div>
                                 </div>
                             </div>
                             <div className="register-date">
@@ -109,10 +145,18 @@ const MemberCenterCenter = () => {
                         }}
                         className="mySwiper"
                     >
-                        <SwiperSlide>Slide 1</SwiperSlide>
-                        <SwiperSlide>Slide 2</SwiperSlide>
-                        <SwiperSlide>Slide 3</SwiperSlide>
-                        <SwiperSlide>Slide 4</SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/act_imgs/atv01.jpg"></img>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/act_imgs/atv02.jpg"></img>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/act_imgs/atv03.jpg"></img>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/act_imgs/atv04.jpg"></img>
+                        </SwiperSlide>
                         <div className="swiper-pagination"></div>
                     </Swiper>
                 </div>

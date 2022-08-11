@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/member-coupon.scss";
 import { motion } from "framer-motion";
 
+import { useAuth } from "../../../pages/Login/sub-pages/AuthProvider";
+import axios from "axios";
+
 const Coupon = (props) => {
-    const { auth } = props;
+    const { setAuth, ...auth } = useAuth();
+
+    const [discount, setDiscount] = useState([]);
+
+    useEffect(() => {
+        const getCoupon = async () => {
+            const res = await axios.get(
+                `http://localhost:3700/member/coupon/${auth.m_id}/`
+            );
+
+            const result = res.data.result;
+            console.log(result);
+
+            let coupon = [];
+
+            result.map((v, i) => {
+                coupon.push({
+                    discount: v.coupon_discount,
+                    discount_number: v.discount_number,
+                    discount_name: v.discount_name,
+                    start_date: v.start_date,
+                    expireDate: v.expire_date,
+                    coupon_status: v.coupon_status,
+                });
+                return coupon;
+            });
+
+            setDiscount(coupon);
+        };
+
+        getCoupon();
+    }, []);
+
     return (
         <>
             <motion.div
@@ -16,164 +51,30 @@ const Coupon = (props) => {
                     <div className="member-title">我的優惠券</div>
                     <div className="coupon-box">
                         <div className="left">
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div>
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="right">
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="coupon">
-                                <span>獵人帳房型打85折</span>
-                                <span>使用期限:</span>
-                                <div className="date">
-                                    <span className="start-date">
-                                        2022-07-15
-                                    </span>
-                                    -
-                                    <span className="expire-date">
-                                        2022-09-02
-                                    </span>
-                                </div>
-                            </div>
+                            {discount.map((v, i) => {
+                                return (
+                                    <div key={i} className="coupon">
+                                        <div className="coupon-number">
+                                            {v.discount_number}
+                                        </div>
+                                        <span className="discount-name">
+                                            {v.discount_name}
+                                        </span>
+                                        <span className="discount-date">
+                                            使用期限:
+                                        </span>
+                                        <div className="date">
+                                            <span className="start-date">
+                                                {v.start_date}
+                                            </span>
+                                            至
+                                            <span className="expire-date">
+                                                {v.expireDate}
+                                            </span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

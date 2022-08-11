@@ -18,6 +18,52 @@ main {
 
 //form
 
+.toggle {
+    padding: 50px 0;
+    text-align: center;
+    .toggle-switch {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        color: #fff;
+        backdrop-filter: blur(2px);
+        &:active {
+            background-color: #468484;
+        }
+    }
+}
+
+.card-outer {
+    min-height: 90vh;
+    z-index: 999;
+    position: relative;
+
+    .register-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .login-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .flipcard {
+        backface-visibility: hidden;
+        will-change: transform, opacity;
+    }
+
+    .card-front {
+        background-color: transparent;
+    }
+    .card-back {
+        background-color: transparent;
+    }
+}
+
 .login-container {
     .account-title {
         padding: 20px 0;
@@ -128,7 +174,7 @@ input:valid ~ label {
 #mouse-parallax-container {
     height: 100vh;
     position: absolute;
-    top: 270px;
+    top: 1px;
     right: 0;
     left: 0;
     bottom: 0;
@@ -182,6 +228,7 @@ input:valid ~ label {
     align-items: center;
 
     .login-title {
+        transform: translateY(-21px);
         font-size: 30px;
         text-align: center;
         color: #ffffff;
@@ -192,6 +239,7 @@ input:valid ~ label {
     }
 
     .login-card {
+        z-index: 999;
         max-width: 600px;
         margin-top: 30px;
         margin: 0 auto;
@@ -365,6 +413,8 @@ input:valid ~ label {
             .login-container {
                 .login-title {
                     font-size: 18px;
+
+                    transform: translateY(10px);
                 }
                 .login-card {
                     width: 90vw;

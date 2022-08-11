@@ -5,7 +5,15 @@ import BookingFilter from "./components/BookingFilter";
 import "./styles/index.scss";
 import { useBackground } from "../../utils/useBackground";
 import { useSpinner } from "../../useSpinner";
+
+// import { formatInTimeZone } from 'date-fns-tz';
+
 function Index(props) {
+    // const date = new Date();
+    // console.log(date);
+    // console.log(formatInTimeZone(date, 'Asia/Taipei', 'yyyy-MM-dd HH:mm:ss zzz'));
+
+
     const { setBackground } = useBackground();
     const { spinner, setLoading } = useSpinner(4000);
 
