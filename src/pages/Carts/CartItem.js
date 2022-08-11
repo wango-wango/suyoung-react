@@ -10,11 +10,15 @@ import 'animate.css';
 import { useAuth } from "../../pages/Login/sub-pages/AuthProvider";
 import { now } from "lodash";
 import { formatInTimeZone } from 'date-fns-tz'
+import { useBookingCart } from "../../utils/useBookingCart";
+
 const _ = require('lodash');
 const Swal = require('sweetalert2')
 
 function CartItem(props) {
     const { setAuth, ...auth } = useAuth();
+    const { bookingCart, setBookingCart } = useBookingCart();
+
     const maxSteps = 3
 
     const [step, setStep] = useState(1)
@@ -44,6 +48,7 @@ function CartItem(props) {
     // 從localStorage取出購物車資訊，往子女元件傳遞
     const orderItems = localStorage.getItem('roomItem') || 0
     const orderItemsStr = JSON.parse(orderItems)  
+    console.log(orderItems)
 
     const [errors, setErrors] = useState([])
 
@@ -252,6 +257,9 @@ function CartItem(props) {
     HandleAlertBuy()
     setStep(1)
     }
+
+    // clear useContext from useBookingCart
+    setBookingCart([]);
 }
 
 
