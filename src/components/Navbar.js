@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../styles/navbar.scss";
-import axios from "axios";
+
 import { useAuth } from "../pages/Login/sub-pages/AuthProvider";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import AuthContext from "../pages/Login/sub-pages/AuthContext";
+
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
@@ -22,15 +22,22 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className="nav-li">
-                        <ul className="left">
+                        <ul className="left menu">
                             <li className="hover">
                                 <Link to="/shuyoung/SuMap">地圖</Link>
                             </li>
                             <li className="hover">
                                 <Link to="/shuyoung/recipes">舒營食譜</Link>
                             </li>
-                            <li className="hover">
-                                <Link to="/shuyoung/Act">活動導覽</Link>
+                            <li className="hover dropdown dropdown-2">
+                                活動導覽
+                                <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-2">
+                                    <li class="dropdown_item-1">
+                                    <Link to="/shuyoung/act/upstream">親子溯溪</Link></li>
+                                    <li class="dropdown_item-2"><Link to="/shuyoung/act/float">漂流探險</Link></li>
+                                    <li class="dropdown_item-3"><Link to="/shuyoung/act/night">夜遊觀星</Link></li>
+                                    <li class="dropdown_item-4"><Link to="/shuyoung/act/atv">全地形車</Link></li>
+                                </ul>
                             </li>
                             <li className="hover">
                                 <Link to="/shuyoung/Booking">預約訂位</Link>
@@ -67,34 +74,54 @@ export default function Navbar() {
                         <div className="hover-list">
                             {authorized ? (
                                 <ul>
-                                    <li>
+                                    <li
+                                        
+                                    >
                                         <Link to="/shuyoung/member">
                                             前往會員中心
                                         </Link>
                                     </li>
                                     <li
-                                        onClick={() => {
-                                            logout();
-                                        }}
+                                        
                                     >
                                         登出
                                     </li>
                                 </ul>
                             ) : (
                                 <ul>
-                                    <li>
+                                    <li
+                                       
+                                    >
                                         <Link to="/shuyoung/join/register">
                                             註冊會員
                                         </Link>
                                     </li>
-                                    <li>
+                                    <li
+                                        
+                                    >
                                         <Link to="/shuyoung/join">登入</Link>
                                     </li>
                                 </ul>
                             )}
                         </div>
 
-                        <div className="cart">
+                        {isActive ? (<div
+                            className="cart"
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}>
+                            <Link
+                                to="/shuyoung/Cart"
+                                className={isActive ? " auth active" : "auth"}
+                            >
+                                <FaShoppingCart
+                                    className="iconCart"
+                                    size="30px"
+                                />
+                            </Link>
+                        </div>):(
+                            <div
+                            className="cart">
                             <Link
                                 to="/shuyoung/Cart"
                                 className={isActive ? " auth active" : "auth"}
@@ -105,6 +132,8 @@ export default function Navbar() {
                                 />
                             </Link>
                         </div>
+                        )}
+                        
 
                         <button
                             className="hamburger"
@@ -116,24 +145,54 @@ export default function Navbar() {
                         </button>
                     </div>
                     <ul className={isActive ? "nav-links open" : "nav-links"}>
-                        <li className={isActive ? "fade" : null}>
-                            <a href="#/">
+                        <li
+                            className={isActive ? "fade" : null}
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}
+                        >
+                            <Link to="/shuyoung">
                                 <img src="/member_img/logo.svg" alt="" />
-                            </a>
+                            </Link>
                         </li>
-                        <li className={isActive ? "fade" : null}>
+                        <li
+                            className={isActive ? "fade" : null}
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}
+                        >
                             <Link to="/shuyoung">首頁</Link>
                         </li>
-                        <li className={isActive ? "fade" : null}>
+                        <li
+                            className={isActive ? "fade" : null}
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}
+                        >
                             <Link to="/shuyoung/SuMap">地圖</Link>
                         </li>
-                        <li className={isActive ? "fade" : null}>
+                        <li
+                            className={isActive ? "fade" : null}
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}
+                        >
                             <Link to="/shuyoung/Recipes">舒營食譜</Link>
                         </li>
-                        <li className={isActive ? "fade" : null}>
+                        <li
+                            className={isActive ? "fade" : null}
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}
+                        >
                             <Link to="/shuyoung/Act">活動導覽</Link>
                         </li>
-                        <li className={isActive ? "fade" : null}>
+                        <li
+                            className={isActive ? "fade" : null}
+                            onClick={() => {
+                                setIsActive(!isActive);
+                            }}
+                        >
                             <Link to="/shuyoung/Booking">預約訂位</Link>
                         </li>
 
@@ -153,7 +212,12 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                                <li className={isActive ? "fade" : null}>
+                                <li
+                                    className={isActive ? "fade" : null}
+                                    onClick={() => {
+                                        setIsActive(!isActive);
+                                    }}
+                                >
                                     <Link
                                         to="/shuyoung/Login"
                                         className="login-button"

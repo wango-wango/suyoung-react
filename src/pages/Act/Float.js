@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import "./styles/act.scss";
 import { useBackground } from "../../utils/useBackground";
 import { gsap } from "gsap";
@@ -10,52 +10,69 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import { ACT_GET_LIST } from "./config/ajax-path";
+import { Link } from "react-router-dom";
+
 
 function Float(props) {
     const { setBackground } = useBackground();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [actFloat, setActFloat] = useState([]);
 
+    // // 用get 取得所有的值
+    useEffect(()=>{
+        Axios.get(
+            `${ACT_GET_LIST}/selectAct`
+        ).then((response) => {
+            setActFloat(response.data.actFloat);
+        });        
+    },[]);
 
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
-        useEffect(() => {
-            let groups = gsap.utils.toArray(".actGroup");
-            let toggles = gsap.utils.toArray(".actToggle");
-            let listToggles = groups.map(createAnimation);
-    
-            toggles.forEach((toggle) => {
-                toggle.addEventListener("click", function () {
-                    toggleMenu(toggle);
-                });
+    useEffect(() => {
+        if(!actFloat.length) return
+
+        let groups = gsap.utils.toArray(".actGroup");
+        let toggles = gsap.utils.toArray(".actToggle");
+        let listToggles = groups.map(createAnimation);
+
+        toggles.forEach((toggle) => {
+            toggle.addEventListener("click", function () {
+                toggleMenu(toggle);
             });
-    
-            function toggleMenu(clickedToggle) {
-                listToggles.forEach((toggleFn) => toggleFn(clickedToggle));
-            }
-            function createAnimation(element) {
-                let menu = element.querySelector(".actToggle");
-                let box = element.querySelector(".actDetail");
-    
-                gsap.set(box, { height: "auto" });
-                let animation = gsap
-                    .from(box, {
-                        height: 0,
-                        duration: 0.5,
-                        ease: "power1.inOut",
-                    })
-                    .reverse();
-    
-                return function (clickedMenu) {
-                    if (clickedMenu === menu) {
-                        animation.reversed(!animation.reversed());
-                    } else {
-                        animation.reverse();
-                    }
-                };
-            }
-        }, []);
-    
+        });
+
+        function toggleMenu(clickedToggle) {
+            listToggles.forEach((toggleFn) => toggleFn(clickedToggle));
+        }
+        function createAnimation(element) {
+            let menu = element.querySelector(".actToggle");
+            let box = element.querySelector(".actDetail");
+
+            gsap.set(box, { height: "auto" });
+            let animation = gsap
+                .from(box, {
+                    height: 0,
+                    duration: 0.5,
+                    ease: "power1.inOut",
+                })
+                .reverse();
+
+            return function (clickedMenu) {
+                if (clickedMenu === menu) {
+                    animation.reversed(!animation.reversed());
+                } else {
+                    animation.reverse();
+                }
+            };
+        }
+    }, [actFloat]);
+
+
+    if (actFloat.length === 0)
+    return <></>;
         return (
         <>
             {/* <section>
@@ -75,38 +92,31 @@ function Float(props) {
                                 <h3>Rafting Adventure</h3>
                             </div>
                             <div className="actChTitle">
-                                <h4>漂流探險</h4>
+                                <h4>{actFloat[0].act_name}</h4>
                             </div>
-                            <button className="btn btn-dark">預約報名</button>
+                            <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark">預約報名</button></Link>
                         </div>
                         <div className="slider">
                             <Swiper
-                        style={{
-                        "--swiper-navigation-color": "#fff",
-                        "--swiper-pagination-color": "#fff",
-                        }}
-                        loop={true}
-                        spaceBetween={10}
-                        navigation={true}
-                        thumbs={{ swiper: thumbsSwiper }}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper2"
-                        >
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float01.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float02.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float03.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float04.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float05.jpg" alt="" />
-                                </SwiperSlide>
+                                style={{
+                                "--swiper-navigation-color": "#fff",
+                                "--swiper-pagination-color": "#fff",
+                                }}
+                                loop={true}
+                                spaceBetween={10}
+                                navigation={true}
+                                thumbs={{ swiper: thumbsSwiper }}
+                                modules={[FreeMode, Navigation, Thumbs]}
+                                className="mySwiper2"
+                            >
+                                {actFloat.map((av, ai) => {
+                                    return (
+                                        <SwiperSlide key={ai}>
+                                        <img src={"/act_imgs/"+ av.filename} alt=""/>
+                                        </SwiperSlide>
+                                    )
+                                })};
+
                             </Swiper>
                             <Swiper
                                 onSwiper={setThumbsSwiper}
@@ -118,23 +128,16 @@ function Float(props) {
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper"
                             >
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float01.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float02.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float03.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float04.jpg" alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src="/act_imgs/float05.jpg" alt="" />
-                                </SwiperSlide>
+                                {actFloat.map((av, ai) => {
+                                    return (
+                                        <SwiperSlide key={ai}>
+                                        <img src={"/act_imgs/"+ av.filename} alt=""/>
+                                        </SwiperSlide>
+                                    )
+                                })};
                             </Swiper>
                         </div>
+                        <div className="actDetailTitle"><h4>活動詳情</h4></div>
                         <div className="actContentCotainer">
                             <motion.div
                                 className="actGroup"
@@ -147,18 +150,13 @@ function Float(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>活動介紹</h5></div>
+                                    <div className="top"><h5><i className="fa-solid fa-person-hiking mr-2"/>活動介紹</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
                                     <div className="textspace">
-                                        1. 輕鬆自在：
-                                            利用溪水漂流的方式，一覽南澳獨特山水景色，並享受沁涼
-                                            溪水的小旅行。<br/>
-                                        2. 老少咸宜：
-                                            在漂流行程中，除可讓小孩子學習獨立自主的行為態度，更
-                                            能有效促進親子關係唷！
+                                        {actFloat[0].act_desc}
                                         </div>
                                     </div>
                                 </div>
@@ -174,13 +172,13 @@ function Float(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>活動收費</h5></div>
+                                    <div className="top"><h5><i className="fas fa-comment-dollar mr-2"></i>活動收費</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
                                     <div className="textspace">
-                                    每人 1,000 元，行程約 3 小時，歡迎 5~65 歲的大小朋友預約報名唷！<br/>
+                                    每人 {actFloat[0].act_price} 元，行程約 3 小時，歡迎 5~65 歲的大小朋友預約報名唷！<br/>
                                     活動費用含專業帶團教練
                                     </div>
                                     </div>
@@ -197,23 +195,13 @@ function Float(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>活動行程</h5></div>
+                                    <div className="top"><h5><i className="fas fa-calendar-check mr-2"></i>活動行程</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
                                     <div className="textspace">
-                                        上午團<br/>
-                                        09:00 那山那谷休閒農場集合<br/>
-                                        09:30 出發換裝、行前講解、暖身<br/>
-                                        10:00 開始漂流，沿途體驗沁涼溪水、激流冒險、團隊互助、壯闊山景！<br/>
-                                        12:00 返回那山那谷休閒農場洗澡換裝<br/>
-                                        <br/>
-                                        下午團<br/>
-                                        13:00 那山那谷休閒農場集合<br/>
-                                        13:30 出發換裝、行前講解、暖身<br/>
-                                        14:00 開始漂流，沿途體驗沁涼溪水、激流冒險、團隊互助、壯闊山景！<br/>
-                                        16:00 返回那山那谷休閒農場洗澡換裝<br/>
+                                        {actFloat[0].act_schedule}
                                     </div>
                                     </div>
                                 </div>
@@ -229,27 +217,35 @@ function Float(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>個人準備物品</h5></div>
+                                        <div className="top"><h5><i className="fas fa-binoculars mr-2"/>個人準備物品</h5></div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
-                                    <div className="textspace">
-                                    1. 活動當天著泳裝或輕便服裝下水（請勿穿牛仔褲）。<br/>
-                                    2. 活動當天會提供溯溪鞋，為了換裝方便，建議自行攜帶拖
-                                    鞋或涼鞋。<br/>
-                                    3. 個人飲水。<br/>
-                                    4. 個人毛巾、塑膠袋（當天放置車上即可）。<br/>
-                                    5. 有戴眼鏡的朋友，請加掛眼鏡帶，以防被溪水沖掉。<br/>
-                                    6. 使用隱形眼鏡的朋友，請多帶一副一般眼鏡以下水備用。<br/>
-                                    7. 活動前請先修剪指甲，長指甲於活動時易斷裂。<br/>
-                                    8. 我們會準備防水相機為大家拍照，但若您也想要自行攜帶
-                                    防水相機也可以，但務    必要注意固定方式，因為相機在溪
-                                    裡的遺失率很高。<br/>
-                                    9. 手機、錢包、鑰匙、手錶、項鍊、戒指在溪中容易損壞且
-                                    遺失，請務必放置自己車上，其他貴重物品也請勿帶下
-                                    水，如不慎掉落溪中，教練會盡力協尋，但恕無法保證能
-                                    找回。<br/>
+                                        <div className="textspace">
+                                            {actFloat[0].act_prepare}
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                            <motion.div
+                                className="actGroup"
+                                initial={{ opacity: 0, x: 100 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{
+                                    delay: 0.5,
+                                    default: { ease: "linear" },
+                                }}
+                            >
+                                <div className="actToggle">
+                                    <div className="actTitle">
+                                        <div className="top"><h5>注意事項</h5></div>
+                                    </div>
+                                </div>
+                                <div className="actC">
+                                    <div className="actDetail">
+                                        <div className="textspace">
+                                            {actFloat[0].act_notice}
                                         </div>
                                     </div>
                                 </div>
