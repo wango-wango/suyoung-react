@@ -17,7 +17,11 @@ import Upstream from "./pages/Act/Upstream";
 import ActReservation from "./pages/Act/ActReservation";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
+
 import Recipes from "./pages/Recipes";
+import RecipesPage2 from "./pages/Recipes/components/recipesPage2";
+import PhotoWall from "./pages/Recipes/components/photoWall";
+
 import SuMap from "./pages/SuMap/SuMap";
 // import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
@@ -102,10 +106,20 @@ function App() {
                                                 {/* <Route path="Coupon" element={<Coupon />} />
                                             <Route path="Keep" element={<Keep />} /> */}
                                             </Route>
+                                            
                                             <Route
                                                 path="Recipes"
                                                 element={<Recipes />}
                                             />
+                                            <Route
+                                                path="/shuyoung/recipes/recipesPage2"
+                                                element={<RecipesPage2 auth={auth} />}
+                                            />
+                                            <Route
+                                                path="/shuyoung/recipes/photoWall"
+                                                element={<PhotoWall auth={auth} />}
+                                            />
+
                                             <Route path="SuMap">
                                                 <Route
                                                     index
