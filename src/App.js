@@ -109,16 +109,20 @@ function App() {
 
                                             <Route
                                                 path="Recipes"
-                                                element={<Recipes />}
-                                            />
-                                            <Route
-                                                path="/shuyoung/recipes/recipesPage2"
-                                                element={<RecipesPage2 />}
-                                            />
-                                            <Route
-                                                path="/shuyoung/recipes/photoWall"
-                                                element={<PhotoWall />}
-                                            />
+                                            >
+                                                <Route
+                                                    index
+                                                    element={<Recipes />}
+                                                />
+                                                <Route
+                                                    path="recipesPage2"
+                                                    element={<RecipesPage2  />}
+                                                />
+                                                <Route
+                                                    path="photoWall"
+                                                    element={<PhotoWall />}
+                                                />
+                                            </Route>
 
                                             <Route path="SuMap">
                                                 <Route
