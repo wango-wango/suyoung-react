@@ -1,100 +1,124 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/item.scss';
+import { motion } from "framer-motion";
 const _ = require('lodash')
 
 function OrderDetail(props) {
-    const {setStep} = props;
+  const {setStep, scOrderId} = props;
+  const [orderAll, setOrderAll] = useState([]) //初始資料
 
-    const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState([]);
+  async function getOrderListFromServer() {
+    const url = 'http://localhost:3700/cart/' + scOrderId
 
-  //   async function getOrderFromServer() {
-  //   /* get orderid去取訂單資料 */
-  //   const url = 'http://localhost:3777/orderlist/' + scOrderId
-  //   console.log('scOrderId', scOrderId)
+    // 注意資料格式要設定，伺服器才知道是json格式
+    const request = new Request(url, {
+      method: 'GET',
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
 
-  //   const request = new Request(url, {
-  //     method: 'GET',
-  //     headers: new Headers({
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   })
-  //   const response = await fetch(request)
-  //   const dataRes = await response.json()
-  //   console.log('訂單dataRes', dataRes)
-  //   setOrder(dataRes)
+    const response = await fetch(request)
+    const data = await response.json()
+    console.log('訂單dataRes', data)
+    setOrder(data)
 
-  //   console.log('訂單scOrderId', scOrderId)
-  //   // console.log('訂單order', order) //會是空的因為setOrder異步執行
-  // }
-  // useEffect(() => {
-  //   window.scrollTo(0, 0)
-  //   getOrderFromServer()
-  // }, [])
+    console.log('訂單scOrderId', scOrderId)
+    // console.log('訂單order', order) //會是空的因為setOrder異步執行
+    setOrderAll(data.data)
+  }
 
-  // useEffect(() => {
-  //   console.log('訂單order的變化', order)
-  // }, [order])
-
-
-  return (
+  useEffect(() => {
+    getOrderListFromServer()
+  }, [])
+    
+  const OrderDisplay = () => (
     <>
-    <h1 className="first_component_title">訂單內容</h1>
-    <div className="order_detail">
+      { order.map((v, i) => {
+          console.log('hihi')
+        return (
+          <>
+          <React.Fragment key={v.order_id}>
+          <div className="order_detail">
         <div className="title">
-          <h4>訂單編號：Shinder0125</h4>
+          <h4>訂單編號：Shinder{v.order_id}</h4>
           <div className="title_f">
             <p>
               <i className="fa-solid fa-calendar-check">
-              &nbsp;&nbsp;2022/06/24 - 2022/06/26
+              &nbsp;&nbsp;{v.start_date} - {v.end_date}
               </i>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <i className="fa-solid fa-user-large">&nbsp;2人</i>
+              <i className="fa-solid fa-user-large">&nbsp;{v.adults}</i>
             </p>
-            <p className="order_totalAmont">Total:&nbsp;$51240</p>
+            <p className="order_totalAmont">Total:&nbsp;${v.totalPrice}</p>
           </div>
         </div>
         <div className="detail">
           <div className="item_detail">
             <div className="item_detail_img">
-              <img src="" alt="" />
+              <img src={`/room_imgs/${v.room_folder}/${v.room_image}`} alt="" />
             </div>
             <div className="item_detail_text">
-              <p>房型：奢華帳棚</p>
-              <p>天數：2天</p>
-              <p>價格：46770</p>
-            </div>
-          </div>
-          <div className="event_detail">
-            <div className="event_detail_img">
-              <img src="" alt="" />
-            </div>
-            <div className="event_detail_text">
-              <p>活動：漂流探險</p>
-              <p>人數：2人</p>
-              <p>價格：2000</p>
-            </div>
-          </div>
-          <div className="food_detail">
-            <div className="food_detail_img">
-              <img src="" alt="" />
-            </div>
-            <div className="food_detail_text">
-              <p>食材：超值烤肉露營組(安心豬肉) 4-6人份 </p>
-              <p>數量：1組 </p>
-              <p>價格：$1580</p>
+                        <p>房型：{v.room_name}</p>
+                        <p>入住：{v.start_date}</p>
+                        <p>退房：{v.end_date}</p>
+                        <p>人數：{v.adults}</p>
+                        <p>天數：{v.perNight}</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="backtoHomepage">
+      </React.Fragment>
+      </>
+        )
+      })}
+    </>
+  )
+
+  console.log(orderAll)
+
+
+  return (
+    <>
+     <motion.div
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >   
+    <h1 className="first_component_title">訂單內容</h1>
+    <OrderDisplay/>
+    <div className="backtoHomepage">
         <button onClick={()=>{
             setStep(1)
         }}>回首頁</button>
       </div>
+      </motion.div> 
     </>
   )
 }
 
 
 export default OrderDetail
+
+{/* <div className="event_detail">
+<div className="event_detail_img">
+  <img src="" alt="" />
+</div>
+<div className="event_detail_text">
+  <p>活動：漂流探險</p>
+  <p>人數：2人</p>
+  <p>價格：2000</p>
+</div>
+</div>
+<div className="food_detail">
+<div className="food_detail_img">
+  <img src="" alt="" />
+</div>
+<div className="food_detail_text">
+  <p>食材：超值烤肉露營組(安心豬肉) 4-6人份 </p>
+  <p>數量：1組 </p>
+  <p>價格：$1580</p>
+</div>
+</div> */}
