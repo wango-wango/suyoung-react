@@ -1,4 +1,17 @@
 import React, { useState, useEffect } from "react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import "./styles/autoplay_styles.css";
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper";
+
 import axios from "axios";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/footer";
@@ -25,37 +38,24 @@ function Index(props) {
                         <div className="col-md-3 col-4  range_slider rounded-pill"></div>
                     </div>
                     <div className="glass mt-3 pb-3 ">
-                        <div id="carouselExampleIndicators" className="carousel slide pt-3 carousel_size" data-bs-ride="carousel">
-                            <div className="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                    className="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                            </div>
-                            <div className="carousel-inner ">
-                                <div className="carousel-item active">
-                                    <img src={"/recipes_img/pancake.png"} className="d-block w-100" alt="..." />
-                                </div>
-                                <div className="carousel-item">
-                                    <img src={"/recipes_img/sanFishRice.png"} className="d-block w-100" alt="..." />
-                                </div>
-                                <div className="carousel-item">
-                                    <img src={"/recipes_img/africaEgg.png"} className="d-block w-100" alt="..." />
-                                </div>
-                            </div>
-                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="prev">
-                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Previous</span>
-                            </button>
-                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="next">
-                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        <Swiper
+                            spaceBetween={30}
+                            centeredSlides={true}
+                            autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                            }}
+                            pagination={{
+                            clickable: true,
+                            }}
+                            navigation={true}
+                            modules={[Autoplay, Pagination, Navigation]}
+                            className="mySwiper carousel_size"
+                        >
+                            <SwiperSlide><img src={"/recipes_img/pancake.png"} /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/sanFishRice.png"} /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/africaEgg.png"} /></SwiperSlide>
+                        </Swiper>
                     </div>
                 </div>
             </section>
