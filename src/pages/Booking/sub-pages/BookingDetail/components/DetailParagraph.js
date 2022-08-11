@@ -6,7 +6,6 @@ import {
 
 function DetailParagraph(props) {
     const { ruleList } = props;
-    console.log(ruleList);
 
     useEffect(() => {
         if (ruleList.length === 0) return;

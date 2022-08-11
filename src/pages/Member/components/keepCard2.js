@@ -11,7 +11,7 @@ const KeepCard = (props) => {
 
     const { bookingList, setBookingList } = useBookingList();
 
-    const { favlist1 } = props;
+    const { favlist2 } = props;
 
     const deleteKeep = async (sid) => {
         const room_sid = sid;
@@ -25,7 +25,7 @@ const KeepCard = (props) => {
 
     return (
         <>
-            {favlist1.map((v, i) => {
+            {favlist2.map((v, i) => {
                 return (
                     <motion.div
                         className="keep-card"
@@ -41,28 +41,22 @@ const KeepCard = (props) => {
                         <button
                             className="delete-keep"
                             onClick={() => {
-                                deleteKeep(v.sid);
+                                deleteKeep(v.act_id);
                             }}
                         >
                             <TiDelete size={28} />
                         </button>
                         <div className="keep-card-img">
                             <img
-                                src={`http://localhost:3777/room_imgs/${v.room_folder}/${v.room_image}`}
+                                src={`http://localhost:3777/act_imgs/${v.filename}`}
                                 alt=""
                             />
                         </div>
-                        <div className="keep-card-title">{v.room_name}</div>
-                        <div className="keep-card-content">{v.description}</div>
+                        <div className="keep-card-title">{v.act_name}</div>
+                        <div className="keep-card-content">{v.act_desc}</div>
                         <div className="keep-card-button">
                             <Link
-                                to="/shuyoung/Booking"
-                                onClick={() => {
-                                    setBookingList({
-                                        ...bookingList,
-                                        roomSelector: [v.sid + ""],
-                                    });
-                                }}
+                                to="/shuyoung/Act/Atv"
                             >
                                 看更多
                             </Link>

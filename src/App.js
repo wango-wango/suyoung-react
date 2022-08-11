@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/Login/sub-pages/AuthProvider";
 import { ThemeProvider } from "./utils/useBackground";
 import { BookingProvider } from "./utils/useBookingList";
+import { BookingCartProvider } from "./utils/useBookingCart";
 import { useSpinner } from "./useSpinner";
 
 // import 路由
@@ -38,96 +39,110 @@ function App() {
                 <AuthProvider>
                     <ThemeProvider>
                         <BookingProvider>
-                            <Layout>
-                                <Routes>
-                                    <Route
-                                        path="/"
-                                        element={
-                                            <>
-                                                <h1>Welcome Home</h1>{" "}
-                                                <p>
-                                                    please insert suyouong in
-                                                    your URL, thanks.
-                                                </p>
-                                            </>
-                                        }
-                                    />
-                                    <Route path="/shuyoung">
-                                        <Route index element={<Home />} />
+                            <BookingCartProvider>
+                                <Layout>
+                                    <Routes>
                                         <Route
-                                            path="Landing"
-                                            element={<Landing />}
+                                            path="/"
+                                            element={
+                                                <>
+                                                    <h1>Welcome Home</h1>{" "}
+                                                    <p>
+                                                        please insert suyouong
+                                                        in your URL, thanks.
+                                                    </p>
+                                                </>
+                                            }
                                         />
-                                        <Route path="Act">
+                                        <Route path="/shuyoung">
+                                            <Route index element={<Home />} />
                                             <Route
-                                                path="Atv"
-                                                element={<Atv />}
+                                                path="Landing"
+                                                element={<Landing />}
                                             />
-                                            <Route
-                                                path="Float"
-                                                element={<Float />}
-                                            />
-                                            <Route
-                                                path="Night"
-                                                element={<Night />}
-                                            />
-                                            <Route
-                                                path="Upstream"
-                                                element={<Upstream />}
-                                            />
-                                            <Route
-                                                path="ActReservation"
-                                                element={<ActReservation />}
-                                            />
-                                        </Route>
+                                            <Route path="Act">
+                                                <Route
+                                                    path="Atv"
+                                                    element={<Atv />}
+                                                />
+                                                <Route
+                                                    path="Float"
+                                                    element={<Float />}
+                                                />
+                                                <Route
+                                                    path="Night"
+                                                    element={<Night />}
+                                                />
+                                                <Route
+                                                    path="Upstream"
+                                                    element={<Upstream />}
+                                                />
+                                                <Route
+                                                    path="ActReservation"
+                                                    element={<ActReservation />}
+                                                />
+                                            </Route>
 
-                                        <Route path="Booking">
-                                            <Route
-                                                index
-                                                element={<Booking />}
-                                            />
-                                            <Route
-                                                path="BookingDetail"
-                                                element={<BookingDetail />}
-                                            />
-                                        </Route>
+                                            <Route path="Booking">
+                                                <Route
+                                                    index
+                                                    element={<Booking />}
+                                                />
+                                                <Route
+                                                    path="BookingDetail"
+                                                    element={<BookingDetail />}
+                                                />
+                                            </Route>
 
-                                        <Route path="Member">
-                                            <Route index element={<Member />} />
-                                            {/* <Route path="Coupon" element={<Coupon />} />
+                                            <Route path="Member">
+                                                <Route
+                                                    index
+                                                    element={<Member />}
+                                                />
+                                                {/* <Route path="Coupon" element={<Coupon />} />
                                             <Route path="Keep" element={<Keep />} /> */}
-                                        </Route>
-                                        <Route
-                                            path="Recipes"
-                                            element={<Recipes />}
-                                        />
-                                        <Route path="SuMap">
-                                            <Route index element={<SuMap />} />
+                                            </Route>
                                             <Route
-                                                path="beauty"
-                                                element={<SuMapBeauty />}
+                                                path="Recipes"
+                                                element={<Recipes />}
+                                            />
+                                            <Route path="SuMap">
+                                                <Route
+                                                    index
+                                                    element={<SuMap />}
+                                                />
+                                                <Route
+                                                    path="beauty"
+                                                    element={<SuMapBeauty />}
+                                                />
+                                            </Route>
+                                            <Route
+                                                path="Cart"
+                                                element={<Cart />}
+                                            />
+                                            <Route path="Join">
+                                                <Route
+                                                    index
+                                                    element={<Register />}
+                                                />
+                                                <Route
+                                                    path="Register"
+                                                    element={<MRegister />}
+                                                />
+                                                <Route
+                                                    path="resetPassword"
+                                                    element={<ForgotPassword />}
+                                                />
+                                            </Route>
+                                            {/* 404未找到的頁面路由，需放在最下方 */}
+                                            <Route
+                                                path="*"
+                                                element={<NoFound />}
                                             />
                                         </Route>
-                                        <Route path="Cart" element={<Cart />} />
-                                        <Route path="Join">
-                                            <Route
-                                                index
-                                                element={<Register />}
-                                            />
-                                            <Route
-                                                path="Register"
-                                                element={<MRegister />}
-                                            />
-                                            <Route
-                                                path="resetPassword"
-                                                element={<ForgotPassword />}
-                                            />
-                                        </Route>
-                                        {/* 404未找到的頁面路由，需放在最下方 */}
-                                        <Route path="*" element={<NoFound />} />
-                                    </Route>
-                                </Routes>
-                            </Layout>
+                                    </Routes>
+                                </Layout>
+                            </BookingCartProvider>
                         </BookingProvider>
                     </ThemeProvider>
                 </AuthProvider>
