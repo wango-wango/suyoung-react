@@ -25,7 +25,10 @@ import PhotoWall from "./pages/Recipes/components/photoWall";
 import SuMap from "./pages/SuMap/SuMap";
 // import Login from "./pages/Login";
 import NoFound from "./pages/noFound";
+// import Create from "./pages/Booking/sub-pages/Create";
 import Cart from "./pages/Carts/CartItem";
+// import Navbar from "./components/Navbar";
+// import Footer from "./components/footer";
 import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import MRegister from "./pages/Register/components/MRegister";
@@ -103,10 +106,9 @@ function App() {
                                                 {/* <Route path="Coupon" element={<Coupon />} />
                                             <Route path="Keep" element={<Keep />} /> */}
                                             </Route>
-                                            
+
                                             <Route
                                                 path="Recipes"
-                                                
                                             >
                                                 <Route
                                                     index

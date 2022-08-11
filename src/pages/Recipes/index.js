@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useBackground } from "../../utils/useBackground";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -18,6 +18,12 @@ import "./styles/index.scss";
 
 
 function Index(props) {
+     // 來自useBackground 的設定
+     const { setBackground } = useBackground();
+     // 進入該頁設定背景
+     useEffect(() => {
+         setBackground("bg1.svg");
+     }, []);
     return (
         <>
             <header className="d-flex justify-content-around">
