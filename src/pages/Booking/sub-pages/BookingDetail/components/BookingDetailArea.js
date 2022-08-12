@@ -6,11 +6,10 @@ import Axios from "axios";
 
 
 function BookingDetailArea(props) {
-    const { roomList } = props;
+    const { roomList,localRoomList } = props;
     const { bookingList, setBookingList } = useBookingList();
     
     const [room, setRoom] = useState({});
-    const [roomItem, setRoomItem] = useState([]);
 
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, "0");
@@ -27,14 +26,11 @@ function BookingDetailArea(props) {
     tomorrow = tyyy + "-" + tm + "-" + td;
 
     const postRoomData = async() => {
-       
-        await Axios.post(`${BK_GET_LIST}/temporaryCart`, roomItem);
-        
+        await Axios.post(`${BK_GET_LIST}/temporaryCart`, localRoomList);
     }
 
     useEffect(()=>{
         setRoom(JSON.parse(localStorage.getItem("room"))) ;
-        setRoomItem(JSON.parse(localStorage.getItem("roomItem"))) ;
 
     },[]);
 

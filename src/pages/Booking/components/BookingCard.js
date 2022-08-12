@@ -191,7 +191,8 @@ function BookingCard(props) {
                                                                     ...bookingList,
                                                                     roomSid:
                                                                         v.sid,
-                                                                    adults: v.person_num,
+                                                                    adults: bookingList.adults,
+                                                                    kids: bookingList.kids,
                                                                 };
                                                             setBookingList(
                                                                 newBookingList

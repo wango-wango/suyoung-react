@@ -89,7 +89,10 @@ function Index(props) {
 
     useEffect(() => {
         if (roomList.length >= 1)
-            setlocalRoomList({ ...bookingList, ...roomList[0] });
+            {
+                setlocalRoomList({ ...bookingList, ...roomList[0] });
+            }
+
     }, [bookingList]);
 
     // 當 localRoomList 有值存進去後
@@ -145,7 +148,7 @@ function Index(props) {
                             <RoomEquipment eqiList={eqiList} />
                         </div>
                         <div className="room_col_right">
-                            <BookingDetailArea roomList={roomList} />
+                            <BookingDetailArea roomList={roomList} localRoomList={localRoomList}/>
                         </div>
                     </div>
                 </div>
