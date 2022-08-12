@@ -10,19 +10,23 @@ import 'animate.css';
 import { useAuth } from "../../pages/Login/sub-pages/AuthProvider";
 import { now } from "lodash";
 import { formatInTimeZone } from 'date-fns-tz'
+import { useBookingCart } from "../../utils/useBookingCart";
+
 const _ = require('lodash');
 const Swal = require('sweetalert2')
 
 function CartItem(props) {
     const { setAuth, ...auth } = useAuth();
+    const { bookingCart, setBookingCart } = useBookingCart();
+
     const maxSteps = 3
 
     const [step, setStep] = useState(1)
 
-    const [roomItem, setRoomItem] = useState(() => {
-        const roomItem = localStorage.getItem('roomItem');
-        return roomItem ? JSON.parse(roomItem) : [];
-    }, [])
+    // const [roomItem, setRoomItem] = useState(() => {
+    //     const roomItem = localStorage.getItem('roomItem');
+    //     return roomItem ? JSON.parse(roomItem) : [];
+    // }, [])
 
     const [sum, setSum] = useState();
 
@@ -44,14 +48,13 @@ function CartItem(props) {
     // 從localStorage取出購物車資訊，往子女元件傳遞
     const orderItems = localStorage.getItem('roomItem') || 0
     const orderItemsStr = JSON.parse(orderItems)  
+    console.log(orderItems)
 
     const [errors, setErrors] = useState([])
 
     const [scOrderId, setScOrderId] = useState(0) //訂單編號
 
     async function addOrderToSever(e) {
-        const orderId = +new Date()
-        setScOrderId(orderId)
         let data = {
           orderItems: [],
         }
@@ -60,7 +63,6 @@ function CartItem(props) {
           const date = new Date();
 
           const roomObj = {
-            // orderId: orderId,
             member_id : auth.sid,
             room_id: item.sid,
             room_type_id:item.room_type_id,
@@ -76,7 +78,7 @@ function CartItem(props) {
         }
 
         // 連接的伺服器資料網址
-        const url = 'http://localhost:3700/cart/order/item/add'
+        const url = 'http://localhost:3700/cart/order/add'
     
         // 注意資料格式要設定，伺服器才知道是json格式
         // 轉成json檔傳到伺服器
@@ -94,7 +96,6 @@ function CartItem(props) {
         const response = await fetch(request)
         const dataRes = await response.json()
         
-        console.log(orderId)
         console.log('伺服器回傳的json資料', dataRes)
       }
       //將信用卡資訊寫入資料庫
@@ -106,7 +107,7 @@ function CartItem(props) {
         }
     
         // 連接的伺服器資料網址
-        const url = 'http://localhost:3700/cart/order/card/add'
+        const url = 'http://localhost:3700/cart/card/add'
     
         // 注意資料格式要設定，伺服器才知道是json格式
         // 轉成json檔傳到伺服器
@@ -129,8 +130,8 @@ function CartItem(props) {
 
       //將訂單細節寫入資料庫
       async function addOrderInfoToSever(e) {
-        // const orderId = +new Date()
-        // setScOrderId(orderId)
+        const orderId = +new Date()
+        setScOrderId(orderId)
 
         let data1 = {
           orderDetail: [],
@@ -141,7 +142,7 @@ function CartItem(props) {
           const date = new Date();
 
         const orderInfo = {
-          // orderId: orderId,
+          order_id: orderId,
           member_id: auth.m_id,
           adults: item.adults,
           kids:(item.kids > 1) ? item.kids : 0,
@@ -151,6 +152,7 @@ function CartItem(props) {
           room_folder:item.room_folder,
           room_image:item.room_image,
           room_name:item.room_name,
+          perNight:item.perNight,
           start_date:item.startDate,
           end_date:item.endDate,
           create_at:formatInTimeZone(date, 'Asia/Taipei', 'yyyy-MM-dd HH:mm:ss '),
@@ -160,7 +162,7 @@ function CartItem(props) {
     
     
         // 連接的伺服器資料網址
-        const url = 'http://localhost:3700/cart/order/orderDetail/add'
+        const url = 'http://localhost:3700/cart//orderDetail/add'
     
         // 注意資料格式要設定，伺服器才知道是json格式
         // 轉成json檔傳到伺服器
@@ -177,7 +179,8 @@ function CartItem(props) {
     
         const response = await fetch(request)
         const dataRes = await response.json()
-    
+        
+        console.log(orderId)
         console.log('伺服器回傳的json資料', dataRes)
       }
 
@@ -252,6 +255,9 @@ function CartItem(props) {
     HandleAlertBuy()
     setStep(1)
     }
+
+    // clear useContext from useBookingCart
+    setBookingCart([]);
 }
 
 
@@ -264,7 +270,7 @@ function CartItem(props) {
         />
         <BlockComponent 
         setStep={setStep} 
-        roomItem={roomItem} 
+        // roomItem={roomItem} 
         sum={sum} 
         setSum={setSum} 
         setInputs={setInputs}
@@ -273,6 +279,7 @@ function CartItem(props) {
         orderItemsStr={orderItemsStr}   
         HandleAlertBuy={ HandleAlertBuy}
         HandleAlert={HandleAlert}
+        scOrderId={scOrderId}
         />
     </div>
     {/* {step === 1 ?  <AddOn/> : null} */}

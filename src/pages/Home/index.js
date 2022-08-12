@@ -1,23 +1,72 @@
 import React, { useState, useEffect, useRef } from "react"
-import axios from "axios"
+import Axios from "axios"
 import Rellax from "rellax"
 import { motion } from "framer-motion"
 import "./styles/index.scss"
-import { useBackground } from "../../utils/useBackground";
+import { useBackground } from "../../utils/useBackground"
 import WeatherApp from "../Home/components/WeatherApp"
+import { ROOM_GET_LIST } from "./config/ajax-path";
+import { Link } from "react-router-dom";
+import { FreeMode, Navigation, Thumbs } from "swiper";
+
 function Index(props) {
 
     const scrollRef = useRef(null)
     const { setBackground } = useBackground();
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+    //存成狀態 值：字串
+    //key value
+    // 所有房間列表
+    const [roomList, setRoomList] = useState([]);
+    // 房型
+    const [roomType, setRoomType] = useState("");
+    // 檢查房間狀態
+    const [roomSelector, setRoomSelector] = useState([]);
+
+    // 房型確認狀態
+    const [checkroomType, setCheckRoomType] = useState([]);
+
+
+
+    useEffect(()=>{
+        setRoomType(roomList)
+        console.log(roomList);
+    },[])
+
+
+    // RoomType 控制器
+    const RoomTypeHandler = (e) => {
+        const value = e.target.value;
+        const checked = e.target.checked;
+        // if (value === 1) {
+            
+        // } else {
+            
+        //     const newChekRoomType = oldCheckRoomType.filter((v) => {
+        //         return v !== value;
+        //     });
+        //     setCheckRoomType(newChekRoomType);
+        // }
+    };
+    // 用get 取得所有的值
+    useEffect(()=>{
+            Axios.get(
+                `${ROOM_GET_LIST}/selectRoom`
+            ).then((response) => {
+                setRoomList(response.data);
+                console.log(response.data);
+            });
+        },[]);
+
+    //背景控制hook
     useEffect(() => {
         setBackground("indexBg.svg");
     }, []);
     
-    // const rellaxRef = useRef();
-
+    //滾輪視差hook
     useEffect(() => {
-    new Rellax(".animate", { // <---- Via class name
+    new Rellax(".animate", {
         speed: -10,
         center: false,
         wrapper: null,
@@ -27,7 +76,11 @@ function Index(props) {
         })
     },[]);
 
-    return (
+    if (roomList.length === 0)
+        return <></>;
+    
+    
+        return (
     <>
     <section>
         <div className="weatherCtrl"><WeatherApp/></div>
@@ -53,51 +106,93 @@ function Index(props) {
     <section>
         <div id="room">
         <div ref={scrollRef} style={{ overflow: "scroll" }}>
-      <motion.div
+    <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ root: scrollRef }}
-      />
-            <div className="lrSpace p-lg-5">
-                <h4 className="textCenter p-lg-5 p-sm-4">房型介紹</h4>
+    />
+        <div className="lrSpace p-lg-5">
+            <h4 className="textCenter p-lg-5 p-sm-4">房型介紹</h4>
+        </div>
+
+        <div className="iconGroup">
+            <input
+                className="checkbox-tools"
+                type="radio"
+                name="tools"
+                id="tool-1"
+                value={1}
+                onClick={RoomTypeHandler}
+            />
+            <label
+                className="for-checkbox-tools"
+                htmlFor="tool-1"
+            >
+                <i className="fa-solid fa-campground"></i>
+            </label>
+            <input
+                className="checkbox-tools"
+                type="radio"
+                name="tools"
+                id="tool-2"
+                value={2}
+                onClick={RoomTypeHandler}
+            />
+            <label
+                className="for-checkbox-tools"
+                htmlFor="tool-2"
+            >
+                <i className="fa-solid fa-tents"></i>
+            </label>
+            <input
+                className="checkbox-tools"
+                type="radio"
+                name="tools"
+                id="tool-3"
+                value={3}
+                onClick={RoomTypeHandler}
+            />
+            <label
+                className="for-checkbox-tools"
+                htmlFor="tool-3"
+            >
+                <i className="fa-solid fa-caravan"></i>
+            </label>
+            <input
+                className="checkbox-tools"
+                type="radio"
+                name="tools"
+                id="tool-4"
+                value={4}
+                onClick={RoomTypeHandler}
+            />
+            <label
+                className="for-checkbox-tools"
+                htmlFor="tool-4"
+            >
+                <i className="fa-solid fa-person-hiking"></i>
+            </label>
+        </div>
+        
+        <div className="lrSpace">
+            <div className="d-flex justify-content-around p-3">
+                {roomList.roomtype1.map((rv, ri) => {
+                    return(
+                        <div className="roompic" key={ri}>
+                            <img src={"/room_imgs/"+rv.room_folder + "/" +  rv.room_image} alt=""/>
+                        </div>
+                    )
+                })}
             </div>
-            <div className="lrSpace p-lg-5 p-sm-3">
-                <div className="d-flex justify-content-around roomIcon">
-                    <div className="p-sm-3">
-                        <img src="/index_imgs/camp.png" alt=""/>
-                    </div>
-                    <div className="p-sm-3">
-                        <img src="/index_imgs/family.png" alt=""/>
-                    </div>
-                    <div className="roomActive p-sm-3">
-                        <img src="/index_imgs/beauty.png" alt=""/>
-                    </div>
-                    <div className="p-sm-3">
-                        <img src="/index_imgs/van.png" alt=""/>
-                    </div>
-                </div>
-            </div>
-            <div className="lrSpace">
-                <div className="d-flex justify-content-around p-3">
-                    <div className="roomActive roompic">
-                        <img className="" src="/room_imgs/beauty/roomA1.jpeg" alt=""/>
-                    </div>
-                    <div className="roompic">
-                        <img className="" src="/room_imgs/beauty/roomA8.jpeg" alt=""/>
-                    </div>
-                    <div className="roompic">
-                        <img className="" src="/room_imgs/beauty/roomA11.jpeg" alt=""/>
-                    </div>
-                </div>
-            </div>
-            <div className="roomTitle">
-                <h4>冬之戀季</h4>
-            </div>
-            <div className="roomDes">
-                <p>需要考慮周詳冬天的影響及因應對策。儘管如此，我們仍然需要對冬天保持懷疑的態度。對於冬天，我們不能不去想，卻也不能走火入魔。在這種困難的抉擇下，本人思來想去，寢食難安。我們需要淘汰舊有的觀念，那麼，冬天對我來說有著舉足輕重的地位，必須要嚴肅認真的看待。</p>
-            </div>
-            </div>
-            <div className="line border-light border-bottom"></div>
+        </div>
+        <div className="roomTitle">
+            <h4>{roomList.roomtype1[0].room_type}</h4>
+        </div>
+        <div className="roomDes">
+            <p>{roomList.roomtype1[0].description}</p>
+        </div>
+        </div>
+        <div className="line border-light border-bottom"></div>
         </div>
     </section>
     <section>
@@ -108,28 +203,28 @@ function Index(props) {
                     <div className="actContent">
                         <h4>漂流探險</h4>
                         <p className="cardDes">每個人都不得不面對這些問題。在面對這種問題時，務必詳細考慮漂流的各種可能。</p>
-                        <button className="btn btn-dark">MORE</button>
+                        <Link to="/shuyoung/act/float"><button className="btn btn-dark">MORE</button></Link>
                     </div>
                 </div>
                 <div className="actCard">
                     <div className="actContent">
-                        <h4>夜遊觀月</h4>
+                        <h4>夜遊觀星</h4>
                         <p className="cardDes">我想，把夜遊的意義想清楚，對各位來說並不是一件壞事。荀況相信，賢能不待次而舉。</p>
-                        <button className="btn btn-dark">MORE</button>
+                        <Link to="/shuyoung/act/night"><button className="btn btn-dark">MORE</button></Link>
                     </div>
                 </div>
                 <div className="actCard">
                     <div className="actContent">
                         <h4>親子溯溪</h4>
                         <p className="cardDes">親子溯溪可以說是有著成為常識的趨勢。一般來講，我們都必須務必慎重的考慮考慮。</p>
-                        <button className="btn btn-dark">MORE</button>
+                        <Link to="/shuyoung/act/upstream"><button className="btn btn-dark">MORE</button></Link>
                     </div>
                 </div>
                 <div className="actCard actimg4">
                     <div className="actContent">
                         <h4>全地形沙灘車</h4>
                         <p className="cardDes">全地形沙灘車，到底應該如何實現。如果別人做得到，那我也可以做到。全地形沙灘車似乎是一種巧合，但如果我們從一個更大的角度看待問題，這似乎是一種不可避免的事實。</p>
-                        <button className="btn btn-dark">MORE</button>
+                        <Link to="/shuyoung/act/atv"><button className="btn btn-dark">MORE</button></Link>
                     </div>
                 </div>
             </div>

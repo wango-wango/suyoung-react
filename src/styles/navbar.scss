@@ -153,7 +153,6 @@ p {
         }
         .dropdown:hover .dropdown_menu li {
         display: block;
-        color: #fff;
         }
         .dropdown_menu {
         position: absolute;
@@ -162,7 +161,6 @@ p {
         width: 100%;
         perspective: 1000px;
         z-index: -1;
-        color: #fff;
         }
         .dropdown_menu li {
         display: none;
@@ -175,34 +173,26 @@ p {
         }
         .dropdown_menu li:hover {
         background-color: #224040f0;
-        color: #fff;
         }
         .dropdown:hover .dropdown_menu--animated {
         display: block;
         }
-        .dropdown_menu--animated {
-        display: none;
-        }
-        .dropdown_menu--animated li {
-        display: block;
-        opacity: 1;
-        }
                 
         .dropdown_menu-2 .dropdown_item-1 {
             transform-origin: top center;
-            animation: rotateX 300ms 60ms ease-in-out forwards;
+            animation: rotateX 250ms 100ms ease-in-out forwards;
         }
         .dropdown_menu-2 .dropdown_item-2 {
             transform-origin: top center;
-            animation: rotateX 300ms 120ms ease-in-out forwards;
+            animation: rotateX 250ms 150ms ease-in-out forwards;
         }
         .dropdown_menu-2 .dropdown_item-3 {
             transform-origin: top center;
-            animation: rotateX 300ms 180ms ease-in-out forwards;
+            animation: rotateX 250ms 200ms ease-in-out forwards;
         }
         .dropdown_menu-2 .dropdown_item-4 {
             transform-origin: top center;
-            animation: rotateX 300ms 240ms ease-in-out forwards;
+            animation: rotateX 250ms 250ms ease-in-out forwards;
         }
 
         @keyframes rotateX {

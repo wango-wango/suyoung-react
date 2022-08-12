@@ -28,7 +28,7 @@ function RoomLt(props) {
             <p className="">${sum}</p>
         </div>
         <div className="checkoutbtn">
-            <button className="stillBuy">繼續購物</button>
+            <button className="stillBuy" onClick={()=>{window.location.href="http://localhost:3777/shuyoung/Booking"}}>繼續訂房</button>
             <button className="checkOut" onClick={OrderSubmit}>結帳</button>
         </div>
     </div>
