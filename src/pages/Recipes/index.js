@@ -18,12 +18,12 @@ import "./styles/index.scss";
 
 
 function Index(props) {
-     // 來自useBackground 的設定
-     const { setBackground } = useBackground();
-     // 進入該頁設定背景
-     useEffect(() => {
-         setBackground("bg1.svg");
-     }, []);
+    // 來自useBackground 的設定
+    const { setBackground } = useBackground();
+    // 進入該頁設定背景
+    useEffect(() => {
+        setBackground("bg_1.svg");
+    }, []);
     return (
         <>
             <header className="d-flex justify-content-around">
@@ -41,19 +41,19 @@ function Index(props) {
                             spaceBetween={30}
                             centeredSlides={true}
                             autoplay={{
-                            delay: 2500,
-                            disableOnInteraction: false,
+                                delay: 2500,
+                                disableOnInteraction: false,
                             }}
                             pagination={{
-                            clickable: true,
+                                clickable: true,
                             }}
                             navigation={true}
                             modules={[Autoplay, Pagination, Navigation]}
                             className="mySwiper carousel_size"
                         >
                             <SwiperSlide><img src={"/recipes_img/pancake.png"} alt="" /></SwiperSlide>
-                            <SwiperSlide><img src={"/recipes_img/sanFishRice.png"}  alt="" /></SwiperSlide>
-                            <SwiperSlide><img src={"/recipes_img/africaEgg.png"}  alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/sanFishRice.png"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/africaEgg.png"} alt="" /></SwiperSlide>
                         </Swiper>
                     </div>
                 </div>
@@ -62,13 +62,13 @@ function Index(props) {
                 <div className="j_container mt-3">
                     <h5 className="fw-bold title_color">搜尋食譜</h5>
                     <input type="text input_label input_style" />
-                        <div className="glass mt-3 mb-3">
-                            <div className="row flexing_card justify-content-between pt-3 pb-3">
-                                <div className="col-3 hot"></div>
-                                <div className="col-3 hot"></div>
-                                <div className="col-3 hot"></div>
-                            </div>
+                    <div className="glass mt-3 mb-3">
+                        <div className="row flexing_card justify-content-between pt-3 pb-3">
+                            <div className="col-3 hot"></div>
+                            <div className="col-3 hot"></div>
+                            <div className="col-3 hot"></div>
                         </div>
+                    </div>
                 </div>
             </section>
             <section>

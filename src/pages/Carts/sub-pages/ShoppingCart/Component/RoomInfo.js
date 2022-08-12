@@ -7,7 +7,7 @@ const Swal = require('sweetalert2')
 
 function RoomInfo(props) {
 
-    const { setSum } = props
+    const { setSum,  updateQty } = props
     const [mycart, setMycart] = useState([])
     const [mycartDisplay, setMycartDisplay] = useState([])
 
@@ -32,8 +32,9 @@ function RoomInfo(props) {
     //尋找mycartDisplay
     for (let i = 0; i < mycart.length; i++) {
       const index = newMycartDisplay.findIndex(
-        (value) => value.room_id === mycart[i].room_id
+        (value) => value.id === mycart[i].id
       )
+      console.log(index)
       //有的話就數量+1
       if (index !== -1) {
         newMycartDisplay[index].amount += mycart[i].amount
@@ -47,7 +48,6 @@ function RoomInfo(props) {
     console.log(newMycartDisplay)
     setMycartDisplay(newMycartDisplay)
   }, [mycart])
-
 
     // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
     const delItem = (item) => {
