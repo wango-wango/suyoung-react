@@ -27,7 +27,7 @@ function RecipesPage2(props) {
                         <img className="col-10 recipe_picture rounded-circle" src={sandwichImg} alt="" />
                     </div>
                     <div className="glass mt-5 d-md-flex menu ">
-                        <div className="col-5 d-none d-md-block text-center mt-5 ">
+                        <div className="col-5 d-none d-md-block text-center ">
                             <img className="col-12 recipe_picture rounded-circle position-relative" src={sandwichImg} alt="" />
                         </div>
                         <div className="col-md-7">

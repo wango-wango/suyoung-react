@@ -53,10 +53,6 @@
         width: calc(var(--h4_text) * 10);
         height: var(--h5_text);
     }
-    .menu {
-        height: 30vw;
-        /* text-align: center; */
-    }
 }
 
 
@@ -131,6 +127,13 @@
         /* background-color: rgb(228, 108, 108); */
     }
 
+    .j_container{
+        .menu {
+            height: 30vw;
+            /* text-align: center; */
+        }
+    }
+
     .menu_button {
         font-size: 24px;   
         box-shadow: 0px 10px 0px rgba(235, 94, 49, 1);
@@ -153,10 +156,10 @@
     }
 
     .recipe_picture {
-        height: 49.4vw;
-        width: 49.4vw;
-        bottom: 37%;
-        right: 15%;
+        height: 60vw;
+        // width: 20vw;
+        bottom: 50%;
+        right: 5%;
     }
 
     .recipe_title {
