@@ -7,47 +7,34 @@ import { useBackground } from "../../utils/useBackground"
 import WeatherApp from "../Home/components/WeatherApp"
 import { ROOM_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
-import { FreeMode, Navigation, Thumbs } from "swiper";
 
 function Index(props) {
 
     const scrollRef = useRef(null)
     const { setBackground } = useBackground();
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-    //存成狀態 值：字串
-    //key value
-    // 所有房間列表
-    const [roomList, setRoomList] = useState([]);
+    //1. 存成狀態 值：字串 key: value
+    //
+    //3. 用索引方式取各房型  rt[value] = roomtype1
+
+    // 所有房間資訊
+    const [roomList, setRoomList] = useState("");
     // 房型
-    const [roomType, setRoomType] = useState("");
-    // 檢查房間狀態
-    const [roomSelector, setRoomSelector] = useState([]);
+    // const [roomType, setRoomType] = useState("");
+    // 房間選擇狀態
+    const [roomSelector, setRoomSelector] = useState([roomList]);
 
-    // 房型確認狀態
-    const [checkroomType, setCheckRoomType] = useState([]);
-
-
-
-    useEffect(()=>{
-        setRoomType(roomList)
-        console.log(roomList);
-    },[])
 
 
     // RoomType 控制器
     const RoomTypeHandler = (e) => {
         const value = e.target.value;
         const checked = e.target.checked;
-        // if (value === 1) {
-            
-        // } else {
-            
-        //     const newChekRoomType = oldCheckRoomType.filter((v) => {
-        //         return v !== value;
-        //     });
-        //     setCheckRoomType(newChekRoomType);
-        // }
+        if (checked) {
+            //設value給roomselector當索引值
+            setRoomSelector(value)
+            console.log(value)
+        }
     };
     // 用get 取得所有的值
     useEffect(()=>{
@@ -58,6 +45,12 @@ function Index(props) {
                 console.log(response.data);
             });
         },[]);
+
+    useEffect(()=>{
+        setRoomSelector()
+            console.log();
+    },[])
+
 
     //背景控制hook
     useEffect(() => {

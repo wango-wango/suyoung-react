@@ -6,36 +6,98 @@ import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { AutoComplete } from 'rsuite';
 import { Calendar, Whisper, Popover, Badge } from 'rsuite';
+import { useActBookingList } from "../../utils/useActBookingList";
+import { DatePicker, InputNumber, InputGroup } from "rsuite";
+import { Value } from "sass";
+import "rsuite/dist/rsuite.css"
 
 
 
 function ActReser(props) {
-    const { setBackground } = useBackground();
 
+    const { actBookingList, setActBookingList } = useActBookingList();
+    const { setBackground } = useBackground();
+    const [people, setPeople] = useState({people:""});
+    console.log(actBookingList);
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
+
+    // useEffect(() => {
+    //     // 如果people有值的話
+    //     if (peopleValue.length) {
+    //         const total =
+    //         actBookingList.price * peopleValue;
+    //         setActBookingList({ ...actBookingList, 
+    //             totalPrice: total,
+    //             people: peopleValue 
+    //         });
+    //         console.log(total);
+
+    //         // const newLocalStorage = JSON.parse(localStorage.getItem("room"));
+    //         // localStorage.setItem(
+    //         //     "room",
+    //         //     JSON.stringify({ ...newLocalStorage, totalPrice: total })
+    //         // );
+    //     }
+    // }, [peopleValue]);
     
-    const actPriceData = [
-        '活動價錢',
-    ];
+    // const formatDate = (date) => {
+    //     var d = new Date(date),
+    //         month = "" + (d.getMonth() + 1),
+    //         day = "" + d.getDate(),
+    //         year = d.getFullYear();
+
+    //     if (month.length < 2) month = "0" + month;
+    //     if (day.length < 2) day = "0" + day;
+
+    //     return [year, month, day].join("-");
+    // };
+
     const suffixes = ['@gmail.com', '@yahoo.com.tw', '@hotmail.com', '@outlook.com'];
 
-    const [emailData, setEmailData] = React.useState([]);
+    const [emailData, setEmailData] = useState([]);
+    const [value, setValue] = useState(0);
 
-    const handleChange = value => {
-        const at = value.match(/@[\S]*/);
-        const nextData = at
-        ? suffixes
-            .filter(item => item.indexOf(at[0]) >= 0)
-            .map(item => {
-                return `${value}${item.replace(at[0], '')}`;
-            })
-        : suffixes.map(item => `${value}${item}`);
+    const handleMinus = () => {
+        setValue(parseInt(value, 10) - 1);
+        setActBookingList({
+                ...actBookingList,
+                people: parseInt(value, 10) - 1,
+            });setPeople({
+                ...people,
+                people: parseInt(value, 10) - 1 
+            });
+            console.log(actBookingList)
 
-        setEmailData(nextData);
+    };
+    const handlePlus = () => {
+        setValue(parseInt(value, 10) + 1);
+        setActBookingList({
+                ...actBookingList,
+                people: parseInt(value, 10) + 1,
+                
+            });
+            setPeople({
+                ...people,
+                people: parseInt(value, 10) + 1 
+            });
+            console.log(actBookingList)
     };
 
+    const handleChange = value => {
+            const at = value.match(/@[\S]*/);
+            const nextData = at
+            ? suffixes
+                .filter(item => item.indexOf(at[0]) >= 0)
+                .map(item => {
+                    return `${value}${item.replace(at[0], '')}`;
+                })
+            : suffixes.map(item => `${value}${item}`);
+
+            setEmailData(nextData);
+    };
+    // const data = [actBookingList.price]
         return (
         <>
             
@@ -43,7 +105,8 @@ function ActReser(props) {
                 <div className="emf">
                     <div className="card_bg">
                         <div className="actEnTitle titleGroup">
-                            <h3>預約報名</h3>
+                            <h3>{actBookingList.actName}</h3>
+                            <h4>預約報名</h4>
                         </div>
                         <div className="d-flex calendar">
                             <div className="calendarLeft">
@@ -54,15 +117,44 @@ function ActReser(props) {
                                     <h4>預約內容</h4>
                                     <div className="orderItem">
                                         <label htmlFor="actDate" className="actlabel">＊活動日期</label>
-                                        <input type="date" id="actDate"/>
+                                        <DatePicker
+                                        onChange={(v) => {
+                                        console.log(v);
+                                        setActBookingList({
+                                            ...actBookingList,
+                                            Date: (v)
+                                            });
+                                        }}
+                                        />
                                     </div>
                                     <div className="orderItem">
-                                        <label htmlFor="actDate" className="actlabel">＊報名人數</label>
-                                        <input type="number" id="actPeople"/>
+                                        {/* <label htmlFor="actPeople" className="actlabel">＊報名人數</label> */}
+                                        <InputGroup>
+                                            <InputGroup.Button onClick={handleMinus}>-</InputGroup.Button>
+                                            <InputNumber className={'custom-input-number'} value={value} onChange={setValue} />
+                                            <InputGroup.Button onClick={handlePlus}>+</InputGroup.Button>
+                                        </InputGroup>
+                                        {/* <InputNumber defaultValue={1} max={actBookingList.Maxpeople} min={1} onChange={(v)=>{
+                                                    console.log(v);
+                                                    setActBookingList({
+                                                    ...actBookingList,
+                                                    people: v
+                                                });
+                                                setTotalPrice({
+                                                    ...totalPrice,
+                                                    totalPrice: (v) * actBookingList.price
+                                                })
+                                                console.log(totalPrice)
+                                                }}/> */}
+                                                
                                     </div>
                                     <div className="orderItem">
-                                        <label htmlFor="actDate" className="actlabel">活動費用</label>
-                                        <AutoComplete data={actPriceData} readOnly defaultValue="1000" />
+                                        <label htmlFor="actPrice" className="actlabel">活動費用</label>
+                                        <input className="disableinput" type="text" disabled value={actBookingList.price} />
+                                    </div>
+                                    <div className="orderItem">
+                                        <label htmlFor="actTotal" className="actlabel">總共費用</label>
+                                        <input className="disableinput" type="text" disabled value={actBookingList.totalPrice} />
                                     </div>
                                 </div>
                             </div>
@@ -96,24 +188,32 @@ function ActReser(props) {
                                 <h4>參與人資料</h4>
                             </div>
                             <div className="d-flex justify-content-around actForm">
-                                <div>
-                                    <label htmlFor="actName" className="actlabel">
-                                        ＊姓名
-                                    </label>
-                                    <input type="text" id="actName" className="actText"/>
-                                </div>
-                                <div>
-                                    <label htmlFor="actBd" className="actlabel">
-                                        ＊出生年月日
-                                    </label>
-                                    <input type="text" id="actBd" className="actText"/>
-                                </div>
-                                <div>
-                                    <label htmlFor="idNum" className="actlabel">
-                                        ＊身分證字號
-                                    </label>
-                                    <input type="text" id="idNum" className="actText"/>
-                                </div>
+                            {/* {actBookingList.people.map((pv, pi)=>{
+                                return(
+                                    <div key={pi}>
+                                        <div>
+                                            <label htmlFor="actName" className="actlabel">
+                                                ＊姓名
+                                            </label>
+                                            <input type="text" id="actName" className="actText"/>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="actBd" className="actlabel">
+                                                ＊出生年月日
+                                            </label>
+                                            <input type="text" id="actBd" className="actText"/>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="idNum" className="actlabel">
+                                                ＊身分證字號
+                                            </label>
+                                            <input type="text" id="idNum" className="actText"/>
+                                        </div>
+                                    </div>
+                                )
+
+                            })} */}
+                                
                             </div>
                         </form>
                         <div className="actRsTitle">
