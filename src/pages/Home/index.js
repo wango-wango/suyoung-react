@@ -22,35 +22,7 @@ function Index(props) {
     // 房型
     // const [roomType, setRoomType] = useState("");
     // 房間選擇狀態
-    const [roomSelector, setRoomSelector] = useState([]);
-
-
-
-    // RoomType 控制器
-    const RoomTypeHandler = (e) => {
-        const value = e.target.value;
-        const checked = e.target.checked;
-        if (checked) {
-            
-            setRoomSelector = ([...roomList, value]);
-            //設value給roomselector當索引值
-            // setRoomSelector(value)
-            // console.log(value)
-        }
-    };
-    // 用get 取得所有的值
-    useEffect(()=>{
-            Axios.get(
-                `${ROOM_GET_LIST}/selectRoom`
-            ).then((response) => {
-                setRoomList(response.data);
-                console.log(response.data);
-            });
-        },[]);
-
-    // useEffect(()=>{
-    //         console.log();
-    // },[])
+    // const [roomSelector, setRoomSelector] = useState([]);
 
 
     //背景控制hook
@@ -68,7 +40,45 @@ function Index(props) {
         vertical: true,
         horizontal: false
         })
-    },[]);
+    },[roomList]);
+
+    // RoomType 控制器
+    // const RoomTypeHandler = (e) => {
+    //     const value = e.target.value;
+    //     const checked = e.target.checked;
+    //     if (checked) {
+
+    //         setRoomSelector = ([...roomList, value]);
+    //         //設value給roomselector當索引值
+    //         // setRoomSelector(value)
+    //         // console.log(value)
+    //     }
+    // };
+
+    // 用get 取得所有的值
+    // useEffect(()=>{
+    //         Axios.get(
+    //             `${ROOM_GET_LIST}/selectRoom`)
+    //             .then((response) => {
+    //             setRoomList(response.data);
+    //             console.log(response.data);
+    //         });
+    //     },[]);
+
+    // // 用get 取得所有的值
+    const getData = async () => {
+        await Axios.get(
+                `${ROOM_GET_LIST}/selectRoom`)
+                .then((response) => {
+                setRoomList(response.data);
+                console.log(response.data);
+            });
+    }
+
+    // 起始狀態先render getData
+    useEffect(() => {
+        getData();
+    }, []);
 
     if (roomList.length === 0)
         return <></>;
@@ -87,7 +97,6 @@ function Index(props) {
             <img className="animate" data-rellax-speed="-5" src="/index_imgs/index_bg3.png" id="3" alt=""/>
             <img className="animate" data-rellax-speed="-4" src="/index_imgs/index_bg2.png" id="2" alt=""/>
             <img src="/index_imgs/index_bg.png" id="1" alt=""/>
-            <div className="trytry"></div>
         </div>
     </section>
     <section>
@@ -116,7 +125,7 @@ function Index(props) {
                 name="tools"
                 id="tool-1"
                 value={1}
-                onClick={RoomTypeHandler}
+                // onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -130,7 +139,7 @@ function Index(props) {
                 name="tools"
                 id="tool-2"
                 value={2}
-                onClick={RoomTypeHandler}
+                // onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -144,7 +153,7 @@ function Index(props) {
                 name="tools"
                 id="tool-3"
                 value={3}
-                onClick={RoomTypeHandler}
+                // onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -158,7 +167,7 @@ function Index(props) {
                 name="tools"
                 id="tool-4"
                 value={4}
-                onClick={RoomTypeHandler}
+                // onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
