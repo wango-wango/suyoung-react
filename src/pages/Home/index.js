@@ -22,7 +22,7 @@ function Index(props) {
     // 房型
     // const [roomType, setRoomType] = useState("");
     // 房間選擇狀態
-    const [roomSelector, setRoomSelector] = useState([roomList]);
+    const [roomSelector, setRoomSelector] = useState([]);
 
 
 
@@ -31,9 +31,11 @@ function Index(props) {
         const value = e.target.value;
         const checked = e.target.checked;
         if (checked) {
+            
+            setRoomSelector = ([...roomList, value]);
             //設value給roomselector當索引值
-            setRoomSelector(value)
-            console.log(value)
+            // setRoomSelector(value)
+            // console.log(value)
         }
     };
     // 用get 取得所有的值
@@ -46,10 +48,9 @@ function Index(props) {
             });
         },[]);
 
-    useEffect(()=>{
-        setRoomSelector()
-            console.log();
-    },[])
+    // useEffect(()=>{
+    //         console.log();
+    // },[])
 
 
     //背景控制hook
