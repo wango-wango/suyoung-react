@@ -40,17 +40,17 @@ function ActReser(props) {
     //     }
     // }, [peopleValue]);
     
-    // const formatDate = (date) => {
-    //     var d = new Date(date),
-    //         month = "" + (d.getMonth() + 1),
-    //         day = "" + d.getDate(),
-    //         year = d.getFullYear();
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = "" + (d.getMonth() + 1),
+            day = "" + d.getDate(),
+            year = d.getFullYear();
 
-    //     if (month.length < 2) month = "0" + month;
-    //     if (day.length < 2) day = "0" + day;
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
 
-    //     return [year, month, day].join("-");
-    // };
+        return [year, month, day].join("-");
+    };
 
     const suffixes = ['@gmail.com', '@yahoo.com.tw', '@hotmail.com', '@outlook.com'];
 
@@ -126,7 +126,7 @@ const totalValueCount = async() => {
                                         console.log(v);
                                         setActBookingList({
                                             ...actBookingList,
-                                            Date: (v)
+                                            Date: formatDate(v)
                                             });
                                             // setDatevalue({
                                             // ...datevalue,
@@ -142,11 +142,14 @@ const totalValueCount = async() => {
                                         <DatePicker
                                         onChange={(v) => {
                                         console.log(v);
-                                        setActBookingList({
+                                        if(v){
+                                            setActBookingList({
                                             ...actBookingList,
-                                            Date: (v)
+                                            Date: formatDate(v)
                                             });
                                         }}
+                                        }
+                                        
                                         />
                                     </div>
                                     <div className="orderItem">
