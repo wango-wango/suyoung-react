@@ -37,25 +37,10 @@ function OrderDetail(props) {
   const OrderDisplay = () => (
     <>
       { order.map((v, i) => {
-          console.log('hihi')
+          console.log('yes')
         return (
           <>
           <React.Fragment key={v.order_id}>
-          <div className="order_detail">
-        <div className="title">
-          <h4>訂單編號：Shinder{v.order_id}</h4>
-          <div className="title_f">
-            <p>
-              <i className="fa-solid fa-calendar-check">
-              &nbsp;&nbsp;{v.start_date} - {v.end_date}
-              </i>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <i className="fa-solid fa-user-large">&nbsp;{v.adults}</i>
-            </p>
-            <p className="order_totalAmont">Total:&nbsp;${v.totalPrice}</p>
-          </div>
-        </div>
-        <div className="detail">
           <div className="item_detail">
             <div className="item_detail_img">
               <img src={`/room_imgs/${v.room_folder}/${v.room_image}`} alt="" />
@@ -66,10 +51,9 @@ function OrderDetail(props) {
                         <p>退房：{v.end_date}</p>
                         <p>人數：{v.adults}</p>
                         <p>天數：{v.perNight}</p>
-            </div>
+                        <p>價格：{v.totalPrice}</p>
           </div>
-        </div>
-      </div>
+          </div>
       </React.Fragment>
       </>
         )
@@ -77,9 +61,11 @@ function OrderDetail(props) {
     </>
   )
 
-  console.log(orderAll)
+  console.log(order)
+  
+  const oi = {...order}
 
-
+  console.log(oi)
   return (
     <>
      <motion.div
@@ -88,10 +74,27 @@ function OrderDetail(props) {
                 transition={{ duration: 1 }}
             >   
     <h1 className="first_component_title">訂單內容</h1>
-    <OrderDisplay/>
+    <div className="order_detail">
+        <div className="title">
+          <h4>訂單編號：Shuyoung{scOrderId}</h4>
+          <div className="title_f">
+            {/* <p>
+              <i className="fa-solid fa-calendar-check">
+              &nbsp;&nbsp;{order.start_date} - {order.end_date}
+              </i>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <i className="fa-solid fa-user-large">&nbsp;{order.adults}</i>
+            </p> */}
+            <p className="order_totalAmont">金額:&nbsp;${}</p>
+          </div>
+        </div>
+        <div className="detail">
+        <OrderDisplay/>
+        </div>
+        </div>
     <div className="backtoHomepage">
         <button onClick={()=>{
-            setStep(1)
+            window.location.href="http://localhost:3777/shuyoung/sumap"
         }}>回首頁</button>
       </div>
       </motion.div> 

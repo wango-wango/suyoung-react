@@ -32,7 +32,7 @@ function RoomInfo(props) {
     //尋找mycartDisplay
     for (let i = 0; i < mycart.length; i++) {
       const index = newMycartDisplay.findIndex(
-        (value) => value.id === mycart[i].id
+        (value) => value.id === mycart[i].roomSid
       )
       console.log(index)
       //有的話就數量+1
@@ -99,7 +99,7 @@ function RoomInfo(props) {
     const sum = (items) => {
       let total = 0
       for (let i = 0; i < items.length; i++) {
-        total += items[i].room_price
+        total += items[i].totalPrice
       }
       setSum(total);
       return total
@@ -113,9 +113,10 @@ function RoomInfo(props) {
                 initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
+                key={item}
             >   
             
-                <div className="room_info"  key={item}>
+                <div className="room_info">
                     <div className="room_pic">
                         <img
                             src={`/room_imgs/${item.room_folder}/${item.room_image}`}
@@ -127,10 +128,11 @@ function RoomInfo(props) {
                         <p>房型：{item.room_name}</p>
                         <p>入住：{item.startDate}</p>
                         <p>退房：{item.endDate}</p>
-                        <p>人數：{item.adults}</p>
+                        <p>成人：{item.adults}</p>
+                        <p>兒童：{item.kids}</p>
                         <p>天數：{item.perNight}</p>
                         <div className="amount_and_del">
-                            <p>價格：${item.room_price}</p>
+                            <p>價格：${item.totalPrice}</p>
                         <button className="del_btn" onClick={()=>{DeleteCartItem(item)}}>
                         刪除
                         </button>
