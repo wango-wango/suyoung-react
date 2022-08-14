@@ -1,45 +1,27 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import "./styles/act.scss";
 import { useBackground } from "../../utils/useBackground";
-import { gsap } from "gsap";
-import { motion } from "framer-motion";
 import { AutoComplete } from 'rsuite';
 import { Calendar, Whisper, Checkbox, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
 import { useActBookingList } from "../../utils/useActBookingList";
-import { Value } from "sass";
-import "rsuite/dist/rsuite.css"
+// import "rsuite/dist/rsuite.css"
 import Swal from "sweetalert2";
-
+import { useAuth } from "../Login/sub-pages/AuthProvider";
 
 function ActReser(props) {
-
+    //活動資料存放處
     const { actBookingList, setActBookingList } = useActBookingList();
+    //控制背景圖
     const { setBackground } = useBackground();
-    console.log(actBookingList);
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
-
-    // useEffect(() => {
-    //     // 如果people有值的話
-    //     if (peopleValue.length) {
-    //         const total =
-    //         actBookingList.price * peopleValue;
-    //         setActBookingList({ ...actBookingList, 
-    //             totalPrice: total,
-    //             people: peopleValue 
-    //         });
-    //         console.log(total);
-
-    //         // const newLocalStorage = JSON.parse(localStorage.getItem("room"));
-    //         // localStorage.setItem(
-    //         //     "room",
-    //         //     JSON.stringify({ ...newLocalStorage, totalPrice: total })
-    //         // );
-    //     }
-    // }, [peopleValue]);
     
+    //didUpdate.log
+    console.log(actBookingList);
+    
+    //日期格式調整
     const formatDate = (date) => {
         var d = new Date(date),
             month = "" + (d.getMonth() + 1),
@@ -51,22 +33,22 @@ function ActReser(props) {
 
         return [year, month, day].join("-");
     };
-
+    //信箱提示data
     const suffixes = ['@gmail.com', '@yahoo.com.tw', '@hotmail.com', '@outlook.com'];
-
     const [emailData, setEmailData] = useState([]);
     const [value, setValue] = useState(0);
     const [agreeMent, setAgreeMent] = useState(false);
-    const totalValueCount = () => {
-        if (actBookingList.people.length){
+    console.log('people:', value);
+
+    useEffect(()=>{
+        if(value >= 1){
             const total = 
                 actBookingList.price * value;
                 setActBookingList({ ...actBookingList, 
                     totalPrice: total
                 });
-                console.log(total);
         }
-    }
+    },[value])
 
     const handleMinus = () => {
         setValue(parseInt(value, 10) - 1);
@@ -74,7 +56,6 @@ function ActReser(props) {
                 ...actBookingList,
                 people: parseInt(value, 10) - 1,
             });
-            totalValueCount();
             // console.log(actBookingList)
     };
     const handlePlus = () => {
@@ -83,8 +64,7 @@ function ActReser(props) {
                 ...actBookingList,
                 people: parseInt(value, 10) + 1,
             });
-            totalValueCount();
-            // console.log(actBookingList)
+            console.log(value)
     };
     const handleCheck = (value, checked) =>{
         setAgreeMent(checked)};
