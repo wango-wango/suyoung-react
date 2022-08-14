@@ -57,6 +57,7 @@ p {
     text-align: center;
     justify-content: center;
     border: 0;
+    transition: .3s ease;
 
     &:hover {
         background-color: var(--primary_color_600);
@@ -64,9 +65,7 @@ p {
 
     &:active {
         transform: scale(0.98);
-        /* Scaling button to 0.98 to its original size */
         box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-        /* Lowering the shadow */
         color: var(--brown_color);
     }
 }
@@ -155,7 +154,12 @@ p {
 }
 
 
-
+.swal2-confirm{
+    a{
+        text-decoration: none;
+        color: #fff;
+    }
+}
 
 .room_order_detail {
     // height: 90vh;
@@ -581,6 +585,9 @@ p {
                     }
 
                     .room_result_type {
+                        a{
+                            text-decoration: none;
+                        }
                         .room_modify {
                             display: flex;
                             justify-content: space-between;
@@ -613,7 +620,7 @@ p {
                             margin: auto;
                             padding: var(--h5_text) 0;
                             display: flex;
-
+                            
                             .room_card_button {
                                 display: block;
                                 @include p_button;
@@ -622,8 +629,9 @@ p {
                                 height: 50px;
                                 border-radius: 50px;
                                 margin: auto;
-
+                                
                                 &:nth-child(1) {
+                                    
                                     background-color: var(--primary_color_600);
                                     &:hover {
                                         background-color: #1e6969;

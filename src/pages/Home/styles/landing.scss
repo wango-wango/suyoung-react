@@ -1,4 +1,4 @@
-    .fullscreen {
+    .fullscreenLanding {
         position: absolute;
         top: 0;
         left: 0;
@@ -9,4 +9,5 @@
         align-items: center;
         transition: all 1s;
         background: #cc7b32;
+        z-index: 1;
     }

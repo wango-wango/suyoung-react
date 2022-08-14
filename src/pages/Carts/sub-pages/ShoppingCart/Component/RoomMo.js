@@ -11,7 +11,7 @@ function RoomMo(props) {
         </div>
 
         <p className="none">活動</p>
-        <p className="none">食材</p>
+        {/* <p className="none">食材</p> */}
         <p className="none">折扣碼：</p>
         <div className="discount_wrap">
         <input placeholder="輸入折扣碼" type="text" className="discount__wrap__input field__error"></input>

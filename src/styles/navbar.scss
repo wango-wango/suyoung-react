@@ -138,10 +138,78 @@ p {
     .nav-li {
         font-weight: 400;
         animation: nav 2s 1;
+        font-size: 16px;
 
         @media screen and (max-width: 768px) {
             display: none;
         }
+        .dropdown {
+            perspective: 1000px;
+            z-index: 100;
+            color: #224040;
+        }
+        .dropdown:hover {
+        cursor: pointer;
+        }
+        .dropdown:hover .dropdown_menu li {
+        display: block;
+        }
+        .dropdown_menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        perspective: 1000px;
+        z-index: -1;
+        }
+        .dropdown_menu li {
+        display: none;
+        background-color:#224040;
+        padding: 10px 20px;
+        opacity: 0;
+            a {
+                color: #fff;
+            }
+        }
+        .dropdown_menu li:hover {
+        background-color: #224040f0;
+        }
+        .dropdown:hover .dropdown_menu--animated {
+        display: block;
+        }
+                
+        .dropdown_menu-2 .dropdown_item-1 {
+            transform-origin: top center;
+            animation: rotateX 250ms 100ms ease-in-out forwards;
+        }
+        .dropdown_menu-2 .dropdown_item-2 {
+            transform-origin: top center;
+            animation: rotateX 250ms 150ms ease-in-out forwards;
+        }
+        .dropdown_menu-2 .dropdown_item-3 {
+            transform-origin: top center;
+            animation: rotateX 250ms 200ms ease-in-out forwards;
+        }
+        .dropdown_menu-2 .dropdown_item-4 {
+            transform-origin: top center;
+            animation: rotateX 250ms 250ms ease-in-out forwards;
+        }
+
+        @keyframes rotateX {
+            0% {
+            opacity: 0;
+            transform: rotateX(-90deg);
+            }
+            50% {
+            transform: rotateX(-20deg);
+            }
+            100% {
+            opacity: 1;
+            transform: rotateX(0deg);
+            }
+        }
+    
+
 
         ul {
             display: flex;

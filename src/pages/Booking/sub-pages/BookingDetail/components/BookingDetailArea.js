@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useBookingList } from "../../../../../utils/useBookingList";
+import { BK_GET_LIST } from "../../../config/ajax-path";
+import Axios from "axios";
+
 
 function BookingDetailArea(props) {
-    const { roomList } = props;
+    const { roomList,localRoomList } = props;
     const { bookingList, setBookingList } = useBookingList();
-    // console.log(bookingList);
+    
+    const [room, setRoom] = useState({});
 
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, "0");
@@ -21,22 +25,16 @@ function BookingDetailArea(props) {
     today = yyyy + "-" + mm + "-" + dd;
     tomorrow = tyyy + "-" + tm + "-" + td;
 
-    useEffect(() => {
-        // 如果roomList 有值的話
-        if (roomList.length >= 1) {
-            const total =
-                roomList[0].room_price * bookingList.perNight +
-                bookingList.kids * 200;
-            setBookingList({ ...bookingList, totalPrice: total });
-            console.log(total);
+    const postRoomData = async() => {
+        await Axios.post(`${BK_GET_LIST}/temporaryCart`, localRoomList);
+    }
 
-            const newLocalStorage = JSON.parse(localStorage.getItem("room"));
-            localStorage.setItem(
-                "room",
-                JSON.stringify({ ...newLocalStorage, totalPrice: total })
-            );
-        }
-    }, [roomList]);
+    useEffect(()=>{
+        setRoom(JSON.parse(localStorage.getItem("room"))) ;
+
+    },[]);
+
+
 
     if (roomList.length === 0) return <></>;
 
@@ -52,7 +50,7 @@ function BookingDetailArea(props) {
                     <input
                         type="text"
                         readOnly
-                        placeholder={bookingList.startDate || today}
+                        placeholder={room.startDate || today}
                     />
                     <label htmlFor="">Date</label>
                 </div>
@@ -63,7 +61,7 @@ function BookingDetailArea(props) {
                     <input
                         type="text"
                         readOnly
-                        placeholder={bookingList.endDate || tomorrow}
+                        placeholder={room.endDate || tomorrow}
                     />
                     <label htmlFor="">Date</label>
                 </div>
@@ -75,9 +73,9 @@ function BookingDetailArea(props) {
                         type="text"
                         readOnly
                         placeholder={
-                            bookingList.adults +
+                            room.adults +
                             " 位大人 ｜ " +
-                            bookingList.kids +
+                            room.kids +
                             " 位小孩"
                         }
                     />
@@ -107,7 +105,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="room_num">
                             <p>
-                                <span>{bookingList.perNight}</span> 晚
+                                <span>{room.perNight}</span> 晚
                             </p>
                         </div>
                     </div>
@@ -117,13 +115,13 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="add_bed_num">
                             <p>
-                                <span>{bookingList.kids || 0}</span> 床
+                                <span>{room.kids || 0}</span> 床
                             </p>
                         </div>
                     </div>
                     <div className="room_result_total">
                         <p>total:</p>
-                        <h5>{bookingList.totalPrice}</h5>
+                        <h5>{bookingList.totalPrice || room.totalPrice}</h5>
                     </div>
                     <div className="room_card_button_area">
                         <Link to="/shuyoung/Booking">
@@ -147,12 +145,13 @@ function BookingDetailArea(props) {
                                         roomSelector: [],
                                         totalPrice: "",
                                     });
+                                    localStorage.removeItem("room");
                                 }}
                             >
                                 返回
                             </button>
                         </Link>
-                        <button className="room_card_button">前往結賬</button>
+                        <button className="room_card_button" onClick={postRoomData}>加入購物車</button>
                     </div>
                 </div>
             </div>

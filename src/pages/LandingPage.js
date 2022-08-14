@@ -4,7 +4,7 @@ import "./Home/styles/landing.scss"
 
 export default function noFound() {
     return (
-    <div className="fullscreen">
+    <div className="fullscreenLanding">
         <Landing/>
     </div>
     )

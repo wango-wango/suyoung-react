@@ -96,6 +96,12 @@ function BookingCard(props) {
         await Axios.post(`${BK_GET_LIST}/addKeep`, memberKeep);
     };
 
+    useEffect(() => {
+     if(auth.authorized){
+            setBookingList({...bookingList,memberId: auth.sid});
+        }
+    }, [])
+    
     // 起始狀態先render getData
     useEffect(() => {
         getData();
@@ -173,31 +179,43 @@ function BookingCard(props) {
                                                 <button
                                                     className="room_card_button"
                                                     onClick={() => {
-                                                        if(bookingList &&
-                                                        bookingList.startDate &&
-                                                        bookingList.endDate &&
-                                                        bookingList.adults){
-                                                            const newBookingList = {...bookingList,
-                                                                  roomSid:
-                                                                      v.sid,
-                                                                  adults: v.person_num,
-                                                              };
-                                                            setBookingList(newBookingList);
 
-                                                            localStorage.setItem("room",JSON.stringify(newBookingList));
-                                                        }
-                                                        else{
+                                                        if (
+                                                            bookingList &&
+                                                            bookingList.startDate &&
+                                                            bookingList.endDate &&
+                                                            bookingList.adults
+                                                        ) {
+                                                            const newBookingList =
+                                                                {
+                                                                    ...bookingList,
+                                                                    roomSid:
+                                                                        v.sid,
+                                                                    adults: bookingList.adults,
+                                                                    kids: bookingList.kids,
+                                                                };
+                                                            setBookingList(
+                                                                newBookingList
+                                                            );
+
+                                                            localStorage.setItem(
+                                                                "room",
+                                                                JSON.stringify(
+                                                                    newBookingList
+                                                                )
+                                                            );
+                                                        } else {
                                                             Swal.fire({
-                                                                  icon: "error",
-                                                                  title: "輸入資料有誤",
-                                                                  text: "請輸入訂房日期及人數!",
-                                                                  color: "#224040",
-                                                                  background:
-                                                                      "#FFF",
-                                                                  confirmButtonColor:
-                                                                      "#224040",
-                                                              });
-                                                        } 
+                                                                icon: "error",
+                                                                title: "輸入資料有誤",
+                                                                text: "請輸入訂房日期及人數!",
+                                                                color: "#224040",
+                                                                background:
+                                                                    "#FFF",
+                                                                confirmButtonColor:
+                                                                    "#224040",
+                                                            });
+                                                        }
                                                     }}
                                                 >
                                                     <span>點我訂房</span>
@@ -206,14 +224,36 @@ function BookingCard(props) {
                                         </div>
 
                                         <div className="keep_button">
-                                            <input
-                                                className="checkbox-tools"
-                                                type="checkbox"
-                                                name="keep"
-                                                id={"keepBtn" + i}
-                                                value={v.sid}
-                                                onClick={keepHandler}
-                                            />
+                                            {auth.authorized ? (
+                                                <input
+                                                    className="checkbox-tools"
+                                                    type="checkbox"
+                                                    name="keep"
+                                                    id={"keepBtn" + i}
+                                                    value={v.sid}
+                                                    onClick={keepHandler}
+                                                />
+                                            ) : (
+                                                <input
+                                                    className="checkbox-tools"
+                                                    type="checkbox"
+                                                    name="keep"
+                                                    id={"keepBtn" + i}
+                                                    value={v.sid}
+                                                    onClick={() => {
+                                                        Swal.fire({
+                                                            icon: "error",
+                                                            title: "未登入會員",
+                                                            text: "請先登入會員",
+                                                            color: "#224040",
+                                                            background: "#fff",
+                                                            confirmButtonColor:
+                                                                "#224040",
+                                                        });
+                                                    }}
+                                                />
+                                            )}
+                                            
                                             <label
                                                 className="for-checkbox-tools"
                                                 htmlFor={"keepBtn" + i}

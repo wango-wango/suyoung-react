@@ -87,6 +87,7 @@ function MapBeauty(props) {
                             <p>
                                 舒營的網美神殿帳為室內空間最大的選擇，適合親朋好友一同來同歡享受，房內有多張高級彈簧床以及懶人骨頭沙發，讓您能隨處躺隨處放鬆，此外棚內也有古董家具佈景，讓您的美照有更多的變化。
                             </p>
+                            <br />
                             <Link to="/shuyoung/Booking">
                                 <button
                                     className="seemore_map_booking"

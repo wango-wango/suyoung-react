@@ -36,12 +36,7 @@ function GuessYouLike(props) {
                                     </h5>
                                     <h5>NTD:{v.room_price}</h5>
                                     <div className="guess_content_paragragh">
-                                        Lorem ipsum dolor, sit amet consectetur
-                                        adipisicing elit. Earum accusamus
-                                        cupiditate suscipit qui dolor quisquam
-                                        quam, quae modi deserunt tenetur.
-                                        Tenetur laboriosam est repellat
-                                        reiciendis quia dolor aut sed veniam!
+                                        {v.description}
                                     </div>
                                 </div>
                             </div>
