@@ -10,7 +10,7 @@ export const ActBookingProvider = ({ children }) => {
         people: "",
         Maxpeople: "",
         Date: "",
-        Price: "",
+        price: "",
         totalPrice:"",
     });
 

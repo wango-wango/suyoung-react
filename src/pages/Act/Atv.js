@@ -34,12 +34,14 @@ function Atv(props) {
         actSid,
         price,
         Maxpeople,
+        people,
+        Date,
     } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}`
+        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&Date=${Date}`
         ).then((response) => {
             setAct(response.data.actAtv);
             console.log(response.data.actAtv);
@@ -127,7 +129,8 @@ function Atv(props) {
                                                         Maxpeople: act[0].max_people,
                                                         price: act[0].act_price,
                                                         actName: act[0].act_name,
-                                                        people: 1
+                                                        people: 1,
+                                                        actImg:act[0].filename,
                                                         };
                                                         setActBookingList(newActBookingList);
                             }}>預約報名</button></Link>

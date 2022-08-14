@@ -5,9 +5,8 @@ import { useBackground } from "../../utils/useBackground";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { AutoComplete } from 'rsuite';
-import { Calendar, Whisper, Popover, Badge } from 'rsuite';
+import { Calendar, Whisper, Popover, Badge, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
 import { useActBookingList } from "../../utils/useActBookingList";
-import { DatePicker, InputNumber, InputGroup } from "rsuite";
 import { Value } from "sass";
 import "rsuite/dist/rsuite.css"
 
@@ -17,8 +16,7 @@ function ActReser(props) {
 
     const { actBookingList, setActBookingList } = useActBookingList();
     const { setBackground } = useBackground();
-    const [people, setPeople] = useState({people:""});
-    console.log(actBookingList);
+    // console.log(actBookingList);
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
@@ -58,17 +56,29 @@ function ActReser(props) {
 
     const [emailData, setEmailData] = useState([]);
     const [value, setValue] = useState(0);
+    const [people, setPeople] = useState(0);
+    const [lSAct, setLSAct] = useState({})
+    // const [datevalue, setDatevalue] = useState({datevalue:""});
+const totalValueCount = async() => {
+    if (people >= 1){
+        const total = await
+            actBookingList.price * people;
+            setActBookingList({ ...actBookingList, 
+                totalPrice: total
+            });
+            console.log(total);
+    }
+}
 
     const handleMinus = () => {
         setValue(parseInt(value, 10) - 1);
         setActBookingList({
                 ...actBookingList,
                 people: parseInt(value, 10) - 1,
-            });setPeople({
-                ...people,
-                people: parseInt(value, 10) - 1 
             });
-            console.log(actBookingList)
+        // setPeople(parseInt(value, 10) - 1 );
+            // totalValueCount();
+            // console.log(actBookingList)
 
     };
     const handlePlus = () => {
@@ -76,13 +86,10 @@ function ActReser(props) {
         setActBookingList({
                 ...actBookingList,
                 people: parseInt(value, 10) + 1,
-                
             });
-            setPeople({
-                ...people,
-                people: parseInt(value, 10) + 1 
-            });
-            console.log(actBookingList)
+            // setPeople(parseInt(value, 10) + 1 );
+            // totalValueCount();
+            // console.log(actBookingList)
     };
 
     const handleChange = value => {
@@ -97,6 +104,11 @@ function ActReser(props) {
 
             setEmailData(nextData);
     };
+    
+    useEffect(()=>{
+        localStorage.setItem("Act", JSON.stringify(actBookingList))
+    },[actBookingList]);
+
     // const data = [actBookingList.price]
         return (
         <>
@@ -110,7 +122,17 @@ function ActReser(props) {
                         </div>
                         <div className="d-flex calendar">
                             <div className="calendarLeft">
-                                <Calendar/>
+                                <Calendar onChange={(v) => {
+                                        console.log(v);
+                                        setActBookingList({
+                                            ...actBookingList,
+                                            Date: (v)
+                                            });
+                                            // setDatevalue({
+                                            // ...datevalue,
+                                            // datevalue: (v)
+                                            // })
+                                            }} />
                             </div>
                             <div className="calendarRight">
                                 <div className="actOrder">
@@ -128,25 +150,12 @@ function ActReser(props) {
                                         />
                                     </div>
                                     <div className="orderItem">
-                                        {/* <label htmlFor="actPeople" className="actlabel">＊報名人數</label> */}
+                                        <label htmlFor="actPeople" className="actlabel">＊報名人數</label>
                                         <InputGroup>
                                             <InputGroup.Button onClick={handleMinus}>-</InputGroup.Button>
                                             <InputNumber className={'custom-input-number'} value={value} onChange={setValue} />
                                             <InputGroup.Button onClick={handlePlus}>+</InputGroup.Button>
                                         </InputGroup>
-                                        {/* <InputNumber defaultValue={1} max={actBookingList.Maxpeople} min={1} onChange={(v)=>{
-                                                    console.log(v);
-                                                    setActBookingList({
-                                                    ...actBookingList,
-                                                    people: v
-                                                });
-                                                setTotalPrice({
-                                                    ...totalPrice,
-                                                    totalPrice: (v) * actBookingList.price
-                                                })
-                                                console.log(totalPrice)
-                                                }}/> */}
-                                                
                                     </div>
                                     <div className="orderItem">
                                         <label htmlFor="actPrice" className="actlabel">活動費用</label>
@@ -168,29 +177,32 @@ function ActReser(props) {
                                     <label htmlFor="actCotactName" className="actlabel">
                                         ＊姓名
                                     </label>
-                                    <input type="text" id="actCotactName" className="actText"/>
-                                </div>
-                                <div>
-                                    <label htmlFor="actName" className="actlabel">
-                                        ＊電子郵件
-                                    </label>
-                                    {/* <input type="text" id="actName" className="actText"/> */}
-                                    <AutoComplete data={emailData} placeholder="Email" onChange={handleChange} />
+                                    <Whisper trigger="focus" speaker={<Tooltip>必填</Tooltip>}>
+                                    <Input  placeholder="請填入姓名"/>
+                                    </Whisper>
                                 </div>
                                 <div>
                                     <label htmlFor="actName" className="actlabel">
                                         ＊手機號碼
                                     </label>
-                                    <input type="text" id="actName" className="actText"/>
+                                    <Whisper trigger="focus" speaker={<Tooltip>必填</Tooltip>}>
+                                    <Input  placeholder="請填入手機號碼"/>
+                                    </Whisper>
+                                </div>
+                                <div>
+                                    <label htmlFor="actName" className="actlabel">
+                                        電子郵件
+                                    </label>
+                                    {/* <input type="text" id="actName" className="actText"/> */}
+                                    <AutoComplete data={emailData} placeholder="Email" onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className="actRsTitle">
                                 <h4>參與人資料</h4>
                             </div>
                             <div className="d-flex justify-content-around actForm">
-                            {/* {actBookingList.people.map((pv, pi)=>{
-                                return(
-                                    <div key={pi}>
+                            
+                                    
                                         <div>
                                             <label htmlFor="actName" className="actlabel">
                                                 ＊姓名
@@ -209,10 +221,9 @@ function ActReser(props) {
                                             </label>
                                             <input type="text" id="idNum" className="actText"/>
                                         </div>
-                                    </div>
-                                )
+                                
 
-                            })} */}
+                            
                                 
                             </div>
                         </form>
