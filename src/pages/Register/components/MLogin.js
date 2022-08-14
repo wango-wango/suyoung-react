@@ -4,14 +4,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import axios from "axios";
 import Example from "./PopUp";
-
 const MLogin = () => {
     const [myform, setMyform] = useState({
         account: "",
         password: "",
     });
 
+    const [URL, setURL] = useState("");
+
     const { setAuth } = useAuth();
+
+    useEffect(() => {
+        const handleGoogle = async () => {
+            const res = await axios.get(
+                "http://localhost:3700/join/api/v1/auth/google"
+            );
+
+            setURL(res.data);
+        };
+
+        handleGoogle();
+    }, []);
 
     const changeFields = (event) => {
         const id = event.target.id;
@@ -99,11 +112,12 @@ const MLogin = () => {
                     <Example />
                     <div className="third-party">
                         <div className="google-login">
-                            <Link to="/shuyoung">
+                            <a href={URL}>
                                 login with google
                                 <img src="/member_img/google-icon.svg" alt="" />
-                            </Link>
+                            </a>
                         </div>
+
                         <div className="facebook-login">
                             <Link to="/shuyoung">
                                 login with facebook
