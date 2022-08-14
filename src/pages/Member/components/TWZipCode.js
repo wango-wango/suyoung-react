@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { countries, postcodes, townships } from "../../../data/townships";
 
 function TWZipCode(props) {
     const { fields, setFields } = props;
+
+    console.log(fields.county);
+    console.log(fields.area);
 
     // 代表目前被選中的縣市的索引值
     // 注意資料類型都是數字(索引值是數字)
@@ -14,11 +17,20 @@ function TWZipCode(props) {
     const [countyValues, setCountyValues] = useState(-1);
     const [townshipValues, setTownshipValues] = useState(-1);
 
+    useEffect(() => {
+        if (fields.county !== "") {
+            const city = countries.findIndex((v) => v === fields.county);
+            setCountry(city);
+            const area = townships[city].findIndex((v) => v === fields.area);
+            setTownship(area);
+        }
+    }, []);
+
     return (
         <>
             <select
+                value={country ? country : -1}
                 className="county"
-                defaultValue={countyValues}
                 onChange={(e) => {
                     // 將字串轉成數字
                     setCountry(+e.target.value);
@@ -27,8 +39,8 @@ function TWZipCode(props) {
 
                     setFields({
                         ...fields,
-                        // [e.target.className]: countries[e.target.value],
-                        [e.target.className]: +e.target.value,
+                        [e.target.className]: countries[e.target.value],
+                        // [e.target.className]: e.target.value,
                     });
                 }}
             >
@@ -40,17 +52,16 @@ function TWZipCode(props) {
                 ))}
             </select>
             <select
+                value={township ? township : -1}
                 className="area"
-                defaultValue={township}
                 onChange={(e) => {
                     // 將字串轉成數字
                     setTownship(+e.target.value);
-
                     setFields({
                         ...fields,
-                        // [e.target.className]:
-                        //     townships[country][e.target.value],
-                        [e.target.className]: +e.target.value,
+                        [e.target.className]:
+                            townships[country][e.target.value],
+                        // [e.target.className]: e.target.value,
                     });
                 }}
             >

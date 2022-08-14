@@ -25,6 +25,9 @@ function Example() {
         );
 
         console.log(res);
+        handleClose();
+
+        alert("重設密碼郵件已寄出，請至信箱收信，謝謝！");
     };
 
     return (

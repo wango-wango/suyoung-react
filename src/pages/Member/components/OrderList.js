@@ -41,7 +41,6 @@ const OrderList = () => {
                 </div>
                 <div className="order-list-container">
                     <OrderListGroup />
-                    <OrderListGroup />
                 </div>
             </motion.div>
         </>
