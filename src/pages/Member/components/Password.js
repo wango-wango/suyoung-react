@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
 
-const Password = (props) => {
-    const { member } = props;
+const Password = () => {
+
+    const {setAuth , ...auth} = useAuth();
 
     const [password, setPassword] = useState({
         oldPassword: "",
@@ -12,7 +14,9 @@ const Password = (props) => {
         comfirmPassword: "",
     });
 
-    const [passwordType, setPasswordType] = useState("password");
+    const [passwordType1, setPasswordType1] = useState("password");
+    const [passwordType2, setPasswordType2] = useState("password");
+    const [passwordType3, setPasswordType3] = useState("password");
 
     const handleFieldsChange = (e) => {
         setPassword({
@@ -30,7 +34,7 @@ const Password = (props) => {
             alert("新密碼與確認密碼不符");
         } else {
             const res = await axios.put(
-                `http://localhost:3700/member/updatePassword/${member.m_id}`,
+                `http://localhost:3700/member/updatePassword/${auth.m_id}`,
                 password
             );
             console.log(res);
@@ -58,21 +62,21 @@ const Password = (props) => {
                         <div className="input_group">
                             <input
                                 name="oldPassword"
-                                type={passwordType}
+                                type={passwordType1}
                                 onChange={handleFieldsChange}
                             />
                             <button
                                 type="button"
                                 className="member-eye-button"
                                 onClick={() => {
-                                    setPasswordType(
-                                        passwordType === "text"
+                                    setPasswordType1(
+                                        passwordType1 === "text"
                                             ? "password"
                                             : "text"
                                     );
                                 }}
                             >
-                                {passwordType === "text" ? (
+                                {passwordType1 === "text" ? (
                                     <FaEyeSlash />
                                 ) : (
                                     <FaEye />
@@ -85,21 +89,21 @@ const Password = (props) => {
                         <div className="input_group">
                             <input
                                 name="newPassword"
-                                type={passwordType}
+                                type={passwordType2}
                                 onChange={handleFieldsChange}
                             />
                             <button
                                 type="button"
                                 className="member-eye-button"
                                 onClick={() => {
-                                    setPasswordType(
-                                        passwordType === "text"
+                                    setPasswordType2(
+                                        passwordType2 === "text"
                                             ? "password"
                                             : "text"
                                     );
                                 }}
                             >
-                                {passwordType === "text" ? (
+                                {passwordType2 === "text" ? (
                                     <FaEyeSlash />
                                 ) : (
                                     <FaEye />
@@ -112,21 +116,21 @@ const Password = (props) => {
                         <div className="input_group">
                             <input
                                 name="comfirmPassword"
-                                type={passwordType}
+                                type={passwordType3}
                                 onChange={handleFieldsChange}
                             />
                             <button
                                 type="button"
                                 className="member-eye-button"
                                 onClick={() => {
-                                    setPasswordType(
-                                        passwordType === "text"
+                                    setPasswordType3(
+                                        passwordType3 === "text"
                                             ? "password"
                                             : "text"
                                     );
                                 }}
                             >
-                                {passwordType === "text" ? (
+                                {passwordType3 === "text" ? (
                                     <FaEyeSlash />
                                 ) : (
                                     <FaEye />

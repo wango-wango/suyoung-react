@@ -23,19 +23,44 @@ const MemberCenter = () => {
     const { setAuth, ...auth } = useAuth();
 
     const [step, setStep] = useState(0);
-    const [authMember, setAuthMember] = useState({});
+
     const { spinner, setLoading } = useSpinner(4000);
 
     useEffect(() => {
         setLoading(true);
     }, [setLoading]);
 
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("token");
+    const id = queryParams.get("id");
+
     useEffect(() => {
-        if (auth.authorized === true) {
+        if (token !== "") {
+            getGoogleUser();
+
+            console.log("getting google userdata");
+        } else {
             getUserData();
             console.log("getting userdata");
         }
-    }, [auth.authorized]);
+    }, []);
+
+    //get queryString
+
+    const getGoogleUser = () => {
+        axios
+            .get(
+                `http://localhost:3700/join/googleLogin?token=${token}&id=${id}`
+            )
+            .then((res) => {
+                if (res) {
+                    console.log(res.data);
+                    const newAuth = res.data;
+                    setAuth({ ...auth, ...newAuth, authorized: true });
+                    localStorage.setItem("auth", JSON.stringify(newAuth));
+                }
+            });
+    };
 
     const getUserData = () => {
         axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
@@ -220,8 +245,19 @@ const MemberCenter = () => {
                                             setStep(6);
                                         }}
                                     >
-                                        <img src={auth.m_avatar} alt="" />
-                                        {auth.m_last_name} {auth.m_first_name}
+                                        {auth.m_first_name === "" ? (
+                                            <>{auth.m_username}</>
+                                        ) : (
+                                            <>
+                                                {" "}
+                                                <img
+                                                    src={auth.m_avatar}
+                                                    alt=""
+                                                />
+                                                {auth.m_last_name}{" "}
+                                                {auth.m_first_name}
+                                            </>
+                                        )}
                                     </div>
                                 </li>
                             </ul>

@@ -35,13 +35,13 @@ function Atv(props) {
         price,
         Maxpeople,
         people,
-        Date,
+        date,
     } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&Date=${Date}`
+        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&date=${date}`
         ).then((response) => {
             setAct(response.data.actAtv);
             console.log(response.data.actAtv);
@@ -103,15 +103,6 @@ function Atv(props) {
 
         return (
         <>
-            {/* <section>
-                <div id="bg">
-                    <img src="/act_imgs/atv_bg5.svg" id="5" alt=""/>
-                    <img src="/act_imgs/atv_bg4.svg" id="4" alt=""/>
-                    <img src="/act_imgs/atv_bg3.svg" id="3" alt=""/>
-                    <img src="/act_imgs/atv_bg2.svg" id="2" alt=""/>
-                    <img src="/act_imgs/atv_bg1.svg" id="1" alt=""/>
-                </div>
-            </section> */}
             <section>
                 <div className="emf">
                     <div className="card_bg">
@@ -125,14 +116,14 @@ function Atv(props) {
                             
                             <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark" onClick={()=>{
                                 const newActBookingList = {...actBookingList,
-                                                        actSid: act[0].act_id,
-                                                        Maxpeople: act[0].max_people,
-                                                        price: act[0].act_price,
-                                                        actName: act[0].act_name,
-                                                        people: 1,
-                                                        actImg:act[0].filename,
-                                                        };
-                                                        setActBookingList(newActBookingList);
+                                    actSid: act[0].act_id,
+                                    Maxpeople: act[0].max_people,
+                                    price: act[0].act_price,
+                                    actName: act[0].act_name,
+                                    people: 1,
+                                    actImg:act[0].filename,
+                                    };
+                                    setActBookingList(newActBookingList);
                             }}>預約報名</button></Link>
                         </div>
                         <div className="slider">
