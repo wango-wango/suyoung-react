@@ -27,7 +27,7 @@ function Upstream(props) {
 
     //<==========收藏hook================
 
-    const { setAuth, ...auth } = useAuth();
+    // const { setAuth, ...auth } = useAuth();
 
     const favlistId = 3;
 
@@ -60,18 +60,28 @@ function Upstream(props) {
 
     // // useContext
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+
+    // 先把localStorage 的資料存進 localRoom 裡
+    useEffect(() => {
+        if (auth.authorized) {
+            setActBookingList({ ...actBookingList, memberId: auth.sid });
+        }
+    }, []);
 
     // 從 actbookingList解構
-    const { actSid, price, Maxpeople } = actBookingList;
+    const { actSid } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
-        await Axios.get(
-            `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}`
-        ).then((response) => {
-            setAct(response.data.actUpstream);
-            console.log(response.data.actUpstream);
-        });
+        await Axios.get(`${ACT_GET_LIST}/selectAct?actSid=${actSid}`).then(
+            (response) => {
+                setAct(response.data.actUpstream);
+                // const newAct = response.data.actUpstream[0];
+                // setActBookingList({...newAct});
+                console.log(response.data.actUpstream);
+            }
+        );
     };
 
     //<==============軒哥不好意思我在這邊加個收藏==============
@@ -86,8 +96,9 @@ function Upstream(props) {
 
     // 起始狀態先render getData
     useEffect(() => {
+        localStorage.removeItem("Act");
         getData();
-    }, [actBookingList]);
+    }, []);
 
     const keepHandler = (e) => {
         const checked = e.target.checked;
@@ -163,15 +174,6 @@ function Upstream(props) {
 
     return (
         <>
-            {/* <section>
-                <div id="bg">
-                    <img src="/act_imgs/Upstream_bg5.svg" id="5" alt=""/>
-                    <img src="/act_imgs/Upstream_bg4.svg" id="4" alt=""/>
-                    <img src="/act_imgs/Upstream_bg3.svg" id="3" alt=""/>
-                    <img src="/act_imgs/Upstream_bg2.svg" id="2" alt=""/>
-                    <img src="/act_imgs/Upstream_bg1.svg" id="1" alt=""/>
-                </div>
-            </section> */}
             <section>
                 <div className="emf">
                     <div className="keep_button">
@@ -231,6 +233,8 @@ function Upstream(props) {
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
+                                            people: 1,
+                                            actImg: act[0].filename,
                                         };
                                         setActBookingList(newActBookingList);
                                     }}

@@ -18,11 +18,11 @@ function Index(props) {
     //3. 用索引方式取各房型  rt[value] = roomtype1
 
     // 所有房間資訊
-    const [roomList, setRoomList] = useState("");
+    const [roomList, setRoomList] = useState([]);
     // 房型
-    // const [roomType, setRoomType] = useState("");
+    const [roomType, setRoomType] = useState("");
     // 房間選擇狀態
-    // const [roomSelector, setRoomSelector] = useState([]);
+    const [roomSelector, setRoomSelector] = useState([]);
 
 
     //背景控制hook
@@ -43,17 +43,17 @@ function Index(props) {
     },[roomList]);
 
     // RoomType 控制器
-    // const RoomTypeHandler = (e) => {
-    //     const value = e.target.value;
-    //     const checked = e.target.checked;
-    //     if (checked) {
+    const RoomTypeHandler = (e) => {
+        const value = e.target.value;
+        const checked = e.target.checked;
+        if (checked) {
 
-    //         setRoomSelector = ([...roomList, value]);
-    //         //設value給roomselector當索引值
-    //         // setRoomSelector(value)
-    //         // console.log(value)
-    //     }
-    // };
+            setRoomSelector = ([...roomList, value]);
+            //設value給roomselector當索引值
+            setRoomSelector(value)
+            console.log(value)
+        }
+    };
 
     // 用get 取得所有的值
     // useEffect(()=>{
@@ -125,7 +125,7 @@ function Index(props) {
                 name="tools"
                 id="tool-1"
                 value={1}
-                // onClick={RoomTypeHandler}
+                onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -139,7 +139,7 @@ function Index(props) {
                 name="tools"
                 id="tool-2"
                 value={2}
-                // onClick={RoomTypeHandler}
+                onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -153,7 +153,7 @@ function Index(props) {
                 name="tools"
                 id="tool-3"
                 value={3}
-                // onClick={RoomTypeHandler}
+                onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -167,7 +167,7 @@ function Index(props) {
                 name="tools"
                 id="tool-4"
                 value={4}
-                // onClick={RoomTypeHandler}
+                onClick={RoomTypeHandler}
             />
             <label
                 className="for-checkbox-tools"
@@ -179,13 +179,13 @@ function Index(props) {
         
         <div className="lrSpace">
             <div className="d-flex justify-content-around p-3">
-                {roomList.roomtype1.map((rv, ri) => {
+                {/* {roomtypelist.map((rv, ri) => {
                     return(
                         <div className="roompic" key={ri}>
                             <img src={"/room_imgs/"+rv.room_folder + "/" +  rv.room_image} alt=""/>
                         </div>
                     )
-                })}
+                })} */}
             </div>
         </div>
         <div className="roomTitle">

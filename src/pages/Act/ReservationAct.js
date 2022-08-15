@@ -5,9 +5,13 @@ import { useBackground } from "../../utils/useBackground";
 import { AutoComplete } from 'rsuite';
 import { Calendar, Whisper, Checkbox, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
 import { useActBookingList } from "../../utils/useActBookingList";
-// import "rsuite/dist/rsuite.css"
 import Swal from "sweetalert2";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { ACT_GET_LIST } from "./config/ajax-path";
+
+
+
 
 function ActReser(props) {
     //活動資料存放處
@@ -17,7 +21,9 @@ function ActReser(props) {
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
-    
+    const { setAuth, ...auth } = useAuth();
+    const navigate = useNavigate();
+
     //didUpdate.log
     console.log(actBookingList);
     
@@ -38,7 +44,9 @@ function ActReser(props) {
     const [emailData, setEmailData] = useState([]);
     const [value, setValue] = useState(0);
     const [agreeMent, setAgreeMent] = useState(false);
+    const [contact, setContact] = useState([]);
     console.log('people:', value);
+    console.log('totalPrice:', actBookingList.totalPrice);
 
     useEffect(()=>{
         if(value >= 1){
@@ -56,7 +64,8 @@ function ActReser(props) {
                 ...actBookingList,
                 people: parseInt(value, 10) - 1,
             });
-            // console.log(actBookingList)
+        setContact(parseInt(value, 10) - 1);
+
     };
     const handlePlus = () => {
         setValue(parseInt(value, 10) + 1);
@@ -64,7 +73,7 @@ function ActReser(props) {
                 ...actBookingList,
                 people: parseInt(value, 10) + 1,
             });
-            console.log(value)
+        setContact(parseInt(value, 10) + 1);
     };
     const handleCheck = (value, checked) =>{
         setAgreeMent(checked)};
@@ -83,6 +92,10 @@ function ActReser(props) {
             setEmailData(nextData);
     };
     
+    const postRoomData = async () => {
+        await Axios.post(`${ACT_GET_LIST}/act_order`, actBookingList);
+    };
+
     useEffect(()=>{
         localStorage.setItem("Act", JSON.stringify(actBookingList))
     },[actBookingList]);
@@ -106,10 +119,6 @@ function ActReser(props) {
                                             ...actBookingList,
                                             date: formatDate(v)
                                             });
-                                            // setDatevalue({
-                                            // ...datevalue,
-                                            // datevalue: (v)
-                                            // })
                                             }} />
                             </div>
                             <div className="calendarRight">
@@ -145,6 +154,23 @@ function ActReser(props) {
                                     <div className="orderItem">
                                         <label htmlFor="actTotal" className="actlabel">總共費用</label>
                                         <input className="disableinput" type="text" disabled value={actBookingList.totalPrice} />
+                                    </div>
+                                    <div className="orderItem">
+                                        <button className="btn btn-dark" onClick={()=>{
+                                            setActBookingList({
+                                                ...actBookingList,
+                                                actSid: "",
+                                                actName:"",
+                                                people: "",
+                                                Maxpeople: "",
+                                                date: "",
+                                                price: "",
+                                                totalPrice:"",
+                                                memberId:"",
+                                            });
+                                            localStorage.removeItem("Act")
+                                            navigate(-1);
+                                        }}>取消預約</button>
                                     </div>
                                 </div>
                             </div>
@@ -244,36 +270,69 @@ function ActReser(props) {
                                     actBookingList.date &&
                                     actBookingList.people
                                     ){  
-                                        if(agreeMent){
-                                        localStorage.setItem(
-                                                    "Act",
-                                                    JSON.stringify(
-                                                        actBookingList
-                                                    )
-                                                );
-                                        }else {
+                                        if(auth.authorized){
+                                            if(agreeMent){
+                                                localStorage.setItem(
+                                                        "Act",
+                                                        JSON.stringify(
+                                                            actBookingList
+                                                        )
+                                                    );
+                                                Swal.fire({
+                                                    position: 'top-end',
+                                                    icon: 'success',
+                                                    title: "已加入購物車",
+                                                    text: '請盡快完成結帳',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                }).then(() => {
+                                                postRoomData();
+                                                })
+                                            } else {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "尚未勾選",
+                                                    text: "請勾選同意書",
+                                                    color: "#224040",
+                                                    background:
+                                                        "#FFF",
+                                                    confirmButtonColor:
+                                                        "#224040",
+                                                });}
+                                        } else {
                                             Swal.fire({
                                                 icon: "error",
-                                                title: "尚未勾選",
-                                                text: "請勾選同意書",
+                                                title: "未登入會員",
+                                                text: "請先登入會員",
                                                 color: "#224040",
-                                                background:
-                                                    "#FFF",
+                                                background: "#fff",
                                                 confirmButtonColor:
                                                     "#224040",
-                                            });
-                                        }
+                                        })
+                                        setActBookingList({
+                                        ...actBookingList,
+                                        actSid: "",
+                                        actName:"",
+                                        people: "",
+                                        Maxpeople: "",
+                                        date: "",
+                                        price: "",
+                                        totalPrice:"",
+                                        memberId:"",
+                                    });
+                                    localStorage.removeItem("Act");
+                                        };
                                     } else{
                                         Swal.fire({
-                                                icon: "error",
-                                                title: "輸入資料有誤",
-                                                text: "請選擇活動日期及報名人數",
-                                                color: "#224040",
-                                                background:
-                                                    "#FFF",
-                                                confirmButtonColor:
-                                                    "#224040",
-                                            });
+                                            icon: "error",
+                                            title: "輸入資料有誤",
+                                            text: "請選擇活動日期及報名人數",
+                                            color: "#224040",
+                                            background:
+                                                "#FFF",
+                                            confirmButtonColor:
+                                                "#224040",
+                                        });
                                     }}}>預約報名</button>
                                     <div>
                                     <Checkbox value={value} onChange={handleCheck}>我已閱讀並同意以上切結事項</Checkbox>
