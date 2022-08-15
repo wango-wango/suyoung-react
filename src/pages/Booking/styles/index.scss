@@ -418,6 +418,12 @@
                     width: 100%;
                     padding-left: 1rem;
                     padding-bottom: 1rem;
+                    cursor: pointer;
+                    button{
+                        background-color: transparent;
+                        border: none;
+                        letter-spacing: 0.1rem;
+                    }
                 }
 
                 .room_filter_roomType {
@@ -836,8 +842,6 @@
                         visibility: hidden;
                     }
 
-
-
                     .checkbox-people {
 
                         // 建立 label 初始樣式
@@ -984,12 +988,6 @@
                             }
                         }
 
-                    }
-                }
-
-                .clear_btn_area {
-                    @media screen and (max-width: 768px) {
-                        display: none;
                     }
                 }
 
@@ -1670,7 +1668,7 @@
 
                     }
                 }
-
+                
                 .roomPeople_area {
                     width: 100%;
                     border-radius: 1rem;
@@ -1734,6 +1732,10 @@
     }
 }
 
+.rs-popover{
+    background-color: var(--background_color);
+    color: var(--primary_color_900);
+}
 
 
 @media (max-width: 1680px) {

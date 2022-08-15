@@ -11,7 +11,7 @@ import OrderList from "./OrderList";
 import Password from "./Password";
 import MemberLevel from "./MemberLevel";
 import CreditCard from "./CreditCard";
-
+import { BsPersonCircle } from "react-icons/bs";
 import { useSpinner } from "../../../useSpinner";
 
 import anime from "animejs";
@@ -35,7 +35,7 @@ const MemberCenter = () => {
     const id = queryParams.get("id");
 
     useEffect(() => {
-        if (token !== "") {
+        if (token) {
             getGoogleUser();
 
             console.log("getting google userdata");
@@ -245,16 +245,18 @@ const MemberCenter = () => {
                                             setStep(6);
                                         }}
                                     >
-                                        {auth.m_first_name === "" ? (
-                                            <>{auth.m_username}</>
+                                        {auth.m_first_name === null ? (
+                                            <>
+                                                <BsPersonCircle />
+                                                {auth.m_username}
+                                            </>
                                         ) : (
                                             <>
-                                                {" "}
                                                 <img
                                                     src={auth.m_avatar}
                                                     alt=""
                                                 />
-                                                {auth.m_last_name}{" "}
+                                                {auth.m_last_name}
                                                 {auth.m_first_name}
                                             </>
                                         )}
