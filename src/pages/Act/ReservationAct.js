@@ -5,10 +5,11 @@ import { useBackground } from "../../utils/useBackground";
 import { AutoComplete } from 'rsuite';
 import { Calendar, Whisper, Checkbox, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
 import { useActBookingList } from "../../utils/useActBookingList";
-// import "rsuite/dist/rsuite.css"
 import Swal from "sweetalert2";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { ACT_GET_LIST } from "./config/ajax-path";
+
 
 
 
@@ -91,6 +92,10 @@ function ActReser(props) {
             setEmailData(nextData);
     };
     
+    const postRoomData = async () => {
+        await Axios.post(`${ACT_GET_LIST}/act_order`, actBookingList);
+    };
+
     useEffect(()=>{
         localStorage.setItem("Act", JSON.stringify(actBookingList))
     },[actBookingList]);
@@ -165,7 +170,7 @@ function ActReser(props) {
                                             });
                                             localStorage.removeItem("Act")
                                             navigate(-1);
-                                        }}>返回</button>
+                                        }}>取消預約</button>
                                     </div>
                                 </div>
                             </div>
@@ -280,6 +285,8 @@ function ActReser(props) {
                                                     text: '請盡快完成結帳',
                                                     showConfirmButton: false,
                                                     timer: 1500
+                                                }).then(() => {
+                                                postRoomData();
                                                 })
                                             } else {
                                                 Swal.fire({
