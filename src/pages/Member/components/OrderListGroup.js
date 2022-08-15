@@ -5,27 +5,29 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 
-const OrderListGroup = () => {
+const OrderListGroup = (props) => {
     const { setAuth, ...auth } = useAuth();
 
-    const [orderlist, setOrderList] = useState([]);
+    const { orderList } = props;
 
-    const getOrderData = async () => {
-        const res = await axios.get(
-            `http://localhost:3700/member/getOrderList/${auth.m_id}`
-        );
+    // const [orderlist, setOrderList] = useState([]);
 
-        console.log(res);
-        const order = res.data.result;
+    // const getOrderData = async () => {
+    //     const res = await axios.get(
+    //         `http://localhost:3700/member/getOrderList/${auth.m_id}`
+    //     );
 
-        console.log(order);
+    //     console.log(res);
+    //     const order = res.data.result;
 
-        setOrderList(order);
-    };
+    //     console.log(order);
 
-    useEffect(() => {
-        getOrderData();
-    }, []);
+    //     setOrderList(order);
+    // };
+
+    // useEffect(() => {
+    //     getOrderData();
+    // }, []);
 
     useEffect(() => {
         let groups = gsap.utils.toArray(".order-list-group");
@@ -62,11 +64,11 @@ const OrderListGroup = () => {
                 }
             };
         }
-    }, [orderlist]);
+    }, [orderList]);
 
     return (
         <>
-            {orderlist.map((v, i) => {
+            {orderList.map((v, i) => {
                 return (
                     <motion.div
                         key={i}
@@ -85,7 +87,10 @@ const OrderListGroup = () => {
                                 />
                             </div>
                             <div className="text">
-                                <div className="top">{v.room_name}</div>
+                                <div className="top">
+                                    <div>訂單編號:{v.order_id}</div>
+                                    {v.room_name}
+                                </div>
                                 <div className="bottom">
                                     {v.start_date.join("/")} -{" "}
                                     {v.end_date.join("/")}
@@ -139,7 +144,8 @@ const OrderListGroup = () => {
                                     </div>
                                     <div className="night">
                                         <div>
-                                            {v.room_name} * <span>2</span>晚
+                                            {v.room_name} *{" "}
+                                            <span>{v.perNight}</span>晚
                                         </div>
                                         <div>
                                             <span>{v.totalPrice}</span>元

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../styles/navbar.scss";
-
+import { useActBookingList } from "../utils/useActBookingList";
 import { useAuth } from "../pages/Login/sub-pages/AuthProvider";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
-
+    const { actBookingList, setActBookingList } = useActBookingList();
     const { authorized, logout } = useAuth();
 
     return (
@@ -33,10 +33,18 @@ export default function Navbar() {
                                 活動導覽
                                 <ul className="dropdown_menu dropdown_menu--animated dropdown_menu-2">
                                     <li className="dropdown_item-1">
-                                    <Link to="/shuyoung/act/upstream">親子溯溪</Link></li>
-                                    <li className="dropdown_item-2"><Link to="/shuyoung/act/float">漂流探險</Link></li>
-                                    <li className="dropdown_item-3"><Link to="/shuyoung/act/night">夜遊觀星</Link></li>
-                                    <li className="dropdown_item-4"><Link to="/shuyoung/act/atv">全地形車</Link></li>
+                                    <Link to="/shuyoung/act/upstream" onClick={()=>{
+                                        setActBookingList({...actBookingList,actSid:3})
+                                    }}>親子溯溪</Link></li>
+                                    <li className="dropdown_item-2" onClick={()=>{
+                                        setActBookingList({...actBookingList,actSid:1})
+                                    }}><Link to="/shuyoung/act/float">漂流探險</Link></li>
+                                    <li className="dropdown_item-3" onClick={()=>{
+                                        setActBookingList({...actBookingList,actSid:8})
+                                    }}><Link to="/shuyoung/act/night">夜遊觀星</Link></li>
+                                    <li className="dropdown_item-4" onClick={()=>{
+                                        setActBookingList({...actBookingList,actSid:5})
+                                    }}><Link to="/shuyoung/act/atv">全地形車</Link></li>
                                 </ul>
                             </li>
                             <li className="hover">
@@ -90,7 +98,6 @@ export default function Navbar() {
                             ) : (
                                 <ul>
                                     <li
-                                       
                                     >
                                         <Link to="/shuyoung/join/register">
                                             註冊會員

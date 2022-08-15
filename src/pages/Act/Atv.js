@@ -13,6 +13,7 @@ import "swiper/css/thumbs";
 import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
 import { useActBookingList } from "../../utils/useActBookingList";
+import { useAuth } from "../Login/sub-pages/AuthProvider";
 
 
 
@@ -28,29 +29,36 @@ function Atv(props) {
 
     // // useContext
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+
+    // 先把localStorage 的資料存進 localRoom 裡
+    useEffect(() => {
+        if(auth.authorized){
+        setActBookingList({...actBookingList,memberId: auth.sid});
+        }
+    }, []);
 
     // 從 actbookingList解構
     const {
         actSid,
-        price,
-        Maxpeople,
-        people,
-        date,
     } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&date=${date}`
+        `${ACT_GET_LIST}/selectAct?actSid=${actSid}`
         ).then((response) => {
             setAct(response.data.actAtv);
+            const newAct = response.data.actAtv[0];
+            setActBookingList({...actBookingList, ...newAct});
             console.log(response.data.actAtv);
-        });   
+        });
     }
     // 起始狀態先render getData
     useEffect(() => {
+        localStorage.removeItem("Act");
         getData();
-    }, [actBookingList]);
+    }, []);
 
     //背景設定
     useEffect(() => {

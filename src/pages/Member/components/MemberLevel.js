@@ -61,11 +61,18 @@ const MemberLevel = () => {
                                 duration: 0.5,
                             }}
                         >
-                            <img src={auth.m_avatar} alt="" />
-                            <div>
-                                {auth.m_last_name}
-                                {auth.m_first_name}
-                            </div>
+                            {auth.m_last_name === null ? (
+                                <>{auth.m_username}</>
+                            ) : (
+                                <>
+                                    {" "}
+                                    <img src={auth.m_avatar} alt="" />
+                                    <div>
+                                        {auth.m_last_name}
+                                        {auth.m_first_name}
+                                    </div>
+                                </>
+                            )}
                         </motion.div>
                         <motion.div
                             className="member-level-card"

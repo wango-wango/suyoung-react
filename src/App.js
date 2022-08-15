@@ -109,22 +109,22 @@ function App() {
                                                 <Route path="Keep" element={<Keep />} /> */}
                                                 </Route>
 
+                                            <Route
+                                                path="Recipes"
+                                            >
                                                 <Route
-                                                    path="Recipes"
-                                                >
-                                                    <Route
-                                                        index
-                                                        element={<Recipes />}
-                                                    />
-                                                    <Route
-                                                        path="recipesPage2"
-                                                        element={<RecipesPage2  />}
-                                                    />
-                                                    <Route
-                                                        path="photoWall"
-                                                        element={<PhotoWall />}
-                                                    />
-                                                </Route>
+                                                    index
+                                                    element={<Recipes />}
+                                                />
+                                                <Route
+                                                    path="recipesPage2/:sid"
+                                                    element={<RecipesPage2  />}
+                                                />
+                                                <Route
+                                                    path="photoWall"
+                                                    element={<PhotoWall />}
+                                                />
+                                            </Route>
 
                                                 <Route path="SuMap">
                                                     <Route
