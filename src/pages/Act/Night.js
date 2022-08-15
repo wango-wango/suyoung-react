@@ -58,7 +58,7 @@ function Night(props) {
     useEffect(() => {
         localStorage.removeItem("Act");
         getData();
-    }, [actBookingList]);
+    }, []);
 
     //背景設定
     useEffect(() => {

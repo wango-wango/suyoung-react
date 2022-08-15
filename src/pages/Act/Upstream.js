@@ -49,16 +49,16 @@ function Upstream(props) {
         `${ACT_GET_LIST}/selectAct?actSid=${actSid}`
         ).then((response) => {
             setAct(response.data.actUpstream);
-            const newAct = response.data.actUpstream[0];
-            setActBookingList({...newAct});
+            // const newAct = response.data.actUpstream[0];
+            // setActBookingList({...newAct});
             console.log(response.data.actUpstream);
-        });   
+        });
     }
     // 起始狀態先render getData
     useEffect(() => {
         localStorage.removeItem("Act");
         getData();
-    }, [actBookingList]);
+    }, []);
 
     //背景設定
     useEffect(() => {

@@ -55,8 +55,9 @@ function Float(props) {
     }
     // 起始狀態先render getData
     useEffect(() => {
+        localStorage.removeItem("Act");
         getData();
-    }, [actBookingList]);
+    }, []);
 
     //背景設定
     useEffect(() => {

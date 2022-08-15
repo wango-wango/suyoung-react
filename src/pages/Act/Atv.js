@@ -50,7 +50,7 @@ function Atv(props) {
         ).then((response) => {
             setAct(response.data.actAtv);
             const newAct = response.data.actAtv[0];
-            setActBookingList({...newAct});
+            setActBookingList({...actBookingList, ...newAct});
             console.log(response.data.actAtv);
         });
     }
@@ -58,7 +58,7 @@ function Atv(props) {
     useEffect(() => {
         localStorage.removeItem("Act");
         getData();
-    }, [actBookingList]);
+    }, []);
 
     //背景設定
     useEffect(() => {
