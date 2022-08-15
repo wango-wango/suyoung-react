@@ -115,7 +115,7 @@ function App() {
                                                     element={<Recipes />}
                                                 />
                                                 <Route
-                                                    path="recipesPage2"
+                                                    path="recipesPage2/:sid"
                                                     element={<RecipesPage2  />}
                                                 />
                                                 <Route
