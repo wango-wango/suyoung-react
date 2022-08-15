@@ -14,6 +14,8 @@ import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
 import { useActBookingList } from "../../utils/useActBookingList";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import Swal from "sweetalert2";
 
 function Atv(props) {
     // //BG設定
@@ -54,15 +56,65 @@ function Atv(props) {
         getData();
     }, []);
 
-    //==============軒哥不好意思我在這邊加個收藏==============
+    //keep hook====================================
+    const [memberKeep, setMemberKeep] = useState({
+        // favlistId: "",
+        // memberId: "",
+        favType: 2,
+    });
 
-    console.log(actSid[0]);
+    const [favlist, setFavlist] = useState([]);
 
-    //===============加完了謝謝軒哥=========================
+    const favlistId = 5;
+
+    const deleteKeep = () => {
+        Axios.delete(
+            `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
+        ).then((res) => {
+            console.log(res);
+            setFavlist([]);
+            setMemberKeep({
+                // favlistId: "",
+                // memberId: "",
+                favType: 2,
+            });
+            getFav();
+        });
+    };
+
+    const getFav = () => {
+        Axios.get(
+            `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}&actSid=${favlistId}`
+        ).then((res) => {
+            console.log(res.data.resultFav);
+            setFavlist([...res.data.resultFav]);
+        });
+    };
+
+    const postData = () => {
+        Axios.post(`http://localhost:3700/member/favlist/act`, memberKeep).then(
+            (res) => {
+                console.log(res);
+                getFav();
+            }
+        );
+    };
+
+    useEffect(() => {
+        // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
+        console.log({ memberKeep });
+        if (!!memberKeep.memberId && !!memberKeep.favlistId) {
+            console.log("postData!");
+            postData();
+        }
+    }, [memberKeep]);
+
+    //keep end======================================================
 
     //背景設定
     useEffect(() => {
         setBackground("bg1.svg");
+        getFav();
     }, []);
     useEffect(() => {
         //若是didmount時沒資料就跳出
@@ -112,6 +164,59 @@ function Atv(props) {
             <section>
                 <div className="emf">
                     <div className="card_bg">
+                        <div className="keep_button">
+                            {auth.authorized ? (
+                                <input
+                                    className="checkbox-tools"
+                                    type="checkbox"
+                                    name="keep"
+                                    id="keepBtn"
+                                    value={favlistId}
+                                    // onClick={keepHandler}
+                                    checked={favlist.length}
+                                    onChange={(e) => {
+                                        if (favlist.length !== 0) {
+                                            deleteKeep();
+                                        } else {
+                                            setMemberKeep({
+                                                ...memberKeep,
+                                                memberId: auth.m_id,
+                                                favlistId: 5,
+                                            });
+                                        }
+                                    }}
+                                />
+                            ) : (
+                                <input
+                                    className="checkbox-tools"
+                                    type="checkbox"
+                                    name="keep"
+                                    id="keepBtn"
+                                    value={favlistId}
+                                    onClick={() => {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "未登入會員",
+                                            text: "請先登入會員",
+                                            color: "#224040",
+                                            background: "#fff",
+                                            confirmButtonColor: "#224040",
+                                        });
+                                    }}
+                                />
+                            )}
+
+                            <label
+                                className="for-checkbox-tools"
+                                htmlFor="keepBtn"
+                            >
+                                {favlist.length !== 0 ? (
+                                    <AiFillHeart className="fillHeart" />
+                                ) : (
+                                    <AiOutlineHeart className="outlineHeart" />
+                                )}
+                            </label>
+                        </div>
                         <div className="d-flex align-items-center titleGroup">
                             <div className="actEnTitle">
                                 <h3>ATV</h3>

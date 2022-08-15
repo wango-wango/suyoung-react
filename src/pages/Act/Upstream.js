@@ -25,38 +25,60 @@ function Upstream(props) {
     // //所有act列表
     const [act, setAct] = useState([]);
 
-    //<==========收藏hook================
-
-    // const { setAuth, ...auth } = useAuth();
-
-    const favlistId = 3;
-
+    //keep hook====================================
     const [memberKeep, setMemberKeep] = useState({
-        favlistId: "",
-        memberId: "",
+        // favlistId: "",
+        // memberId: "",
         favType: 2,
     });
 
     const [favlist, setFavlist] = useState([]);
 
-    const postData = async () => {
-        await Axios.post(
-            `http://localhost:3700/member/favlist/act`,
-            memberKeep
+    const favlistId = 3;
+
+    const deleteKeep = () => {
+        Axios.delete(
+            `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
+        ).then((res) => {
+            console.log(res);
+            setFavlist([]);
+            setMemberKeep({
+                // favlistId: "",
+                // memberId: "",
+                favType: 2,
+            });
+            getFav();
+        });
+    };
+
+    const getFav = () => {
+        Axios.get(
+            `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}&actSid=${favlistId}`
+        ).then((res) => {
+            console.log(res.data.resultFav);
+            setFavlist([...res.data.resultFav]);
+        });
+    };
+
+    const postData = () => {
+        Axios.post(`http://localhost:3700/member/favlist/act`, memberKeep).then(
+            (res) => {
+                console.log(res);
+                getFav();
+            }
         );
     };
 
     useEffect(() => {
-        if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
+        // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
+        console.log({ memberKeep });
+        if (!!memberKeep.memberId && !!memberKeep.favlistId) {
+            console.log("postData!");
             postData();
         }
     }, [memberKeep]);
 
-    useEffect(() => {
-        getFav();
-    }, [favlist]);
-
-    //==========收藏hook================>
+    //keep end======================================================
 
     // // useContext
     const { actBookingList, setActBookingList } = useActBookingList();
@@ -84,46 +106,12 @@ function Upstream(props) {
         );
     };
 
-    //<==============軒哥不好意思我在這邊加個收藏==============
-
-    const getFav = async () => {
-        await Axios.get(
-            `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}`
-        ).then((res) => {
-            setFavlist(res.data.resultFav);
-        });
-    };
-
     // 起始狀態先render getData
     useEffect(() => {
         localStorage.removeItem("Act");
         getData();
+        getFav();
     }, []);
-
-    const keepHandler = (e) => {
-        const checked = e.target.checked;
-
-        if (checked) {
-            setMemberKeep({ ...memberKeep, memberId: auth.m_id, favlistId: 3 });
-        } else {
-            deleteKeep();
-            setMemberKeep({
-                favlistId: "",
-                memberId: "",
-                favType: 2,
-            });
-        }
-    };
-
-    const deleteKeep = async () => {
-        const res = await Axios.delete(
-            `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
-        );
-        console.log(res);
-        setFavlist([]);
-    };
-
-    //===============加完了謝謝軒哥=========================>
 
     //背景設定
     useEffect(() => {
@@ -176,45 +164,60 @@ function Upstream(props) {
         <>
             <section>
                 <div className="emf">
-                    <div className="keep_button">
-                        {auth.authorized ? (
-                            <input
-                                className="checkbox-tools"
-                                type="checkbox"
-                                name="keep"
-                                id="keepBtn"
-                                value={favlistId}
-                                onClick={keepHandler}
-                            />
-                        ) : (
-                            <input
-                                className="checkbox-tools"
-                                type="checkbox"
-                                name="keep"
-                                id="keepBtn"
-                                value={favlistId}
-                                onClick={() => {
-                                    Swal.fire({
-                                        icon: "error",
-                                        title: "未登入會員",
-                                        text: "請先登入會員",
-                                        color: "#224040",
-                                        background: "#fff",
-                                        confirmButtonColor: "#224040",
-                                    });
-                                }}
-                            />
-                        )}
-
-                        <label className="for-checkbox-tools" htmlFor="keepBtn">
-                            {favlist.length !== 0 ? (
-                                <AiFillHeart className="fillHeart" />
-                            ) : (
-                                <AiOutlineHeart className="outlineHeart" />
-                            )}
-                        </label>
-                    </div>
                     <div className="card_bg">
+                        <div className="keep_button">
+                            {auth.authorized ? (
+                                <input
+                                    className="checkbox-tools"
+                                    type="checkbox"
+                                    name="keep"
+                                    id="keepBtn"
+                                    value={favlistId}
+                                    // onClick={keepHandler}
+                                    checked={favlist.length}
+                                    onChange={(e) => {
+                                        if (favlist.length !== 0) {
+                                            deleteKeep();
+                                        } else {
+                                            setMemberKeep({
+                                                ...memberKeep,
+                                                memberId: auth.m_id,
+                                                favlistId: 3,
+                                            });
+                                        }
+                                    }}
+                                />
+                            ) : (
+                                <input
+                                    className="checkbox-tools"
+                                    type="checkbox"
+                                    name="keep"
+                                    id="keepBtn"
+                                    value={favlistId}
+                                    onClick={() => {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "未登入會員",
+                                            text: "請先登入會員",
+                                            color: "#224040",
+                                            background: "#fff",
+                                            confirmButtonColor: "#224040",
+                                        });
+                                    }}
+                                />
+                            )}
+
+                            <label
+                                className="for-checkbox-tools"
+                                htmlFor="keepBtn"
+                            >
+                                {favlist.length !== 0 ? (
+                                    <AiFillHeart className="fillHeart" />
+                                ) : (
+                                    <AiOutlineHeart className="outlineHeart" />
+                                )}
+                            </label>
+                        </div>
                         <div className="d-flex align-items-center titleGroup">
                             <div className="actEnTitle">
                                 <h3>Upstream</h3>
