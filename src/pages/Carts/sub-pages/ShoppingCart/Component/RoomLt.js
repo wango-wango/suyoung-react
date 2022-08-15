@@ -4,64 +4,94 @@ import axios from "axios";
 
 
 function RoomLt(props) {
-    const {setStep, sum, OrderSubmit} = props;
+    const { setStep, sum, OrderSubmit ,discountSum, setdiscountSum, actSum } = props;
 
-    const [coupnId, setCoupnId] = useState();
+    const [couponId, setCouponId] = useState(0);
+
+    const [couponDiscount, setcouponDiscount] = useState(1);
+    // // 折扣後總金額  
+    // const [discountSum, setdiscountSum] = useState(0);
 
     const handleOnChange = (event) => {
-        setCoupnId({coupnNumber: event.target.value});
+        setCouponId(event.target.value);
     };
 
-    console.log(coupnId)
+    const Swal = require('sweetalert2')
 
-    // const getCoupn = async (coupn) => {
-    //     const res = await axios.get(
-    //         "http://localhost:3700/cart",
-            
-    //     );
+    console.log(couponId)
 
-    //     console.log(res);
-    // };
-
-    // const getCoupn = () => {
-    //     const coupnId1 = {coupnId}
-    //     axios.get(`http://localhost:3700/cart/${coupnId1}`).then(
-    //         (res) => {
-    //             if (res) {
-    //                 console.log(res);
-
-    //             } else {
-    //                 alert("查無會員資料");
-    //             }
-    //         }
-    //     );
-    // };
-
-    async function getCoupn () {
-        const url = 'http://localhost:3700/cart/coupn'
-    
-        // 注意資料格式要設定，伺服器才知道是json格式
-        const request = new Request(url, {
-          method: 'GET',
-          headers: new Headers({
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          }),
-        })
-    
-        const response = await fetch(request)
-        const data = await response.json()
-        console.log('訂單dataRes', data)
-        // setOrder(data)
-    
-        // console.log('訂單scOrderId', scOrderId)
-        // // console.log('訂單order', order) //會是空的因為setOrder異步執行
-        // setOrderAll(data.data)
+    function HandleAlertData() {
+        Swal.fire({
+            // imageUrl: '/cart_imgs/warning.gif',
+            icon: 'error',
+            title: '錯誤',
+            text: '沒有這個折扣碼喔～!',
+            timer: 3000
+          })
       }
     
-    //   useEffect(() => {
-    //     getOrderListFromServer()
-    //   }, [])
+    function HandleCouponAlert() {
+        Swal.fire({
+            // imageUrl: '/cart_imgs/5.gif',
+            icon: 'success',
+            title: '金額已為您折扣',
+            showConfirmButton: false,
+            timer: 3000
+          })
+      }  
+    
+    
+
+    //取得折價券
+    const getCoupn = () => {
+        axios.get(`http://localhost:3700/cart/coupn/${couponId}`).then((res) => {
+            if (!res.data.coupon) {
+                HandleAlertData();
+
+            } else {
+                console.log(res);
+
+                const couponDiscountNumber = res.data.coupon
+
+                console.log(couponDiscountNumber);
+
+                setcouponDiscount(couponDiscountNumber) 
+
+                HandleCouponAlert();
+            }
+        });
+        return setTimeout(() => {
+            couponDiscountRange();
+        }, 0);
+        
+    };
+
+
+    console.log(sum);
+
+    const couponDiscountRange = () =>{
+
+        if(couponDiscount > 1){
+            const newDiscountedSum = sum - couponDiscount; 
+            setdiscountSum(newDiscountedSum)
+        }else{
+            setdiscountSum(sum*couponDiscount)
+        }
+
+    };
+
+    console.log(discountSum)
+
+
+    useEffect(() => {
+        if(sum) setdiscountSum(sum);
+    }, [sum])
+
+    useEffect(() => {
+        couponDiscountRange();
+    }, [couponDiscount])
+
+      
 
   return (
     <div className="web_component1 mb_none">
@@ -75,8 +105,10 @@ function RoomLt(props) {
             <p className="room_price_1">房價</p>
             <p className="room_price_2">${sum}</p>
         </div>
-
-        <p className="none">活動</p>
+        <div className="first_colum">
+            <p className="none">活動</p>
+            <p className="room_price_2">${actSum}</p>
+        </div>
         <p className="none">折扣碼：</p>
         <div className="discount_wrap">
         <input placeholder="輸入折扣碼" type="text" className="discount__wrap__input field__error" maxLength={15}  onChange={handleOnChange}></input>
@@ -84,7 +116,7 @@ function RoomLt(props) {
         </div>
         <div className="second_colum">
             <p className="totalPrice">合計</p>
-            <p className="">${sum}</p>
+            <p className="">${discountSum}</p>
         </div>
         <div className="checkoutbtn">
             <button className="stillBuy" onClick={()=>{window.location.href="http://localhost:3777/shuyoung/Booking"}}>繼續訂房</button>
@@ -94,7 +126,5 @@ function RoomLt(props) {
 </div>
   )
 }
-
-
 
 export default RoomLt
