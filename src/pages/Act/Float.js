@@ -40,18 +40,16 @@ function Float(props) {
     // 從 actbookingList解構
     const {
         actSid,
-        price,
-        Maxpeople,
-        people,
-        date,
     } = actBookingList;
 
-    // // 用get 取得所有的值
+    ////用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&date=${date}`
+        `${ACT_GET_LIST}/selectAct?actSid=${actSid}`
         ).then((response) => {
             setAct(response.data.actFloat);
+            const newAct = response.data.actFloat[0];
+            setActBookingList({...newAct});
             console.log(response.data.actFloat);
         });   
     }
