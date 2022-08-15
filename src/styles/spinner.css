@@ -14,7 +14,7 @@ div.spinner-text {
     width: 100vw;
     height: 100vh;
     margin: auto;
-    z-index: 99;
+    z-index: 999;
     transition: opacity 0.5s;
 }
 

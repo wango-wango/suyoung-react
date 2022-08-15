@@ -1,41 +1,106 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import "./styles/act.scss";
 import { useBackground } from "../../utils/useBackground";
-import { gsap } from "gsap";
-import { motion } from "framer-motion";
 import { AutoComplete } from 'rsuite';
-import { Calendar, Whisper, Popover, Badge } from 'rsuite';
+import { Calendar, Whisper, Checkbox, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
+import { useActBookingList } from "../../utils/useActBookingList";
+import Swal from "sweetalert2";
+import { useAuth } from "../Login/sub-pages/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { ACT_GET_LIST } from "./config/ajax-path";
+
 
 
 
 function ActReser(props) {
+    //活動資料存放處
+    const { actBookingList, setActBookingList } = useActBookingList();
+    //控制背景圖
     const { setBackground } = useBackground();
-
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
+    const { setAuth, ...auth } = useAuth();
+    const navigate = useNavigate();
+
+    //didUpdate.log
+    console.log(actBookingList);
     
-    const actPriceData = [
-        '活動價錢',
-    ];
+    //日期格式調整
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = "" + (d.getMonth() + 1),
+            day = "" + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+
+        return [year, month, day].join("-");
+    };
+    //信箱提示data
     const suffixes = ['@gmail.com', '@yahoo.com.tw', '@hotmail.com', '@outlook.com'];
+    const [emailData, setEmailData] = useState([]);
+    const [value, setValue] = useState(0);
+    const [agreeMent, setAgreeMent] = useState(false);
+    const [contact, setContact] = useState([]);
+    console.log('people:', value);
+    console.log('totalPrice:', actBookingList.totalPrice);
 
-    const [emailData, setEmailData] = React.useState([]);
+    useEffect(()=>{
+        if(value >= 1){
+            const total = 
+                actBookingList.price * value;
+                setActBookingList({ ...actBookingList, 
+                    totalPrice: total
+                });
+        }
+    },[value])
 
+    const handleMinus = () => {
+        setValue(parseInt(value, 10) - 1);
+        setActBookingList({
+                ...actBookingList,
+                people: parseInt(value, 10) - 1,
+            });
+        setContact(parseInt(value, 10) - 1);
+
+    };
+    const handlePlus = () => {
+        setValue(parseInt(value, 10) + 1);
+        setActBookingList({
+                ...actBookingList,
+                people: parseInt(value, 10) + 1,
+            });
+        setContact(parseInt(value, 10) + 1);
+    };
+    const handleCheck = (value, checked) =>{
+        setAgreeMent(checked)};
+    
+    console.log(agreeMent);
     const handleChange = value => {
-        const at = value.match(/@[\S]*/);
-        const nextData = at
-        ? suffixes
-            .filter(item => item.indexOf(at[0]) >= 0)
-            .map(item => {
-                return `${value}${item.replace(at[0], '')}`;
-            })
-        : suffixes.map(item => `${value}${item}`);
+            const at = value.match(/@[\S]*/);
+            const nextData = at
+            ? suffixes
+                .filter(item => item.indexOf(at[0]) >= 0)
+                .map(item => {
+                    return `${value}${item.replace(at[0], '')}`;
+                })
+            : suffixes.map(item => `${value}${item}`);
 
-        setEmailData(nextData);
+            setEmailData(nextData);
+    };
+    
+    const postRoomData = async () => {
+        await Axios.post(`${ACT_GET_LIST}/act_order`, actBookingList);
     };
 
+    useEffect(()=>{
+        localStorage.setItem("Act", JSON.stringify(actBookingList))
+    },[actBookingList]);
+
+    // const data = [actBookingList.price]
         return (
         <>
             
@@ -43,26 +108,69 @@ function ActReser(props) {
                 <div className="emf">
                     <div className="card_bg">
                         <div className="actEnTitle titleGroup">
-                            <h3>預約報名</h3>
+                            <h3>{actBookingList.actName}</h3>
+                            <h4>預約報名</h4>
                         </div>
                         <div className="d-flex calendar">
                             <div className="calendarLeft">
-                                <Calendar/>
+                                <Calendar onChange={(v) => {
+                                        console.log(v);
+                                        setActBookingList({
+                                            ...actBookingList,
+                                            date: formatDate(v)
+                                            });
+                                            }} />
                             </div>
                             <div className="calendarRight">
                                 <div className="actOrder">
                                     <h4>預約內容</h4>
                                     <div className="orderItem">
                                         <label htmlFor="actDate" className="actlabel">＊活動日期</label>
-                                        <input type="date" id="actDate"/>
+                                        <DatePicker
+                                        onChange={(v) => {
+                                        console.log(v);
+                                        if(v){
+                                            setActBookingList({
+                                            ...actBookingList,
+                                            date: formatDate(v)
+                                            });
+                                        }}
+                                        }
+                                        
+                                        />
                                     </div>
                                     <div className="orderItem">
-                                        <label htmlFor="actDate" className="actlabel">＊報名人數</label>
-                                        <input type="number" id="actPeople"/>
+                                        <label htmlFor="actPeople" className="actlabel">＊報名人數</label>
+                                        <InputGroup>
+                                            <InputGroup.Button onClick={handleMinus}>-</InputGroup.Button>
+                                            <InputNumber className={'custom-input-number'} value={value} onChange={setValue} />
+                                            <InputGroup.Button onClick={handlePlus}>+</InputGroup.Button>
+                                        </InputGroup>
                                     </div>
                                     <div className="orderItem">
-                                        <label htmlFor="actDate" className="actlabel">活動費用</label>
-                                        <AutoComplete data={actPriceData} readOnly defaultValue="1000" />
+                                        <label htmlFor="actPrice" className="actlabel">活動費用</label>
+                                        <input className="disableinput" type="text" disabled value={actBookingList.price} />
+                                    </div>
+                                    <div className="orderItem">
+                                        <label htmlFor="actTotal" className="actlabel">總共費用</label>
+                                        <input className="disableinput" type="text" disabled value={actBookingList.totalPrice} />
+                                    </div>
+                                    <div className="orderItem">
+                                        <button className="btn btn-dark" onClick={()=>{
+                                            setActBookingList({
+                                                ...actBookingList,
+                                                actSid: "",
+                                                actName:"",
+                                                people: "",
+                                                Maxpeople: "",
+                                                date: "",
+                                                price: "",
+                                                totalPrice:"",
+                                                memberId:"",
+                                            });
+                                            localStorage.removeItem("Act")
+                                            navigate(-1);
+                                        }}>取消預約</button>
                                     </div>
                                 </div>
                             </div>
@@ -76,44 +184,54 @@ function ActReser(props) {
                                     <label htmlFor="actCotactName" className="actlabel">
                                         ＊姓名
                                     </label>
-                                    <input type="text" id="actCotactName" className="actText"/>
-                                </div>
-                                <div>
-                                    <label htmlFor="actName" className="actlabel">
-                                        ＊電子郵件
-                                    </label>
-                                    {/* <input type="text" id="actName" className="actText"/> */}
-                                    <AutoComplete data={emailData} placeholder="Email" onChange={handleChange} />
+                                    <Whisper trigger="focus" speaker={<Tooltip>必填</Tooltip>}>
+                                    <Input  placeholder="請填入姓名"/>
+                                    </Whisper>
                                 </div>
                                 <div>
                                     <label htmlFor="actName" className="actlabel">
                                         ＊手機號碼
                                     </label>
-                                    <input type="text" id="actName" className="actText"/>
+                                    <Whisper trigger="focus" speaker={<Tooltip>必填</Tooltip>}>
+                                    <Input  placeholder="請填入手機號碼"/>
+                                    </Whisper>
+                                </div>
+                                <div>
+                                    <label htmlFor="actName" className="actlabel">
+                                        電子郵件
+                                    </label>
+                                    {/* <input type="text" id="actName" className="actText"/> */}
+                                    <AutoComplete data={emailData} placeholder="Email" onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className="actRsTitle">
                                 <h4>參與人資料</h4>
                             </div>
                             <div className="d-flex justify-content-around actForm">
-                                <div>
-                                    <label htmlFor="actName" className="actlabel">
-                                        ＊姓名
-                                    </label>
-                                    <input type="text" id="actName" className="actText"/>
-                                </div>
-                                <div>
-                                    <label htmlFor="actBd" className="actlabel">
-                                        ＊出生年月日
-                                    </label>
-                                    <input type="text" id="actBd" className="actText"/>
-                                </div>
-                                <div>
-                                    <label htmlFor="idNum" className="actlabel">
-                                        ＊身分證字號
-                                    </label>
-                                    <input type="text" id="idNum" className="actText"/>
-                                </div>
+                            
+                                    
+                                        <div>
+                                            <label htmlFor="actName" className="actlabel">
+                                                ＊姓名
+                                            </label>
+                                            <input type="text" id="actName" className="actText"/>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="actBd" className="actlabel">
+                                                ＊出生年月日
+                                            </label>
+                                            <input type="text" id="actBd" className="actText"/>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="idNum" className="actlabel">
+                                                ＊身分證字號
+                                            </label>
+                                            <input type="text" id="idNum" className="actText"/>
+                                        </div>
+                                
+
+                            
+                                
                             </div>
                         </form>
                         <div className="actRsTitle">
@@ -145,10 +263,79 @@ function ActReser(props) {
                                 須同意以上切結事項，方可報名，感謝您。
                             </div>
                             <div className="agreeBtn">
-                                <button className="btn btn-dark">預約報名</button>
-                                <div>
-                                    <input type="checkbox" id="agreement"/>
-                                    <label htmlFor="agreement">我已閱讀並同意以上切結事項</label>
+                                <button className="btn btn-dark" onClick={() => {
+                                if (
+                                    // actBookingList &&
+                                    // actBookingList.contactName &&
+                                    actBookingList.date &&
+                                    actBookingList.people
+                                    ){  
+                                        if(auth.authorized){
+                                            if(agreeMent){
+                                                localStorage.setItem(
+                                                        "Act",
+                                                        JSON.stringify(
+                                                            actBookingList
+                                                        )
+                                                    );
+                                                Swal.fire({
+                                                    position: 'top-end',
+                                                    icon: 'success',
+                                                    title: "已加入購物車",
+                                                    text: '請盡快完成結帳',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                }).then(() => {
+                                                postRoomData();
+                                                })
+                                            } else {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "尚未勾選",
+                                                    text: "請勾選同意書",
+                                                    color: "#224040",
+                                                    background:
+                                                        "#FFF",
+                                                    confirmButtonColor:
+                                                        "#224040",
+                                                });}
+                                        } else {
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: "未登入會員",
+                                                text: "請先登入會員",
+                                                color: "#224040",
+                                                background: "#fff",
+                                                confirmButtonColor:
+                                                    "#224040",
+                                        })
+                                        setActBookingList({
+                                        ...actBookingList,
+                                        actSid: "",
+                                        actName:"",
+                                        people: "",
+                                        Maxpeople: "",
+                                        date: "",
+                                        price: "",
+                                        totalPrice:"",
+                                        memberId:"",
+                                    });
+                                    localStorage.removeItem("Act");
+                                        };
+                                    } else{
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "輸入資料有誤",
+                                            text: "請選擇活動日期及報名人數",
+                                            color: "#224040",
+                                            background:
+                                                "#FFF",
+                                            confirmButtonColor:
+                                                "#224040",
+                                        });
+                                    }}}>預約報名</button>
+                                    <div>
+                                    <Checkbox value={value} onChange={handleCheck}>我已閱讀並同意以上切結事項</Checkbox>
                                 </div>
                             </div>
                         </div>

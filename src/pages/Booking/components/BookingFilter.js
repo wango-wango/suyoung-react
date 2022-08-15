@@ -2,8 +2,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import Axios from "axios";
 import { BK_GET_LIST } from "../config/ajax-path";
 import { useBookingList } from "../../../utils/useBookingList";
-
-import { Slider, RangeSlider, Row, Col, InputGroup, InputNumber } from "rsuite";
+import { Popover, Whisper, Button } from 'rsuite';
+import { RangeSlider, Row, Col, InputGroup, InputNumber, Drawer } from "rsuite";
 function BookingFilter(props) {
     //所有標籤列表 從node 取出來的
     const [tagList, setTagList] = useState([]);
@@ -15,6 +15,7 @@ function BookingFilter(props) {
 
     // 房型確認狀態
     const [checkroomType, setCheckRoomType] = useState([]);
+    
     const { bookingList, setBookingList } = useBookingList();
 
     // 價格slider的值
@@ -27,33 +28,61 @@ function BookingFilter(props) {
     const [recommend, setRecommend] = useState(1);
     const [popular, setPopular] = useState(1);
 
+
+    /* ----- reset -----*/
+    const resetPeople = () => {
+        setPopular(1);
+        setRecommend(1);
+        setBookingList({ ...bookingList, popular: 0,recommend: 0});
+    }
+
+    const resetTag = () => {
+        setBookingList({ ...bookingList, tagCheck: []});
+        setTagValue([]);
+    }
+
+    const resetPrice = () => {
+        setBookingList({ ...bookingList, startPrice: "", endPrice: ""});
+        setValue([1000, 5000]);
+    }
+
+    const resetRoomSelecor = () => {
+        setBookingList({ ...bookingList, roomSelector: []});
+        setRoomSelector([]);
+    }
+
+    const resetRoomType = () => {
+        setBookingList({ ...bookingList, roomType: []});
+        setCheckRoomType([]);
+    }
+
+    // 最受歡迎
     const popularHandler = (e) => {
         const checked = e.target.checked;
         if (checked) {
             setPopular(0);
             setBookingList({ ...bookingList, popular: popular });
-            console.log("b");
+            
         } else {
             setPopular(1);
             setBookingList({ ...bookingList, popular: popular });
-            console.log("d");
         }
     };
+    // 最推薦
     const recommendHandler = (e) => {
         const checked = e.target.checked;
         if (checked) {
             setRecommend(0);
             setBookingList({ ...bookingList, recommend: recommend });
-            console.log("a");
         } else {
             setRecommend(1);
             setBookingList({ ...bookingList, recommend: recommend });
-            console.log("c");
         }
     };
+    // 房間 控制器
     const RoomSelectHandler = (e) => {
         const value = e.target.value;
-        console.log(value);
+
         const checked = e.target.checked;
         if (checked) {
             // 拷貝並存進去新的value
@@ -83,7 +112,7 @@ function BookingFilter(props) {
             setRoomSelector(newRoom);
         }
     };
-    // RoomType 控制器
+    // RoomType 房型控制器
     const RoomTypeHandler = (e) => {
         const value = e.target.value;
         const checked = e.target.checked;
@@ -164,6 +193,30 @@ function BookingFilter(props) {
             setRoomList(roomList);
         });
     };
+
+    /* --------mobile 篩選 -----------*/
+    const [RTOpen, setRTOpen] = useState(false);
+    const [ROpen, setROpen] = useState(false);
+    const [POpen, setPOpen] = useState(false);
+    const [tagOpen, setTagOpen] = useState(false);
+    const [PeOpen, setPeOpen] = useState(false);
+
+    const [placement, setPlacement] = useState();
+
+    // mobile 篩選
+    const handleOpen = (key) => {
+        // 設定為從下往上跑出來的popup
+        setPlacement(key);
+    };
+    // mobile 篩選 選擇不同的popup
+    const openHandler = (v) => {
+        if (v === 1) setRTOpen(true);
+        if (v === 2) setROpen(true);
+        if (v === 3) setPOpen(true);
+        if (v === 4) setTagOpen(true);
+        if (v === 5) setPeOpen(true);
+    };
+
     useEffect(() => {
         getTagData();
         getData();
@@ -174,16 +227,348 @@ function BookingFilter(props) {
                 <div className="room_filter_area">
                     <div className="room_filter_btn">
                         <div className="room_btn_flex">
-                            <div className="room_btn room_btn_type">房型</div>
-                            <div className="room_btn room_btn_price">價格</div>
-                            <div className="room_btn room_btn_tag">標籤</div>
-                            <div className="room_btn room_btn_people">
-                                大家怎麼說
-                            </div>
+                            <button
+                                onClick={() => {
+                                    handleOpen("bottom");
+                                    openHandler(1);
+                                }}
+                            >
+                                房型
+                            </button>
+                            <Drawer
+                                placement={placement}
+                                open={RTOpen}
+                                onClose={() => setRTOpen(false)}
+                                size={"xs"}
+                            >
+                                <Drawer.Header>
+                                    <Drawer.Title>房型</Drawer.Title>
+                                </Drawer.Header>
+                                <Drawer.Body>
+                                    <div className="roomType_flex">
+                                        <input
+                                            className="checkbox-tools"
+                                            type="checkbox"
+                                            name="tools"
+                                            id="tool-1"
+                                            value={1}
+                                            onClick={RoomTypeHandler}
+                                        />
+                                        <label
+                                            className="for-checkbox-tools"
+                                            htmlFor="tool-1"
+                                        >
+                                            <i className="fa-solid fa-campground"></i>
+                                            頂級網美
+                                        </label>
+                                        <input
+                                            className="checkbox-tools"
+                                            type="checkbox"
+                                            name="tools"
+                                            id="tool-2"
+                                            value={2}
+                                            onClick={RoomTypeHandler}
+                                        />
+                                        <label
+                                            className="for-checkbox-tools"
+                                            htmlFor="tool-2"
+                                        >
+                                            <i className="fa-solid fa-tents"></i>
+                                            溫馨親子
+                                        </label>
+                                        <input
+                                            className="checkbox-tools"
+                                            type="checkbox"
+                                            name="tools"
+                                            id="tool-3"
+                                            value={3}
+                                            onClick={RoomTypeHandler}
+                                        />
+                                        <label
+                                            className="for-checkbox-tools"
+                                            htmlFor="tool-3"
+                                        >
+                                            <i className="fa-solid fa-caravan"></i>
+                                            高級露營車
+                                        </label>
+                                        <input
+                                            className="checkbox-tools"
+                                            type="checkbox"
+                                            name="tools"
+                                            id="tool-4"
+                                            value={4}
+                                            onClick={RoomTypeHandler}
+                                        />
+                                        <label
+                                            className="for-checkbox-tools"
+                                            htmlFor="tool-4"
+                                        >
+                                            <i className="fa-solid fa-person-hiking"></i>
+                                            不求人露營
+                                        </label>
+                                    </div>
+                                </Drawer.Body>
+                            </Drawer>
+                            <button
+                                onClick={() => {
+                                    handleOpen("bottom");
+                                    openHandler(2);
+                                }}
+                            >
+                                房間
+                            </button>
+                            <Drawer
+                                placement={placement}
+                                open={ROpen}
+                                onClose={() => setROpen(false)}
+                            >
+                                <Drawer.Header>
+                                    <Drawer.Title>房間</Drawer.Title>
+                                </Drawer.Header>
+                                <Drawer.Body>
+                                    <div className="roomSelect_area">
+                                        {roomList &&
+                                            roomList.map((v, i) => {
+                                                return (
+                                                    <Fragment key={i}>
+                                                        <input
+                                                            className="checkbox-roomSelect"
+                                                            type="checkbox"
+                                                            name="checkbox-roomSelect"
+                                                            id={
+                                                                "roomSelect-" +
+                                                                i
+                                                            }
+                                                            value={v.sid}
+                                                            onChange={
+                                                                RoomSelectHandler
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="for-checkbox-roomSelect"
+                                                            htmlFor={
+                                                                "roomSelect-" +
+                                                                i
+                                                            }
+                                                        >
+                                                            <span className="text">
+                                                                {v.room_name}
+                                                            </span>
+                                                        </label>
+                                                    </Fragment>
+                                                );
+                                            })}
+                                    </div>
+                                </Drawer.Body>
+                            </Drawer>
+                            <button
+                                onClick={() => {
+                                    handleOpen("bottom");
+                                    openHandler(3);
+                                }}
+                            >
+                                價格
+                            </button>
+                            <Drawer
+                                placement={placement}
+                                open={POpen}
+                                onClose={() => setPOpen(false)}
+                                size={"xs"}
+                            >
+                                <Drawer.Header>
+                                    <Drawer.Title>價格</Drawer.Title>
+                                </Drawer.Header>
+                                <Drawer.Body>
+                                    <Row>
+                                        <Col md={20}>
+                                            <RangeSlider
+                                                progress
+                                                min={0}
+                                                step={10}
+                                                max={21000}
+                                                value={value}
+                                                onChange={(value) => {
+                                                    setValue(value);
+                                                    setBookingList({
+                                                        ...bookingList,
+                                                        startPrice: value[0],
+                                                        endPrice: value[1],
+                                                    });
+                                                }}
+                                            />
+                                        </Col>
+                                        <Col md={20} style={{ marginTop: 16 }}>
+                                            <InputGroup>
+                                                <InputNumber
+                                                    min={0}
+                                                    max={21000}
+                                                    value={value[0]}
+                                                    onChange={(nextValue) => {
+                                                        const [start, end] =
+                                                            value;
+                                                        if (nextValue > end) {
+                                                            return;
+                                                        }
+                                                        setValue([
+                                                            nextValue,
+                                                            end,
+                                                        ]);
+                                                        setBookingList({
+                                                            ...bookingList,
+                                                            startPrice:
+                                                                nextValue,
+                                                        });
+                                                    }}
+                                                />
+                                                <InputGroup.Addon>
+                                                    to
+                                                </InputGroup.Addon>
+                                                <InputNumber
+                                                    min={800}
+                                                    max={21000}
+                                                    value={value[1]}
+                                                    onChange={(nextValue) => {
+                                                        const [start, end] =
+                                                            value;
+                                                        if (start > nextValue) {
+                                                            return;
+                                                        }
+                                                        setValue([
+                                                            start,
+                                                            nextValue,
+                                                        ]);
+                                                        setBookingList({
+                                                            ...bookingList,
+                                                            endPrice: nextValue,
+                                                        });
+                                                    }}
+                                                />
+                                            </InputGroup>
+                                        </Col>
+                                    </Row>
+                                </Drawer.Body>
+                            </Drawer>
+                            <button
+                                onClick={() => {
+                                    handleOpen("bottom");
+                                    openHandler(4);
+                                }}
+                            >
+                                標籤
+                            </button>
+                            <Drawer
+                                placement={placement}
+                                open={tagOpen}
+                                onClose={() => setTagOpen(false)}
+                            >
+                                <Drawer.Header>
+                                    <Drawer.Title>標籤</Drawer.Title>
+                                </Drawer.Header>
+                                <Drawer.Body>
+                                    <div className="room_tag_area">
+                                        {tagList.map((t, ti) => {
+                                            return (
+                                                <Fragment key={ti}>
+                                                    <input
+                                                        className="checkbox-booking"
+                                                        type="checkbox"
+                                                        name="booking"
+                                                        id={
+                                                            "booking-" +
+                                                            (ti + 1)
+                                                        }
+                                                        value={t.t_id}
+                                                        onChange={tagHandler}
+                                                        defaultChecked={
+                                                            bookingList
+                                                                .roomSelector[0] ===
+                                                            t.t_id
+                                                        }
+                                                    />
+                                                    <label
+                                                        className="for-checkbox-booking"
+                                                        htmlFor={
+                                                            "booking-" +
+                                                            (ti + 1)
+                                                        }
+                                                    >
+                                                        <span className="text">
+                                                            {t.type}
+                                                        </span>
+                                                    </label>
+                                                </Fragment>
+                                            );
+                                        })}
+                                    </div>
+                                </Drawer.Body>
+                            </Drawer>
+                            <button
+                                onClick={() => {
+                                    handleOpen("bottom");
+                                    openHandler(5);
+                                }}
+                            >
+                                大推
+                            </button>
+                            <Drawer
+                                placement={placement}
+                                open={PeOpen}
+                                onClose={() => setPeOpen(false)}
+                                size={"xs"}
+                            >
+                                <Drawer.Header>
+                                    <Drawer.Title>大推</Drawer.Title>
+                                </Drawer.Header>
+                                <Drawer.Body>
+                                    <div className="roomPeople_area">
+                                        <input
+                                            className="checkbox-people"
+                                            type="checkbox"
+                                            name="peopole"
+                                            id="people-1"
+                                            onChange={popularHandler}
+                                        />
+                                        <label
+                                            className="for-checkbox-people"
+                                            htmlFor="people-1"
+                                        >
+                                            <span className="text">
+                                                popular
+                                            </span>
+                                        </label>
+                                        <input
+                                            className="checkbox-people"
+                                            type="checkbox"
+                                            name="people"
+                                            id="people-2"
+                                            onChange={recommendHandler}
+                                        />
+                                        <label
+                                            className="for-checkbox-people"
+                                            htmlFor="people-2"
+                                        >
+                                            <span className="text">
+                                                recommand
+                                            </span>
+                                        </label>
+                                    </div>
+                                </Drawer.Body>
+                            </Drawer>
                         </div>
                     </div>
                     <div className="room_filter_roomType">
-                        <div className="room_title roomType_title">房型</div>
+                        <div className="room_title roomType_title">
+                        <Whisper
+                                followCursor
+                                speaker={
+                                    <Popover arrow={false}>
+                                        Click me to clear the filter.
+                                    </Popover>
+                                }
+                            >
+                                <button onClick={resetRoomType}>房型</button>
+                            </Whisper>
+                        </div>
                         <div className="roomType_flex">
                             <input
                                 className="checkbox-tools"
@@ -248,7 +633,18 @@ function BookingFilter(props) {
                         </div>
                     </div>
                     <div className="room_filter_roomSelect">
-                        <div className="room_title roomSelect_title">房間</div>
+                        <div className="room_title roomSelect_title">
+                        <Whisper
+                                followCursor
+                                speaker={
+                                    <Popover arrow={false}>
+                                        Click me to clear the filter.
+                                    </Popover>
+                                }
+                            >
+                                <button onClick={resetRoomSelecor}>房間</button>
+                            </Whisper>
+                        </div>
                         <div className="roomSelect_area">
                             {roomList &&
                                 roomList.map((v, i) => {
@@ -276,7 +672,18 @@ function BookingFilter(props) {
                         </div>
                     </div>
                     <div className="room_filter_price">
-                        <div className="room_title room_price_title">價格</div>
+                        <div className="room_title room_price_title">
+                        <Whisper
+                                followCursor
+                                speaker={
+                                    <Popover arrow={false}>
+                                        Click me to clear the filter.
+                                    </Popover>
+                                }
+                            >
+                                <button onClick={resetPrice}>價格</button>
+                            </Whisper>
+                        </div>
                         <Row>
                             <Col md={20}>
                                 <RangeSlider
@@ -335,7 +742,18 @@ function BookingFilter(props) {
                         </Row>
                     </div>
                     <div className="room_filter_tag">
-                        <div className="room_title roomTag_title">標籤</div>
+                        <div className="room_title roomTag_title">
+                        <Whisper
+                                followCursor
+                                speaker={
+                                    <Popover arrow={false}>
+                                        Click me to clear the filter.
+                                    </Popover>
+                                }
+                            >
+                                <button onClick={resetTag}>標籤</button>
+                            </Whisper>
+                        </div>
                         <div className="room_tag_area">
                             {tagList.map((t, ti) => {
                                 return (
@@ -347,10 +765,7 @@ function BookingFilter(props) {
                                             id={"booking-" + (ti + 1)}
                                             value={t.t_id}
                                             onChange={tagHandler}
-                                            defaultChecked={
-                                                bookingList.roomSelector[0] ===
-                                                t.t_id
-                                            }
+                                            
                                         />
                                         <label
                                             className="for-checkbox-booking"
@@ -367,7 +782,17 @@ function BookingFilter(props) {
                     </div>
                     <div className="room_filter_people_say">
                         <div className="room_title roomPeople_title">
-                            大家怎麼說
+                            <Whisper
+                                followCursor
+                                speaker={
+                                    <Popover arrow={false}>
+                                        Click me to clear the filter.
+                                    </Popover>
+                                }
+                            >
+                                <button onClick={()=>{resetPeople()}}>大家怎麼說</button>
+                            </Whisper>
+                            
                         </div>
                         <div className="roomPeople_area">
                             <input
@@ -376,6 +801,7 @@ function BookingFilter(props) {
                                 name="peopole"
                                 id="people-1"
                                 onChange={popularHandler}
+                                
                             />
                             <label
                                 className="for-checkbox-people"

@@ -30,6 +30,12 @@ function CartItem(props) {
 
     const [sum, setSum] = useState();
 
+    const [orderId, setOrderId] = useState();
+
+    const pushOrderId = () => {
+      setOrderId(orderItems.order_id);
+    };
+
     const components = [ShoppingCart,CreditCard,OrderDetail];
 
     const BlockComponent = components[step - 1];
@@ -55,6 +61,8 @@ function CartItem(props) {
     const [scOrderId, setScOrderId] = useState(0) //訂單編號
 
     async function addOrderToSever(e) {
+
+
         let data = {
           orderItems: [],
         }
@@ -146,7 +154,7 @@ function CartItem(props) {
           member_id: auth.m_id,
           adults: item.adults,
           kids:(item.kids > 1) ? item.kids : 0,
-          totalPrice:item.room_price,
+          totalPrice:item.totalPrice,
           room_id:item.sid,
           room_type_id:item.room_type_id,
           room_folder:item.room_folder,
@@ -157,6 +165,7 @@ function CartItem(props) {
           end_date:item.endDate,
           create_at:formatInTimeZone(date, 'Asia/Taipei', 'yyyy-MM-dd HH:mm:ss '),
           }
+          console.log(item.totalPrice)
           data1.orderDetail.push(orderInfo)
         }
     
@@ -183,6 +192,14 @@ function CartItem(props) {
         console.log(orderId)
         console.log('伺服器回傳的json資料', dataRes)
       }
+    
+      const emailSubmit = async () => {
+        const res = await axios.post(
+            "http://localhost:3700/cart/orderDetail-email", orderId
+        );
+
+        console.log(res);
+    };  
 
     function HandleAlert() {
         Swal.fire({
@@ -247,6 +264,8 @@ function CartItem(props) {
         await addCreditCardToSever();
         await addOrderToSever();
         await addOrderInfoToSever();
+        await pushOrderId();
+        // await emailSubmit();
       localStorage.removeItem('roomItem');
       setStep(3)
     }

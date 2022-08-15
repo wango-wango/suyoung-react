@@ -57,6 +57,7 @@ p {
     text-align: center;
     justify-content: center;
     border: 0;
+    transition: .3s ease;
 
     &:hover {
         background-color: var(--primary_color_600);
@@ -64,9 +65,7 @@ p {
 
     &:active {
         transform: scale(0.98);
-        /* Scaling button to 0.98 to its original size */
         box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-        /* Lowering the shadow */
         color: var(--brown_color);
     }
 }
@@ -155,7 +154,12 @@ p {
 }
 
 
-
+.swal2-confirm {
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+}
 
 .room_order_detail {
     // height: 90vh;
@@ -164,7 +168,7 @@ p {
     .room_order_container {
         @include eastern_mistery_force();
         background-color: rgba($color: #fff, $alpha: 0.4);
-        padding: var(--subtitle_text);
+        // padding: var(--subtitle_text);
         margin-top: 0;
         overflow: hidden;
 
@@ -173,6 +177,11 @@ p {
             display: flex;
             margin: auto;
 
+            @media screen and (max-width:768px) {
+                display: flex;
+                flex-direction: column;
+            }
+
 
             .room_col_left {
                 width: 70%;
@@ -180,6 +189,9 @@ p {
                 flex-direction: column;
                 margin-right: 2rem;
 
+                @media screen and (max-width:768px) {
+                    width: 100%;
+                }
 
                 .room_Card {
                     width: 100%;
@@ -189,9 +201,20 @@ p {
                     margin: 0;
                     padding: 2rem;
 
+                    @media screen and (max-width:768px) {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 1rem;
+                    }
+
                     .room_pic {
                         width: 60%;
                         margin: 1rem;
+
+                        @media screen and (max-width:768px) {
+                            width: 100%;
+                            margin: 0;
+                        }
 
                         .swiper_container {
                             position: relative;
@@ -202,6 +225,10 @@ p {
                             padding: 0;
                             overflow: hidden;
                             border-radius: 1rem;
+
+                            @media screen and (max-width:768px) {
+                                border-radius: 0.5rem;
+                            }
 
                             .swiper {
                                 width: 100%;
@@ -252,6 +279,10 @@ p {
                                 height: 80%;
                                 width: 100%;
                                 border-radius: 1rem;
+
+                                @media screen and (max-width:768px) {
+                                    border-radius: 0.5rem;
+                                }
                             }
 
                             .mySwiper {
@@ -259,6 +290,9 @@ p {
                                 box-sizing: border-box;
                                 padding: 10px 0;
 
+                                @media screen and (max-width:768px) {
+                                    padding: 0;
+                                }
                             }
 
                             .mySwiper .swiper-slide {
@@ -278,6 +312,27 @@ p {
                                 height: 100%;
                                 object-fit: cover;
                                 border-radius: 1rem;
+
+                                @media screen and (max-width:768px) {
+                                    border-radius: 0.5rem;
+                                }
+                            }
+
+                            .swiper-button-prev,
+                            .swiper-button-next {
+                                &::after {
+                                    @media screen and (max-width:768px) {
+                                        font-size: var(--subtitle_text);
+                                    }
+                                }
+                            }
+
+                            .swiper-button-prev {
+                                left: 5px;
+                            }
+
+                            .swiper-button-next {
+                                right: 5px
                             }
 
                         }
@@ -292,6 +347,11 @@ p {
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
+
+                        @media screen and (max-width:768px) {
+                            width: 100%;
+                            margin: 1rem 0;
+                        }
 
                         .room_card_title,
                         .room_card_subtitle {
@@ -445,6 +505,11 @@ p {
 
                         .room_card_paragraph {
                             color: #999;
+
+                            @media screen and (max-width:768px) {
+
+                                margin: 1rem;
+                            }
                         }
 
                         .room_card_Price {
@@ -455,6 +520,10 @@ p {
                             margin: auto;
                             border-bottom: 1px solid var(--primary_color_900);
                             padding: 3px var(--subtitle_text);
+
+                            @media screen and (max-width:768px) {
+                                padding: 0;
+                            }
                         }
 
 
@@ -467,11 +536,15 @@ p {
                     @include card_background();
                     margin: 2rem 0 0 0;
                     padding: 2rem;
+                    @media screen and (max-width:768px) {
+                        width: 100%;
+                        margin-top: 1rem;
+                        padding: 1rem;
+                    }
 
                     .room_equipment_title {
                         width: 100%;
                         margin: auto;
-                        margin: 1rem;
 
                         h5 {
                             padding: var(--text_size) auto;
@@ -513,9 +586,17 @@ p {
                 @include card_background();
                 margin: 0;
 
+                @media screen and (max-width:768px) {
+                    width: 100%;
+                    margin-top: 1rem;
+                }
 
                 .booking_detail_area {
                     margin: 4rem 0;
+
+                    @media screen and (max-width:768px) {
+                        margin: 1rem 0;
+                    }
 
                     .booking_date_title {
                         color: var(--primary_color);
@@ -526,11 +607,15 @@ p {
                     .booking_date_out {
                         margin: 2rem 4rem;
 
+                        @media screen and (max-width:768px) {
+                            margin: 1rem 2rem;
+                        }
+
                         input {
-                            @include input_style();  
+                            @include input_style();
                             outline: 1px solid #224040;
                             padding: 0;
-                            
+
                             &~label,
                             &~label {
                                 top: calc((var(--h5_text)) * (-1));
@@ -544,6 +629,10 @@ p {
 
                         label {
                             @include input_label();
+
+                            @media screen and (max-width:768px) {
+                                display: none;
+                            }
                         }
 
                     }
@@ -551,13 +640,17 @@ p {
                     .booking_person {
                         margin: 2rem 4rem;
 
+                        @media screen and (max-width:768px) {
+                            margin: 1rem 2rem;
+                        }
+
                         input {
                             @include input_style();
                             padding: 0;
                             text-align: center;
                             width: 100%;
                             outline: 1px solid #224040;
-                            
+
                             &~label,
                             &~label {
                                 top: calc((var(--h5_text)) * (-1));
@@ -568,6 +661,10 @@ p {
 
                         label {
                             @include input_label();
+
+                            @media screen and (max-width:768px) {
+                                display: none;
+                            }
                         }
                     }
                 }
@@ -576,28 +673,59 @@ p {
                     color: var(--primary_color);
                     margin: 3rem 0;
 
+                    @media screen and (max-width:768px) {
+                        margin: 1rem 0;
+                    }
+
                     .room_title {
                         margin: 2rem 4rem;
+                        @media screen and (max-width:768px) {
+                            margin: 1rem 2rem;
+                            span{
+                                font-size: 16px;
+                            }
+                        }
                     }
 
                     .room_result_type {
+                        a {
+                            text-decoration: none;
+                        }
+
                         .room_modify {
                             display: flex;
                             justify-content: space-between;
                             margin: 2rem 4rem;
-
+                            @media screen and (max-width:768px) {
+                                margin: 1rem 3rem;
+                                span{
+                                    font-size: 16px;
+                                }
+                            }
                         }
 
                         .room_price {
                             display: flex;
                             justify-content: space-between;
                             margin: 2rem 4rem;
+                            @media screen and (max-width:768px) {
+                                margin: 1rem 3rem;
+                                span{
+                                    font-size: 16px;
+                                }
+                            }
                         }
 
                         .room_add_bed {
                             display: flex;
                             justify-content: space-between;
                             margin: 2rem 4rem;
+                            @media screen and (max-width:768px) {
+                                margin: 1rem 3rem;
+                                span{
+                                    font-size: 16px;
+                                }
+                            }
                         }
 
                         .room_result_total {
@@ -606,6 +734,12 @@ p {
                             margin: 2rem 4rem;
                             padding-top: 2rem;
                             border-top: 1px solid var(--primary_color);
+                            @media screen and (max-width:768px) {
+                                margin: 1rem 3rem;
+                                h5{
+                                    font-size: 18px;
+                                }
+                            }
                         }
 
                         .room_card_button_area {
@@ -622,15 +756,22 @@ p {
                                 height: 50px;
                                 border-radius: 50px;
                                 margin: auto;
+                                @media screen and (max-width:768px) {
+                                    width: 100px;
+                                    height: 30px;
+                                    border-radius: 15px;
+                                }
 
                                 &:nth-child(1) {
+
                                     background-color: var(--primary_color_600);
+
                                     &:hover {
                                         background-color: #1e6969;
                                         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.284);
                                         transform: translate(-3px, -3px);
                                     }
-    
+
                                     &:active {
                                         transform: scale(0.98);
                                         /* Scaling button to 0.98 to its original size */
@@ -642,12 +783,13 @@ p {
 
                                 &:nth-child(2) {
                                     background-color: var(--secondary_color);
+
                                     &:hover {
                                         background-color: #9e3222;
                                         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.284);
                                         transform: translate(-3px, -3px);
                                     }
-    
+
                                     &:active {
                                         transform: scale(0.98);
                                         /* Scaling button to 0.98 to its original size */
@@ -657,7 +799,7 @@ p {
                                     }
                                 }
 
-                                
+
                             }
                         }
                     }
@@ -685,6 +827,9 @@ p {
             text-decoration: none;
             transition: opacity .3s;
 
+            @media screen and (max-width:768px) {
+                left: 43%
+            }
             &:hover {
                 opacity: 0.5;
             }

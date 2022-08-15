@@ -31,9 +31,11 @@ const Info = () => {
         email: auth.m_email,
         phone: auth.m_phone,
         address: auth.m_addr,
-        county: auth.m_city,
-        area: auth.m_area,
+        county: auth.m_city ? auth.m_city : "",
+        area: auth.m_area ? auth.m_area : "",
     });
+
+    console.log(fields);
 
     const getUserData = () => {
         axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
@@ -193,12 +195,18 @@ const Info = () => {
                     <div className="left">
                         <Formik
                             initialValues={{
-                                lastname: auth.m_last_name,
-                                firstname: auth.m_first_name,
-                                birthday: auth.m_birthday,
-                                email: auth.m_email,
-                                phone: auth.m_phone,
-                                address: auth.m_addr,
+                                lastname: auth.m_last_name
+                                    ? auth.m_last_name
+                                    : "",
+                                firstname: auth.m_first_name
+                                    ? auth.m_first_name
+                                    : "",
+                                birthday: auth.m_birthday
+                                    ? auth.m_birthday
+                                    : "",
+                                email: auth.m_email ? auth.m_email : "",
+                                phone: auth.m_phone ? auth.m_phone : "",
+                                address: auth.m_addr ? auth.m_addr : "",
                             }}
                             validationSchema={Yup.object({
                                 lastname: Yup.string()
@@ -324,6 +332,7 @@ const Info = () => {
                                         <TWZipCode
                                             fields={fields}
                                             setFields={setFields}
+                                            onChange={formik.handleChange}
                                         />
                                         <div className="input_group">
                                             <Field
@@ -348,7 +357,29 @@ const Info = () => {
                             <label htmlFor="file" className="file-input">
                                 <div className="drop-zone">
                                     <p className="para">請選擇檔案</p>
-                                    {preview === "" ? null : (
+                                    {preview === "" ? (
+                                        <>
+                                            {auth.m_avatar === null ? (
+                                                <>
+                                                    <img
+                                                        src="/member_img/kindpng_1300217.png"
+                                                        className="avatar"
+                                                        alt=""
+                                                        style={{
+                                                            opacity: "0.4",
+                                                            filter: "invert(1)",
+                                                        }}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <img
+                                                    className="avatar"
+                                                    src={auth.m_avatar}
+                                                    alt=""
+                                                />
+                                            )}
+                                        </>
+                                    ) : (
                                         <img
                                             className="avatar"
                                             src={preview}

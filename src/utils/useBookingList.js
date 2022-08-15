@@ -7,7 +7,7 @@ export const BookingProvider = ({ children }) => {
     const [bookingList, setBookingList] = useState({
         roomSid: "",
         adults: "",
-        kids: "",
+        kids: "0",
         startDate: "",
         endDate: "",
         perNight: "",
@@ -19,6 +19,7 @@ export const BookingProvider = ({ children }) => {
         recommend: "",
         roomSelector: [],
         totalPrice:"",
+        nextDate:"",
     });
 
     return (

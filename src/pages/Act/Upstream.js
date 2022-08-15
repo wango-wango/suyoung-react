@@ -12,6 +12,11 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
+import { useActBookingList } from "../../utils/useActBookingList";
+import { useAuth } from "../Login/sub-pages/AuthProvider";
+
+
+
 
 
 function Upstream(props) {
@@ -20,27 +25,48 @@ function Upstream(props) {
     // //輪播牆設定
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     // //所有act列表
-    const [actUpstream, setActUpstream] = useState([]);
+    const [act, setAct] = useState([]);
 
     // // useContext
-    // // const { actList, setActList } = useActList();
+    const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+
+    // 先把localStorage 的資料存進 localRoom 裡
+    useEffect(() => {
+        if(auth.authorized){
+        setActBookingList({...actBookingList,memberId: auth.sid});
+        }
+    }, []);
+
+    // 從 actbookingList解構
+    const {
+        actSid
+    } = actBookingList;
 
     // // 用get 取得所有的值
-    useEffect(()=>{
-        Axios.get(
-            `${ACT_GET_LIST}/selectAct`
+    const getData = async () => {
+        await Axios.get(
+        `${ACT_GET_LIST}/selectAct?actSid=${actSid}`
         ).then((response) => {
-            setActUpstream(response.data.actUpstream);
-            console.log(response.data);
-        });        
-    },[]);
+            setAct(response.data.actUpstream);
+            // const newAct = response.data.actUpstream[0];
+            // setActBookingList({...newAct});
+            console.log(response.data.actUpstream);
+        });
+    }
+    // 起始狀態先render getData
+    useEffect(() => {
+        localStorage.removeItem("Act");
+        getData();
+    }, []);
 
     //背景設定
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
     useEffect(() => {
-        if(!actUpstream.length) return;
+        //若是didmount時沒資料就跳出
+        if(!act.length) return
 
         let groups = gsap.utils.toArray(".actGroup");
         let toggles = gsap.utils.toArray(".actToggle");
@@ -76,23 +102,15 @@ function Upstream(props) {
                 }
             };
         }
-    }, [actUpstream]);
+        //等資料帶進來後執行
+    }, [act]);
         
         
-    if (actUpstream.length === 0)
+    if (act.length === 0)
     return <></>;
 
         return (
         <>
-            {/* <section>
-                <div id="bg">
-                    <img src="/act_imgs/Upstream_bg5.svg" id="5" alt=""/>
-                    <img src="/act_imgs/Upstream_bg4.svg" id="4" alt=""/>
-                    <img src="/act_imgs/Upstream_bg3.svg" id="3" alt=""/>
-                    <img src="/act_imgs/Upstream_bg2.svg" id="2" alt=""/>
-                    <img src="/act_imgs/Upstream_bg1.svg" id="1" alt=""/>
-                </div>
-            </section> */}
             <section>
                 <div className="emf">
                     <div className="card_bg">
@@ -101,9 +119,20 @@ function Upstream(props) {
                                 <h3>Upstream</h3>
                             </div>
                             <div className="actChTitle">
-                                <h4>{actUpstream[0].act_name}</h4>
+                                <h4>{act[0].act_name}</h4>
                             </div>
-                            <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark">預約報名</button></Link>
+                            
+                            <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark" onClick={()=>{
+                                const newActBookingList = {...actBookingList,
+                                    actSid: act[0].act_id,
+                                    Maxpeople: act[0].max_people,
+                                    price: act[0].act_price,
+                                    actName: act[0].act_name,
+                                    people: 1,
+                                    actImg:act[0].filename,
+                                    };
+                                    setActBookingList(newActBookingList);
+                            }}>預約報名</button></Link>
                         </div>
                         <div className="slider">
                             <Swiper
@@ -118,7 +147,7 @@ function Upstream(props) {
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper2"
                                 >
-                                {actUpstream.map((av, ai) => {
+                                {act.map((av, ai) => {
                                     return (
                                         <SwiperSlide key={ai}>
                                         <img src={"/act_imgs/"+ av.filename} alt=""/>
@@ -136,7 +165,7 @@ function Upstream(props) {
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper"
                                 >   
-                                {actUpstream.map((av, ai) => {
+                                {act.map((av, ai) => {
                                     return (
                                         <SwiperSlide key={ai}>
                                         <img src={"/act_imgs/"+ av.filename} alt=""/>
@@ -164,12 +193,12 @@ function Upstream(props) {
                                 <div className="actC">
                                     <div className="actDetail">
                                         <div className="textspace">
-                                            {actUpstream[0].act_desc}
+                                            {act[0].act_desc}
                                         </div>
                                     </div>
                                 </div>
-                                </motion.div>
-                                <motion.div
+                            </motion.div>
+                            <motion.div
                                 className="actGroup"
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -186,12 +215,12 @@ function Upstream(props) {
                                 <div className="actC">
                                     <div className="actDetail">
                                     <div className="textspace">
-                                    每人 {actUpstream[0].act_price}元，行程約 3 小時，歡迎 5~65 歲的大小朋友預約報名唷！<br/>
+                                    每人 {act[0].act_price}元，行程約 3 小時，歡迎 5~65 歲的大小朋友預約報名唷！<br/>
                                     活動費用含專業帶團教練
                                     </div>
                                     </div>
                                 </div>
-                                </motion.div>
+                            </motion.div>
                                 <motion.div
                                 className="actGroup"
                                 initial={{ opacity: 0, x: 100 }}
@@ -209,7 +238,7 @@ function Upstream(props) {
                                 <div className="actC">
                                     <div className="actDetail">
                                     <div className="textspace">
-                                        {actUpstream[0].act_schedule}
+                                        {act[0].act_schedule}
                                     </div>
                                     </div>
                                 </div>
@@ -231,7 +260,7 @@ function Upstream(props) {
                                 <div className="actC">
                                     <div className="actDetail">
                                         <div className="textspace">
-                                            {actUpstream[0].act_prepare}
+                                            {act[0].act_prepare}
                                         </div>
                                     </div>
                                 </div>
@@ -253,7 +282,7 @@ function Upstream(props) {
                                 <div className="actC">
                                     <div className="actDetail">
                                         <div className="textspace">
-                                            {actUpstream[0].act_notice}
+                                            {act[0].act_notice}
                                         </div>
                                     </div>
                                 </div>

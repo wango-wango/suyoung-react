@@ -1,42 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useBookingList } from "../../../../../utils/useBookingList";
+import { BK_GET_LIST } from "../../../config/ajax-path";
+import Axios from "axios";
+import Swal from "sweetalert2";
 
 function BookingDetailArea(props) {
-    const { roomList } = props;
+    const { roomList, localRoomList } = props;
     const { bookingList, setBookingList } = useBookingList();
-    // console.log(bookingList);
+    const navigate = useNavigate();
+    const [room, setRoom] = useState({});
 
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-
-    let tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const td = String(tomorrow.getDate()).padStart(2, "0");
-    const tm = String(tomorrow.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const tyyy = today.getFullYear();
-
-    today = yyyy + "-" + mm + "-" + dd;
-    tomorrow = tyyy + "-" + tm + "-" + td;
+    const postRoomData = async () => {
+        await Axios.post(`${BK_GET_LIST}/temporaryCart`, localRoomList);
+    };
 
     useEffect(() => {
-        // 如果roomList 有值的話
-        if (roomList.length >= 1) {
-            const total =
-                roomList[0].room_price * bookingList.perNight +
-                bookingList.kids * 200;
-            setBookingList({ ...bookingList, totalPrice: total });
-            console.log(total);
-
-            const newLocalStorage = JSON.parse(localStorage.getItem("room"));
-            localStorage.setItem(
-                "room",
-                JSON.stringify({ ...newLocalStorage, totalPrice: total })
-            );
-        }
-    }, [roomList]);
+        setRoom(JSON.parse(localStorage.getItem("room")));
+    }, []);
 
     if (roomList.length === 0) return <></>;
 
@@ -49,22 +30,14 @@ function BookingDetailArea(props) {
                     <p>入住日期</p>
                 </div>
                 <div className="booking_date_in input_group">
-                    <input
-                        type="text"
-                        readOnly
-                        placeholder={bookingList.startDate || today}
-                    />
+                    <input type="text" readOnly placeholder={room.startDate} />
                     <label htmlFor="">Date</label>
                 </div>
                 <div className="booking_date_title">
                     <p>離開日期</p>
                 </div>
                 <div className="booking_date_out input_group">
-                    <input
-                        type="text"
-                        readOnly
-                        placeholder={bookingList.endDate || tomorrow}
-                    />
+                    <input type="text" readOnly placeholder={room.endDate} />
                     <label htmlFor="">Date</label>
                 </div>
                 <div className="booking_date_title">
@@ -75,10 +48,7 @@ function BookingDetailArea(props) {
                         type="text"
                         readOnly
                         placeholder={
-                            bookingList.adults +
-                            " 位大人 ｜ " +
-                            bookingList.kids +
-                            " 位小孩"
+                            room.adults + " 位大人 ｜ " + room.kids + " 位小孩"
                         }
                     />
                     <label htmlFor="">Num</label>
@@ -107,7 +77,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="room_num">
                             <p>
-                                <span>{bookingList.perNight}</span> 晚
+                                <span>{room.perNight}</span> 晚
                             </p>
                         </div>
                     </div>
@@ -117,42 +87,71 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="add_bed_num">
                             <p>
-                                <span>{bookingList.kids || 0}</span> 床
+                                <span>{room.kids || 0}</span> 床
                             </p>
                         </div>
                     </div>
                     <div className="room_result_total">
                         <p>total:</p>
-                        <h5>{bookingList.totalPrice}</h5>
+                        <h5>{bookingList.totalPrice || room.totalPrice}</h5>
                     </div>
                     <div className="room_card_button_area">
-                        <Link to="/shuyoung/Booking">
-                            <button
-                                className="room_card_button"
-                                onClick={() => {
-                                    setBookingList({
-                                        ...bookingList,
-                                        roomSid: "",
-                                        adults: "",
-                                        kids: "",
-                                        startDate: "",
-                                        endDate: "",
-                                        perNight: "",
-                                        roomType: [],
-                                        startPrice: "",
-                                        endPrice: "",
-                                        tagCheck: [],
-                                        popular: "",
-                                        recommend: "",
-                                        roomSelector: [],
-                                        totalPrice: "",
-                                    });
-                                }}
-                            >
-                                返回
-                            </button>
-                        </Link>
-                        <button className="room_card_button">前往結賬</button>
+                        <button
+                            className="room_card_button"
+                            onClick={() => {
+                                setBookingList({
+                                    ...bookingList,
+                                    roomSid: "",
+                                    adults: "",
+                                    kids: "0",
+                                    startDate: "",
+                                    endDate: "",
+                                    perNight: "",
+                                    roomType: [],
+                                    startPrice: "",
+                                    endPrice: "",
+                                    tagCheck: [],
+                                    popular: "",
+                                    recommend: "",
+                                    roomSelector: [],
+                                    totalPrice: "",
+                                });
+                                localStorage.removeItem("room");
+                                navigate("/shuyoung/Booking");
+                            }}
+                        >
+                            返回
+                        </button>
+
+                        <button
+                            className="room_card_button"
+                            onClick={() => {
+                                localStorage.removeItem("room");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "已加入購物車",
+                                    text: "您是否前往購物車結帳",
+                                    color: "#224040",
+                                    background: "#FFF",
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#224040",
+                                    confirmButtonText: `是`,
+                                    showDenyButton: true,
+                                    denyButtonText: `繼續購物`,
+                                    denyButtonColor: "#c1a688",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        postRoomData();
+                                        navigate("/shuyoung/Cart");
+                                    } else if (result.isDenied) {
+                                        postRoomData();
+                                        navigate("/shuyoung/Booking");
+                                    }
+                                });
+                            }}
+                        >
+                            加入購物車
+                        </button>
                     </div>
                 </div>
             </div>

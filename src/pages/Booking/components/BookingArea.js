@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { formatInTimeZone } from 'date-fns-tz';
 import { DateRangePicker, InputNumber, InputGroup } from "rsuite";
 import { useBookingList } from "../../../utils/useBookingList";
-
+import useRWD from "../../../utils/useRWD";
+import { calcLength } from "framer-motion";
 const { allowedMaxDays, beforeToday, combine } = DateRangePicker;
 
 function BookingArea(props) {
     const { bookingList, setBookingList } = useBookingList();
     const [datePicker, setDatePicer] = useState({
         startDate: "",
-        EndDate: "",
+        endDate: "",
         perNight: "",
     });
     const [personCount, setPersonCount] = useState({
@@ -17,6 +19,9 @@ function BookingArea(props) {
     });
     const [adultValue, setAdultValue] = useState(0);
     const [kidsValue, setKidsValue] = useState(0);
+
+    const device = useRWD();
+
     const formatDate = (date) => {
         var d = new Date(date),
             month = "" + (d.getMonth() + 1),
@@ -85,14 +90,27 @@ function BookingArea(props) {
         <>
             <div className="booking_area">
                 <div className="dateRangePicker">
-                    <DateRangePicker
+                {device === "mobile" ? (<DateRangePicker
+                        block
+                        showOneCalendar
                         disabledDate={combine(allowedMaxDays(7), beforeToday())}
                         onChange={(v) => {
                             console.log(v);
-                            setBookingList({
+                            // 創造一個新的日期
+                            // 切勿直接用 nextDate = v[0]; 會改變v[0]的值
+                            const nextDate = new Date(v[0]);
+                             // 日期＋1
+                            nextDate.setDate(nextDate.getDate()+1);
+                            // 轉換格式
+                            const v2 = formatInTimeZone(nextDate, 'Asia/Taipei', 'yyyy-MM-dd');
+                            // console.log(v2);
+                            
+                            if(v){
+                                setBookingList({
                                 ...bookingList,
                                 startDate: formatDate(v[0].toDateString()),
                                 endDate: formatDate(v[1].toDateString()),
+                                nextDate: v2,
                                 perNight: (v[1] - v[0]) / 86400000,
                             });
                             setDatePicer({
@@ -101,9 +119,64 @@ function BookingArea(props) {
                                 endDate: v[1].toDateString(),
                                 perNight: (v[1] - v[0]) / 86400000,
                             });
-                            console.log((v[1] - v[0]) / 86400000);
+                            }else{
+                                setBookingList({
+                                ...bookingList,
+                                startDate: "",
+                                endDate: "",
+                                perNight:"",
+                            });
+                            setDatePicer({
+                                ...datePicker,
+                                startDate: "",
+                                endDate: "",
+                                perNight: "",
+                            });
+                            }
                         }}
-                    />
+                    />) : (<DateRangePicker
+                        
+                        disabledDate={combine(allowedMaxDays(7), beforeToday())}
+                        onChange={(v) => {
+                            console.log(v);
+                            console.log(v[0]);
+                            // 日期＋1
+                            const nextDate = new Date(v[0]);
+                            nextDate.setDate(nextDate.getDate()+1);
+                            
+                            // 轉換格式
+                            const v2 = formatInTimeZone(nextDate, 'Asia/Taipei', 'yyyy-MM-dd');
+                            if(v){
+                                setBookingList({
+                                ...bookingList,
+                                startDate: formatDate(v[0].toDateString()),
+                                endDate: formatDate(v[1].toDateString()),
+                                nextDate: v2,
+                                perNight: (v[1] - v[0]) / 86400000,
+                            });
+                            setDatePicer({
+                                ...datePicker,
+                                startDate: v[0].toDateString(),
+                                endDate: v[1].toDateString(),
+                                perNight: (v[1] - v[0]) / 86400000,
+                            });
+                            }else{
+                                setBookingList({
+                                ...bookingList,
+                                startDate: "",
+                                endDate: "",
+                                perNight:"",
+                            });
+                            setDatePicer({
+                                ...datePicker,
+                                startDate: "",
+                                endDate: "",
+                                perNight: "",
+                            });
+                            }
+                        }}
+                    />)}
+                    
                 </div>
                 <div className="booking_result_date">
                     <p>
@@ -118,37 +191,39 @@ function BookingArea(props) {
                         </p>
                     </div>
                 </div>
-                <div className="booking_person">
-                    <label>成人</label>
-                    <InputGroup>
-                        <InputGroup.Button onClick={handleMinusA}>
-                            -
-                        </InputGroup.Button>
-                        <InputNumber
-                            className={"custom-input-number"}
-                            value={adultValue}
-                            onChange={setAdultValue}
-                        />
-                        <InputGroup.Button onClick={handlePlusA}>
-                            +
-                        </InputGroup.Button>
-                    </InputGroup>
-                </div>
-                <div className="booking_person">
-                    <label>小孩</label>
-                    <InputGroup>
-                        <InputGroup.Button onClick={handleMinusK}>
-                            -
-                        </InputGroup.Button>
-                        <InputNumber
-                            className={"custom-input-number"}
-                            value={kidsValue}
-                            onChange={setKidsValue}
-                        />
-                        <InputGroup.Button onClick={handlePlusK}>
-                            +
-                        </InputGroup.Button>
-                    </InputGroup>
+                <div className="booking_person_area">
+                    <div className="booking_person">
+                        <label>成人</label>
+                        <InputGroup>
+                            <InputGroup.Button onClick={handleMinusA}>
+                                -
+                            </InputGroup.Button>
+                            <InputNumber
+                                className={"custom-input-number"}
+                                value={adultValue}
+                                onChange={setAdultValue}
+                            />
+                            <InputGroup.Button onClick={handlePlusA}>
+                                +
+                            </InputGroup.Button>
+                        </InputGroup>
+                    </div>
+                    <div className="booking_person">
+                        <label>小孩</label>
+                        <InputGroup>
+                            <InputGroup.Button onClick={handleMinusK}>
+                                -
+                            </InputGroup.Button>
+                            <InputNumber
+                                className={"custom-input-number"}
+                                value={kidsValue}
+                                onChange={setKidsValue}
+                            />
+                            <InputGroup.Button onClick={handlePlusK}>
+                                +
+                            </InputGroup.Button>
+                        </InputGroup>
+                    </div>
                 </div>
                 <div className="booking_result">
                     <div className="booking_result_PersonNum">

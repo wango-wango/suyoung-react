@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/member-order-list.scss";
 import { motion } from "framer-motion";
 import OrderListGroup from "./OrderListGroup";
+import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import axios from "axios";
 
 const OrderList = () => {
+    const { setAuth, ...auth } = useAuth();
+
+    const [orderList, setOrderList] = useState([]);
+
+    const monthOptions = ["一個月內", "三個月內", "六個月內"];
+
+    const [month, setMonth] = useState(monthOptions[0]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const res = await axios.get(
+                `http://localhost:3700/member/getOrderList/${auth.m_id}/?month=${month}`
+            );
+
+            setOrderList(res.data.result);
+        };
+
+        getData();
+    }, [month]);
+
     return (
         <>
             <motion.div
@@ -14,34 +36,28 @@ const OrderList = () => {
             >
                 <div className="keep-title">訂單記錄</div>
                 <div className="checkbox">
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="one-month"
-                            value="one-month"
-                        />
-                        <span className="round button">一個月內</span>
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="three-month"
-                            value="three-month"
-                        />
-                        <span className="round button">三個月內</span>
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="six-month"
-                            value="six-month"
-                        />
-                        <span className="round button">六個月內</span>
-                    </label>
+                    {monthOptions.map((v, i) => {
+                        return (
+                            <>
+                                <label key={i}>
+                                    <input
+                                        type="radio"
+                                        name="month"
+                                        checked={month === v}
+                                        value={v}
+                                        onChange={(e) => {
+                                            setMonth(e.target.value);
+                                            console.log(e.target.value);
+                                        }}
+                                    />
+                                    <span className="round button">{v}</span>
+                                </label>
+                            </>
+                        );
+                    })}
                 </div>
                 <div className="order-list-container">
-                    <OrderListGroup />
-                    <OrderListGroup />
+                    <OrderListGroup orderList={orderList} />
                 </div>
             </motion.div>
         </>
