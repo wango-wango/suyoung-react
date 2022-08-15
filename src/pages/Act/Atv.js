@@ -13,6 +13,7 @@ import "swiper/css/thumbs";
 import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
 import { useActBookingList } from "../../utils/useActBookingList";
+import { useAuth } from "../Login/sub-pages/AuthProvider";
 
 
 
@@ -28,6 +29,14 @@ function Atv(props) {
 
     // // useContext
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+
+    // 先把localStorage 的資料存進 localRoom 裡
+    useEffect(() => {
+        if(auth.authorized){
+        setActBookingList({...actBookingList,memberId: auth.sid});
+        }
+    }, []);
 
     // 從 actbookingList解構
     const {
@@ -49,6 +58,7 @@ function Atv(props) {
     }
     // 起始狀態先render getData
     useEffect(() => {
+        localStorage.removeItem("Act");
         getData();
     }, [actBookingList]);
 

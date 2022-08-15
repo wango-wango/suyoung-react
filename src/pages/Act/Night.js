@@ -13,6 +13,7 @@ import "swiper/css/thumbs";
 import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
 import { useActBookingList } from "../../utils/useActBookingList";
+import { useAuth } from "../Login/sub-pages/AuthProvider";
 
 
 
@@ -28,18 +29,28 @@ function Night(props) {
 
     // // useContext
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+
+    // 先把localStorage 的資料存進 localRoom 裡
+    useEffect(() => {
+        if(auth.authorized){
+        setActBookingList({...actBookingList,memberId: auth.sid});
+        }
+    }, []);
 
     // 從 actbookingList解構
     const {
         actSid,
         price,
         Maxpeople,
+        people,
+        date,
     } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}`
+        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&date=${date}`
         ).then((response) => {
             setAct(response.data.actNight);
             console.log(response.data.actNight);
@@ -47,6 +58,7 @@ function Night(props) {
     }
     // 起始狀態先render getData
     useEffect(() => {
+        localStorage.removeItem("Act");
         getData();
     }, [actBookingList]);
 
@@ -101,15 +113,6 @@ function Night(props) {
 
         return (
         <>
-            {/* <section>
-                <div id="bg">
-                    <img src="/act_imgs/Night_bg5.svg" id="5" alt=""/>
-                    <img src="/act_imgs/Night_bg4.svg" id="4" alt=""/>
-                    <img src="/act_imgs/Night_bg3.svg" id="3" alt=""/>
-                    <img src="/act_imgs/Night_bg2.svg" id="2" alt=""/>
-                    <img src="/act_imgs/Night_bg1.svg" id="1" alt=""/>
-                </div>
-            </section> */}
             <section>
                 <div className="emf">
                     <div className="card_bg">
@@ -123,12 +126,14 @@ function Night(props) {
                             
                             <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark" onClick={()=>{
                                 const newActBookingList = {...actBookingList,
-                                                        actSid: act[0].act_id,
-                                                        Maxpeople: act[0].max_people,
-                                                        price: act[0].act_price,
-                                                        actName: act[0].act_name
-                                                        };
-                                                        setActBookingList(newActBookingList);
+                                    actSid: act[0].act_id,
+                                    Maxpeople: act[0].max_people,
+                                    price: act[0].act_price,
+                                    actName: act[0].act_name,
+                                    people: 1,
+                                    actImg:act[0].filename,
+                                    };
+                                    setActBookingList(newActBookingList);
                             }}>預約報名</button></Link>
                         </div>
                         <div className="slider">
