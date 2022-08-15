@@ -53,9 +53,23 @@ const MRegister = () => {
         setBackground("bglayer.svg");
     }, []);
 
+    useEffect(() => {
+        const handleGoogle = async () => {
+            const res = await axios.get(
+                "http://localhost:3700/join/api/v1/auth/google"
+            );
+
+            setURL(res.data);
+        };
+
+        handleGoogle();
+    }, []);
+
     //hooks==============================
 
     const [passwordType, setPasswordType] = useState("password");
+
+    const [URL, setURL] = useState("");
 
     //hooks end ================================
 
@@ -217,16 +231,10 @@ const MRegister = () => {
 
                     <div className="third-party">
                         <div className="google-login">
-                            <Link to="/shuyoung">
+                            <a href={URL}>
                                 login with google
                                 <img src="/member_img/google-icon.svg" alt="" />
-                            </Link>
-                        </div>
-                        <div className="facebook-login">
-                            <Link to="/shuyoung">
-                                login with facebook
-                                <img src="/member_img/facebook.svg" alt="" />
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -79,11 +79,28 @@ const MemberCenterCenter = () => {
                         maxGlare={0.5}
                     >
                         <div className="member-card-left">
-                            <img
-                                className="avatar"
-                                src={auth.m_avatar}
-                                alt=""
-                            />
+                            {auth.m_avatar === null ? (
+                                <>
+                                    <img
+                                        src="/member_img/kindpng_1300217.png"
+                                        className="avatar"
+                                        alt=""
+                                        style={{
+                                            opacity: "0.6",
+                                            filter: "invert(1)",
+                                        }}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <img
+                                        className="avatar"
+                                        src={auth.m_avatar}
+                                        alt=""
+                                    />
+                                </>
+                            )}
+
                             <img
                                 className="logo"
                                 src="/member_img/member-logo.svg"

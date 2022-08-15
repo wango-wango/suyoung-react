@@ -358,11 +358,27 @@ const Info = () => {
                                 <div className="drop-zone">
                                     <p className="para">請選擇檔案</p>
                                     {preview === "" ? (
-                                        <img
-                                            className="avatar"
-                                            src={auth.m_avatar}
-                                            alt=""
-                                        />
+                                        <>
+                                            {auth.m_avatar === null ? (
+                                                <>
+                                                    <img
+                                                        src="/member_img/kindpng_1300217.png"
+                                                        className="avatar"
+                                                        alt=""
+                                                        style={{
+                                                            opacity: "0.4",
+                                                            filter: "invert(1)",
+                                                        }}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <img
+                                                    className="avatar"
+                                                    src={auth.m_avatar}
+                                                    alt=""
+                                                />
+                                            )}
+                                        </>
                                     ) : (
                                         <img
                                             className="avatar"

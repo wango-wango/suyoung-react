@@ -117,13 +117,6 @@ const MLogin = () => {
                                 <img src="/member_img/google-icon.svg" alt="" />
                             </a>
                         </div>
-
-                        <div className="facebook-login">
-                            <Link to="/shuyoung">
-                                login with facebook
-                                <img src="/member_img/facebook.svg" alt="" />
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </div>
