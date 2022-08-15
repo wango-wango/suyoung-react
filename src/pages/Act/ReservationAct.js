@@ -1,74 +1,54 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import "./styles/act.scss";
 import { useBackground } from "../../utils/useBackground";
-import { gsap } from "gsap";
-import { motion } from "framer-motion";
 import { AutoComplete } from 'rsuite';
-import { Calendar, Whisper, Popover, Badge, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
+import { Calendar, Whisper, Checkbox, Input, Tooltip, DatePicker, InputNumber, InputGroup } from 'rsuite';
 import { useActBookingList } from "../../utils/useActBookingList";
-import { Value } from "sass";
-import "rsuite/dist/rsuite.css"
-
-
+// import "rsuite/dist/rsuite.css"
+import Swal from "sweetalert2";
+import { useAuth } from "../Login/sub-pages/AuthProvider";
 
 function ActReser(props) {
-
+    //活動資料存放處
     const { actBookingList, setActBookingList } = useActBookingList();
+    //控制背景圖
     const { setBackground } = useBackground();
-    // console.log(actBookingList);
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
-
-    // useEffect(() => {
-    //     // 如果people有值的話
-    //     if (peopleValue.length) {
-    //         const total =
-    //         actBookingList.price * peopleValue;
-    //         setActBookingList({ ...actBookingList, 
-    //             totalPrice: total,
-    //             people: peopleValue 
-    //         });
-    //         console.log(total);
-
-    //         // const newLocalStorage = JSON.parse(localStorage.getItem("room"));
-    //         // localStorage.setItem(
-    //         //     "room",
-    //         //     JSON.stringify({ ...newLocalStorage, totalPrice: total })
-    //         // );
-    //     }
-    // }, [peopleValue]);
     
-    // const formatDate = (date) => {
-    //     var d = new Date(date),
-    //         month = "" + (d.getMonth() + 1),
-    //         day = "" + d.getDate(),
-    //         year = d.getFullYear();
+    //didUpdate.log
+    console.log(actBookingList);
+    
+    //日期格式調整
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = "" + (d.getMonth() + 1),
+            day = "" + d.getDate(),
+            year = d.getFullYear();
 
-    //     if (month.length < 2) month = "0" + month;
-    //     if (day.length < 2) day = "0" + day;
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
 
-    //     return [year, month, day].join("-");
-    // };
-
+        return [year, month, day].join("-");
+    };
+    //信箱提示data
     const suffixes = ['@gmail.com', '@yahoo.com.tw', '@hotmail.com', '@outlook.com'];
-
     const [emailData, setEmailData] = useState([]);
     const [value, setValue] = useState(0);
-    const [people, setPeople] = useState(0);
-    const [lSAct, setLSAct] = useState({})
-    // const [datevalue, setDatevalue] = useState({datevalue:""});
-const totalValueCount = async() => {
-    if (people >= 1){
-        const total = await
-            actBookingList.price * people;
-            setActBookingList({ ...actBookingList, 
-                totalPrice: total
-            });
-            console.log(total);
-    }
-}
+    const [agreeMent, setAgreeMent] = useState(false);
+    console.log('people:', value);
+
+    useEffect(()=>{
+        if(value >= 1){
+            const total = 
+                actBookingList.price * value;
+                setActBookingList({ ...actBookingList, 
+                    totalPrice: total
+                });
+        }
+    },[value])
 
     const handleMinus = () => {
         setValue(parseInt(value, 10) - 1);
@@ -76,10 +56,7 @@ const totalValueCount = async() => {
                 ...actBookingList,
                 people: parseInt(value, 10) - 1,
             });
-        // setPeople(parseInt(value, 10) - 1 );
-            // totalValueCount();
             // console.log(actBookingList)
-
     };
     const handlePlus = () => {
         setValue(parseInt(value, 10) + 1);
@@ -87,11 +64,12 @@ const totalValueCount = async() => {
                 ...actBookingList,
                 people: parseInt(value, 10) + 1,
             });
-            // setPeople(parseInt(value, 10) + 1 );
-            // totalValueCount();
-            // console.log(actBookingList)
+            console.log(value)
     };
-
+    const handleCheck = (value, checked) =>{
+        setAgreeMent(checked)};
+    
+    console.log(agreeMent);
     const handleChange = value => {
             const at = value.match(/@[\S]*/);
             const nextData = at
@@ -126,7 +104,7 @@ const totalValueCount = async() => {
                                         console.log(v);
                                         setActBookingList({
                                             ...actBookingList,
-                                            Date: (v)
+                                            date: formatDate(v)
                                             });
                                             // setDatevalue({
                                             // ...datevalue,
@@ -142,11 +120,14 @@ const totalValueCount = async() => {
                                         <DatePicker
                                         onChange={(v) => {
                                         console.log(v);
-                                        setActBookingList({
+                                        if(v){
+                                            setActBookingList({
                                             ...actBookingList,
-                                            Date: (v)
+                                            date: formatDate(v)
                                             });
                                         }}
+                                        }
+                                        
                                         />
                                     </div>
                                     <div className="orderItem">
@@ -256,10 +237,46 @@ const totalValueCount = async() => {
                                 須同意以上切結事項，方可報名，感謝您。
                             </div>
                             <div className="agreeBtn">
-                                <button className="btn btn-dark">預約報名</button>
-                                <div>
-                                    <input type="checkbox" id="agreement"/>
-                                    <label htmlFor="agreement">我已閱讀並同意以上切結事項</label>
+                                <button className="btn btn-dark" onClick={() => {
+                                if (
+                                    // actBookingList &&
+                                    // actBookingList.contactName &&
+                                    actBookingList.date &&
+                                    actBookingList.people
+                                    ){  
+                                        if(agreeMent){
+                                        localStorage.setItem(
+                                                    "Act",
+                                                    JSON.stringify(
+                                                        actBookingList
+                                                    )
+                                                );
+                                        }else {
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: "尚未勾選",
+                                                text: "請勾選同意書",
+                                                color: "#224040",
+                                                background:
+                                                    "#FFF",
+                                                confirmButtonColor:
+                                                    "#224040",
+                                            });
+                                        }
+                                    } else{
+                                        Swal.fire({
+                                                icon: "error",
+                                                title: "輸入資料有誤",
+                                                text: "請選擇活動日期及報名人數",
+                                                color: "#224040",
+                                                background:
+                                                    "#FFF",
+                                                confirmButtonColor:
+                                                    "#224040",
+                                            });
+                                    }}}>預約報名</button>
+                                    <div>
+                                    <Checkbox value={value} onChange={handleCheck}>我已閱讀並同意以上切結事項</Checkbox>
                                 </div>
                             </div>
                         </div>
