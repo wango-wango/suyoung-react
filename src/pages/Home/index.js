@@ -13,14 +13,10 @@ function Index(props) {
     const scrollRef = useRef(null)
     const { setBackground } = useBackground();
 
-    //1. 存成狀態 值：字串 key: value
-    //
-    //3. 用索引方式取各房型  rt[value] = roomtype1
-
     // 所有房間資訊
-    const [roomList, setRoomList] = useState([]);
+    const [roomList, setRoomList] = useState("");
     // 房型
-    const [roomType, setRoomType] = useState("");
+    const [roomType, setRoomType] = useState([]);
     // 房間選擇狀態
     const [roomSelector, setRoomSelector] = useState([]);
 
@@ -46,24 +42,16 @@ function Index(props) {
     const RoomTypeHandler = (e) => {
         const value = e.target.value;
         const checked = e.target.checked;
+
+        // console.log(roomList);
+        // console.log(`roomtype${Number(value)+1}`);
+        console.log(roomList[`roomtype${Number(value)+1}`])
+
         if (checked) {
-
-            setRoomSelector = ([...roomList, value]);
-            //設value給roomselector當索引值
-            setRoomSelector(value)
-            console.log(value)
-        }
-    };
-
-    // 用get 取得所有的值
-    // useEffect(()=>{
-    //         Axios.get(
-    //             `${ROOM_GET_LIST}/selectRoom`)
-    //             .then((response) => {
-    //             setRoomList(response.data);
-    //             console.log(response.data);
-    //         });
-    //     },[]);
+            // const  newRoomType = ([...roomList, value]);
+            //設value給roomtype當索引值
+            setRoomType(roomList[`roomtype${Number(value)}`]);
+        }};
 
     // // 用get 取得所有的值
     const getData = async () => {
@@ -179,21 +167,28 @@ function Index(props) {
         
         <div className="lrSpace">
             <div className="d-flex justify-content-around p-3">
-                {/* {roomtypelist.map((rv, ri) => {
+                {roomType.map((rv, ri) => {
                     return(
-                        <div className="roompic" key={ri}>
-                            <img src={"/room_imgs/"+rv.room_folder + "/" +  rv.room_image} alt=""/>
+                        <div key={ri}>
+                            <div className="roompic" >    
+                                <img src={"/room_imgs/"+rv.room_folder + "/" +  rv.room_image} alt=""/>
+                            </div>
+                            <div className="roomTitle">
+                                <h5>{rv.room_name}</h5>
+                            </div>
+                            <div className="roomDes">
+                                <p>{rv.description}</p>
+                            </div>
+                            <div className="room-btn">
+                            <Link to="/shuyoung/booking" ><button className="btn btn-dark">more</button></Link>
+                            </div>
                         </div>
+                        
                     )
-                })} */}
+                })}
             </div>
         </div>
-        <div className="roomTitle">
-            <h4>{roomList.roomtype1[0].room_type}</h4>
-        </div>
-        <div className="roomDes">
-            <p>{roomList.roomtype1[0].description}</p>
-        </div>
+        
         </div>
         <div className="line border-light border-bottom"></div>
         </div>
