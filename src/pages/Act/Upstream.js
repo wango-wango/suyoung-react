@@ -13,10 +13,9 @@ import "swiper/css/thumbs";
 import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
 import { useActBookingList } from "../../utils/useActBookingList";
-
-
-
-
+import { useAuth } from "../Login/sub-pages/AuthProvider";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import Swal from "sweetalert2";
 
 function Upstream(props) {
     // //BG設定
@@ -26,29 +25,94 @@ function Upstream(props) {
     // //所有act列表
     const [act, setAct] = useState([]);
 
+    //<==========收藏hook================
+
+    const { setAuth, ...auth } = useAuth();
+
+    const favlistId = 3;
+
+    const [memberKeep, setMemberKeep] = useState({
+        favlistId: "",
+        memberId: "",
+        favType: 2,
+    });
+
+    const [favlist, setFavlist] = useState([]);
+
+    const postData = async () => {
+        await Axios.post(
+            `http://localhost:3700/member/favlist/act`,
+            memberKeep
+        );
+    };
+
+    useEffect(() => {
+        if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
+            postData();
+        }
+    }, [memberKeep]);
+
+    useEffect(() => {
+        getFav();
+    }, [favlist]);
+
+    //==========收藏hook================>
+
     // // useContext
     const { actBookingList, setActBookingList } = useActBookingList();
 
     // 從 actbookingList解構
-    const {
-        actSid,
-        price,
-        Maxpeople,
-    } = actBookingList;
+    const { actSid, price, Maxpeople } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}`
+            `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}`
         ).then((response) => {
             setAct(response.data.actUpstream);
             console.log(response.data.actUpstream);
-        });   
-    }
+        });
+    };
+
+    //<==============軒哥不好意思我在這邊加個收藏==============
+
+    const getFav = async () => {
+        await Axios.get(
+            `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}`
+        ).then((res) => {
+            setFavlist(res.data.resultFav);
+        });
+    };
+
     // 起始狀態先render getData
     useEffect(() => {
         getData();
     }, [actBookingList]);
+
+    const keepHandler = (e) => {
+        const checked = e.target.checked;
+
+        if (checked) {
+            setMemberKeep({ ...memberKeep, memberId: auth.m_id, favlistId: 3 });
+        } else {
+            deleteKeep();
+            setMemberKeep({
+                favlistId: "",
+                memberId: "",
+                favType: 2,
+            });
+        }
+    };
+
+    const deleteKeep = async () => {
+        const res = await Axios.delete(
+            `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
+        );
+        console.log(res);
+        setFavlist([]);
+    };
+
+    //===============加完了謝謝軒哥=========================>
 
     //背景設定
     useEffect(() => {
@@ -56,12 +120,12 @@ function Upstream(props) {
     }, []);
     useEffect(() => {
         //若是didmount時沒資料就跳出
-        if(!act.length) return
+        if (!act.length) return;
 
         let groups = gsap.utils.toArray(".actGroup");
         let toggles = gsap.utils.toArray(".actToggle");
         let listToggles = groups.map(createAnimation);
-        
+
         toggles.forEach((toggle) => {
             toggle.addEventListener("click", function () {
                 toggleMenu(toggle);
@@ -83,7 +147,7 @@ function Upstream(props) {
                     ease: "power1.inOut",
                 })
                 .reverse();
-                
+
             return function (clickedMenu) {
                 if (clickedMenu === menu) {
                     animation.reversed(!animation.reversed());
@@ -94,12 +158,10 @@ function Upstream(props) {
         }
         //等資料帶進來後執行
     }, [act]);
-        
-        
-    if (act.length === 0)
-    return <></>;
 
-        return (
+    if (act.length === 0) return <></>;
+
+    return (
         <>
             {/* <section>
                 <div id="bg">
@@ -112,6 +174,44 @@ function Upstream(props) {
             </section> */}
             <section>
                 <div className="emf">
+                    <div className="keep_button">
+                        {auth.authorized ? (
+                            <input
+                                className="checkbox-tools"
+                                type="checkbox"
+                                name="keep"
+                                id="keepBtn"
+                                value={favlistId}
+                                onClick={keepHandler}
+                            />
+                        ) : (
+                            <input
+                                className="checkbox-tools"
+                                type="checkbox"
+                                name="keep"
+                                id="keepBtn"
+                                value={favlistId}
+                                onClick={() => {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "未登入會員",
+                                        text: "請先登入會員",
+                                        color: "#224040",
+                                        background: "#fff",
+                                        confirmButtonColor: "#224040",
+                                    });
+                                }}
+                            />
+                        )}
+
+                        <label className="for-checkbox-tools" htmlFor="keepBtn">
+                            {favlist.length !== 0 ? (
+                                <AiFillHeart className="fillHeart" />
+                            ) : (
+                                <AiOutlineHeart className="outlineHeart" />
+                            )}
+                        </label>
+                    </div>
                     <div className="card_bg">
                         <div className="d-flex align-items-center titleGroup">
                             <div className="actEnTitle">
@@ -120,22 +220,30 @@ function Upstream(props) {
                             <div className="actChTitle">
                                 <h4>{act[0].act_name}</h4>
                             </div>
-                            
-                            <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark" onClick={()=>{
-                                const newActBookingList = {...actBookingList,
-                                                        actSid: act[0].act_id,
-                                                        Maxpeople: act[0].max_people,
-                                                        price: act[0].act_price,
-                                                        actName: act[0].act_name
-                                                        };
-                                                        setActBookingList(newActBookingList);
-                            }}>預約報名</button></Link>
+
+                            <Link to="/shuyoung/act/actreservation">
+                                <button
+                                    className="btn btn-dark"
+                                    onClick={() => {
+                                        const newActBookingList = {
+                                            ...actBookingList,
+                                            actSid: act[0].act_id,
+                                            Maxpeople: act[0].max_people,
+                                            price: act[0].act_price,
+                                            actName: act[0].act_name,
+                                        };
+                                        setActBookingList(newActBookingList);
+                                    }}
+                                >
+                                    預約報名
+                                </button>
+                            </Link>
                         </div>
                         <div className="slider">
                             <Swiper
                                 style={{
-                                "--swiper-navigation-color": "#fff",
-                                "--swiper-pagination-color": "#fff",
+                                    "--swiper-navigation-color": "#fff",
+                                    "--swiper-pagination-color": "#fff",
                                 }}
                                 loop={true}
                                 spaceBetween={10}
@@ -143,14 +251,18 @@ function Upstream(props) {
                                 thumbs={{ swiper: thumbsSwiper }}
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper2"
-                                >
+                            >
                                 {act.map((av, ai) => {
                                     return (
                                         <SwiperSlide key={ai}>
-                                        <img src={"/act_imgs/"+ av.filename} alt=""/>
+                                            <img
+                                                src={"/act_imgs/" + av.filename}
+                                                alt=""
+                                            />
                                         </SwiperSlide>
-                                    )
-                                })};
+                                    );
+                                })}
+                                ;
                             </Swiper>
                             <Swiper
                                 onSwiper={setThumbsSwiper}
@@ -161,17 +273,23 @@ function Upstream(props) {
                                 watchSlidesProgress={true}
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper"
-                                >   
+                            >
                                 {act.map((av, ai) => {
                                     return (
                                         <SwiperSlide key={ai}>
-                                        <img src={"/act_imgs/"+ av.filename} alt=""/>
+                                            <img
+                                                src={"/act_imgs/" + av.filename}
+                                                alt=""
+                                            />
                                         </SwiperSlide>
-                                    )
-                                })};
+                                    );
+                                })}
+                                ;
                             </Swiper>
                         </div>
-                        <div className="actDetailTitle"><h4>活動詳情</h4></div>
+                        <div className="actDetailTitle">
+                            <h4>活動詳情</h4>
+                        </div>
                         <div className="actContentCotainer">
                             <motion.div
                                 className="actGroup"
@@ -184,7 +302,12 @@ function Upstream(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fa-solid fa-person-hiking mr-2"/>活動介紹</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fa-solid fa-person-hiking mr-2" />
+                                                活動介紹
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -206,19 +329,27 @@ function Upstream(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fas fa-comment-dollar mr-2"></i>活動收費</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fas fa-comment-dollar mr-2"></i>
+                                                活動收費
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
-                                    <div className="textspace">
-                                    每人 {act[0].act_price}元，行程約 3 小時，歡迎 5~65 歲的大小朋友預約報名唷！<br/>
-                                    活動費用含專業帶團教練
-                                    </div>
+                                        <div className="textspace">
+                                            每人 {act[0].act_price}元，行程約 3
+                                            小時，歡迎 5~65
+                                            歲的大小朋友預約報名唷！
+                                            <br />
+                                            活動費用含專業帶團教練
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
-                                <motion.div
+                            <motion.div
                                 className="actGroup"
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -229,18 +360,23 @@ function Upstream(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fas fa-calendar-check mr-2"></i>活動行程</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fas fa-calendar-check mr-2"></i>
+                                                活動行程
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
-                                    <div className="textspace">
-                                        {act[0].act_schedule}
-                                    </div>
+                                        <div className="textspace">
+                                            {act[0].act_schedule}
+                                        </div>
                                     </div>
                                 </div>
-                                </motion.div>
-                                <motion.div
+                            </motion.div>
+                            <motion.div
                                 className="actGroup"
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -251,7 +387,12 @@ function Upstream(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fas fa-binoculars mr-2"/>個人準備物品</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fas fa-binoculars mr-2" />
+                                                個人準備物品
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -273,7 +414,9 @@ function Upstream(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>注意事項</h5></div>
+                                        <div className="top">
+                                            <h5>注意事項</h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">

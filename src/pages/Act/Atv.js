@@ -14,10 +14,6 @@ import { ACT_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
 import { useActBookingList } from "../../utils/useActBookingList";
 
-
-
-
-
 function Atv(props) {
     // //BG設定
     const { setBackground } = useBackground();
@@ -30,27 +26,27 @@ function Atv(props) {
     const { actBookingList, setActBookingList } = useActBookingList();
 
     // 從 actbookingList解構
-    const {
-        actSid,
-        price,
-        Maxpeople,
-        people,
-        date,
-    } = actBookingList;
+    const { actSid, price, Maxpeople, people, date } = actBookingList;
 
     // // 用get 取得所有的值
     const getData = async () => {
         await Axios.get(
-        `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&date=${date}`
+            `${ACT_GET_LIST}/selectAct?actSid=${actSid}&price=${price}&Maxpeople=${Maxpeople}&people=${people}&date=${date}`
         ).then((response) => {
             setAct(response.data.actAtv);
             console.log(response.data.actAtv);
-        });   
-    }
+        });
+    };
     // 起始狀態先render getData
     useEffect(() => {
         getData();
     }, [actBookingList]);
+
+    //==============軒哥不好意思我在這邊加個收藏==============
+
+    console.log(actSid[0]);
+
+    //===============加完了謝謝軒哥=========================
 
     //背景設定
     useEffect(() => {
@@ -58,12 +54,12 @@ function Atv(props) {
     }, []);
     useEffect(() => {
         //若是didmount時沒資料就跳出
-        if(!act.length) return
+        if (!act.length) return;
 
         let groups = gsap.utils.toArray(".actGroup");
         let toggles = gsap.utils.toArray(".actToggle");
         let listToggles = groups.map(createAnimation);
-        
+
         toggles.forEach((toggle) => {
             toggle.addEventListener("click", function () {
                 toggleMenu(toggle);
@@ -85,7 +81,7 @@ function Atv(props) {
                     ease: "power1.inOut",
                 })
                 .reverse();
-                
+
             return function (clickedMenu) {
                 if (clickedMenu === menu) {
                     animation.reversed(!animation.reversed());
@@ -96,12 +92,10 @@ function Atv(props) {
         }
         //等資料帶進來後執行
     }, [act]);
-        
-        
-    if (act.length === 0)
-    return <></>;
 
-        return (
+    if (act.length === 0) return <></>;
+
+    return (
         <>
             <section>
                 <div className="emf">
@@ -113,24 +107,32 @@ function Atv(props) {
                             <div className="actChTitle">
                                 <h4>{act[0].act_name}</h4>
                             </div>
-                            
-                            <Link to="/shuyoung/act/actreservation"><button className="btn btn-dark" onClick={()=>{
-                                const newActBookingList = {...actBookingList,
-                                    actSid: act[0].act_id,
-                                    Maxpeople: act[0].max_people,
-                                    price: act[0].act_price,
-                                    actName: act[0].act_name,
-                                    people: 1,
-                                    actImg:act[0].filename,
-                                    };
-                                    setActBookingList(newActBookingList);
-                            }}>預約報名</button></Link>
+
+                            <Link to="/shuyoung/act/actreservation">
+                                <button
+                                    className="btn btn-dark"
+                                    onClick={() => {
+                                        const newActBookingList = {
+                                            ...actBookingList,
+                                            actSid: act[0].act_id,
+                                            Maxpeople: act[0].max_people,
+                                            price: act[0].act_price,
+                                            actName: act[0].act_name,
+                                            people: 1,
+                                            actImg: act[0].filename,
+                                        };
+                                        setActBookingList(newActBookingList);
+                                    }}
+                                >
+                                    預約報名
+                                </button>
+                            </Link>
                         </div>
                         <div className="slider">
                             <Swiper
                                 style={{
-                                "--swiper-navigation-color": "#fff",
-                                "--swiper-pagination-color": "#fff",
+                                    "--swiper-navigation-color": "#fff",
+                                    "--swiper-pagination-color": "#fff",
                                 }}
                                 loop={true}
                                 spaceBetween={10}
@@ -138,14 +140,18 @@ function Atv(props) {
                                 thumbs={{ swiper: thumbsSwiper }}
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper2"
-                                >
+                            >
                                 {act.map((av, ai) => {
                                     return (
                                         <SwiperSlide key={ai}>
-                                        <img src={"/act_imgs/"+ av.filename} alt=""/>
+                                            <img
+                                                src={"/act_imgs/" + av.filename}
+                                                alt=""
+                                            />
                                         </SwiperSlide>
-                                    )
-                                })};
+                                    );
+                                })}
+                                ;
                             </Swiper>
                             <Swiper
                                 onSwiper={setThumbsSwiper}
@@ -156,17 +162,23 @@ function Atv(props) {
                                 watchSlidesProgress={true}
                                 modules={[FreeMode, Navigation, Thumbs]}
                                 className="mySwiper"
-                                >   
+                            >
                                 {act.map((av, ai) => {
                                     return (
                                         <SwiperSlide key={ai}>
-                                        <img src={"/act_imgs/"+ av.filename} alt=""/>
+                                            <img
+                                                src={"/act_imgs/" + av.filename}
+                                                alt=""
+                                            />
                                         </SwiperSlide>
-                                    )
-                                })};
+                                    );
+                                })}
+                                ;
                             </Swiper>
                         </div>
-                        <div className="actDetailTitle"><h4>活動詳情</h4></div>
+                        <div className="actDetailTitle">
+                            <h4>活動詳情</h4>
+                        </div>
                         <div className="actContentCotainer">
                             <motion.div
                                 className="actGroup"
@@ -179,7 +191,12 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fa-solid fa-person-hiking mr-2"/>活動介紹</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fa-solid fa-person-hiking mr-2" />
+                                                活動介紹
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -201,19 +218,27 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fas fa-comment-dollar mr-2"></i>活動收費</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fas fa-comment-dollar mr-2"></i>
+                                                活動收費
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
-                                    <div className="textspace">
-                                    每人 {act[0].act_price}元，行程約 3 小時，歡迎 5~65 歲的大小朋友預約報名唷！<br/>
-                                    活動費用含專業帶團教練
-                                    </div>
+                                        <div className="textspace">
+                                            每人 {act[0].act_price}元，行程約 3
+                                            小時，歡迎 5~65
+                                            歲的大小朋友預約報名唷！
+                                            <br />
+                                            活動費用含專業帶團教練
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
-                                <motion.div
+                            <motion.div
                                 className="actGroup"
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -224,18 +249,23 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fas fa-calendar-check mr-2"></i>活動行程</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fas fa-calendar-check mr-2"></i>
+                                                活動行程
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
                                     <div className="actDetail">
-                                    <div className="textspace">
-                                        {act[0].act_schedule}
-                                    </div>
+                                        <div className="textspace">
+                                            {act[0].act_schedule}
+                                        </div>
                                     </div>
                                 </div>
-                                </motion.div>
-                                <motion.div
+                            </motion.div>
+                            <motion.div
                                 className="actGroup"
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -246,7 +276,12 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5><i className="fas fa-binoculars mr-2"/>個人準備物品</h5></div>
+                                        <div className="top">
+                                            <h5>
+                                                <i className="fas fa-binoculars mr-2" />
+                                                個人準備物品
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
@@ -268,7 +303,9 @@ function Atv(props) {
                             >
                                 <div className="actToggle">
                                     <div className="actTitle">
-                                        <div className="top"><h5>注意事項</h5></div>
+                                        <div className="top">
+                                            <h5>注意事項</h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="actC">
