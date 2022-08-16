@@ -81,6 +81,14 @@
     font-size: 16px;
 }
 
+.menu_content a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.title_color a {
+    color: rgba(98, 26, 16, 1);
+}
  /* recipesPage2 */
 
 .recipe_picture {
@@ -144,10 +152,7 @@
     .menu_content {
         font-size: 32px;
     }
-    .menu_content a {
-        text-decoration: none;
-        color: #fff;
-    }
+    
 
     .next_button {
         font-size: 20px;

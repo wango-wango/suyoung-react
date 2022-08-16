@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useBackground } from "../../../utils/useBackground";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/footer";
 import "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
@@ -40,9 +41,10 @@ function RecipesPage2(props) {
         <>
             <div>
                 <header>
-                    <h4 className="text-center fw-bold title_color">
-                        天菜大廚
-
+                    <h4 className="text-center fw-bold title_color menu_content">
+                            <Link to={`/shuyoung/recipes`}>
+                                天菜大廚
+                            </Link>
                     </h4>
                 </header>
                 {/* const setRecipes ={...V , quanity:1 
