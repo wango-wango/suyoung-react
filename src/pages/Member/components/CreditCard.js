@@ -16,9 +16,6 @@ const CreditCard = () => {
                 <div className="member-title">信用卡管理</div>
                 <div className="credit-card-container">
                     <CreditCardCard />
-                    <div className="card-btn">
-                        <button className="new-card">新增信用卡</button>
-                    </div>
                 </div>
             </motion.div>
         </>
