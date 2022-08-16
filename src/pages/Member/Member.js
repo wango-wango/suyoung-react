@@ -9,11 +9,33 @@ import {
 } from "react-parallax-mouse";
 
 function Member(props) {
-    const { setBackground } = useBackground();
+    const { setBackground , background } = useBackground();
 
-    useEffect(() => {
-        setBackground("bg1.svg");
-    }, []);
+   const [layer1 , setLayer1] = useState('layer1.svg');
+   const [layer2 , setLayer2] = useState('layer2.svg');
+   const [layer3 , setLayer3] = useState('layer3.svg');
+   const [layer4 , setLayer4] = useState('layer4.svg');
+
+    useEffect(()=>{
+
+        if(background === "darkBGlayer.svg"){
+            setLayer1("darklayer1.svg");
+            setLayer2("darklayer2.svg");
+            setLayer3("darklayer3.svg");
+            setLayer4("darklayer4.svg");
+        }else{
+            setLayer1("layer1.svg");
+            setLayer2("layer2.svg");
+            setLayer3("layer3.svg");
+            setLayer4("layer4.svg");
+        }
+
+
+
+    },[background])
+
+
+
     return (
         <>
             <MemberCenter>
@@ -55,28 +77,28 @@ function Member(props) {
                 <MouseParallaxChild factorX={-0.018} factorY={-0.018}>
                     <img
                         className="layer4"
-                        src="/member_img/layer/layer4.svg"
+                        src={`/member_img/layer/${layer4}`}
                         alt=""
                     />
                 </MouseParallaxChild>
                 <MouseParallaxChild factorX={0.014} factorY={0.014}>
                     <img
                         className="layer3"
-                        src="/member_img/layer/layer3.svg"
+                        src={`/member_img/layer/${layer3}`}
                         alt=""
                     />
                 </MouseParallaxChild>
                 <MouseParallaxChild factorX={-0.016} factorY={0.016}>
                     <img
                         className="layer2"
-                        src="/member_img/layer/layer2.svg"
+                        src={`/member_img/layer/${layer2}`}
                         alt=""
                     />
                 </MouseParallaxChild>
                 <MouseParallaxChild factorX={0.018} factorY={-0.018}>
                     <img
                         className="layer1"
-                        src="/member_img/layer/layer1.svg"
+                        src={`/member_img/layer/${layer1}`}
                         alt=""
                     />
                 </MouseParallaxChild>

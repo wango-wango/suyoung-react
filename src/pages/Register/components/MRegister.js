@@ -11,6 +11,7 @@ import {
     MouseParallaxChild,
 } from "react-parallax-mouse";
 import { nodeName } from "rsuite/esm/DOMHelper";
+import Swal from 'sweetalert2'
 
 //============前端驗證=============
 
@@ -46,8 +47,10 @@ const validate = (values) => {
 
 //=============前端驗證結束==========
 
-const MRegister = () => {
+const MRegister = (props) => {
     const { setBackground } = useBackground();
+
+    const {flipped , setFlipped} = props;
 
     useEffect(() => {
         setBackground("bglayer.svg");
@@ -114,12 +117,32 @@ const MRegister = () => {
         );
 
         if (res.data.message === "fail") {
-            alert("使用者名稱已經存在");
+           
+            Swal.fire({
+                imageUrl: '/member_img/logo.svg',
+                confirmButtonColor: '#224040',
+                title: '糟糕！',
+                color:"#224040",
+                text: "使用者名稱已經存在",
+              })
         } else if (res.data.message === "缺少資料") {
-            alert("資料填寫不完整");
+          
+            Swal.fire({
+                imageUrl: '/member_img/logo.svg',
+                confirmButtonColor: '#224040',
+                title: '糟糕！',
+                color:"#224040",
+                text: "資料填寫不完整",
+              })
         } else {
-            alert("註冊成功！即將跳轉回登入頁面...");
-            navigate("/shuyoung/Join");
+        
+            Swal.fire({
+                imageUrl: '/member_img/logo.svg',
+                confirmButtonColor: '#224040',
+                color:"#224040",
+                text: "註冊成功！即將跳轉回登入頁面...",
+              })
+              setFlipped(!flipped);
         }
     };
 
@@ -232,7 +255,7 @@ const MRegister = () => {
                     <div className="third-party">
                         <div className="google-login">
                             <a href={URL}>
-                                login with google
+                                sign in with google
                                 <img src="/member_img/google-icon.svg" alt="" />
                             </a>
                         </div>

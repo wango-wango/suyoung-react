@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 function Example() {
     const [show, setShow] = useState(false);
@@ -27,7 +28,14 @@ function Example() {
         console.log(res);
         handleClose();
 
-        alert("重設密碼郵件已寄出，請至信箱收信，謝謝！");
+       
+        Swal.fire({
+            imageUrl: '/member_img/logo.svg',
+            confirmButtonColor: '#224040',
+           
+            color:"#224040",
+            text: "重設密碼郵件已寄出，請至信箱收信，謝謝！",
+          })
     };
 
     return (

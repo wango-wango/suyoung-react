@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useBookingList } from "../../../../../utils/useBookingList";
+import { useBookingCart } from "../../../../../utils/useBookingCart";
+import { useAuth } from "../../../../Login/sub-pages/AuthProvider";
 import { BK_GET_LIST } from "../../../config/ajax-path";
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -8,20 +10,71 @@ import Swal from "sweetalert2";
 function BookingDetailArea(props) {
     const { roomList, localRoomList } = props;
     const { bookingList, setBookingList } = useBookingList();
+    const { bookingCart, setBookingCart } = useBookingCart();
+    const { setAuth, ...auth } = useAuth();
+
     const navigate = useNavigate();
+
     const [room, setRoom] = useState({});
 
+    // 確定要加入購物車後 存入資料庫中
     const postRoomData = async () => {
         await Axios.post(`${BK_GET_LIST}/temporaryCart`, localRoomList);
     };
 
+    // 把資料清空
+    const clearData = () =>{
+        setBookingList({
+            ...bookingList,
+            roomSid: "",
+            adults: "",
+            kids: "0",
+            startDate: "",
+            endDate: "",
+            perNight: "",
+            roomType: [],
+            startPrice: "",
+            endPrice: "",
+            tagCheck: [],
+            popular: "",
+            recommend: "",
+            roomSelector: [],
+            totalPrice: "",
+            nextDate:"",
+            memberId:""
+        });
+        localStorage.removeItem("room");
+    }
+
+    // 先取得 localStorage 的 room 
     useEffect(() => {
         setRoom(JSON.parse(localStorage.getItem("room")));
     }, []);
 
-    if (roomList.length === 0) return <></>;
+    const insertToCart = () => {
+        // 物件的 keys 是一個陣列
+        // 判斷如果第一個物件為空的 就跳過不做
+        if (Object.keys(localRoomList).length === 0) return;
 
-    // setBookingList({...bookingList,totalPrice: total});
+        let newArray = [];
+
+        // 如果 bookingCart裡面已經有值了
+        if (bookingCart.length > 0) {
+            // 就新增新的進去
+            newArray = [...bookingCart, localRoomList];
+        } else {
+            // 如果沒有 就直接把localRoomList存進去就可以了
+            newArray = [localRoomList];
+        }
+
+        //最後一起存到BookingCart 和 roomItem
+        setBookingCart(newArray);
+        localStorage.setItem("roomItem", JSON.stringify(newArray));
+        console.log(newArray);
+        
+    };
+
+    if (roomList.length === 0) return <></>;
 
     return (
         <>
@@ -30,14 +83,14 @@ function BookingDetailArea(props) {
                     <p>入住日期</p>
                 </div>
                 <div className="booking_date_in input_group">
-                    <input type="text" readOnly placeholder={room.startDate} />
+                    <input type="text" readOnly placeholder={room.startDate || bookingList.startDate} />
                     <label htmlFor="">Date</label>
                 </div>
                 <div className="booking_date_title">
                     <p>離開日期</p>
                 </div>
                 <div className="booking_date_out input_group">
-                    <input type="text" readOnly placeholder={room.endDate} />
+                    <input type="text" readOnly placeholder={room.endDate || bookingList.endDate} />
                     <label htmlFor="">Date</label>
                 </div>
                 <div className="booking_date_title">
@@ -77,7 +130,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="room_num">
                             <p>
-                                <span>{room.perNight}</span> 晚
+                                <span>{room.perNight || bookingList.perNight}</span> 晚
                             </p>
                         </div>
                     </div>
@@ -87,7 +140,7 @@ function BookingDetailArea(props) {
                         </div>
                         <div className="add_bed_num">
                             <p>
-                                <span>{room.kids || 0}</span> 床
+                                <span>{bookingList.kids || room.kids || 0}</span> 床
                             </p>
                         </div>
                     </div>
@@ -123,7 +176,8 @@ function BookingDetailArea(props) {
                             返回
                         </button>
 
-                        <button
+                        {(auth.authorized || auth.success) ? (
+                            <button
                             className="room_card_button"
                             onClick={() => {
                                 localStorage.removeItem("room");
@@ -142,9 +196,13 @@ function BookingDetailArea(props) {
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         postRoomData();
+                                        clearData();
+                                        insertToCart();
                                         navigate("/shuyoung/Cart");
                                     } else if (result.isDenied) {
                                         postRoomData();
+                                        clearData();
+                                        insertToCart();
                                         navigate("/shuyoung/Booking");
                                     }
                                 });
@@ -152,6 +210,42 @@ function BookingDetailArea(props) {
                         >
                             加入購物車
                         </button>
+                        ) : (
+                            <button
+                            className="room_card_button"
+                            onClick={() => {
+                                localStorage.removeItem("room");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "已加入購物車",
+                                    text: "您是否前往購物車結帳",
+                                    color: "#224040",
+                                    background: "#FFF",
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#224040",
+                                    confirmButtonText: `是`,
+                                    showDenyButton: true,
+                                    denyButtonText: `繼續購物`,
+                                    denyButtonColor: "#c1a688",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        postRoomData();
+                                        clearData();
+                                        insertToCart();
+                                        navigate("/shuyoung/Cart");
+                                    } else if (result.isDenied) {
+                                        postRoomData();
+                                        clearData();
+                                        insertToCart();
+                                        navigate("/shuyoung/Booking");
+                                    }
+                                });
+                            }}
+                        >
+                            加入購物車
+                        </button>
+                        )}
+                        
                     </div>
                 </div>
             </div>

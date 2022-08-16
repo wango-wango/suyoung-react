@@ -156,9 +156,11 @@ body {
         font-size: var(--subtitle_text);
     }
 
-    .credit-card {
+    .member-credit-card {
+        font-family: "Roboto Mono", monospace;
         display: flex;
         padding: 20px;
+        margin: 20px 0;
         border-radius: 15px;
         width: 50%;
         justify-content: space-between;
@@ -184,7 +186,7 @@ body {
                 line-height: 1;
             }
         }
-        .delete {
+        .member-credit-card-delete {
             button {
                 border: none;
                 background-color: transparent;

@@ -11,7 +11,7 @@ import GuessYouLike from './components/GuessYouLike'
 import { BK_GET_LIST } from '../../config/ajax-path'
 import Axios from 'axios'
 import { useBookingList } from '../../../../utils/useBookingList'
-import { useBookingCart } from '../../../../utils/useBookingCart'
+// import { useBookingCart } from '../../../../utils/useBookingCart'
 import { useAuth } from '../../../Login/sub-pages/AuthProvider'
 
 function Index(props) {
@@ -23,7 +23,7 @@ function Index(props) {
   }, [])
   // useContext 把房間的Sid 帶過來
   const { bookingList, setBookingList } = useBookingList()
-  const { bookingCart, setBookingCart } = useBookingCart()
+  // const { bookingCart, setBookingCart } = useBookingCart()
   const { setAuth, ...auth } = useAuth()
 
   // 接住來自後端的資料
@@ -43,8 +43,8 @@ function Index(props) {
   // 先把localStorage 的資料存進 localRoom 裡
   useEffect(() => {
     setLocalRoom(JSON.parse(localStorage.getItem('room')))
-    if (auth.authorized) {
-      setBookingList({ ...bookingList, memberId: auth.sid })
+    if (auth.authorized || auth.success) {
+      setBookingList({ ...bookingList, memberId: auth.m_id })
     }
   }, [])
 
@@ -66,9 +66,7 @@ function Index(props) {
       console.log('total:', total)
 
       // 把total 金額存進去bookingList
-      setBookingList({ ...bookingList, roomTotalPrice: total })
-
-      // 先把舊localStorage的取出來
+      setBookingList({ ...bookingList, roomTotalPrice: total })      // 先把舊localStorage的取出來
       const newLocalStorage = JSON.parse(localStorage.getItem('room'))
       // 再用解構的方式 加入 roomTotalPrice
       localStorage.setItem(
@@ -79,31 +77,13 @@ function Index(props) {
   }, [roomList])
 
   useEffect(() => {
+        //確認 roomList 有值 才把資料存進去localRoomList
     if (roomList.length >= 1) {
       setlocalRoomList({ ...bookingList, ...roomList[0] })
     }
   }, [bookingList])
 
-  // 當 localRoomList 有值存進去後
-  // 把新的localRoomList 存進去 bookingCart 裡面
-  // 也同步存入 localStorage
-  useEffect(() => {
-    // 物件的 keys 是一個陣列
-    // 判斷如果第一個物件為空的 就跳過不做
-    if (Object.keys(localRoomList).length === 0) return
 
-    let newArray = []
-
-    if (bookingCart.length > 0) {
-      newArray = [...bookingCart, localRoomList]
-    } else {
-      newArray = [localRoomList]
-    }
-
-    setBookingCart(newArray)
-    localStorage.setItem('roomItem', JSON.stringify(newArray))
-    console.log(newArray)
-  }, [localRoomList])
 
   // 用get 取得所有的值
   const getData = () => {

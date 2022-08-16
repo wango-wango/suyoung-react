@@ -126,8 +126,8 @@ input.login-input:focus {
 }
 
 /* active state */
-input:focus ~ label,
-input:valid ~ label {
+input.login-input:focus ~ label,
+input.login-input:valid ~ label {
     top: -20px;
     font-size: 16px;
     color: #fba63a;
@@ -135,6 +135,7 @@ input:valid ~ label {
 
 .login-container {
     form {
+        margin-bottom: 20px;
         .login-btn {
             text-align: center;
             button {
