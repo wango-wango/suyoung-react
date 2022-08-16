@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/member-credit-card.scss";
 import { motion } from "framer-motion";
 import CreditCardCard from "./CreditCardCard";
 
-const CreditCard = (props) => {
-    const { auth } = props;
+const CreditCard = () => {
     return (
         <>
             <motion.div

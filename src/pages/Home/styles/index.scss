@@ -116,16 +116,29 @@
 
 .roomTitle {
     color: #ffffff;
-    margin: 60px 20% 20px 20%;
+    margin: 30px 0px 20px 20px;
 }
 
 .roomDes {
     p {
         color: #ffffff;
-        margin: 0 20%;
+        text-overflow: ellipsis;
+        margin: 10px 50px 20px 20px;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow:hidden;
+
     }
 }
 
+.room-btn {
+    a {
+        button {
+            margin-left: 70%;
+        }
+    }
+}
 .line {
     margin: 60px 30% 0 30%;
 }
@@ -231,20 +244,23 @@
     line-height: 1.35;
     text-align: left;
     margin-top: 30px;
+    
+    .btn {
+        cursor: pointer;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.65rem;
+        font-weight: bold;
+        letter-spacing: 0.025rem;
+        text-transform: uppercase;
+        color: white;
+        background-color: black;
+        border: none;
+    }
+
 }
 
-.btn {
-    cursor: pointer;
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.65rem;
-    font-weight: bold;
-    letter-spacing: 0.025rem;
-    text-transform: uppercase;
-    color: white;
-    background-color: black;
-    border: none;
-}
+
 
 .actCard:nth-child(1):before {
 background-image: url(../../../../public/act_imgs/float01.jpg);
