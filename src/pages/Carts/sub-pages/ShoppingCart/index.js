@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AddOn from './Component/AddOn'
 import RoomInfo from './Component/RoomInfo'
 import RoomLt from './Component/RoomLt'
@@ -14,22 +14,38 @@ function Index(props) {
     roomItem,
     sum,
     setSum,
-    actSum,
-    setActSum,
-    orderItemsStr,
+    orderBooking,
     HandleAlertBuy,
     HandleAlert,
     discountSum,
     setdiscountSum,
   } = props
 
+  const [totalPrice, setTotalPrice] = useState();
+  const [actSum, setActSum] = useState();
+  const [roomSum, setRoomSum] = useState();
+
+  useEffect(() => {
+      if(actSum || roomSum) setTotalPrice(actSum + roomSum)
+  }, [actSum,roomSum])
+  
+  // setTotalPrice({...totalPrice,actPrice:})
+
+  // useEffect(()=>{
+  //   let total = "";
+  //   let room = totalPrice.roomPrice;
+  //   let act = totalPrice.actPrice;
+  //   total = room + act;
+  //   setTotalPrice({...totalPrice,totalPrice:total});
+  // },[totalPrice])
+
   // 處理訂單送出
   const OrderSubmit = async (e) => {
-    if (!_.isEmpty(orderItemsStr)) {
+    if (!_.isEmpty(orderBooking)) {
       // 購物車內有商品
       setStep(2)
     }
-    if (_.isEmpty(orderItemsStr)) {
+    if (_.isEmpty(orderBooking)) {
       // 如果購物車內沒有商品的話
       HandleAlertBuy()
       setStep(1)
@@ -41,19 +57,32 @@ function Index(props) {
       <h1 className="first_component_title">SHOPPING CART</h1>
       <div className="room_info_and_web_component1">
         <div className="w100">
-          <RoomInfo setSum={setSum} orderItemsStr={orderItemsStr} />
-          <ActInfo setActSum={setActSum} orderItemsStr={orderItemsStr} />
+          <RoomInfo
+            setSum={setSum}
+            orderBooking={orderBooking}
+            setTotalPrice={setTotalPrice}
+            totalPrice={totalPrice}
+            roomSum={roomSum}
+            setRoomSum={setRoomSum}
+          />
+          <ActInfo
+            orderBooking={orderBooking}
+            actSum = {actSum}
+            setActSum = {setActSum}
+          />
         </div>
 
         <RoomLt
           setStep={setStep}
           sum={sum}
           setSum={setSum}
-          actSum={actSum}
           setActSum={setActSum}
           OrderSubmit={OrderSubmit}
           discountSum={discountSum}
           setdiscountSum={setdiscountSum}
+          totalPrice={totalPrice}
+          actSum={actSum}
+          roomSum={roomSum}
         />
         <RoomMo
           setStep={setStep}
@@ -64,6 +93,7 @@ function Index(props) {
           OrderSubmit={OrderSubmit}
           discountSum={discountSum}
           setdiscountSum={setdiscountSum}
+          totalPrice={totalPrice}
         />
       </div>
     </>

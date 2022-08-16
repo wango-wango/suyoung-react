@@ -93,7 +93,7 @@ function BookingDetailArea(props) {
                     </div>
                     <div className="room_result_total">
                         <p>total:</p>
-                        <h5>{bookingList.totalPrice || room.totalPrice}</h5>
+                        <h5>{bookingList.roomTotalPrice || room.roomTotalPrice}</h5>
                     </div>
                     <div className="room_card_button_area">
                         <button
@@ -114,7 +114,7 @@ function BookingDetailArea(props) {
                                     popular: "",
                                     recommend: "",
                                     roomSelector: [],
-                                    totalPrice: "",
+                                    roomTotalPrice: "",
                                 });
                                 localStorage.removeItem("room");
                                 navigate("/shuyoung/Booking");

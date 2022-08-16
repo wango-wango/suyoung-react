@@ -1,7 +1,7 @@
 import React from 'react'
 
 function RoomMo(props) {
-    const {setStep, sum, OrderSubmit} = props;
+    const {setStep, sum, OrderSubmit, totalPrice} = props;
   return (
     <div className="second_component web_none">
     <div className="detail_price">
