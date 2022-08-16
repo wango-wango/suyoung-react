@@ -115,8 +115,8 @@ function BookingArea(props) {
                             });
                             setDatePicer({
                                 ...datePicker,
-                                startDate: v[0].toDateString(),
-                                endDate: v[1].toDateString(),
+                                startDate:formatDate(v[0].toDateString()),
+                                endDate: formatDate(v[1].toDateString()),
                                 perNight: (v[1] - v[0]) / 86400000,
                             });
                             }else{
@@ -156,8 +156,8 @@ function BookingArea(props) {
                             });
                             setDatePicer({
                                 ...datePicker,
-                                startDate: v[0].toDateString(),
-                                endDate: v[1].toDateString(),
+                                startDate: formatDate(v[0].toDateString()),
+                                endDate: formatDate(v[1].toDateString()),
                                 perNight: (v[1] - v[0]) / 86400000,
                             });
                             }else{
@@ -180,14 +180,14 @@ function BookingArea(props) {
                 </div>
                 <div className="booking_result_date">
                     <p>
-                        <span>{datePicker.perNight}</span> 晚
+                        共 <span>{datePicker.perNight}</span> 晚
                     </p>
                     <div className="booking_result_datePicer">
                         <p>
-                            startDate: <span>{datePicker.startDate}</span>
+                            入住日期: <span>{datePicker.startDate}</span>
                         </p>
                         <p>
-                            endDate: <span>{datePicker.endDate}</span>
+                            退房日期: <span>{datePicker.endDate}</span>
                         </p>
                     </div>
                 </div>
