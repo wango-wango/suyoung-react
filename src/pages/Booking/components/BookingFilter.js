@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Axios from "axios";
 import { BK_GET_LIST } from "../config/ajax-path";
 import { useBookingList } from "../../../utils/useBookingList";
-import { Popover, Whisper, Button } from 'rsuite';
+import { Popover, Whisper, Button } from "rsuite";
 import { RangeSlider, Row, Col, InputGroup, InputNumber, Drawer } from "rsuite";
 function BookingFilter(props) {
     //所有標籤列表 從node 取出來的
@@ -15,7 +15,7 @@ function BookingFilter(props) {
 
     // 房型確認狀態
     const [checkroomType, setCheckRoomType] = useState([]);
-    
+
     const { bookingList, setBookingList } = useBookingList();
 
     // 價格slider的值
@@ -25,75 +25,62 @@ function BookingFilter(props) {
     const [tagValue, setTagValue] = useState([]);
 
     // peoplesay
-    const [recommend, setRecommend] = useState(1);
-    const [popular, setPopular] = useState(1);
-
+    const [recommend, setRecommend] = useState(false);
+    const [popular, setPopular] = useState(false);
 
     /* ----- reset -----*/
     const resetPeople = () => {
         setPopular(1);
         setRecommend(1);
-        setBookingList({ ...bookingList, popular: 0,recommend: 0});
-    }
+        setBookingList({ ...bookingList, popular: 0, recommend: 0 });
+    };
 
     const resetTag = () => {
-        setBookingList({ ...bookingList, tagCheck: []});
+        setBookingList({ ...bookingList, tagCheck: [] });
         setTagValue([]);
-    }
+    };
 
     const resetPrice = () => {
-        setBookingList({ ...bookingList, startPrice: "", endPrice: ""});
+        setBookingList({ ...bookingList, startPrice: "", endPrice: "" });
         setValue([1000, 5000]);
-    }
+    };
 
     const resetRoomSelecor = () => {
-        setBookingList({ ...bookingList, roomSelector: []});
+        setBookingList({ ...bookingList, roomSelector: [] });
         setRoomSelector([]);
-    }
+    };
 
     const resetRoomType = () => {
-        setBookingList({ ...bookingList, roomType: []});
+        setBookingList({ ...bookingList, roomType: [] });
         setCheckRoomType([]);
-    }
+    };
 
     // 最受歡迎
     const popularHandler = (e) => {
-        const checked = e.target.checked;
-        if (checked) {
-            setPopular(0);
-            setBookingList({ ...bookingList, popular: popular });
-            
+        if (!popular) {
+            setPopular(true);
+            setBookingList({ ...bookingList, popular: 1 });
         } else {
-            setPopular(1);
-            setBookingList({ ...bookingList, popular: popular });
+            setPopular(false);
+            setBookingList({ ...bookingList, popular: 0 });
         }
     };
     // 最推薦
     const recommendHandler = (e) => {
-        const checked = e.target.checked;
-        if (checked) {
-            setRecommend(0);
-            setBookingList({ ...bookingList, recommend: recommend });
+        if (!recommend) {
+            setRecommend(true);
+            setBookingList({ ...bookingList, recommend: 1 });
         } else {
-            setRecommend(1);
-            setBookingList({ ...bookingList, recommend: recommend });
+            setRecommend(false);
+            setBookingList({ ...bookingList, recommend: 0 });
         }
     };
     // 房間 控制器
     const RoomSelectHandler = (e) => {
         const value = e.target.value;
 
-        const checked = e.target.checked;
-        if (checked) {
-            // 拷貝並存進去新的value
-            const newRoomSelector = [...bookingList.roomSelector, value];
-            //存回去roomType
-            setBookingList({
-                ...bookingList,
-                roomSelector: newRoomSelector,
-            });
-            setRoomSelector([...roomSelector, value]);
-        } else {
+        // const checked = e.target.checked;
+        if (roomSelector.includes(value)) {
             // 拷貝
             const oldRoomSelector = bookingList.roomSelector;
             // 篩選掉不要的
@@ -110,22 +97,24 @@ function BookingFilter(props) {
                 return v !== value;
             });
             setRoomSelector(newRoom);
+        } else {
+            // 拷貝並存進去新的value
+            const newRoomSelector = [...bookingList.roomSelector, value];
+            //存回去roomType
+            setBookingList({
+                ...bookingList,
+                roomSelector: newRoomSelector,
+            });
+            setRoomSelector([...roomSelector, value]);
         }
     };
     // RoomType 房型控制器
     const RoomTypeHandler = (e) => {
         const value = e.target.value;
-        const checked = e.target.checked;
-        if (checked) {
-            // 拷貝並存進去新的value
-            const newRoomType = [...bookingList.roomType, value];
-            //存回去roomType
-            setBookingList({
-                ...bookingList,
-                roomType: newRoomType,
-            });
-            setCheckRoomType([...checkroomType, value]);
-        } else {
+        console.log(typeof value);
+        //先判斷是否有在likeList狀態陣列中
+        if (checkroomType.includes(e.target.value)) {
+            // if有 -> 移出陣列
             // 拷貝
             const oldRoomType = bookingList.roomType;
             // 篩選掉不要的
@@ -142,23 +131,24 @@ function BookingFilter(props) {
                 return v !== value;
             });
             setCheckRoomType(newChekRoomType);
+        } else {
+            // else -> 加入陣列
+            // 拷貝並存進去新的value
+            const newRoomType = [...bookingList.roomType, value];
+            //存回去roomType
+            setBookingList({
+                ...bookingList,
+                roomType: newRoomType,
+            });
+            setCheckRoomType([...checkroomType, value]);
         }
     };
 
     // 掌控每一個tag 判斷 true 存進去 false 移除
     const tagHandler = (e) => {
         const value = e.target.value;
-        const checked = e.target.checked;
-        if (checked) {
-            // 拷貝並存進去新的value
-            const newTagCheck = [...bookingList.tagCheck, value];
-            //存回去TagCheck
-            setBookingList({
-                ...bookingList,
-                tagCheck: newTagCheck,
-            });
-            setTagValue([...tagValue, value]);
-        } else {
+        // const checked = e.target.checked;
+        if (tagValue.includes(value)) {
             // 拷貝
             const oldTagCheck = bookingList.tagCheck;
             // 篩選掉不要的
@@ -175,6 +165,15 @@ function BookingFilter(props) {
                 return v !== value;
             });
             setTagValue(newTagValue);
+        } else {
+            // 拷貝並存進去新的value
+            const newTagCheck = [...bookingList.tagCheck, value];
+            //存回去TagCheck
+            setBookingList({
+                ...bookingList,
+                tagCheck: newTagCheck,
+            });
+            setTagValue([...tagValue, value]);
         }
     };
     // 用get 取得所有的值
@@ -221,6 +220,12 @@ function BookingFilter(props) {
         getTagData();
         getData();
     }, []);
+    useEffect(() => {
+        if(bookingList.roomSelector.length !== 0){
+            setRoomSelector(bookingList.roomSelector);
+        }
+    }, [bookingList])
+    
     return (
         <>
             <div className="room_filter_container">
@@ -253,6 +258,9 @@ function BookingFilter(props) {
                                             id="tool-1"
                                             value={1}
                                             onClick={RoomTypeHandler}
+                                            checked={checkroomType.includes(
+                                                "1"
+                                            )}
                                         />
                                         <label
                                             className="for-checkbox-tools"
@@ -268,6 +276,9 @@ function BookingFilter(props) {
                                             id="tool-2"
                                             value={2}
                                             onClick={RoomTypeHandler}
+                                            checked={checkroomType.includes(
+                                                "2"
+                                            )}
                                         />
                                         <label
                                             className="for-checkbox-tools"
@@ -283,6 +294,9 @@ function BookingFilter(props) {
                                             id="tool-3"
                                             value={3}
                                             onClick={RoomTypeHandler}
+                                            checked={checkroomType.includes(
+                                                "3"
+                                            )}
                                         />
                                         <label
                                             className="for-checkbox-tools"
@@ -298,6 +312,9 @@ function BookingFilter(props) {
                                             id="tool-4"
                                             value={4}
                                             onClick={RoomTypeHandler}
+                                            checked={checkroomType.includes(
+                                                "4"
+                                            )}
                                         />
                                         <label
                                             className="for-checkbox-tools"
@@ -339,6 +356,9 @@ function BookingFilter(props) {
                                                                 "roomSelect-" +
                                                                 i
                                                             }
+                                                            checked={roomSelector.includes(
+                                                                v.sid + ""
+                                                            )}
                                                             value={v.sid}
                                                             onChange={
                                                                 RoomSelectHandler
@@ -479,11 +499,9 @@ function BookingFilter(props) {
                                                         }
                                                         value={t.t_id}
                                                         onChange={tagHandler}
-                                                        defaultChecked={
-                                                            bookingList
-                                                                .roomSelector[0] ===
-                                                            t.t_id
-                                                        }
+                                                        checked={tagValue.includes(
+                                                            t.t_id + ""
+                                                        )}
                                                     />
                                                     <label
                                                         className="for-checkbox-booking"
@@ -527,6 +545,7 @@ function BookingFilter(props) {
                                             name="peopole"
                                             id="people-1"
                                             onChange={popularHandler}
+                                            checked={popular}
                                         />
                                         <label
                                             className="for-checkbox-people"
@@ -542,6 +561,7 @@ function BookingFilter(props) {
                                             name="people"
                                             id="people-2"
                                             onChange={recommendHandler}
+                                            checked={recommend}
                                         />
                                         <label
                                             className="for-checkbox-people"
@@ -558,7 +578,7 @@ function BookingFilter(props) {
                     </div>
                     <div className="room_filter_roomType">
                         <div className="room_title roomType_title">
-                        <Whisper
+                            <Whisper
                                 followCursor
                                 speaker={
                                     <Popover arrow={false}>
@@ -577,6 +597,7 @@ function BookingFilter(props) {
                                 id="tool-1"
                                 value={1}
                                 onClick={RoomTypeHandler}
+                                checked={checkroomType.includes("1")}
                             />
                             <label
                                 className="for-checkbox-tools"
@@ -592,6 +613,7 @@ function BookingFilter(props) {
                                 id="tool-2"
                                 value={2}
                                 onClick={RoomTypeHandler}
+                                checked={checkroomType.includes("2")}
                             />
                             <label
                                 className="for-checkbox-tools"
@@ -607,6 +629,7 @@ function BookingFilter(props) {
                                 id="tool-3"
                                 value={3}
                                 onClick={RoomTypeHandler}
+                                checked={checkroomType.includes("3")}
                             />
                             <label
                                 className="for-checkbox-tools"
@@ -622,6 +645,7 @@ function BookingFilter(props) {
                                 id="tool-4"
                                 value={4}
                                 onClick={RoomTypeHandler}
+                                checked={checkroomType.includes("4")}
                             />
                             <label
                                 className="for-checkbox-tools"
@@ -634,7 +658,7 @@ function BookingFilter(props) {
                     </div>
                     <div className="room_filter_roomSelect">
                         <div className="room_title roomSelect_title">
-                        <Whisper
+                            <Whisper
                                 followCursor
                                 speaker={
                                     <Popover arrow={false}>
@@ -655,6 +679,9 @@ function BookingFilter(props) {
                                                 type="checkbox"
                                                 name="checkbox-roomSelect"
                                                 id={"roomSelect-" + i}
+                                                checked={roomSelector.includes(
+                                                    v.sid + ""
+                                                )}
                                                 value={v.sid}
                                                 onChange={RoomSelectHandler}
                                             />
@@ -673,7 +700,7 @@ function BookingFilter(props) {
                     </div>
                     <div className="room_filter_price">
                         <div className="room_title room_price_title">
-                        <Whisper
+                            <Whisper
                                 followCursor
                                 speaker={
                                     <Popover arrow={false}>
@@ -743,7 +770,7 @@ function BookingFilter(props) {
                     </div>
                     <div className="room_filter_tag">
                         <div className="room_title roomTag_title">
-                        <Whisper
+                            <Whisper
                                 followCursor
                                 speaker={
                                     <Popover arrow={false}>
@@ -765,7 +792,9 @@ function BookingFilter(props) {
                                             id={"booking-" + (ti + 1)}
                                             value={t.t_id}
                                             onChange={tagHandler}
-                                            
+                                            checked={tagValue.includes(
+                                                t.t_id + ""
+                                            )}
                                         />
                                         <label
                                             className="for-checkbox-booking"
@@ -790,9 +819,14 @@ function BookingFilter(props) {
                                     </Popover>
                                 }
                             >
-                                <button onClick={()=>{resetPeople()}}>大家怎麼說</button>
+                                <button
+                                    onClick={() => {
+                                        resetPeople();
+                                    }}
+                                >
+                                    大家怎麼說
+                                </button>
                             </Whisper>
-                            
                         </div>
                         <div className="roomPeople_area">
                             <input
@@ -801,7 +835,7 @@ function BookingFilter(props) {
                                 name="peopole"
                                 id="people-1"
                                 onChange={popularHandler}
-                                
+                                checked={popular}
                             />
                             <label
                                 className="for-checkbox-people"
@@ -815,6 +849,7 @@ function BookingFilter(props) {
                                 name="people"
                                 id="people-2"
                                 onChange={recommendHandler}
+                                checked={recommend}
                             />
                             <label
                                 className="for-checkbox-people"

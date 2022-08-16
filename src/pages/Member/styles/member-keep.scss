@@ -256,3 +256,16 @@ html {
 //         }
 //     }
 // }
+
+#keepBtn {
+    display: none;
+}
+
+.keep_button {
+    padding-left: 1rem;
+
+    .for-checkbox-tools {
+        font-size: 3rem;
+        color: #224040;
+    }
+}

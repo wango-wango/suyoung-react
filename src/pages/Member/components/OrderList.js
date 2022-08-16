@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import OrderListGroup from "./OrderListGroup";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const OrderList = () => {
     const { setAuth, ...auth } = useAuth();

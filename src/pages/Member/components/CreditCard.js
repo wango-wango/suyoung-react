@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/member-credit-card.scss";
 import { motion } from "framer-motion";
 import CreditCardCard from "./CreditCardCard";
 
-const CreditCard = (props) => {
-    const { auth } = props;
+const CreditCard = () => {
     return (
         <>
             <motion.div
@@ -17,9 +16,6 @@ const CreditCard = (props) => {
                 <div className="member-title">信用卡管理</div>
                 <div className="credit-card-container">
                     <CreditCardCard />
-                    <div className="card-btn">
-                        <button className="new-card">新增信用卡</button>
-                    </div>
                 </div>
             </motion.div>
         </>

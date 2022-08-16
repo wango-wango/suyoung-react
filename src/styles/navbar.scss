@@ -268,8 +268,10 @@ p {
             color: #fff;
             bottom: -100px;
             font-size: var(--button_text);
-            z-index: 100;
+            z-index: 999;
             transition: opacity 0.5s ease;
+
+           
 
             li {
                 list-style: none;

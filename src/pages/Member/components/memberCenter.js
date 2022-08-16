@@ -13,8 +13,10 @@ import MemberLevel from "./MemberLevel";
 import CreditCard from "./CreditCard";
 import { BsPersonCircle } from "react-icons/bs";
 import { useSpinner } from "../../../useSpinner";
+import Swal from 'sweetalert2'
 
 import anime from "animejs";
+import { useBackground } from "../../../utils/useBackground";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -25,6 +27,10 @@ const MemberCenter = () => {
     const [step, setStep] = useState(0);
 
     const { spinner, setLoading } = useSpinner(4000);
+
+    const { background, setBackground } = useBackground();
+
+   
 
     useEffect(() => {
         setLoading(true);
@@ -71,7 +77,14 @@ const MemberCenter = () => {
 
                 setAuth({ ...auth, ...newAuth });
             } else {
-                alert("查無會員資料");
+                
+                Swal.fire({
+                    imageUrl: '/member_img/logo.svg',
+                    confirmButtonColor: '#224040',
+                    title: '糟糕！',
+                    color:"#224040",
+                    text: "查無會員資料",
+                  })
             }
         });
     };
@@ -118,8 +131,10 @@ const MemberCenter = () => {
 
             if (!toggle) {
                 toggle = true;
+                setBackground("darkBGlayer.svg");
             } else {
                 toggle = false;
+                setBackground("bglayer.svg");
             }
         });
     }, []);
@@ -159,7 +174,8 @@ const MemberCenter = () => {
                 >
                     123
                 </button> */}
-                <button className="daylight" onClick={myFunction}>
+                <button className="daylight" onClick={()=>{myFunction();
+                }}>
                     <svg
                         id="dark_mode"
                         width="55"

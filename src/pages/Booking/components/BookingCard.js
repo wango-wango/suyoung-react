@@ -31,7 +31,7 @@ function BookingCard(props) {
     const keepHandler = (e) => {
         const checked = e.target.checked;
         const roomSid = e.target.value;
-        const memberId = auth.sid;
+        const memberId = auth.m_id;
 
         if (checked) {
             setMemberKeep({
@@ -52,7 +52,7 @@ function BookingCard(props) {
         const newFavList = oldFavList.filter((v) => v !== +sid);
         setFavList(newFavList);
         const res = await Axios.delete(
-            `${BK_GET_LIST}/deleteKeep?memberId=${auth.sid}&roomSid=${room_sid}`
+            `${BK_GET_LIST}/deleteKeep?memberId=${auth.m_id}&roomSid=${room_sid}`
         );
         console.log(res);
     };
@@ -79,11 +79,11 @@ function BookingCard(props) {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
             console.log(response.data.roomList);
-            console.log(auth.sid);
+            console.log(auth.m_id);
         });
 
         // 取得所有favlist 的 roomSid
-        await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.sid}`).then(
+        await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.m_id}`).then(
             (response) => {
                 // setFavList(response.data);
                 setFavList(response.data.map((v) => +v.fav_list_kind));
@@ -97,8 +97,8 @@ function BookingCard(props) {
     };
 
     useEffect(() => {
-     if(auth.authorized){
-            setBookingList({...bookingList,memberId: auth.sid});
+     if(auth.authorized || auth.success){
+            setBookingList({...bookingList,memberId: auth.m_id});
         }
     }, [])
     
