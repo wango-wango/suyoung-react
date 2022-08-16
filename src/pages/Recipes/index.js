@@ -24,6 +24,8 @@ import "./styles/Expanding_flex_cards.css";
 function Index(props) {
     const [recipes, setRecipes] = useState([])
     const [Next, setNext] = useState([])
+    const [tryDisplay, setTryDisplay] = useState([])
+    const [allFilter, setAllFilter] = useState([])
     // 來自useBackground 的設定
     const { setBackground } = useBackground();
     // 進入該頁設定背景
@@ -34,6 +36,12 @@ function Index(props) {
     useEffect(() => {
         axios.get('http://localhost:3700/recipes/api/get').then((response) => {
             setRecipes(response.data);
+            const tryFilter = response.data.filter((v, i) => {
+                return v.Classification === food
+            })
+            setTryDisplay(tryFilter.filter((v, i) => {
+                return i < 6
+            }))
             // 淺層複製 變成6筆+全部 共2個資料
             // if (response.data.length > 6) {
             //     const minus = response.data.length - 6;
@@ -59,6 +67,40 @@ function Index(props) {
     console.log("recipes:", recipes)
 
     const [food, setFood] = useState('山珍野味')
+
+
+    function one() {
+        const tryFilter = recipes.filter((v, i) => {
+            return v.Classification === '大海滋味'
+        })
+        setAllFilter(tryFilter)
+        setTryDisplay(tryFilter.filter((v, i) => {
+            return i < 6
+        }))
+    }
+    function two() {
+        const tryFilter = recipes.filter((v, i) => {
+            return v.Classification === '山珍野味'
+        })
+        setAllFilter(tryFilter)
+        setTryDisplay(tryFilter.filter((v, i) => {
+            return i < 6
+        }))
+    }
+    function three() {
+        const tryFilter = recipes.filter((v, i) => {
+            return v.Classification === '創意料理'
+        })
+        setAllFilter(tryFilter)
+        setTryDisplay(tryFilter.filter((v, i) => {
+            return i < 6
+        }))
+    }
+    function next() {
+        setTryDisplay(allFilter.filter((v, i) => {
+            return i > 5
+        }))
+    }
 
     return (
         <>
@@ -139,18 +181,16 @@ function Index(props) {
                     <div className="glass menu">
                         <div className="d-flex justify-content-around p-3 p-md-5">
                             <div className="col-3 col-md-1 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button"
-                                onClick={() => setFood('大海滋味')}><div>大海滋味</div></div>
+                                onClick={() => one()}><div>大海滋味</div></div>
                             <div className="col-3 col-md-1 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button"
-                                onClick={() => setFood('山珍野味')}><div>山珍野味</div></div>
+                                onClick={() => two()}><div>山珍野味</div></div>
                             <div className="col-3 col-md-1 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button"
-                                onClick={() => setFood('創意料理')}><div>創意料理</div></div>
+                                onClick={() => three()}><div>創意料理</div></div>
                         </div>
                         <div className="d-md-flex align-items-end w-100 m-auto">
                             <div className="col-9 border-1 mt-3 mb-3 pb-3 pb-md-0 m-auto row justify-content-center">
-                                {!!recipes && recipes.length ? recipes.filter((v, i) => {
-                                    return v.Classification === food
-                                })
-                                .map((v, i) => {
+                                {!!recipes && recipes.length ? tryDisplay
+                                    .map((v, i) => {
                                         return (
                                             <React.Fragment key={v.sid}>
                                                 <div className={i % 2 === 0 ? "ms-5" : "me-5"}>
@@ -171,7 +211,8 @@ function Index(props) {
                                 <div className="menu_content mt-3 ms-5 w-75   text-white border-bottom border-white border-2">牛油果雞蛋醃肉三文治</div> */}
                             </div>
                             <div className="col-md-2">
-                                <div className="col-3 m-auto m-sm-0 col-md-6 rounded-pill d-flex align-items-center justify-content-center btn_bgc_color  text-center text-white mb-3 next_button">Next...</div>
+                                {/* <div onClick={()=> next()}>8987898789798789</div> */}
+                                <div className="col-3 m-auto m-sm-0 col-md-6 rounded-pill d-flex align-items-center justify-content-center btn_bgc_color  text-center text-white mb-3 next_button" onClick={() => next()}>Next...</div>
                             </div>
                         </div>
                     </div>

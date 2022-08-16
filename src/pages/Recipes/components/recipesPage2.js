@@ -222,7 +222,7 @@ function RecipesPage2(props) {
                             </div>
                             <div className="d-none d-md-flex col-md-10 m-auto">
                                 <div className="col-md-3 border-end border-2">
-                                    <div className="col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 1.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 1.</div>
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 2.</div>
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 3.</div>
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 4.</div>
@@ -230,12 +230,12 @@ function RecipesPage2(props) {
 
                                 </div>
                                 <div className="col-md-9">
-                                    <h5 className="col-md-9 py-md-5 m-auto">1）將洋蔥、蘑菇切成小塊；將蒜切片；<br />用鹽、胡椒將三文魚調味；米洗好並先浸20分鐘。</h5>
+                                    <h5 className="col-md-9 py-md-5 m-auto text-white">1）將洋蔥、蘑菇切成小塊；將蒜切片；<br />用鹽、胡椒將三文魚調味；米洗好並先浸20分鐘。</h5>
                                     <div className="d-flex">
                                         <div className="col-9 text-md-center">
                                             <img className="col-md-9" src={step1} alt="" />
                                         </div>
-                                        <div className="col-3">
+                                        <div className="col-3 text-center">
                                             <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button">大廚計時器</div>
                                             <div className="col-md-8 m-auto text-center rounded-pill border border-dark my-4 recipe_title">30:00</div>
                                             <h5 className="col-6 m-auto mt-5 text-center">price:3000</h5>
