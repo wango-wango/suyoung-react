@@ -7,6 +7,7 @@ import { useBackground } from "../../utils/useBackground"
 import WeatherApp from "../Home/components/WeatherApp"
 import { ROOM_GET_LIST } from "./config/ajax-path";
 import { Link } from "react-router-dom";
+import MapLink from "./components/mapLink"
 
 function Index(props) {
 
@@ -312,6 +313,11 @@ function Index(props) {
             }}>
                 <div className="bgtext">CAMP MAP</div>
             </motion.div>
+
+            <div className="mapcontainer">
+                <MapLink/>
+                <Link to="/shuyoung/SuMap"><div className='mapbtn btn_works'>觀看營區地圖</div></Link>
+            </div>
         </div>
     </section>
     </>

@@ -4,7 +4,6 @@ import { motion,
   useScroll,
   useTransform,
   MotionValue } from "framer-motion"
-import ScrollTrigger from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
@@ -15,7 +14,7 @@ function LandingIndex(props) {
 
     return (
     <>
-    <div className="fullscreenLanding">
+        <div className="fullscreenLanding">
             <Landing/>
         </div>
     <div className="landingBg">
@@ -467,7 +466,7 @@ function LandingIndex(props) {
             </motion.div>
         </div>
     </section>
-        <Link to="/shuyoung" class="landingbtn btn_works">Entry</Link>
+        <Link to="/shuyoung" className="landingbtn btn_works">Entry</Link>
         
     </div>
     </>
