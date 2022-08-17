@@ -176,7 +176,11 @@
         -webkit-text-stroke-color: black;
         -webkit-text-stroke-width: 2px;
     }
-    
+
+    .ingredient {
+        width: 12vw;
+    }
+
     .recipe_material {
         height: 6vw;
     }
@@ -188,6 +192,13 @@
     .step_button {
         box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.75);
     }
+    
+    .content_page {
+        display: none;
+    }
 
+    .active-content {
+        display: block;
+    }
     /* photoWall */
 }

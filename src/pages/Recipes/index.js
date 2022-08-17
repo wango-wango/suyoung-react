@@ -129,9 +129,9 @@ function Index(props) {
                             modules={[Autoplay, Pagination, Navigation]}
                             className="mySwiper carousel_size"
                         >
-                            <SwiperSlide><img src={"/recipes_img/pancake.png"} alt="" /></SwiperSlide>
-                            <SwiperSlide><img src={"/recipes_img/sanFishRice.png"} alt="" /></SwiperSlide>
-                            <SwiperSlide><img src={"/recipes_img/africaEgg.png"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/pancake.svg"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/sanFishRice.svg"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/africaEgg.svg"} alt="" /></SwiperSlide>
                         </Swiper>
                     </div>
                 </div>
