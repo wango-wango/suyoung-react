@@ -40,16 +40,9 @@ function Index(props) {
     // 把 room的資料存進去
     const [localRoom, setLocalRoom] = useState({});
 
-    
-
-    
-
     // 先把localStorage 的資料存進 localRoom 裡
     useEffect(() => {
         setLocalRoom(JSON.parse(localStorage.getItem("room")));
-        if(auth.authorized || auth.success){
-            setBookingList({...bookingList,memberId: auth.m_id});
-        }
     }, []);
 
     // 拿到localStorage 資料後 發ajax 到後端取值
@@ -70,13 +63,13 @@ function Index(props) {
                 console.log("total:",total);
 
             // 把total 金額存進去bookingList
-            setBookingList({ ...bookingList, totalPrice: total });
+            setBookingList({ ...bookingList, roomTotalPrice: total });
             // 先把舊localStorage的取出來
             const newLocalStorage = JSON.parse(localStorage.getItem("room"));
             // 再用解構的方式 加入 totalPrice 
             localStorage.setItem(
                 "room",
-                JSON.stringify({ ...newLocalStorage, totalPrice: total })
+                JSON.stringify({ ...newLocalStorage, roomTotalPrice: total })
             );
         }
         

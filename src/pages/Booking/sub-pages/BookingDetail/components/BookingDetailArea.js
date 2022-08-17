@@ -25,7 +25,6 @@ function BookingDetailArea(props) {
     // 把資料清空
     const clearData = () =>{
         setBookingList({
-            ...bookingList,
             roomSid: "",
             adults: "",
             kids: "0",
@@ -51,6 +50,23 @@ function BookingDetailArea(props) {
         setRoom(JSON.parse(localStorage.getItem("room")));
     }, []);
 
+    const keepShopping = () => {
+        // 判斷如果第一個物件為空的 就跳過不做
+        if (Object.keys(localRoomList).length === 0) return;
+
+        let newArray = [];
+
+        // 如果 bookingCart裡面已經有值了
+        if (bookingCart.length > 0) {
+            // 就新增新的進去
+            newArray = [...bookingCart, localRoomList];
+        } else {
+            // 如果沒有 就直接把localRoomList存進去就可以了
+            newArray = [localRoomList];
+        }
+        //最後存到BookingCart
+        setBookingCart(newArray);
+    }
     const insertToCart = () => {
         // 物件的 keys 是一個陣列
         // 判斷如果第一個物件為空的 就跳過不做
@@ -67,9 +83,11 @@ function BookingDetailArea(props) {
             newArray = [localRoomList];
         }
 
-        //最後一起存到BookingCart 和 roomItem
+        //最後一起存到roomItem 給 購物車
+        //最後存到BookingCart
         setBookingCart(newArray);
         localStorage.setItem("roomItem", JSON.stringify(newArray));
+
         console.log(newArray);
         
     };
@@ -146,7 +164,7 @@ function BookingDetailArea(props) {
                     </div>
                     <div className="room_result_total">
                         <p>total:</p>
-                        <h5>{bookingList.totalPrice || room.totalPrice}</h5>
+                        <h5>{bookingList.roomTotalPrice || room.roomTotalPrice}</h5>
                     </div>
                     <div className="room_card_button_area">
                         <button
@@ -185,7 +203,7 @@ function BookingDetailArea(props) {
                                     } else if (result.isDenied) {
                                         postRoomData();
                                         clearData();
-                                        insertToCart();
+                                        keepShopping();
                                         navigate("/shuyoung/Booking");
                                     }
                                 });
@@ -199,29 +217,22 @@ function BookingDetailArea(props) {
                             onClick={() => {
                                 localStorage.removeItem("room");
                                 Swal.fire({
-                                    icon: "success",
-                                    title: "已加入購物車",
-                                    text: "您是否前往購物車結帳",
-                                    color: "#224040",
+                                    icon: "warning",
+                                    title: "尚未登入會員",
+                                    text: "請先登入會員",
+                                    color: "#952e1f",
                                     background: "#FFF",
                                     showConfirmButton: true,
-                                    confirmButtonColor: "#224040",
-                                    confirmButtonText: `是`,
-                                    showDenyButton: true,
-                                    denyButtonText: `繼續購物`,
-                                    denyButtonColor: "#c1a688",
+                                    confirmButtonColor: "#952e1f",
+                                    confirmButtonText: `前往會員頁`,
+                                    
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         postRoomData();
-                                        clearData();
                                         insertToCart();
-                                        navigate("/shuyoung/Cart");
-                                    } else if (result.isDenied) {
-                                        postRoomData();
                                         clearData();
-                                        insertToCart();
-                                        navigate("/shuyoung/Booking");
-                                    }
+                                        navigate("/shuyoung/Join");
+                                    } 
                                 });
                             }}
                         >
