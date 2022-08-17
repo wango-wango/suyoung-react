@@ -119,7 +119,7 @@ function Index(props) {
                             spaceBetween={30}
                             centeredSlides={true}
                             autoplay={{
-                                delay: 2500,
+                                delay: 4000,
                                 disableOnInteraction: false,
                             }}
                             pagination={{
@@ -142,7 +142,7 @@ function Index(props) {
                     <input type="text input_label input_style" />
                     <div className="glass mt-3 mb-3">
                         <div class="general-container">
-                            <input class="radio" type="radio" name="card" id="card-1" checked />
+                            <input class="radio" type="radio" name="card" id="card-1" />
                             <label class="j_content d-none d-md-block" for="card-1">
                             </label>
                             <input class="radio" type="radio" name="card" id="card-2" />

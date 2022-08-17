@@ -89,6 +89,16 @@
   margin-right: 0;
 }
 
+.j_content:nth-of-type(6) {
+  background-image: url('/public/recipes_img/popcorn.svg');
+  margin-right: 0;
+}
+
+.j_content:nth-of-type(7) {
+  background-image: url('/public/recipes_img/popcorn.svg');
+  margin-right: 0;
+}
+
 .j_content:nth-of-type(2) .icon {
   color: var(--dark-gray);
 }

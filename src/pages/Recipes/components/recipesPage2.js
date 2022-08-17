@@ -9,7 +9,7 @@ import "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
 import "../../../styles/global.scss";
 import "../styles/index.scss";
 import { stop } from "fontawesome";
-import { setMinutes, setSeconds } from "date-fns";
+// import { setMinutes, setSeconds } from "date-fns";
 // import { setSeconds } from "date-fns";
 
 
@@ -83,7 +83,7 @@ function RecipesPage2(props) {
                 </header>
                 {/* const setRecipes ={...V , quanity:1 
                 localStorage.setItem("recipes",JSON.stringtify(setRecipes)) */}
-                <div>
+                {/* <div>
                     {!!recipes && recipes.length ? recipes.filter((v, i) => {
                         return v.sid === pageSid
                     }).map((v, i) => {
@@ -94,7 +94,7 @@ function RecipesPage2(props) {
                             }}>send storage</button>
                         </>
                     }) : null}
-                </div>
+                </div> */}
                 <section className="mb-5">
                     <div className="j_container">
                         {!!recipes && recipes.length ? recipes.filter((v, i) => {
@@ -296,12 +296,14 @@ function RecipesPage2(props) {
                                                         <img className="col-md-9" src={`/recipes_img/${v.step5_img}`} alt="" />
                                                     </div>
                                                     <div className="col-3 text-center">
-                                                        <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button" onClick={restart}>大廚計時器</div>
-                                                        <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button" onClick={stop}>大廚計時器</div>
+                                                        <div className="recipe_title mt-5">大廚計時器</div>
                                                         <div className="col-md-8 m-auto text-center rounded-pill border border-dark my-4 recipe_title ">{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</div>
-                                                        <h5 className="col-6 m-auto mt-5 text-center text-white">price:300</h5>
-
-                                                        <button className="col-6 rounded-pill m-auto mt-2 py-2 text-white btn_bgc_color text-center" type="button" onClick="" >加入購物車</button>
+                                                        <div className="d-flex mt-5 pt-5">
+                                                            <div className="col-5 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button" onClick={restart}>重新烹調</div>
+                                                            <div className="col-5 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button" onClick={stop}>稍做休息</div>
+                                                        </div>
+                                                        <h5 className="col-6 d-none m-auto mt-5 text-center text-white">price:300</h5>
+                                                        <button className="col-6 d-none rounded-pill m-auto mt-2 py-2 text-white btn_bgc_color text-center" type="button" onClick="" >加入購物車</button>
                                                     </div>
                                                 </div>
                                             </>
