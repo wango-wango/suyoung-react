@@ -19,7 +19,7 @@ function RoomFIlterRoomType(props) {
     // RoomType 房型控制器
     const RoomTypeHandler = (e) => {
         const value = e.target.value;
-        console.log(typeof value);
+        
         //先判斷是否有在likeList狀態陣列中
         if (checkroomType.includes(e.target.value)) {
             // if有 -> 移出陣列

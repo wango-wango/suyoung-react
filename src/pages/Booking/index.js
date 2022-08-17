@@ -9,6 +9,7 @@ import { BK_GET_LIST } from "./config/ajax-path";
 import { useBookingList } from "../../utils/useBookingList";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
 import Axios from "axios";
+import { motion } from "framer-motion"
 
 function Index(props) {
 
@@ -64,10 +65,11 @@ function Index(props) {
             popular,
             recommend,
             roomSelector,
+            searchPrice
         } = bookingList;
 
         await Axios.get(
-            `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}`
+            `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}&searchPrice=${searchPrice}`
         ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
@@ -85,6 +87,14 @@ function Index(props) {
         }
         
     };
+    // const orderDetailList = async() =>{
+    //     const memberId = auth.m_id;
+    //     await Axios.get(
+    //         `${BK_GET_LIST}/selectOrderDetail?memberId=${memberId}`
+    //     ).then((response) => {
+    //         console.log(response.data);
+    //     });
+    // }
     
     // 得到bookingList 的值就執行 getData
     useEffect(() => {
@@ -116,10 +126,23 @@ function Index(props) {
 
                     <div className="room_area_flex">
                         <BookingFilter searchName={searchName} setSearchName={setSearchName} checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} searchContext={searchContext} setSearchContext={setSearchContext} />
-
-                        <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
+                        {roomList && roomList.length ? (
+                            <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
+                        ): (<motion.div 
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity:0, y: -100 }}
+                            transition={{
+                                    duration: 0.5,
+                                    default: { ease: "linear" },
+                            }}
+                            className="emptyRoomFilter">
+                        <h5>你所設定的條件下沒有空房，請調整篩選條件。</h5>
+                        </motion.div>)}
+                        
                     </div>
                 </div>
+                {/* <button onClick={orderDetailList}>test</button> */}
             </section>
         </>
     );

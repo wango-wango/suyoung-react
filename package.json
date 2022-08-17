@@ -21,6 +21,7 @@
     "fontawesome": "^5.6.3",
     "formik": "^2.2.9",
     "framer-motion": "^6.5.1",
+    "fs": "^0.0.1-security",
     "gsap": "^3.10.4",
     "lodash": "^4.17.21",
     "lottie-web": "^5.9.6",
