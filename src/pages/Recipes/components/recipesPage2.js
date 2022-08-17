@@ -8,11 +8,39 @@ import Footer from "../../../components/footer";
 import "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
 import "../../../styles/global.scss";
 import "../styles/index.scss";
+import { stop } from "fontawesome";
+import { setMinutes, setSeconds } from "date-fns";
+// import { setSeconds } from "date-fns";
 
 
 function RecipesPage2(props) {
+    //資料
     const [recipes, setRecipes] = useState([])
     const [tutorial, setTutorial] = useState([])
+    //倒數計時
+    const [seconds, setSeconds] = useState(0)
+    const [minutes, setMinutes] = useState(5)
+
+    var timer;
+    useEffect(() => {
+        timer = setInterval(() => {
+            setSeconds(seconds - 1)
+            if (seconds === 0) {
+                setMinutes(minutes - 1)
+                setSeconds(59)
+            }
+        }, 1000)
+        return () => clearInterval(timer)
+    })
+
+    const restart = () => {
+        setMinutes(5)
+        setSeconds(0)
+    }
+
+    const stop = () => {
+        clearInterval(timer)
+    }
     //sid
     const { sid } = useParams()
     const pageSid = +sid
@@ -72,63 +100,63 @@ function RecipesPage2(props) {
                         {!!recipes && recipes.length ? recipes.filter((v, i) => {
                             return v.sid === pageSid
                         })
-                        .map((v, i) => {
-                            console.log(recipes.filter((v, i) => {
-                            return v.sid === pageSid
-                        }))                            
-                            return <>
-                                <div className="d-md-none text-center mt-5">
-                                    <img className="col-10 recipe_picture rounded-circle" src={`/recipes_img/${v.res_img}`} alt="" />
-                                </div>
-                                <div className="glass mt-5 d-md-flex menu ">
-                                    <div className="col-5 d-none d-md-block text-center ">
-                                        <img className="col-12 recipe_picture rounded-circle position-relative" src={`/recipes_img/${v.res_img}`} alt="" />
+                            .map((v, i) => {
+                                console.log(recipes.filter((v, i) => {
+                                    return v.sid === pageSid
+                                }))
+                                return <>
+                                    <div className="d-md-none text-center mt-5">
+                                        <img className="col-10 recipe_picture rounded-circle" src={`/recipes_img/${v.res_img}`} alt="" />
                                     </div>
-                                    <div className="col-md-7">
-                                        <div className="w-75 m-auto border-bottom pt-3 pb-md-3">
-                                            <div className="recipe_title mt-3 text-center">{v.res_name}</div>
-                                            <div className="recipe_title ms-5 text-center"></div>
+                                    <div className="glass mt-5 d-md-flex menu ">
+                                        <div className="col-5 d-none d-md-block text-center ">
+                                            <img className="col-12 recipe_picture rounded-circle position-relative" src={`/recipes_img/${v.res_img}`} alt="" />
                                         </div>
-                                        <div className="pb-3 d-md-flex justify-content-evenly align-items-center">
-                                            <div className="recipe_line pe-md-5 ms-md-5">
-                                                <div className="d-flex justify-content-center m-3 pb-md-5">
-                                                    <h5 className="recipe_material">材料:</h5>
-                                                    <h5 className="recipe_material ingredient">
-                                                        {v.ingredient}
-                                                    </h5>
+                                        <div className="col-md-7">
+                                            <div className="w-75 m-auto border-bottom pt-3 pb-md-3">
+                                                <div className="recipe_title mt-3 text-center">{v.res_name}</div>
+                                                <div className="recipe_title ms-5 text-center"></div>
+                                            </div>
+                                            <div className="pb-3 d-md-flex justify-content-evenly align-items-center">
+                                                <div className="recipe_line pe-md-5 ms-md-5">
+                                                    <div className="d-flex justify-content-center m-3 pb-md-5">
+                                                        <h5 className="recipe_material">材料:</h5>
+                                                        <h5 className="recipe_material ingredient">
+                                                            {v.ingredient}
+                                                        </h5>
+                                                    </div>
+                                                    <div className="d-flex justify-content-center m-3 pt-md-5">
+                                                        <h5 className="recipe_material">時間:</h5>
+                                                        <h5 className="recipe_material">
+                                                            {v.cook_time}
+                                                        </h5>
+                                                    </div>
                                                 </div>
-                                                <div className="d-flex justify-content-center m-3 pt-md-5">
-                                                    <h5 className="recipe_material">時間:</h5>
-                                                    <h5 className="recipe_material">
-                                                        {v.cook_time}
-                                                    </h5>
+                                                <div className="pt-md-5">
+                                                    <div className="d-flex justify-content-center m-3">
+                                                        <h5 className="recipe_material">建議人數:</h5>
+                                                        <h5 className="recipe_material">
+                                                            {v.serves}
+                                                        </h5>
+                                                    </div>
+                                                    <div className="d-flex justify-content-center m-3">
+                                                        <h5 className="recipe_material">鍋具:</h5>
+                                                        <h5 className="recipe_material">
+                                                            {v.tool}
+                                                        </h5>
+                                                    </div>
+                                                    <div className="d-flex justify-content-center m-3">
+                                                        <h5 className="recipe_material">葷/素：</h5>
+                                                        <h5 className="recipe_material">
+                                                            {v.recipe_type}
+                                                        </h5>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="pt-md-5">
-                                                <div className="d-flex justify-content-center m-3">
-                                                    <h5 className="recipe_material">建議人數:</h5>
-                                                    <h5 className="recipe_material">
-                                                        {v.serves}
-                                                    </h5>
-                                                </div>
-                                                <div className="d-flex justify-content-center m-3">
-                                                    <h5 className="recipe_material">鍋具:</h5>
-                                                    <h5 className="recipe_material">
-                                                        {v.tool}
-                                                    </h5>
-                                                </div>
-                                                <div className="d-flex justify-content-center m-3">
-                                                    <h5 className="recipe_material">葷/素：</h5>
-                                                    <h5 className="recipe_material">
-                                                        {v.recipe_type}
-                                                    </h5>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </>
-                        }) : null}
+                                </>
+                            }) : null}
                     </div>
                 </section>
                 <section className="mb-5">
@@ -268,8 +296,9 @@ function RecipesPage2(props) {
                                                         <img className="col-md-9" src={`/recipes_img/${v.step5_img}`} alt="" />
                                                     </div>
                                                     <div className="col-3 text-center">
-                                                        <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button">大廚計時器</div>
-                                                        <div className="col-md-8 m-auto text-center rounded-pill border border-dark my-4 recipe_title ">30:00</div>
+                                                        <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button" onClick={restart}>大廚計時器</div>
+                                                        <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button" onClick={stop}>大廚計時器</div>
+                                                        <div className="col-md-8 m-auto text-center rounded-pill border border-dark my-4 recipe_title ">{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</div>
                                                         <h5 className="col-6 m-auto mt-5 text-center text-white">price:300</h5>
 
                                                         <button className="col-6 rounded-pill m-auto mt-2 py-2 text-white btn_bgc_color text-center" type="button" onClick="" >加入購物車</button>
