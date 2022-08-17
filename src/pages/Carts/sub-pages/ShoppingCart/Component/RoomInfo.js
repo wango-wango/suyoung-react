@@ -5,7 +5,7 @@ const _ = require('lodash')
 const Swal = require('sweetalert2')
 
 function RoomInfo(props) {
-  const { setSum, updateQty } = props
+  const { setSum, updateQty, roomSum, setRoomSum } = props
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
 
@@ -22,34 +22,50 @@ function RoomInfo(props) {
     getCartFromLocalStorage()
   }, [])
 
-  // componentDidUpdate
+  // 計算總價用的函式
+  const sum = (items) => {
+    let total = 0
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].roomTotalPrice
+    } 
+    // setSum(total)
+    setRoomSum(total)
+    console.log(total)
+    // return total
+  }
   useEffect(() => {
-    // mycartDisplay運算
-    let newMycartDisplay = []
-
-    //尋找mycartDisplay
-    for (let i = 0; i < mycart.length; i++) {
-      const index = newMycartDisplay.findIndex(
-        (value) => value.id === mycart[i].roomSid
-      )
-      console.log(index)
-      //有的話就數量+1
-      if (index !== -1) {
-        newMycartDisplay[index].amount += mycart[i].amount
-      } else {
-        //沒有的話就把項目加入，數量為1
-        const newItem = { ...mycart[i] }
-        newMycartDisplay = [...newMycartDisplay, newItem]
-      }
-    }
-
-    console.log(newMycartDisplay)
-    setMycartDisplay(newMycartDisplay)
+    console.log(mycart)
+    sum(mycart)
   }, [mycart])
+
+  // componentDidUpdate
+  // useEffect(() => {
+  //   // mycartDisplay運算
+  //   let newMycartDisplay = []
+
+  //   //尋找mycartDisplay
+  //   for (let i = 0; i < mycart.length; i++) {
+  //     const index = newMycartDisplay.findIndex(
+  //       (value) => value.id === mycart[i].roomSid
+  //     )
+  //     console.log(index)
+  //     //有的話就數量+1
+  //     if (index !== -1) {
+  //       newMycartDisplay[index].amount += mycart[i].amount
+  //     } else {
+  //       //沒有的話就把項目加入，數量為1
+  //       const newItem = { ...mycart[i] }
+  //       newMycartDisplay = [...newMycartDisplay, newItem]
+  //     }
+  //   }
+
+  //   console.log(newMycartDisplay)
+  //   setMycartDisplay(newMycartDisplay)
+  // }, [mycart])
 
   console.log([mycart])
 
-  console.log([mycartDisplay])
+  // console.log([mycartDisplay])
 
   // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
   const delItem = (item) => {
@@ -58,6 +74,13 @@ function RoomInfo(props) {
 
     // 找尋是否有此筆item.id的對應資料
     const index = currentCart.findIndex((v) => v.room_id === item.room_id)
+
+    // // 複製
+    // const oldTotalBookingCart = totalBookingCart;
+
+    // const newTotalBookingCart = oldTotalBookingCart.filter((v)=> v.room_id !== item.room_id)
+
+    // setTotalBookingCart(newTotalBookingCart);
 
     if (index > -1) {
       // 找到的話就透過splice來移除array中的那個物件
@@ -92,21 +115,13 @@ function RoomInfo(props) {
     })
   }
 
-  // 計算總價用的函式
-  const sum = (items) => {
-    let total = 0
-    for (let i = 0; i < items.length; i++) {
-      total += items[i].totalPrice
-    }
-    setSum(total)
-    return total
-  }
+  
 
-  console.log(sum)
+  // console.log(sum)
 
   const displayItems = (
     <>
-      {mycartDisplay.map((item, index) => {
+      {mycart.map((item, index) => {
         return (
           <motion.div
             initial={{ opacity: 0, y: -100 }}
@@ -147,16 +162,16 @@ function RoomInfo(props) {
     </>
   )
 
-  const ScPriceRow = (
-    <>
-      {/* 總金額列 */}
-      <div className="totalPriceFont col-3 px-0">房價總計</div>
-      <div className="totalPriceFont-med col-3 px-0">
-        NT<span>{sum(mycartDisplay)}</span>
-      </div>
-    </>
-  )
-
+  // const ScPriceRow = (
+  //   <>
+  //     {/* 總金額列 */}
+  //     <div className="totalPriceFont col-3 px-0">房價總計</div>
+  //     <div className="totalPriceFont-med col-3 px-0">
+  //       NT<span>{sum(mycartDisplay)}</span>
+  //     </div>
+  //   </>
+  // )
+  // if (mycartDisplay.length === 0) return <></>
   return <>{displayItems}</>
 }
 

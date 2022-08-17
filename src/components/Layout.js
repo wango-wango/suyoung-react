@@ -17,6 +17,7 @@ function Layout({ children }) {
             position: "relative",
             fontFamily: "Noto Sans TC , sans-serif",
             listStyle: "none",
+            
         }}
     >
             <Navbar />

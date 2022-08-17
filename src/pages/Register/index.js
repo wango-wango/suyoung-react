@@ -49,7 +49,7 @@ const Index = () => {
                         ),
                     }}
                 >
-                    <MRegister />
+                    <MRegister flipped={flipped} setFlipped={setFlipped} />
                 </a.div>
                 <MouseParallaxContainer
                     containerStyles={{ position: "absolute", zIndex: "-1" }}

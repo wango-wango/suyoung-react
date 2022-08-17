@@ -18,6 +18,8 @@ import Swal from "sweetalert2";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { ACT_GET_LIST } from "./config/ajax-path";
+import { motion } from "framer-motion";
+
 
 function ActReser(props) {
     //活動資料存放處
@@ -123,11 +125,30 @@ function ActReser(props) {
             <section>
                 <div className="emf">
                     <div className="card_bg">
+                    <motion.div
+                        className="keep-card"
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                            delay: 0.5,
+
+                            default: { ease: "linear" },
+                        }}>
                         <div className="actEnTitle titleGroup">
                             <h3>{actBookingList.actName}</h3>
                             <h4>預約報名</h4>
                         </div>
+
+                    </motion.div>
                         <div className="d-flex calendar">
+                        <motion.div
+                            className="keep-card"
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                            delay: 0.5,
+                            default: { ease: "linear" },
+                        }}>
                             <div className="calendarLeft">
                                 <Calendar
                                     value={datePick}
@@ -140,110 +161,120 @@ function ActReser(props) {
                                         });
                                     }}
                                 />
-                            </div>
+                                </div>
+                            </motion.div>
+                            <motion.div
+                                    className="keep-card"
+                                    initial={{ opacity: 0, y: 100 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                    delay: 0.7,
+                                    default: { ease: "linear" },
+                                }}>
                             <div className="calendarRight">
-                                <div className="actOrder">
-                                    <h4>預約內容</h4>
-                                    <div className="orderItem">
-                                        <label
-                                            htmlFor="actDate"
-                                            className="actlabel"
-                                        >
-                                            ＊活動日期
-                                        </label>
-                                        <DatePicker
-                                            value={datePick}
-                                            onChange={(v) => {
-                                                console.log(v);
-                                                if (v) {
+                                    <div className="actOrder">
+                                        <h4>預約內容</h4>
+                                        <div className="orderItem">
+                                            <label
+                                                htmlFor="actDate"
+                                                className="actlabel"
+                                            >
+                                                ＊活動日期
+                                            </label>
+                                            <DatePicker
+                                                value={datePick}
+                                                onChange={(v) => {
+                                                    console.log(v);
+                                                    if (v) {
+                                                        setActBookingList({
+                                                            ...actBookingList,
+                                                            date: formatDate(v),
+                                                        });
+                                                        setDatePick(v);
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="orderItem">
+                                            <label
+                                                htmlFor="actPeople"
+                                                className="actlabel"
+                                            >
+                                                ＊報名人數
+                                            </label>
+                                            <InputGroup>
+                                                <InputGroup.Button
+                                                    onClick={handleMinus}
+                                                >
+                                                    -
+                                                </InputGroup.Button>
+                                                <InputNumber
+                                                    className={
+                                                        "custom-input-number"
+                                                    }
+                                                    value={value}
+                                                    onChange={setValue}
+                                                />
+                                                <InputGroup.Button
+                                                    onClick={handlePlus}
+                                                >
+                                                    +
+                                                </InputGroup.Button>
+                                            </InputGroup>
+                                        </div>
+                                        <div className="orderItem">
+                                            <label
+                                                htmlFor="actPrice"
+                                                className="actlabel"
+                                            >
+                                                活動費用
+                                            </label>
+                                            <input
+                                                className="disableinput"
+                                                type="text"
+                                                disabled
+                                                value={actBookingList.price}
+                                            />
+                                        </div>
+                                        <div className="orderItem">
+                                            <label
+                                                htmlFor="actTotal"
+                                                className="actlabel"
+                                            >
+                                                總共費用
+                                            </label>
+                                            <input
+                                                className="disableinput"
+                                                type="text"
+                                                disabled
+                                                value={actBookingList.totalPrice}
+                                            />
+                                        </div>
+                                        <div className="orderItem">
+                                            <button
+                                                className="btn btn-dark"
+                                                onClick={() => {
                                                     setActBookingList({
                                                         ...actBookingList,
-                                                        date: formatDate(v),
+                                                        actSid: "",
+                                                        actName: "",
+                                                        people: "",
+                                                        Maxpeople: "",
+                                                        date: "",
+                                                        price: "",
+                                                        totalPrice: "",
+                                                        memberId: "",
                                                     });
-                                                    setDatePick(v);
-                                                }
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="orderItem">
-                                        <label
-                                            htmlFor="actPeople"
-                                            className="actlabel"
-                                        >
-                                            ＊報名人數
-                                        </label>
-                                        <InputGroup>
-                                            <InputGroup.Button
-                                                onClick={handleMinus}
+                                                    localStorage.removeItem("Act");
+                                                    navigate(-1);
+                                                }}
                                             >
-                                                -
-                                            </InputGroup.Button>
-                                            <InputNumber
-                                                className={
-                                                    "custom-input-number"
-                                                }
-                                                value={value}
-                                                onChange={setValue}
-                                            />
-                                            <InputGroup.Button
-                                                onClick={handlePlus}
-                                            >
-                                                +
-                                            </InputGroup.Button>
-                                        </InputGroup>
-                                    </div>
-                                    <div className="orderItem">
-                                        <label
-                                            htmlFor="actPrice"
-                                            className="actlabel"
-                                        >
-                                            活動費用
-                                        </label>
-                                        <input
-                                            className="disableinput"
-                                            type="text"
-                                            disabled
-                                            value={actBookingList.price}
-                                        />
-                                    </div>
-                                    <div className="orderItem">
-                                        <label
-                                            htmlFor="actTotal"
-                                            className="actlabel"
-                                        >
-                                            總共費用
-                                        </label>
-                                        <input
-                                            className="disableinput"
-                                            type="text"
-                                            disabled
-                                            value={actBookingList.totalPrice}
-                                        />
-                                    </div>
-                                    <div className="orderItem">
-                                        <button
-                                            className="btn btn-dark"
-                                            onClick={() => {
-                                                setActBookingList({
-                                                    ...actBookingList,
-                                                    actSid: "",
-                                                    actName: "",
-                                                    people: "",
-                                                    Maxpeople: "",
-                                                    date: "",
-                                                    price: "",
-                                                    totalPrice: "",
-                                                    memberId: "",
-                                                });
-                                                localStorage.removeItem("Act");
-                                                navigate(-1);
-                                            }}
-                                        >
-                                            取消預約
-                                        </button>
+                                                取消預約
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                         <div className="actRsTitle">
                             <h4>聯絡人資訊</h4>
