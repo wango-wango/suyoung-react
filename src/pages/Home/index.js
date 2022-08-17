@@ -19,7 +19,42 @@ function Index(props) {
     const [roomType, setRoomType] = useState([]);
     // 房間選擇狀態
     const [roomSelector, setRoomSelector] = useState([]);
+    // C來的溫度的狀態
+    const [tempValue, setTempValue] = useState(30);
+    //banner檔名
+    const [fileName, setFileName] = useState("");
+    const [fileName2, setFileName2] = useState("");
+    const [fileName3, setFileName3] = useState("");
+    const [fileName4, setFileName4] = useState("");
+    const [fileName5, setFileName5] = useState("");
+    const [fileName6, setFileName6] = useState("");
+    const [fileName7, setFileName7] = useState("");
+    const [fileName8, setFileName8] = useState("");
 
+    //使用溫度換背景圖
+    useEffect(()=>{
+    if(tempValue === 20) {
+        setFileName("/index_imgs/cold_index_bg.png")
+        setFileName2("/index_imgs/cold_index_bg2.png")
+        setFileName3("/index_imgs/cold_index_bg3.png")
+        setFileName4("/index_imgs/cold_index_bg4.png")
+        setFileName5("/index_imgs/cold_index_bg5.png")
+        setFileName6("/index_imgs/cold_index_bg6.png")
+        setFileName7("/index_imgs/cold_index_bg7.png")
+        setFileName8("/index_imgs/cold_index_bg8.png")
+        setBackground("cold_indexBg.svg")
+    }else {
+        setFileName("/index_imgs/index_bg.png")
+        setFileName2("/index_imgs/index_bg2.png")
+        setFileName3("/index_imgs/index_bg3.png")
+        setFileName4("/index_imgs/index_bg4.png")
+        setFileName5("/index_imgs/index_bg5.png")
+        setFileName6("/index_imgs/index_bg6.png")
+        setFileName7("/index_imgs/index_bg7.png")
+        setFileName8("/index_imgs/index_bg8.png")
+        setBackground("indexBg.svg")
+    }
+},[tempValue])
 
     //背景控制hook
     useEffect(() => {
@@ -75,16 +110,16 @@ function Index(props) {
         return (
     <>
     <section>
-            <div className="weatherCtrl"><WeatherApp/></div>
+            <div className="weatherCtrl"><WeatherApp setTempValue={setTempValue}/></div>
         <div id="banner">
-            <img className="animate"  src="/index_imgs/index_bg8.png" id="8" alt=""/>
-            <img className="animate" data-rellax-speed="-9" data-rellax-zindex="5" src="/index_imgs/index_bg7.png" id="7" alt=""/>
-            <img className="animate" data-rellax-speed="-8" src="/index_imgs/index_bg6.png" id="6" alt=""/>
-            <img className="animate" data-rellax-speed="-7" src="/index_imgs/index_bg5.png" id="5" alt=""/>
-            <img className="animate" data-rellax-speed="-6" src="/index_imgs/index_bg4.png" id="4" alt=""/>
-            <img className="animate" data-rellax-speed="-5" src="/index_imgs/index_bg3.png" id="3" alt=""/>
-            <img className="animate" data-rellax-speed="-4" src="/index_imgs/index_bg2.png" id="2" alt=""/>
-            <img src="/index_imgs/index_bg.png" id="1" alt=""/>
+            <img className="animate"  src={fileName8} id="8" alt=""/>
+            <img className="animate" data-rellax-speed="-9" src={fileName7} id="7" alt=""/>
+            <img className="animate" data-rellax-speed="-8" src={fileName6} id="6" alt=""/>
+            <img className="animate" data-rellax-speed="-7" src={fileName5} id="5" alt=""/>
+            <img className="animate" data-rellax-speed="-6" src={fileName4} id="4" alt=""/>
+            <img className="animate" data-rellax-speed="-5" src={fileName3} id="3" alt=""/>
+            <img className="animate" data-rellax-speed="-4" src={fileName2} id="2" alt=""/>
+            <img className="" src={fileName} id="1" alt=""/>
         </div>
     </section>
     <section>
@@ -265,41 +300,32 @@ function Index(props) {
                     <div className="bgtextL">RECIPES</div>
                 </motion.div>
             </div>
-            <div className="recipesRow">
-                <motion.div
-                    initial={{ opacity: 0, x:-100 }}
-                    whileInView={{ opacity: 1, x:0 }}
+            <motion.div
+                    initial={{ opacity: 0, y:-100 }}
+                    whileInView={{ opacity: 1, y:0 }}
                     transition={{
                     delay: 0.4,
                     default: { ease: "linear" },
                 }}>
-                    <div className="square">
+            <div className="recipesRow">
+                    <div className="square sq1">
                         <div className="sqContent">
                             <div className="sqTitle">天菜大廚</div>
                             <div className="squareDes">若無法徹底理解廚師，恐怕會是人類的一大遺憾。
                             我們不得不面對一個非常尷尬的事實，那就是，阿拉伯說過一句經典的名言，斃虎者飽餐虎肉，畏虎者葬身虎口。</div>
-                            <button className="btn btn-dark">MORE</button>
+                            <Link to="/shuyoung/recipes"><button className="btn btn-dark">MORE</button></Link>
                         </div>
                     </div>
-                </motion.div>
-                <motion.div
-                            initial={{ opacity: 0, x:100 }}
-                            whileInView={{ opacity: 1, x:0 }}
-                            transition={{
-                            delay: 0.4,
-                            default: { ease: "linear" },
-                        }}>
-                <div className="square sq1">
-                    
+                    <div className="square sq2">
                         <div className="sqContent">
                             <div className="sqTitle">大廚必比登</div>
                             <div className="squareDes">若無法徹底理解廚師，恐怕會是人類的一大遺憾。
                             我們不得不面對一個非常尷尬的事實，那就是，阿拉伯說過一句經典的名言，斃虎者飽餐虎肉，畏虎者葬身虎口。</div>
-                            <button className="btn btn-dark">MORE</button>
+                            <Link to="/shuyoung/recipes"><button className="btn btn-dark">MORE</button></Link>
                         </div>
                     </div>
-                </motion.div>
-            </div>
+                </div>
+            </motion.div>
         </div>
     </section>
     <section>

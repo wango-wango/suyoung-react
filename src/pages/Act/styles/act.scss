@@ -45,8 +45,9 @@
 }
 .slider {
     margin: auto;
-    width: 80%;
-    height: 700px;    
+    width: 60%;
+    height: 800px;  
+    padding-left: 30px;  
     .swiper-slide {
         text-align: center;
         font-size: 18px;
@@ -113,9 +114,8 @@
 .actContentCotainer {
     
     .actGroup {
-        padding-left: 150px;
-        padding-right: 150px;
-        
+        padding-left: 30px;
+        padding-right: 30px;
         .actToggle {
             color: #fff;
             padding: 30px 50px;
@@ -238,3 +238,8 @@
     display: none;
     }
 }   
+.like {
+    position: absolute;
+    left:10px;
+    top:10px;
+}

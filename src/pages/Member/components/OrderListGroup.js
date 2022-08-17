@@ -10,24 +10,7 @@ const OrderListGroup = (props) => {
 
     const { orderList } = props;
 
-    // const [orderlist, setOrderList] = useState([]);
-
-    // const getOrderData = async () => {
-    //     const res = await axios.get(
-    //         `http://localhost:3700/member/getOrderList/${auth.m_id}`
-    //     );
-
-    //     console.log(res);
-    //     const order = res.data.result;
-
-    //     console.log(order);
-
-    //     setOrderList(order);
-    // };
-
-    // useEffect(() => {
-    //     getOrderData();
-    // }, []);
+   
 
     useEffect(() => {
         if(orderList.length){  
@@ -68,6 +51,8 @@ const OrderListGroup = (props) => {
         
         }
     }, [orderList]);
+
+
 
     return (
         <>
@@ -151,28 +136,20 @@ const OrderListGroup = (props) => {
                                             <span>{v.perNight}</span>晚
                                         </div>
                                         <div>
-                                            <span>{v.totalPrice}</span>元
+                                            <span>{v.room_price}</span>元
                                         </div>
                                     </div>
                                     <div className="plus">
                                         <div>
-                                            活動加購：
-                                            <span>夜遊觀星月</span>*
-                                            <span>4</span>人
+                                            活動：
+                                            <span>{v.act_name}</span>*
+                                            <span>{v.adults}</span>人
                                         </div>
                                         <div>
-                                            <span>3,200</span>元
+                                            <span>{v.act_price}</span>元
                                         </div>
                                     </div>
-                                    <div className="plus">
-                                        <div>
-                                            活動加購：
-                                            <span>沙灘車</span>*<span>4</span>人
-                                        </div>
-                                        <div>
-                                            <span>3,200</span>元
-                                        </div>
-                                    </div>
+                                    
                                     <div className="total-price">
                                         <div className="checkmore-btn">
                                             <Link to="/shuyoung/SuMap">
@@ -185,7 +162,7 @@ const OrderListGroup = (props) => {
                                             </Link>
                                         </div>
                                         <div>
-                                            <span>{v.totalPrice}</span>元
+                                            <span>{v.total_price}</span>元
                                         </div>
                                     </div>
                                 </div>

@@ -138,8 +138,7 @@ function BookingArea(props) {
                         
                         disabledDate={combine(allowedMaxDays(7), beforeToday())}
                         onChange={(v) => {
-                            console.log(v);
-                            console.log(v[0]);
+                            
                             // 日期＋1
                             const nextDate = new Date(v[0]);
                             nextDate.setDate(nextDate.getDate()+1);

@@ -30,7 +30,9 @@ const MemberCenter = () => {
 
     const { background, setBackground } = useBackground();
 
-   
+    useEffect(() => {
+        setBackground("bglayer.svg");
+    }, [])
 
     useEffect(() => {
         setLoading(true);

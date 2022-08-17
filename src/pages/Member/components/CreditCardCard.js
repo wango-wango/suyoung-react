@@ -11,7 +11,12 @@ const CreditCardCard = () => {
         const res = await axios.get(
             `http://localhost:3700/member/creditcard/?memberId=${auth.m_id}`
         );
-        res.data.result.forEach((item) => {
+        // res.data.result.forEach((item) => {
+        //     item.card_number_hidden = item.card_number.map((number, i) => {
+        //         return i === 1 || i === 2 ? "****" : number;
+        //     });
+        // });
+        res.data.result.map((item,index) => {
             item.card_number_hidden = item.card_number.map((number, i) => {
                 return i === 1 || i === 2 ? "****" : number;
             });

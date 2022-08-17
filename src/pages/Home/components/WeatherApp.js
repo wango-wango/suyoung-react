@@ -75,7 +75,10 @@ const getMoment = (locationName) => {
     : 'night';
 };
 
-const WeatherApp = () => {
+const WeatherApp = (props) => {
+    
+    const [tempValue, setTempValue] = useState('')
+
     console.log('--- invoke function component ---');
     const storageCity = localStorage.getItem('cityName');
     const [currentCity, setCurrentCity] = useState(storageCity || '臺北市');
@@ -89,6 +92,10 @@ const WeatherApp = () => {
     const moment = useMemo(() => getMoment(currentLocation.cityName), [
         currentLocation.cityName,
     ]);
+
+    useEffect(()=>{
+        props.setTempValue(tempValue);
+    },[tempValue])
 
     useEffect(() => {
         setCurrentTheme(moment === 'day' ? 'light' : 'dark');
@@ -108,6 +115,7 @@ const WeatherApp = () => {
                 moment={moment}
                 fetchData={fetchData}
                 setCurrentPage={setCurrentPage}
+                setTempValue={setTempValue}
             />
             )}
 

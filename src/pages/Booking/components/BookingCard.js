@@ -9,13 +9,9 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Swal from "sweetalert2";
 
 function BookingCard(props) {
-    // 所有room 列表
-    const [roomList, setRoomList] = useState([]);
-    // 所有Tag 列表
-    const [tagList, setTagList] = useState([]);
-    // 會員的 favList roomsid
-    const [favList, setFavList] = useState([]);
-
+    const {roomList,setRoomList, tagList, favList, setFavList,searchName} = props;
+    // 篩選控制器重置
+    const { setSearchName, setCheckRoomType, setRoomSelector, setValue, setTagValue, setRecommend, setPopular, setSearchContext} = props;
     // useContext
     const { bookingList, setBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
@@ -27,20 +23,23 @@ function BookingCard(props) {
         favType: 1,
     });
 
-    // 判斷是否回傳值給 memberKeep
+    // 控制 收藏功能
     const keepHandler = (e) => {
         const checked = e.target.checked;
         const roomSid = e.target.value;
         const memberId = auth.m_id;
 
         if (checked) {
-            setMemberKeep({
-                ...memberKeep,
-                roomSid: roomSid,
-                memberId: memberId,
-            });
+            // 先存一個新的
+            const newMemberKeep = {...memberKeep,roomSid: roomSid,
+                memberId: memberId};
+            // 存進資料庫
+            postKeep(newMemberKeep);
+            // 存進狀態
+            setMemberKeep(newMemberKeep);
             setFavList([...favList, +roomSid]);
         } else {
+            // 刪除資料
             deleteKeep(roomSid);
         }
     };
@@ -57,68 +56,57 @@ function BookingCard(props) {
         console.log(res);
     };
 
-    // 從 bookingList解構
-    const {
-        adults,
-        startDate,
-        endDate,
-        roomType,
-        startPrice,
-        endPrice,
-        tagCheck,
-        popular,
-        recommend,
-        roomSelector,
-    } = bookingList;
+    // 把會員收藏存進去資料庫
+    const postKeep = async (newMemberKeep) => {
+        await Axios.post(`${BK_GET_LIST}/addKeep`, newMemberKeep);
+    };   
 
-    // 用get 取得所有的值
-    const getData = async () => {
-        await Axios.get(
-            `${BK_GET_LIST}/selectRoom?adults=${adults}&startDate=${startDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}`
-        ).then((response) => {
-            setRoomList(response.data.roomList);
-            setTagList(response.data.tagList);
-            console.log(response.data.roomList);
-            console.log(auth.m_id);
-        });
 
-        // 取得所有favlist 的 roomSid
-        await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.m_id}`).then(
-            (response) => {
-                // setFavList(response.data);
-                setFavList(response.data.map((v) => +v.fav_list_kind));
-            }
-        );
-    };
+    // useEffect(() => {
+    // const oldRoomList = roomList;
+    // const newRoomList = oldRoomList.filter((v)=>v.room_name.includes(searchName));
+    // setRoomList(newRoomList);
+    // }, [searchName])
 
-    // const getFavList = async
-    const postData = async () => {
-        await Axios.post(`${BK_GET_LIST}/addKeep`, memberKeep);
-    };
-
-    useEffect(() => {
-     if(auth.authorized || auth.success){
-            setBookingList({...bookingList,memberId: auth.m_id});
-        }
-    }, [])
     
-    // 起始狀態先render getData
-    useEffect(() => {
-        getData();
-    }, [bookingList]);
-
-    // 當memberKeep改變才執行
-    useEffect(() => {
-        if (memberKeep.memberId !== "" && memberKeep.roomSid !== "") {
-            postData();
-        }
-    }, [memberKeep]);
-
+    
+    // /* 篩選全部重置 */
+    const resetAll = () => {
+        setBookingList({
+            roomSid: "",
+            adults: "",
+            kids: "0",
+            startDate: "",
+            endDate: "",
+            perNight: "",
+            roomType: [],
+            startPrice: "",
+            endPrice: "",
+            tagCheck: [],
+            popular: "",
+            recommend: "",
+            roomSelector: [],
+            roomTotalPrice:"",
+            nextDate:"",
+            orderType: "1",
+        });
+        
+        // 所有狀態歸零
+        setCheckRoomType([]);
+        setRoomSelector([]);
+        setValue([1000, 5000]);
+        setTagValue([]);
+        setPopular(1);
+        setRecommend(1);
+        setSearchName("");
+        setSearchContext("");
+    }
+    
     return (
         <>
             <div className="room_card_flex">
-                {roomList &&
-                    roomList.map((v, i) => {
+                {roomList && roomList.length ? (
+                    roomList.filter((v)=>v.room_name.includes(searchName)).map((v, i) => {
                         return (
                             <div className="room_card_area" key={v.sid}>
                                 <div className="room_card_img_area">
@@ -224,7 +212,7 @@ function BookingCard(props) {
                                         </div>
 
                                         <div className="keep_button">
-                                            {auth.authorized ? (
+                                            {auth.authorized || auth.success ? (
                                                 <input
                                                     className="checkbox-tools"
                                                     type="checkbox"
@@ -269,7 +257,7 @@ function BookingCard(props) {
                                 </div>
                             </div>
                         );
-                    })}
+                    })):(null)}
             </div>
         </>
     );

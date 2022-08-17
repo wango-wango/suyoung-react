@@ -40,7 +40,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, x:500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -52,7 +52,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, x:500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -64,7 +64,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, x:-500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 1,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -73,10 +73,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc1">
             <motion.div
-                    initial={{ opacity: 0, y: -500 }}
+                    initial={{ opacity: 0, y: 0 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 2,
+                    delay: 1.2,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -88,7 +88,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.5,
+                delay: 0.8,
                 default: { ease: "linear" },
             }}>
                 <h4 className="lt2">LOOKING FOR</h4>
@@ -99,7 +99,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.7,
+                delay: 0.9,
                 default: { ease: "linear" },
             }}>
             <span className="d-flex align-items-center"><h2 className="lt2">CAMPING</h2><h4 className="lt2">尋找露營之旅</h4></span>
@@ -112,7 +112,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, x:500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.7,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -124,7 +124,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, x:500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.7,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -136,7 +136,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, x:-500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -148,7 +148,7 @@ function LandingIndex(props) {
                     initial={{ opacity: 0, y: -500 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 1,
+                    delay: 1.2,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -160,7 +160,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.5,
+                delay: 0.7,
                 default: { ease: "linear" },
             }}>
                 <h4 className="lt2">STICK TOGETHER</h4>
@@ -171,7 +171,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.7,
+                delay: 0.8,
                 default: { ease: "linear" },
             }}>
             <span className="d-flex align-items-center"><h2 className="lt2">FRIENDSHIP</h2><h4 className="lt2">團結的考驗</h4></span>
@@ -181,10 +181,10 @@ function LandingIndex(props) {
     <section>
         <div className="sc3">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -193,10 +193,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc3">
             <motion.div
-                    initial={{ opacity: 0, x:-500 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -205,10 +205,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc3">
             <motion.div
-                    initial={{ opacity: 0, y: -500 }}
+                    initial={{ opacity: 0, y: 300 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 1,
+                    delay: 1.2,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -220,7 +220,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.5,
+                delay: 0.7,
                 default: { ease: "linear" },
             }}>
                 <h4 className="lt2">ALONE WITH</h4>
@@ -231,7 +231,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.7,
+                delay: 0.8,
                 default: { ease: "linear" },
             }}>
             <span className="d-flex align-items-center"><h2 className="lt2">NATURE</h2><h4 className="lt2">與大自然約會</h4></span>
@@ -241,10 +241,10 @@ function LandingIndex(props) {
     <section>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, y:-500 }}
+                    initial={{ opacity: 0, y:-300 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 1,
+                    delay: 1.2,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -253,10 +253,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, y: -500 }}
+                    initial={{ opacity: 0, y: -300 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 0.8,
+                    delay: 1,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -265,10 +265,10 @@ function LandingIndex(props) {
         </div>    
     <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, y:-500 }}
+                    initial={{ opacity: 0, y:-300 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -277,10 +277,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -289,10 +289,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x: -500 }}
+                    initial={{ opacity: 0, x: -300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -301,10 +301,10 @@ function LandingIndex(props) {
         </div>    
     <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -313,10 +313,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x:-500 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -325,10 +325,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x: 500 }}
+                    initial={{ opacity: 0, x: 300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -337,10 +337,10 @@ function LandingIndex(props) {
         </div>    
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x:-500 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -349,7 +349,7 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, y:500 }}
+                    initial={{ opacity: 0, y:300 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
                     delay: 1.5,
@@ -361,10 +361,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, y: -500 }}
+                    initial={{ opacity: 0, y: 0 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 0.2,
+                    delay: 0.7,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -376,7 +376,7 @@ function LandingIndex(props) {
                 initial={{ opacity: 0, x: -200 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                delay: 0.5,
+                delay: 0.7,
                 default: { ease: "linear" },
             }}>
                 <h4 className="lt2">LOOK INTO</h4>
@@ -397,10 +397,10 @@ function LandingIndex(props) {
     <section>
     <div className="sc5">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -409,10 +409,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc5">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.6,
+                    delay: 0.8,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -421,10 +421,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc5">
             <motion.div
-                    initial={{ opacity: 0, x:-500 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
-                    delay: 0.7,
+                    delay: 0.9,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>
@@ -433,10 +433,10 @@ function LandingIndex(props) {
         </div>
         <div className="sc5">
             <motion.div
-                    initial={{ opacity: 0, y: -500 }}
+                    initial={{ opacity: 0, y: -300 }}
                     whileInView={{ opacity: 1, y:0 }}
                     transition={{
-                    delay: 1,
+                    delay: 1.2,
                     default: { ease: "linear" },
                     duration: 2,
                     }}>

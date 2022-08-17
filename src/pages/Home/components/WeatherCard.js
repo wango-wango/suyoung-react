@@ -142,10 +142,10 @@ const WeatherCard = props => {
     } = weatherElement;
 
 
-    const [controlTmp, setControlTmp] = useState([])
+    const [tempValue, setTempValue] = useState([])
     
     useEffect(() => {
-        setControlTmp(temperature);
+        setTempValue(temperature);
     }, [weatherElement]);
 
 
@@ -177,17 +177,15 @@ const WeatherCard = props => {
             </Flex>
             <CurrentWeather>
                 <Temperature onClick={()=>{
-                    setControlTmp(20)
+                    setTempValue(20);
+                    props.setTempValue(20);
                 }}>
-                    {Math.round(controlTmp)} <Celsius>°C</Celsius>
+                    {Math.round(tempValue)} <Celsius>°C</Celsius>
                 </Temperature>
                 
                 <WeatherIcon
                     currentWeatherCode={weatherCode}
                     moment={moment || 'day'}
-                    onClick={()=>{
-                    setControlTmp(temperature)
-                }}
                 />
             </CurrentWeather>
 
@@ -197,7 +195,10 @@ const WeatherCard = props => {
                 hour: 'numeric',
                 minute: 'numeric',
                 }).format(new Date(observationTime))}{''}
-                {isLoading ? <LoadingIcon /> : <RefreshIcon />}
+                {isLoading ? <LoadingIcon /> : <RefreshIcon onClick={()=>{
+                    setTempValue(tempValue);
+                    props.setTempValue(tempValue);
+                }}/>}
             </Refresh>
         </WeatherCardWrapper>
     </motion.div>
