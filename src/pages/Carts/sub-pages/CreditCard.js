@@ -68,6 +68,7 @@ export default class App extends React.Component {
   render(props) {
     const { name, number, expiry, cvc, focused, issuer } = this.state
     const { handleSubmit } = this.props
+
     return (
       <>
         <motion.div

@@ -19,6 +19,9 @@ function Index(props) {
     HandleAlert,
     discountSum,
     setdiscountSum,
+    setOrderActList,
+    orderActList,
+    setOrderBooking
   } = props
 
   const [totalPrice, setTotalPrice] = useState();
@@ -60,6 +63,7 @@ function Index(props) {
           <RoomInfo
             setSum={setSum}
             orderBooking={orderBooking}
+            setOrderBooking={setOrderBooking}
             setTotalPrice={setTotalPrice}
             totalPrice={totalPrice}
             roomSum={roomSum}
@@ -69,6 +73,8 @@ function Index(props) {
             orderBooking={orderBooking}
             actSum = {actSum}
             setActSum = {setActSum}
+            setOrderActList={setOrderActList}
+            orderActList={orderActList}
           />
         </div>
 
