@@ -12,6 +12,7 @@ import "../styles/index.scss";
 
 function RecipesPage2(props) {
     const [recipes, setRecipes] = useState([])
+    const [tutorial, setTutorial] = useState([])
     //sid
     const { sid } : { sid : String } = useParams()
     console.log(sid)
@@ -32,6 +33,13 @@ function RecipesPage2(props) {
     useEffect(() => {
         axios.get('http://localhost:3700/recipes/api/get').then((response) => {
             setRecipes(response.data);
+        })
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:3700/recipes/api/tutorial').then((response) => {
+            setTutorial(response.data);
+            console.log('11',tutorial)
         })
     }, []);
 
@@ -61,9 +69,7 @@ function RecipesPage2(props) {
                                 }}>send storage</button> 
                                 </>
                         }) : null
-
                     }
-
                 </div>
                 <section className="mb-5">
                     <div className="j_container">
@@ -229,6 +235,7 @@ function RecipesPage2(props) {
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(5)}>Step 5.</div>
                                 </div>
                                 <div className="col-md-9">
+                                
                                     <h5 className={togglestate === 1 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>1）先煎好一隻太陽蛋</h5>
                                     <h5 className={togglestate === 2 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>2）將煙肉煎至焦香</h5>
                                     <h5 className={togglestate === 3 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>3）使用醃肉油分將麵包煎香</h5>
