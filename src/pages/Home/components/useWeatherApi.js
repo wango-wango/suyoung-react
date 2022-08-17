@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+
 const authorizationKey ='CWB-C61B8169-A760-4AF3-BFE7-FDE4123F4DEE';
 const fetchCurrentWeather = locationName => {
     return fetch(
@@ -71,7 +72,7 @@ const useWeatherApi = currentLocation => {
         isLoading: true,
     });
 
-    //等待資料回傳後呼叫韓式
+    //等待資料回傳後呼叫函式
     const fetchData = useCallback(() => {
         const fetchingData = async () => {
         const [currentWeather, weatherForecast] = await Promise.all([

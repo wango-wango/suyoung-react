@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from "react"
 import styled from '@emotion/styled';
+import { motion } from "framer-motion"
 import WeatherIcon from './WeatherIcon';
 import { ReactComponent as AirFlowIcon } from './weather-app-images/airFlow.svg';
 import { ReactComponent as RainIcon } from './weather-app-images/rain.svg';
@@ -139,45 +140,67 @@ const WeatherCard = props => {
     comfortability,
     isLoading,
     } = weatherElement;
-    
-    return (
-    <WeatherCardWrapper>
-        <Cog onClick={() => setCurrentPage('WeatherSetting')} />
-        <Flex>
-            <Left>
-                <Location>{cityName}</Location>
-                <Description>{description} {comfortability}</Description>
-            </Left>
-            <Right>
-                <AirFlow>
-                    <AirFlowIcon />
-                    {windSpeed} m/h
-                </AirFlow>
-                <Rain>
-                    <RainIcon />
-                    {Math.round(rainPossibility)}％
-                </Rain>
-            </Right>
-        </Flex>
-        <CurrentWeather>
-            <Temperature>
-                {Math.round(temperature)} <Celsius>°C</Celsius>
-            </Temperature>
-            <WeatherIcon
-                currentWeatherCode={weatherCode}
-                moment={moment || 'day'}
-            />
-        </CurrentWeather>
 
-        <Refresh onClick={fetchData} isLoading={isLoading}>
-            最後觀測時間：
-            {new Intl.DateTimeFormat('zh-TW', {
-            hour: 'numeric',
-            minute: 'numeric',
-            }).format(new Date(observationTime))}{''}
-            {isLoading ? <LoadingIcon /> : <RefreshIcon />}
-        </Refresh>
-    </WeatherCardWrapper>
+
+    const [controlTmp, setControlTmp] = useState([])
+    
+    useEffect(() => {
+        setControlTmp(temperature);
+    }, [weatherElement]);
+
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+                delay: 1,
+                default: { ease: "linear" },
+        }}>
+        <WeatherCardWrapper>
+            <Cog onClick={() => setCurrentPage('WeatherSetting')} />
+            <Flex>
+                <Left>
+                    <Location>{cityName}</Location>
+                    <Description>{description} {comfortability}</Description>
+                </Left>
+                <Right>
+                    <AirFlow>
+                        <AirFlowIcon />
+                        {windSpeed} m/h
+                    </AirFlow>
+                    <Rain>
+                        <RainIcon />
+                        {Math.round(rainPossibility)}％
+                    </Rain>
+                </Right>
+            </Flex>
+            <CurrentWeather>
+                <Temperature onClick={()=>{
+                    setControlTmp(20)
+                }}>
+                    {Math.round(controlTmp)} <Celsius>°C</Celsius>
+                </Temperature>
+                
+                <WeatherIcon
+                    currentWeatherCode={weatherCode}
+                    moment={moment || 'day'}
+                    onClick={()=>{
+                    setControlTmp(temperature)
+                }}
+                />
+            </CurrentWeather>
+
+            <Refresh onClick={fetchData} isLoading={isLoading}>
+                最後觀測時間：
+                {new Intl.DateTimeFormat('zh-TW', {
+                hour: 'numeric',
+                minute: 'numeric',
+                }).format(new Date(observationTime))}{''}
+                {isLoading ? <LoadingIcon /> : <RefreshIcon />}
+            </Refresh>
+        </WeatherCardWrapper>
+    </motion.div>
 );
 };
 

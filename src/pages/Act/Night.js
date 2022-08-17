@@ -178,12 +178,14 @@ function Night(props) {
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
+                                            alert("已移除收藏");
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 8,
                                             });
+                                            alert("已加入收藏")
                                         }
                                     }}
                                 />

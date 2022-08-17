@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import MemberCenter from "./MemberCenter";
 import "../styles/member-center-01.scss";
 import Tilty from "react-tilty";
@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 import WheaterCard from "./WheaterCard";
 
+
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -19,6 +20,8 @@ import { Link } from "react-router-dom";
 
 const MemberCenterCenter = () => {
     const { setAuth, ...auth } = useAuth();
+
+ 
 
     const level = [
         ["初級凹鬥玩家", "野外凹鬥玩家", "凹鬥大師"],
@@ -66,10 +69,10 @@ const MemberCenterCenter = () => {
             >
                 <div className="cover-image-container">
                     <div className="cover-image"></div>
-                    <button>
+                    {/* <button>
                         <i className="fa-solid fa-image"></i>
                         更換封面照片
-                    </button>
+                    </button> */}
                 </div>
                 <div className="member-container">
                     <Tilty

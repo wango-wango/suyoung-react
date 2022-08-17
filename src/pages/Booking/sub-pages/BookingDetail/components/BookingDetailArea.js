@@ -170,7 +170,24 @@ function BookingDetailArea(props) {
                         <button
                             className="room_card_button"
                             onClick={() => {
-                                clearData();
+                                setBookingList({
+                                    ...bookingList,
+                                    roomSid: "",
+                                    adults: "",
+                                    kids: "0",
+                                    startDate: "",
+                                    endDate: "",
+                                    perNight: "",
+                                    roomType: [],
+                                    startPrice: "",
+                                    endPrice: "",
+                                    tagCheck: [],
+                                    popular: "",
+                                    recommend: "",
+                                    roomSelector: [],
+                                    roomTotalPrice: "",
+                                });
+                                localStorage.removeItem("room");
                                 navigate("/shuyoung/Booking");
                             }}
                         >

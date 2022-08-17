@@ -1,6 +1,6 @@
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext } from 'react'
 
-const BookingContext = createContext(null);
+const BookingContext = createContext(null)
 
 export const BookingProvider = ({ children }) => {
     // background 預設背景圖狀態
@@ -23,12 +23,12 @@ export const BookingProvider = ({ children }) => {
         orderType: "1",
     });
 
-    return (
-        // 傳送整個房型資訊
-        <BookingContext.Provider value={{ bookingList, setBookingList }}>
-            {children}
-        </BookingContext.Provider>
-    );
-};
+  return (
+    // 傳送整個房型資訊
+    <BookingContext.Provider value={{ bookingList, setBookingList }}>
+      {children}
+    </BookingContext.Provider>
+  )
+}
 
-export const useBookingList = () => useContext(BookingContext);
+export const useBookingList = () => useContext(BookingContext)

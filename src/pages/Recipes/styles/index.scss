@@ -81,6 +81,14 @@
     font-size: 16px;
 }
 
+.menu_content a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.title_color a {
+    color: rgba(98, 26, 16, 1);
+}
  /* recipesPage2 */
 
 .recipe_picture {
@@ -144,10 +152,7 @@
     .menu_content {
         font-size: 32px;
     }
-    .menu_content a {
-        text-decoration: none;
-        color: #fff;
-    }
+    
 
     .next_button {
         font-size: 20px;
@@ -171,7 +176,11 @@
         -webkit-text-stroke-color: black;
         -webkit-text-stroke-width: 2px;
     }
-    
+
+    .ingredient {
+        width: 12vw;
+    }
+
     .recipe_material {
         height: 6vw;
     }
@@ -183,6 +192,13 @@
     .step_button {
         box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.75);
     }
+    
+    .content_page {
+        display: none;
+    }
 
+    .active-content {
+        display: block;
+    }
     /* photoWall */
 }

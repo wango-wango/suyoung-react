@@ -122,7 +122,7 @@ p {
     padding: var(--h5_text) var(--h2_text) var(--h5_text) var(--h2_text);
 
     .left-logo {
-        z-index: 3;
+        z-index: 4;
         img {
             width: 5rem;
             transition: all 0.5s ease;
@@ -145,7 +145,7 @@ p {
         }
         .dropdown {
             perspective: 1000px;
-            z-index: 100;
+            z-index: 2;
             color: #224040;
         }
         .dropdown:hover {
@@ -268,8 +268,10 @@ p {
             color: #fff;
             bottom: -100px;
             font-size: var(--button_text);
-            z-index: 100;
+            z-index: 999;
             transition: opacity 0.5s ease;
+
+           
 
             li {
                 list-style: none;

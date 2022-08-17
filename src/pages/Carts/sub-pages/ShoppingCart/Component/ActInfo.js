@@ -6,7 +6,7 @@ const _ = require('lodash')
 const Swal = require('sweetalert2')
 
 function ActInfo(props) {
-  const { setActSum } = props
+  const { actSum, setActSum } = props
 
   const [mycart1, setMycart1] = useState([])
   const [mycartDisplay1, setMycartDisplay1] = useState([])
@@ -24,34 +24,50 @@ function ActInfo(props) {
     getActCartFromLocalStorage()
   }, [])
 
-  // componentDidUpdate
-  useEffect(() => {
-    // mycartDisplay運算
-    let newMycartDisplay = []
-
-    //尋找mycartDisplay
-    for (let i = 0; i < mycart1.length; i++) {
-      const index = newMycartDisplay.findIndex(
-        (value) => value.id === mycart1[i].actSid
-      )
-      console.log(index)
-      //有的話就數量+1
-      if (index !== -1) {
-        newMycartDisplay[index].amount += mycart1[i].amount
-      } else {
-        //沒有的話就把項目加入，數量為1
-        const newItem = { ...mycart1[i] }
-        newMycartDisplay = [...newMycartDisplay, newItem]
-      }
+  const sum = (items) => {
+    let total = 0
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].totalPrice
     }
-
-    console.log(newMycartDisplay)
-    setMycartDisplay1(newMycartDisplay)
+    // setActSum(total)
+    setActSum(total)
+    return total
+  }
+  useEffect(() => {
+    console.log(mycart1)
+    sum(mycart1)
   }, [mycart1])
+  // componentDidUpdate
+  // useEffect(() => {
+  //   // mycartDisplay運算
+  //   let newMycartDisplay = []
+
+  //   //尋找mycartDisplay
+  //   for (let i = 0; i < mycart1.length; i++) {
+  //     const index = newMycartDisplay.findIndex(
+  //       (value) => value.id === mycart1[i].actSid
+  //     )
+  //     console.log(index)
+  //     //有的話就數量+1
+  //     if (index !== -1) {
+  //       newMycartDisplay[index].amount += mycart1[i].amount
+  //     } else {
+  //       //沒有的話就把項目加入，數量為1
+  //       const newItem = { ...mycart1[i] }
+  //       newMycartDisplay = [...newMycartDisplay, newItem]
+  //     }
+  //   }
+
+  //   console.log(newMycartDisplay)
+  //   setMycartDisplay1(newMycartDisplay)
+  // }, [mycart1])
+  // console.log(mycart1);
+  // const myCartPrice = mycart1[0].totalPrice
+  // setTotalPrice({ ...totalPrice, actPrice: myCartPrice })
 
   console.log([mycart1])
 
-  console.log([mycartDisplay1])
+  // console.log([mycartDisplay1])
 
   // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
   const delItem = (item) => {
@@ -94,31 +110,21 @@ function ActInfo(props) {
     })
   }
 
-  // 計算總價用的函式
-  const actSum = (items) => {
-    let total1 = 0
-    for (let i = 0; i < items.length; i++) {
-      total1 += items[i].totalPrice
-    }
-    setActSum(total1)
-    return total1
-  }
-
   const displayItems = (
     <>
-      {mycartDisplay1.map((item, index) => {
+      {mycart1.map((item, index) => {
         return (
           <motion.div
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            key={mycart1.actSid}
+            key={item.actSid}
           >
-            <div className="act_info">
-              <div className="act_pic">
+            <div className="room_info">
+              <div className="room_pic">
                 <img src={`/act_imgs/${item.actImg}`} alt="" />
               </div>
-              <div className="act_detail">
+              <div className="room_detail_act">
                 <p>名稱：{item.actName}</p>
                 <p>日期：{item.date}</p>
                 <p>人數：{item.people}</p>
@@ -140,7 +146,7 @@ function ActInfo(props) {
       })}
     </>
   )
-
+  // if (mycartDisplay1.length === 0) return <></>
   return <>{displayItems}</>
 }
 

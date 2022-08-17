@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import Swal from 'sweetalert2'
+
 
 const Password = () => {
 
@@ -28,10 +30,32 @@ const Password = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        if (password.oldPassword === password.newPassword) {
-            alert("舊密碼不可與新密碼相同");
+        if(password.oldPassword === "" || password.newPassword === "" || password.comfirmPassword === "" ){
+            Swal.fire({
+                imageUrl: '/member_img/logo.svg',
+                confirmButtonColor: '#224040',
+                title: '糟糕！',
+                color:"#224040",
+                text: "資料填寫不完整",
+              })
+        }else if (password.oldPassword === password.newPassword) {
+           
+              Swal.fire({
+                imageUrl: '/member_img/logo.svg',
+                confirmButtonColor: '#224040',
+                title: '糟糕！',
+                color:"#224040",
+                text: "舊密碼不可與新密碼相同",
+              })
         } else if (password.newPassword !== password.comfirmPassword) {
-            alert("新密碼與確認密碼不符");
+            
+            Swal.fire({
+                imageUrl: '/member_img/logo.svg',
+                confirmButtonColor: '#224040',
+                title: '糟糕！',
+                color:"#224040",
+                text: "新密碼與確認密碼不符",
+              })
         } else {
             const res = await axios.put(
                 `http://localhost:3700/member/updatePassword/${auth.m_id}`,
@@ -40,9 +64,23 @@ const Password = () => {
             console.log(res);
 
             if (res.data.success === true) {
-                alert("修改完成");
+                
+                Swal.fire({
+                    imageUrl: '/member_img/logo.svg',
+                    confirmButtonColor: '#224040',
+                    title: '糟糕！',
+                    color:"#224040",
+                    text: "修改完成",
+                  })
             } else {
-                alert("有錯誤");
+               
+                Swal.fire({
+                    imageUrl: '/member_img/logo.svg',
+                    confirmButtonColor: '#224040',
+                    title: '糟糕！',
+                    color:"#224040",
+                    text: "有錯誤",
+                  })
             }
         }
     };

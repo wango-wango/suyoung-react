@@ -172,17 +172,19 @@ function Atv(props) {
                                     name="keep"
                                     id="keepBtn"
                                     value={favlistId}
-                                    // onClick={keepHandler}
+                                  
                                     checked={favlist.length}
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
+                                            alert("已移除收藏")
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 5,
                                             });
+                                            alert("已加入收藏")
                                         }
                                     }}
                                 />

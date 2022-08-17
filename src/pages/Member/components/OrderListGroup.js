@@ -30,15 +30,16 @@ const OrderListGroup = (props) => {
     // }, []);
 
     useEffect(() => {
-        let groups = gsap.utils.toArray(".order-list-group");
-        let toggles = gsap.utils.toArray(".order-list-toggle");
-        let listToggles = groups.map(createAnimation);
+        if(orderList.length){  
+            let groups = gsap.utils.toArray(".order-list-group");
+            let toggles = gsap.utils.toArray(".order-list-toggle");
+            let listToggles = groups.map(createAnimation);
 
-        toggles.forEach((toggle) => {
+            toggles.forEach((toggle) => {
             toggle.addEventListener("click", function () {
                 toggleMenu(toggle);
             });
-        });
+            });
 
         function toggleMenu(clickedToggle) {
             listToggles.forEach((toggleFn) => toggleFn(clickedToggle));
@@ -63,6 +64,8 @@ const OrderListGroup = (props) => {
                     animation.reverse();
                 }
             };
+        }
+        
         }
     }, [orderList]);
 

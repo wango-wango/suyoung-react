@@ -221,3 +221,41 @@
 .error-msg {
     color: var(--error_color);
 }
+
+
+div.reset-password{
+    padding: 25px;
+    width: 400px;
+    height: 80vh;
+    margin: auto;
+    @media screen and (max-width:487px) {
+        width: 350px;
+        
+    }
+    form{
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        input.password-input,input.password-comfirm{
+            border: none;
+            padding: 0 20px;
+            border-radius: 15px;
+            height: 30px;
+            width: 100%;
+            background-color: var(--input_color);
+            margin: 15px 0;
+        }
+        button{
+            margin-top: 20px;
+            @include p_button;
+            &:hover{
+                background-color: var(--primary_color_500);
+            }
+        }
+    }
+  
+
+
+}

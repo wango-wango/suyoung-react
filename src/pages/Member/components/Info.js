@@ -5,6 +5,7 @@ import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Swal from 'sweetalert2'
 
 import TWZipCode from "./TWZipCode";
 import axios from "axios";
@@ -43,7 +44,14 @@ const Info = () => {
                 console.log(res.data.user);
                 setAuth({ ...auth, ...res.data.user });
             } else {
-                alert("查無會員資料");
+                Swal.fire({
+                    imageUrl: '/member_img/logo.svg',
+                    confirmButtonColor: '#224040',
+                    title: '糟糕！',
+                    color:"#224040",
+                    text: "查無會員資料",
+                  })
+                
             }
         });
     };
@@ -69,7 +77,14 @@ const Info = () => {
             finalForm
         );
 
-        alert("資料修改完成");
+       
+        Swal.fire({
+            imageUrl: '/member_img/logo.svg',
+            confirmButtonColor: '#224040',
+            title: '糟糕！',
+            color:"#224040",
+            text: "資料修改完成",
+          })
 
         getUserData();
 

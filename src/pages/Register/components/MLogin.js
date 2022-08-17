@@ -2,6 +2,7 @@ import "../../Login/styles/login.scss";
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
+import Swal from 'sweetalert2'
 import axios from "axios";
 import Example from "./PopUp";
 const MLogin = () => {
@@ -56,7 +57,12 @@ const MLogin = () => {
             .then((result) => {
                 if (result.success) {
                     localStorage.setItem("auth", JSON.stringify(result.data));
-                    alert("登入成功，即將跳轉至會員頁面");
+                    Swal.fire({
+                        imageUrl: '/member_img/logo.svg',
+                        confirmButtonColor: '#224040',
+                        color:"#224040",
+                        text: "登入成功，即將跳轉至會員頁面",
+                      })
                     console.log({ ...result.data });
                     setAuth({
                         ...result.data,
@@ -64,9 +70,23 @@ const MLogin = () => {
                     });
                     navigate("/shuyoung/Member");
                 } else if (result.code === 401) {
-                    alert("查無此帳號，請先申請會員");
+                   
+                    Swal.fire({
+                        imageUrl: '/member_img/logo.svg',
+                        confirmButtonColor: '#224040',
+                        title: '糟糕！',
+                        color:"#224040",
+                        text: "查無此帳號，請先申請會員",
+                      })
                 } else {
-                    alert("帳號或密碼錯誤");
+                    
+                    Swal.fire({
+                        imageUrl: '/member_img/logo.svg',
+                        confirmButtonColor: '#224040',
+                        title: '糟糕！',
+                        color:"#224040",
+                        text: "帳號或密碼錯誤",
+                      })
                 }
             });
     };
@@ -109,7 +129,7 @@ const MLogin = () => {
                             </button>
                         </div>
                     </form>
-                    <Example />
+                    <Example  />
                     <div className="third-party">
                         <div className="google-login">
                             <a href={URL}>

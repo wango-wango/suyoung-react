@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import RoomCard from "./components/RoomCard";
-import RoomEquipment from "./components/RoomEquipment";
-import BookingDetailArea from "./components/BookingDetailArea";
-import "./style/style.scss";
-import { useBackground } from "../../../../utils/useBackground";
-import DetailPictures from "./components/DetailPictures";
-import DetailParagraph from "./components/DetailParagraph";
-import GuessYouLike from "./components/GuessYouLike";
+import React, { useEffect, useState } from 'react'
+import RoomCard from './components/RoomCard'
+import RoomEquipment from './components/RoomEquipment'
+import BookingDetailArea from './components/BookingDetailArea'
+import './style/style.scss'
+import { useBackground } from '../../../../utils/useBackground'
+import DetailPictures from './components/DetailPictures'
+import DetailParagraph from './components/DetailParagraph'
+import GuessYouLike from './components/GuessYouLike'
 
-import { BK_GET_LIST } from "../../config/ajax-path";
-import Axios from "axios";
-import { useBookingList } from "../../../../utils/useBookingList";
-// import { useBookingCart } from "../../../../utils/useBookingCart";
-import { useAuth } from "../../../Login/sub-pages/AuthProvider";
+import { BK_GET_LIST } from '../../config/ajax-path'
+import Axios from 'axios'
+import { useBookingList } from '../../../../utils/useBookingList'
+// import { useBookingCart } from '../../../../utils/useBookingCart'
+import { useAuth } from '../../../Login/sub-pages/AuthProvider'
 
 function Index(props) {
     // 來自useBackground 的設定
@@ -79,68 +79,70 @@ function Index(props) {
 
     useEffect(() => {
         //確認 roomList 有值 才把資料存進去localRoomList
-        if (roomList.length >= 1)
-            {
-                setlocalRoomList({ ...bookingList, ...roomList[0] });
-            }
-
-    }, [bookingList]);
+    if (roomList.length >= 1) {
+      setlocalRoomList({ ...bookingList, ...roomList[0] })
+    }
+  }, [bookingList])
 
 
-    // 用get 取得所有的值
-    const getData = () => {
-        // 用 queryString 把 roomSid 傳給後端
-        Axios.get(
-            `${BK_GET_LIST}/selectRoom?roomSid=${localRoom.roomSid}&personNum=${localRoom.adults}`
-        ).then((response) => {
-            setRoomList(response.data.roomDetail);
-            setTagList(response.data.tagList);
-            setPicList(response.data.picList);
-            setEqiList(response.data.eqiList);
-            setOtherRoomList(response.data.otherRoomList);
-            setRuleList(response.data.ruleList);
-            console.log(response.data);
-        });
-    };
 
-    return (
-        <>
-            <section className="room_order_detail">
-                <div className="room_order_container">
-                    <div className="room_Rows">
-                        <div className="room_col_left">
-                            <RoomCard
-                                roomList={roomList}
-                                tagList={tagList}
-                                picList={picList}
-                            />
-                            <RoomEquipment eqiList={eqiList} />
-                        </div>
-                        <div className="room_col_right">
-                            <BookingDetailArea roomList={roomList} localRoomList={localRoomList}/>
-                        </div>
-                    </div>
-                </div>
-                <div id="scrolldown">
-                    <a>
-                        <span></span>Scroll
-                    </a>
-                </div>
-            </section>
-            <section className="room_detail_up">
-                <div className="detail_up_title">
-                    <h1>GSAP Scroll</h1>
-                </div>
-                <DetailPictures picList={picList} />
-            </section>
-            <section className="room_detail_down">
-                <DetailParagraph ruleList={ruleList} />
-            </section>
-            <section className="guess_you_like">
-                <GuessYouLike otherRoomList={otherRoomList} />
-            </section>
-        </>
-    );
+  // 用get 取得所有的值
+  const getData = () => {
+    // 用 queryString 把 roomSid 傳給後端
+    Axios.get(
+      `${BK_GET_LIST}/selectRoom?roomSid=${localRoom.roomSid}&personNum=${localRoom.adults}`
+    ).then((response) => {
+      setRoomList(response.data.roomDetail)
+      setTagList(response.data.tagList)
+      setPicList(response.data.picList)
+      setEqiList(response.data.eqiList)
+      setOtherRoomList(response.data.otherRoomList)
+      setRuleList(response.data.ruleList)
+      console.log(response.data)
+    })
+  }
+
+  return (
+    <>
+      <section className="room_order_detail">
+        <div className="room_order_container">
+          <div className="room_Rows">
+            <div className="room_col_left">
+              <RoomCard
+                roomList={roomList}
+                tagList={tagList}
+                picList={picList}
+              />
+              <RoomEquipment eqiList={eqiList} />
+            </div>
+            <div className="room_col_right">
+              <BookingDetailArea
+                roomList={roomList}
+                localRoomList={localRoomList}
+              />
+            </div>
+          </div>
+        </div>
+        <div id="scrolldown">
+          <a>
+            <span></span>Scroll
+          </a>
+        </div>
+      </section>
+      <section className="room_detail_up">
+        <div className="detail_up_title">
+          <h1>GSAP Scroll</h1>
+        </div>
+        <DetailPictures picList={picList} />
+      </section>
+      <section className="room_detail_down">
+        <DetailParagraph ruleList={ruleList} />
+      </section>
+      <section className="guess_you_like">
+        <GuessYouLike otherRoomList={otherRoomList} />
+      </section>
+    </>
+  )
 }
 
-export default Index;
+export default Index
