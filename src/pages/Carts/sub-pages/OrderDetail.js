@@ -4,12 +4,12 @@ import { motion } from 'framer-motion'
 const _ = require('lodash')
 
 function OrderDetail(props) {
-  const { setStep, scOrderId , orderType1, orderType2} = props
+  const { setStep, scOrderId, orderType1, orderType2, discountSum } = props
   const [orderAll, setOrderAll] = useState([]) //初始資料
 
   const [order, setOrder] = useState([])
   async function getOrderListFromServer() {
-    const url = `http://localhost:3700/cart/orderDetailFinal?orderSid=${scOrderId}&orderType1=${orderType1}&orderType2=${orderType2}` 
+    const url = `http://localhost:3700/cart/orderDetailFinal?orderSid=${scOrderId}&orderType1=${orderType1}&orderType2=${orderType2}`
 
     // 注意資料格式要設定，伺服器才知道是json格式
     const request = new Request(url, {
@@ -34,12 +34,14 @@ function OrderDetail(props) {
     getOrderListFromServer()
   }, [])
 
+  console.log(order.actList)
+
   const OrderDisplay = () => (
     <>
       {order.roomList.map((v, i) => {
         return (
           <>
-            <React.Fragment key={v.order_id}>
+            <React.Fragment key={i}>
               <div className="item_detail">
                 <div className="item_detail_img">
                   <img
@@ -53,7 +55,7 @@ function OrderDetail(props) {
                   <p>退房：{v.end_date}</p>
                   <p>人數：{v.adults}</p>
                   <p>天數：{v.perNight}</p>
-                  <p>價格：{v.total_price}</p>
+                  <p>價格：{v.room_price}</p>
                 </div>
               </div>
             </React.Fragment>
@@ -65,9 +67,29 @@ function OrderDetail(props) {
 
   console.log(order)
 
-  const oi = { ...order }
-
-  console.log(oi)
+  const OrderActDisplay = () => (
+    <>
+      {order.actList.map((v, i) => {
+        return (
+          <>
+            <React.Fragment>
+              <div className="event_detail" key={i}>
+                <div className="event_detail_img">
+                  <img src={`/act_imgs/${v.act_img}`} alt="" />
+                </div>
+                <div className="event_detail_text">
+                  <p>名稱：{v.act_name}</p>
+                  <p>日期：{v.act_day}</p>
+                  <p>人數：{v.act_people}</p>
+                  <p>價格：{v.act_price}</p>
+                </div>
+              </div>
+            </React.Fragment>
+          </>
+        )
+      })}
+    </>
+  )
   return (
     <>
       <motion.div
@@ -87,18 +109,23 @@ function OrderDetail(props) {
               &nbsp;&nbsp;&nbsp;&nbsp;
               <i className="fa-solid fa-user-large">&nbsp;{order.adults}</i>
             </p> */}
-              <p className="order_totalAmont">金額:&nbsp;${}</p>
+              <p className="order_totalAmont">
+                金額：{discountSum}
+                {/* {order && order.roomList ? order.roomList[0].totalPrice : null} */}
+              </p>
             </div>
           </div>
           <div className="detail">
-            <OrderDisplay />
-
+            {order && order.roomList ? <OrderDisplay /> : null}
+            {order && order.actList ? <OrderActDisplay /> : null}
           </div>
         </div>
         <div className="backtoHomepage">
           <button
+            className="checkOut"
             onClick={() => {
-              window.location.href = 'http://localhost:3777/shuyoung/sumap'
+              window.location.href = 'http://localhost:3777/shuyoung'
+              localStorage.removeItem('roomItem')
             }}
           >
             回首頁

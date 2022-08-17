@@ -6,7 +6,7 @@ const _ = require('lodash')
 const Swal = require('sweetalert2')
 
 function ActInfo(props) {
-  const { actSum, setActSum } = props
+  const { actSum, setActSum, setOrderActList, orderActList } = props
 
   const [mycart1, setMycart1] = useState([])
   const [mycartDisplay1, setMycartDisplay1] = useState([])
@@ -84,6 +84,9 @@ function ActInfo(props) {
       localStorage.setItem('Act', JSON.stringify(currentCart))
       setMycart1(currentCart)
     }
+    const oldAct = orderActList
+    const nowAct = oldAct.filter((v) => v !== v.actSid)
+    setOrderActList(nowAct)
   }
 
   function DeleteCartItem(item) {
@@ -120,11 +123,11 @@ function ActInfo(props) {
             transition={{ duration: 1 }}
             key={item.actSid}
           >
-            <div className="act_info">
-              <div className="act_pic">
+            <div className="room_info">
+              <div className="room_pic">
                 <img src={`/act_imgs/${item.actImg}`} alt="" />
               </div>
-              <div className="act_detail">
+              <div className="room_detail_act">
                 <p>名稱：{item.actName}</p>
                 <p>日期：{item.date}</p>
                 <p>人數：{item.people}</p>

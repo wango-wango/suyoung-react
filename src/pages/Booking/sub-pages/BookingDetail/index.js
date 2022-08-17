@@ -15,68 +15,69 @@ import { useBookingList } from '../../../../utils/useBookingList'
 import { useAuth } from '../../../Login/sub-pages/AuthProvider'
 
 function Index(props) {
-  // 來自useBackground 的設定
-  const { setBackground } = useBackground()
-  // 進入該頁設定背景
-  useEffect(() => {
-    setBackground('bg1.svg')
-  }, [])
-  // useContext 把房間的Sid 帶過來
-  const { bookingList, setBookingList } = useBookingList()
-  // const { bookingCart, setBookingCart } = useBookingCart()
-  const { setAuth, ...auth } = useAuth()
+    // 來自useBackground 的設定
+    const { setBackground } = useBackground();
+    // 進入該頁設定背景
+    useEffect(() => {
+        setBackground("bg1.svg");
+    }, []);
+    // useContext 把房間的Sid 帶過來
+    const { bookingList, setBookingList } = useBookingList();
+    // const { bookingCart, setBookingCart } = useBookingCart();
+    const { setAuth, ...auth } = useAuth();
 
-  // 接住來自後端的資料
-  const [tagList, setTagList] = useState([])
-  const [roomList, setRoomList] = useState([])
-  const [picList, setPicList] = useState([])
-  const [eqiList, setEqiList] = useState([])
-  const [otherRoomList, setOtherRoomList] = useState([])
-  const [ruleList, setRuleList] = useState([])
+    // 接住來自後端的資料
+    const [tagList, setTagList] = useState([]);
+    const [roomList, setRoomList] = useState([]);
+    const [picList, setPicList] = useState([]);
+    const [eqiList, setEqiList] = useState([]);
+    const [otherRoomList, setOtherRoomList] = useState([]);
+    const [ruleList, setRuleList] = useState([]);
 
-  // 專門存來自bookingList 和 後端傳回來的roomList
-  const [localRoomList, setlocalRoomList] = useState({})
+    // 專門存來自bookingList 和 後端傳回來的roomList
+    const [localRoomList, setlocalRoomList] = useState({});
 
-  // 把 room的資料存進去
-  const [localRoom, setLocalRoom] = useState({})
+    // 把 room的資料存進去
+    const [localRoom, setLocalRoom] = useState({});
 
-  // 先把localStorage 的資料存進 localRoom 裡
-  useEffect(() => {
-    setLocalRoom(JSON.parse(localStorage.getItem('room')))
-    if (auth.authorized || auth.success) {
-      setBookingList({ ...bookingList, memberId: auth.m_id })
-    }
-  }, [])
+    // 先把localStorage 的資料存進 localRoom 裡
+    useEffect(() => {
+        setLocalRoom(JSON.parse(localStorage.getItem("room")));
+    }, []);
 
-  // 拿到localStorage 資料後 發ajax 到後端取值
-  useEffect(() => {
-    console.log(localRoom)
-    // 如果沒有取到值就 return 掉
-    if (Object.keys(localRoom).length === 0) return
-    getData()
-  }, [localRoom])
+    // 拿到localStorage 資料後 發ajax 到後端取值
+    useEffect(() => {
+        // 如果沒有取到值就 return 掉
+        if (Object.keys(localRoom).length === 0) return;
+        getData();
+    }, [localRoom]);
 
-  // getData 後 取得 roomList
-  useEffect(() => {
-    // 如果roomList 有值的話
-    if (roomList.length >= 1) {
-      // 計算 totalPrice
-      const total =
-        roomList[0].room_price * localRoom.perNight + localRoom.kids * 200
-      console.log('total:', total)
+    // getData 後 取得 roomList 
+    useEffect(() => {
+        // 如果roomList 有值的話
+        if (roomList.length >= 1) {
+            // 計算 totalPrice 
+            const total =
+                roomList[0].room_price * localRoom.perNight +
+                localRoom.kids * 200;
+                console.log("total:",total);
 
-      // 把total 金額存進去bookingList
-      setBookingList({ ...bookingList, roomTotalPrice: total })      // 先把舊localStorage的取出來
-      const newLocalStorage = JSON.parse(localStorage.getItem('room'))
-      // 再用解構的方式 加入 roomTotalPrice
-      localStorage.setItem(
-        'room',
-        JSON.stringify({ ...newLocalStorage, roomTotalPrice: total })
-      )
-    }
-  }, [roomList])
+            // 把total 金額存進去bookingList
+            setBookingList({ ...bookingList, roomTotalPrice: total });
+            // 先把舊localStorage的取出來
+            const newLocalStorage = JSON.parse(localStorage.getItem("room"));
+            // 再用解構的方式 加入 totalPrice 
+            localStorage.setItem(
+                "room",
+                JSON.stringify({ ...newLocalStorage, roomTotalPrice: total })
+            );
+        }
+        
+    }, [roomList]);
+    
+    
 
-  useEffect(() => {
+    useEffect(() => {
         //確認 roomList 有值 才把資料存進去localRoomList
     if (roomList.length >= 1) {
       setlocalRoomList({ ...bookingList, ...roomList[0] })

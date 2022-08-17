@@ -5,7 +5,14 @@ const _ = require('lodash')
 const Swal = require('sweetalert2')
 
 function RoomInfo(props) {
-  const { setSum, updateQty, roomSum, setRoomSum } = props
+  const {
+    setSum,
+    updateQty,
+    roomSum,
+    setRoomSum,
+    orderBooking,
+    setOrderBooking,
+  } = props
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
 
@@ -27,7 +34,7 @@ function RoomInfo(props) {
     let total = 0
     for (let i = 0; i < items.length; i++) {
       total += items[i].roomTotalPrice
-    } 
+    }
     // setSum(total)
     setRoomSum(total)
     console.log(total)
@@ -89,6 +96,10 @@ function RoomInfo(props) {
       localStorage.setItem('roomItem', JSON.stringify(currentCart))
       setMycart(currentCart)
     }
+
+    const oldRoom = orderBooking
+    const nowRoom = oldRoom.filter((v) => v !== v.roomSid)
+    setOrderBooking(nowRoom)
   }
 
   function DeleteCartItem(item) {
@@ -114,8 +125,6 @@ function RoomInfo(props) {
       }
     })
   }
-
-  
 
   // console.log(sum)
 
@@ -144,7 +153,7 @@ function RoomInfo(props) {
                 <p>兒童：{item.kids}</p>
                 <p>天數：{item.perNight}</p>
                 <div className="amount_and_del">
-                  <p>價格：${item.totalPrice}</p>
+                  <p>價格：${item.roomTotalPrice}</p>
                   <button
                     className="del_btn"
                     onClick={() => {

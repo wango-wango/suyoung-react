@@ -13,7 +13,8 @@ const WheaterCard = () => {
 
     useEffect(() => {
         const getWheaterData = () => {
-            var todayDate = new Date().toISOString().slice(0, 10);
+            
+            var todayDate = new Date().toLocaleDateString().split('/').join('-');
 
             const location = [];
             const sunRiseTime = [];

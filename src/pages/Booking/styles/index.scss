@@ -422,13 +422,28 @@
                 .room_title {
                     font-size: var(--h5_text);
                     width: 100%;
-                    padding-left: 1rem;
+                    padding-left: 1.5rem;
                     padding-bottom: 1rem;
+                    padding-right: 1.5rem;
                     cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
                     button{
-                        background-color: transparent;
-                        border: none;
-                        letter-spacing: 0.1rem;
+                        &:nth-child(1){
+                            background-color: transparent;
+                            border: none;
+                            letter-spacing: 0.1rem;
+                        }
+                        &:nth-child(2){
+                            background-color: transparent;
+                            color: var(--primary_color_500);
+                            transition: 0.5s ease;
+                            &:hover{
+                                color: var(--primary_color);
+                            }
+                        }
+
+                        
                     }
                 }
 
@@ -436,7 +451,7 @@
 
                     width: 100%;
                     border-radius: 0.8rem;
-                    padding: 1rem 6px;
+                    padding: 1rem 6px 0;
 
                     @media screen and (max-width: 768px) {
                         display: none;
@@ -603,7 +618,8 @@
 
                 .room_filter_price {
                     width: 100%;
-                    margin-bottom: 1rem;
+                    border-radius: 0.8rem;
+                    padding: 1rem 6px;
 
                     .room_title {
                         padding-bottom: 1rem;
@@ -669,7 +685,8 @@
 
                 .room_filter_tag {
                     width: 100%;
-                    border-radius: 1rem;
+                    border-radius: 0.8rem;
+                    padding: 1rem 6px;
 
                     @media screen and (max-width: 768px) {
                         display: none;
@@ -839,7 +856,8 @@
 
                 .room_filter_people_say {
                     width: 100%;
-                    border-radius: 1rem;
+                    border-radius: 0.8rem;
+                    padding: 1rem 6px;
 
                     @media screen and (max-width: 768px) {
                         display: none;

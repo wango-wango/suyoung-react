@@ -165,7 +165,7 @@ function Upstream(props) {
             <section>
                 <div className="emf">
                     <div className="card_bg">
-                        <div className="keep_button">
+                        <div className="keep_button like">
                             {auth.authorized ? (
                                 <input
                                     className="checkbox-tools"
@@ -248,194 +248,193 @@ function Upstream(props) {
                                 </button>
                             </Link>
                         </div>
-                        <div className="slider">
-                            <Swiper
-                                style={{
-                                    "--swiper-navigation-color": "#fff",
-                                    "--swiper-pagination-color": "#fff",
-                                }}
-                                loop={true}
-                                spaceBetween={10}
-                                navigation={true}
-                                thumbs={{ swiper: thumbsSwiper }}
-                                modules={[FreeMode, Navigation, Thumbs]}
-                                className="mySwiper2"
-                            >
-                                {act.map((av, ai) => {
-                                    return (
-                                        <SwiperSlide key={ai}>
-                                            <img
-                                                src={"/act_imgs/" + av.filename}
-                                                alt=""
-                                            />
-                                        </SwiperSlide>
-                                    );
-                                })}
-                                ;
-                            </Swiper>
-                            <Swiper
-                                onSwiper={setThumbsSwiper}
-                                loop={true}
-                                spaceBetween={10}
-                                slidesPerView={5}
-                                freeMode={true}
-                                watchSlidesProgress={true}
-                                modules={[FreeMode, Navigation, Thumbs]}
-                                className="mySwiper"
-                            >
-                                {act.map((av, ai) => {
-                                    return (
-                                        <SwiperSlide key={ai}>
-                                            <img
-                                                src={"/act_imgs/" + av.filename}
-                                                alt=""
-                                            />
-                                        </SwiperSlide>
-                                    );
-                                })}
-                                ;
-                            </Swiper>
-                        </div>
-                        <div className="actDetailTitle">
-                            <h4>活動詳情</h4>
-                        </div>
-                        <div className="actContentCotainer">
-                            <motion.div
-                                className="actGroup"
-                                initial={{ opacity: 0, x: 100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: 0.5,
-                                    default: { ease: "linear" },
-                                }}
-                            >
-                                <div className="actToggle">
-                                    <div className="actTitle">
-                                        <div className="top">
-                                            <h5>
-                                                <i className="fa-solid fa-person-hiking mr-2" />
-                                                活動介紹
-                                            </h5>
+                        <div className="actContentRow d-flex">
+                            <div className="slider">
+                                <Swiper
+                                    style={{
+                                        "--swiper-navigation-color": "#fff",
+                                        "--swiper-pagination-color": "#fff",
+                                    }}
+                                    loop={true}
+                                    spaceBetween={10}
+                                    navigation={true}
+                                    thumbs={{ swiper: thumbsSwiper }}
+                                    modules={[FreeMode, Navigation, Thumbs]}
+                                    className="mySwiper2"
+                                >
+                                    {act.map((av, ai) => {
+                                        return (
+                                            <SwiperSlide key={ai}>
+                                                <img
+                                                    src={"/act_imgs/" + av.filename}
+                                                    alt=""
+                                                />
+                                            </SwiperSlide>
+                                        );
+                                    })}
+                                    ;
+                                </Swiper>
+                                <Swiper
+                                    onSwiper={setThumbsSwiper}
+                                    loop={true}
+                                    spaceBetween={10}
+                                    slidesPerView={5}
+                                    freeMode={true}
+                                    watchSlidesProgress={true}
+                                    modules={[FreeMode, Navigation, Thumbs]}
+                                    className="mySwiper"
+                                >
+                                    {act.map((av, ai) => {
+                                        return (
+                                            <SwiperSlide key={ai}>
+                                                <img
+                                                    src={"/act_imgs/" + av.filename}
+                                                    alt=""
+                                                />
+                                            </SwiperSlide>
+                                        );
+                                    })}
+                                    ;
+                                </Swiper>
+                            </div>
+                            <div className="actContentCotainer">
+                                <motion.div
+                                    className="actGroup"
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        delay: 0.5,
+                                        default: { ease: "linear" },
+                                    }}
+                                >
+                                    <div className="actToggle">
+                                        <div className="actTitle">
+                                            <div className="top">
+                                                <h5>
+                                                    <i className="fa-solid fa-person-hiking mr-2" />
+                                                    活動介紹
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="actC">
-                                    <div className="actDetail">
-                                        <div className="textspace">
-                                            {act[0].act_desc}
+                                    <div className="actC">
+                                        <div className="actDetail">
+                                            <div className="textspace">
+                                                {act[0].act_desc}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className="actGroup"
-                                initial={{ opacity: 0, x: 100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: 0.5,
-                                    default: { ease: "linear" },
-                                }}
-                            >
-                                <div className="actToggle">
-                                    <div className="actTitle">
-                                        <div className="top">
-                                            <h5>
-                                                <i className="fas fa-comment-dollar mr-2"></i>
-                                                活動收費
-                                            </h5>
+                                </motion.div>
+                                <motion.div
+                                    className="actGroup"
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        delay: 0.5,
+                                        default: { ease: "linear" },
+                                    }}
+                                >
+                                    <div className="actToggle">
+                                        <div className="actTitle">
+                                            <div className="top">
+                                                <h5>
+                                                    <i className="fas fa-comment-dollar mr-2"></i>
+                                                    活動收費
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="actC">
-                                    <div className="actDetail">
-                                        <div className="textspace">
-                                            每人 {act[0].act_price}元，行程約 3
-                                            小時，歡迎 5~65
-                                            歲的大小朋友預約報名唷！
-                                            <br />
-                                            活動費用含專業帶團教練
+                                    <div className="actC">
+                                        <div className="actDetail">
+                                            <div className="textspace">
+                                                每人 {act[0].act_price}元，行程約 3
+                                                小時，歡迎 5~65
+                                                歲的大小朋友預約報名唷！
+                                                <br />
+                                                活動費用含專業帶團教練
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className="actGroup"
-                                initial={{ opacity: 0, x: 100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: 0.5,
-                                    default: { ease: "linear" },
-                                }}
-                            >
-                                <div className="actToggle">
-                                    <div className="actTitle">
-                                        <div className="top">
-                                            <h5>
-                                                <i className="fas fa-calendar-check mr-2"></i>
-                                                活動行程
-                                            </h5>
+                                </motion.div>
+                                <motion.div
+                                    className="actGroup"
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        delay: 0.5,
+                                        default: { ease: "linear" },
+                                    }}
+                                >
+                                    <div className="actToggle">
+                                        <div className="actTitle">
+                                            <div className="top">
+                                                <h5>
+                                                    <i className="fas fa-calendar-check mr-2"></i>
+                                                    活動行程
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="actC">
-                                    <div className="actDetail">
-                                        <div className="textspace">
-                                            {act[0].act_schedule}
+                                    <div className="actC">
+                                        <div className="actDetail">
+                                            <div className="textspace">
+                                                {act[0].act_schedule}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className="actGroup"
-                                initial={{ opacity: 0, x: 100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: 0.5,
-                                    default: { ease: "linear" },
-                                }}
-                            >
-                                <div className="actToggle">
-                                    <div className="actTitle">
-                                        <div className="top">
-                                            <h5>
-                                                <i className="fas fa-binoculars mr-2" />
-                                                個人準備物品
-                                            </h5>
+                                </motion.div>
+                                <motion.div
+                                    className="actGroup"
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        delay: 0.5,
+                                        default: { ease: "linear" },
+                                    }}
+                                >
+                                    <div className="actToggle">
+                                        <div className="actTitle">
+                                            <div className="top">
+                                                <h5>
+                                                    <i className="fas fa-binoculars mr-2" />
+                                                    個人準備物品
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="actC">
-                                    <div className="actDetail">
-                                        <div className="textspace">
-                                            {act[0].act_prepare}
+                                    <div className="actC">
+                                        <div className="actDetail">
+                                            <div className="textspace">
+                                                {act[0].act_prepare}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className="actGroup"
-                                initial={{ opacity: 0, x: 100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: 0.5,
-                                    default: { ease: "linear" },
-                                }}
-                            >
-                                <div className="actToggle">
-                                    <div className="actTitle">
-                                        <div className="top">
-                                            <h5>注意事項</h5>
+                                </motion.div>
+                                <motion.div
+                                    className="actGroup"
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        delay: 0.5,
+                                        default: { ease: "linear" },
+                                    }}
+                                >
+                                    <div className="actToggle">
+                                        <div className="actTitle">
+                                            <div className="top">
+                                            <h5><i className="fa-solid fa-circle-exclamation mr-2"/>注意事項</h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="actC">
-                                    <div className="actDetail">
-                                        <div className="textspace">
-                                            {act[0].act_notice}
+                                    <div className="actC">
+                                        <div className="actDetail">
+                                            <div className="textspace">
+                                                {act[0].act_notice}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </div>
                         </div>
                     </div>
                 </div>

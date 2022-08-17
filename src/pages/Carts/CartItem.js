@@ -37,6 +37,9 @@ function CartItem(props) {
   const [orderBooking, setOrderBooking] = useState([])
   const [orderActList, setOrderActList] = useState([])
   const [totalCart, setTotalCart] = useState([])
+
+  console.log(orderActList)
+
   // 判斷是房間訂單還是活動訂單
   const [orderType1, setOrderType1] = useState(0)
   const [orderType2, setOrderType2] = useState(0)
@@ -154,14 +157,15 @@ function CartItem(props) {
         room_type_id: item.room_type_id,
         num_adults: item.adults,
         num_children: item.kids > 1 ? item.kids : 0,
+        perNight: item.perNight,
+        total_price: item.room_price,
         start_date: item.startDate,
         end_date: item.endDate,
         Booking_Date: formatInTimeZone(
           date,
           'Asia/Taipei',
           'yyyy-MM-dd HH:mm:ss '
-        ),
-        price: item.room_price,
+        )
       }
       data.orderItems.push(roomObj)
     }
@@ -217,8 +221,8 @@ function CartItem(props) {
     console.log('伺服器回傳的json資料', dataRes)
   }
 
-  //將訂單細節寫入資料庫
-  async function addOrderInfoToSever(e) {
+  //將房型與活動訂單細節寫入資料庫
+  async function addRoomOrderInfoToSever(e) {
     const orderId = +new Date()
     setScOrderId(orderId)
 
@@ -249,7 +253,7 @@ function CartItem(props) {
         act_img: item.actImg,
         act_people: item.people,
         act_day: item.date,
-        act_price: item.totalPrice,
+        act_price: item.totalPrice || null,
         total_price: discountSum,
         create_at: formatInTimeZone(
           date,
@@ -262,7 +266,7 @@ function CartItem(props) {
     }
     console.log(data1)
     // 連接的伺服器資料網址
-    const url = 'http://localhost:3700/cart//orderDetail/add'
+    const url = 'http://localhost:3700/cart/orderDetail/add'
 
     // 注意資料格式要設定，伺服器才知道是json格式
     // 轉成json檔傳到伺服器
@@ -299,7 +303,7 @@ function CartItem(props) {
       // icon: 'success',
       title: '感謝購買',
       showConfirmButton: false,
-      timer: 3000,
+      timer: 1500,
     })
   }
   function HandleAlertBuy() {
@@ -354,12 +358,12 @@ function CartItem(props) {
       // 購物車內有商品
       HandleAlert()
       await addCreditCardToSever()
-      // await addOrderToSever()
-      await addOrderInfoToSever()
+      await addOrderToSever()
+      await addRoomOrderInfoToSever()
       await pushOrderId()
       // await addActOrderToSever()
-      // await emailSubmit();
-      // localStorage.removeItem('roomItem')
+      // await emailSubmit()
+      setBookingCart([])
       setStep(3)
     }
     if (_.isEmpty(orderBooking)) {
@@ -391,6 +395,7 @@ function CartItem(props) {
           inputs={inputs}
           handleSubmit={handleSubmit}
           orderBooking={orderBooking}
+          setOrderBooking={setOrderBooking}
           HandleAlertBuy={HandleAlertBuy}
           HandleAlert={HandleAlert}
           scOrderId={scOrderId}
@@ -398,6 +403,8 @@ function CartItem(props) {
           setdiscountSum={setdiscountSum}
           orderType1={orderType1}
           orderType2={orderType2}
+          setOrderActList={setOrderActList}
+          orderActList={orderActList}
         />
       </div>
       {/* {step === 1 ?  <AddOn/> : null} */}
