@@ -15,9 +15,7 @@ function RecipesPage2(props) {
     const [tutorial, setTutorial] = useState([])
     //sid
     const { sid } = useParams()
-    console.log(25929295, sid)
     const pageSid = +sid
-    console.log(99999, pageSid);
     //頁籤
     const [togglestate, setTogglestate] = useState(1)
 
