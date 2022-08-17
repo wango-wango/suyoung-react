@@ -14,6 +14,7 @@ function RoomFilterRoomSelect(props) {
 
     // 篩選器跳出開關
     const [open, setOpen] = useState(true);
+    const [checkPrice,setCheckPrice] = useState("");
 
     // // 先儲存使用者輸入的內容
     // const [searchContext, setSearchContext] = useState("");
@@ -27,11 +28,46 @@ function RoomFilterRoomSelect(props) {
         setSearchName(searchContext);
     }
 
+    const SearchPrice = (e) => {
+        const value = e.target.value;
+
+            //先判斷是否有在likeList狀態陣列中
+        if (checkPrice.includes(e.target.value)) {
+            // if有 -> 清掉
+            
+            // 存回去setBookingList
+            setBookingList({
+                ...bookingList,
+                searchPrice: "",
+            });
+            setCheckPrice("");
+        }else {
+                // else -> 直接取代
+                
+                //存回去roomType
+                setBookingList({
+                    ...bookingList,
+                    searchPrice: value,
+                });
+                setCheckPrice(value);
+            
+            
+        }
+        
+        
+    }
+
      /* reset */
     const resetSearch = () => {
         // setBookingList({ ...bookingList, roomSelector: [] });
         setSearchName("");
         setSearchContext("");
+        setBookingList({
+            ...bookingList,
+            searchPrice: "",
+        });
+        setCheckPrice("");
+
     };
 
   return (
@@ -74,21 +110,21 @@ function RoomFilterRoomSelect(props) {
                             duration: 0.5,
                             default: { ease: "linear" },
                     }} className="roomSearch_area">
-                    <div>
-                        <input type="text" onChange={SearchHandler} value={searchContext}/>
-                        <button onClick={SendSearchToBooking}>送出</button>
+                    <div className='roomSearch_input'>
+                        <input className='SearchInput' type="text" onChange={SearchHandler} value={searchContext}/>
+                        <button className='SearchButton' onClick={SendSearchToBooking}>送出</button>
                     </div>
-                    <div>
+                    <div className='roomSearch_check'>
                         <input
                             className="checkbox-priceUp"
                             type="checkbox"
                             name="priceUp"
                             id={"priceUp-1"}
-                            // value={t.t_id}
-                            // onChange={tagHandler}
-                            // checked={tagValue.includes(
-                            //     t.t_id + ""
-                            // )}
+                            value={1}
+                            onChange={SearchPrice}
+                            checked={checkPrice.includes(
+                                1 + ""
+                            )}
                         />
                         <label
                             className="for-checkbox-priceUp"
@@ -103,11 +139,11 @@ function RoomFilterRoomSelect(props) {
                             type="checkbox"
                             name="priceUp"
                             id={"priceUp-2"}
-                            // value={t.t_id}
-                            // onChange={tagHandler}
-                            // checked={tagValue.includes(
-                            //     t.t_id + ""
-                            // )}
+                            value={2}
+                            onChange={SearchPrice}
+                            checked={checkPrice.includes(
+                                2 + ""
+                            )}
                         />
                         <label
                             className="for-checkbox-priceUp"

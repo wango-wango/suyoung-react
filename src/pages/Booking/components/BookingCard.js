@@ -7,6 +7,8 @@ import { useBookingList } from "../../../utils/useBookingList";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion"
+
 
 function BookingCard(props) {
     const {roomList,setRoomList, tagList, favList, setFavList,searchName} = props;
@@ -23,6 +25,7 @@ function BookingCard(props) {
         favType: 1,
     });
 
+    const [ newRoomList, setNewRoomList ] = useState();
     // 控制 收藏功能
     const keepHandler = (e) => {
         const checked = e.target.checked;
@@ -61,52 +64,21 @@ function BookingCard(props) {
         await Axios.post(`${BK_GET_LIST}/addKeep`, newMemberKeep);
     };   
 
+    useEffect(() => {
+        const oldRoomList = roomList;
+        const newRoomList = oldRoomList.filter((v)=>v.room_name.includes(searchName));
+        console.log(newRoomList);
+        setNewRoomList(newRoomList);
+        // setNewRoomList(roomList);
+    }, [roomList,searchName])
+    
+    
 
-    // useEffect(() => {
-    // const oldRoomList = roomList;
-    // const newRoomList = oldRoomList.filter((v)=>v.room_name.includes(searchName));
-    // setRoomList(newRoomList);
-    // }, [searchName])
-
-    
-    
-    // /* 篩選全部重置 */
-    const resetAll = () => {
-        setBookingList({
-            roomSid: "",
-            adults: "",
-            kids: "0",
-            startDate: "",
-            endDate: "",
-            perNight: "",
-            roomType: [],
-            startPrice: "",
-            endPrice: "",
-            tagCheck: [],
-            popular: "",
-            recommend: "",
-            roomSelector: [],
-            roomTotalPrice:"",
-            nextDate:"",
-            orderType: "1",
-        });
-        
-        // 所有狀態歸零
-        setCheckRoomType([]);
-        setRoomSelector([]);
-        setValue([1000, 5000]);
-        setTagValue([]);
-        setPopular(1);
-        setRecommend(1);
-        setSearchName("");
-        setSearchContext("");
-    }
-    
     return (
         <>
             <div className="room_card_flex">
-                {roomList && roomList.length ? (
-                    roomList.filter((v)=>v.room_name.includes(searchName)).map((v, i) => {
+                {newRoomList && newRoomList.length ? (
+                    newRoomList.map((v, i) => {
                         return (
                             <div className="room_card_area" key={v.sid}>
                                 <div className="room_card_img_area">
@@ -257,7 +229,17 @@ function BookingCard(props) {
                                 </div>
                             </div>
                         );
-                    })):(null)}
+                    })):(<motion.div 
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity:0, y: -100 }}
+                            transition={{
+                                    duration: 0.5,
+                                    default: { ease: "linear" },
+                            }}
+                            className="emptyRoomSearch">
+                        <h5>你所搜尋的條件下沒有空房，請調整搜尋內容。</h5>
+                        </motion.div>)}
             </div>
         </>
     );
