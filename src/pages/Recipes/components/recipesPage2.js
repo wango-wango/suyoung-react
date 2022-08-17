@@ -10,18 +10,18 @@ import "../../../styles/global.scss";
 import "../styles/index.scss";
 
 
-import pancakeImg from "../img/pancake.png";
-import sanwanImg from "../img/sanFishRice.png";
-import eggImg from "../img/africaEgg.png";
-import sandwichImg from "../img/OilEggMeatSandwich.png";
-import step1 from "../img/OilEggMeatSandwich.png";
-
-
-
 function RecipesPage2(props) {
     const [recipes, setRecipes] = useState([])
-    const { sid }: { sid: String } = useParams()
+    //sid
+    const { sid } : { sid : String } = useParams()
     console.log(sid)
+    //頁籤
+    const [togglestate, setTogglestate] = useState(1)
+
+    const toggleTab = (index) => {
+        setTogglestate(index);
+    }
+
     // 來自useBackground 的設定
     const { setBackground } = useBackground();
     // 進入該頁設定背景
@@ -42,9 +42,9 @@ function RecipesPage2(props) {
             <div>
                 <header>
                     <h4 className="text-center fw-bold title_color menu_content">
-                            <Link to={`/shuyoung/recipes`}>
-                                天菜大廚
-                            </Link>
+                        <Link to={`/shuyoung/recipes`}>
+                            天菜大廚
+                        </Link>
                     </h4>
                 </header>
                 {/* const setRecipes ={...V , quanity:1 
@@ -58,8 +58,8 @@ function RecipesPage2(props) {
                                 <button type="button" className="btn btn-primary" onClick={() => {
                                     const setRecipes = { ...v, quanity: 1 };
                                     localStorage.setItem("recipes", JSON.stringify(setRecipes))
-                                }
-                                }>send storage</button> </>
+                                }}>send storage</button> 
+                                </>
                         }) : null
 
                     }
@@ -68,11 +68,11 @@ function RecipesPage2(props) {
                 <section className="mb-5">
                     <div className="j_container">
                         <div className="d-md-none text-center mt-5">
-                            <img className="col-10 recipe_picture rounded-circle" src={sandwichImg} alt="" />
+                            <img className="col-10 recipe_picture rounded-circle" src={"/recipes_img/africaEgg.svg"} alt="" />
                         </div>
                         <div className="glass mt-5 d-md-flex menu ">
                             <div className="col-5 d-none d-md-block text-center ">
-                                <img className="col-12 recipe_picture rounded-circle position-relative" src={sandwichImg} alt="" />
+                                <img className="col-12 recipe_picture rounded-circle position-relative" src={"/recipes_img/africaEgg.svg"} alt="" />
                             </div>
                             <div className="col-md-7">
                                 <div className="w-75 m-auto border-bottom pt-3 pb-md-3">
@@ -85,13 +85,13 @@ function RecipesPage2(props) {
                                             <h5 className="recipe_material">材料:</h5>
                                             <h5 className="recipe_material">
                                                 牛油果 1 個、煙肉 4塊、<br />
-                                                麵包 4 塊、雞蛋2隻
+                                                麵包 4 塊、雞蛋2隻、<br />鹽及胡椒
                                             </h5>
                                         </div>
                                         <div className="d-flex justify-content-center m-3">
-                                            <h5 className="recipe_material">調味料:</h5>
+                                            <h5 className="recipe_material">時間:</h5>
                                             <h5 className="recipe_material">
-                                                鹽及胡椒
+                                                20分
                                             </h5>
                                         </div>
                                     </div>
@@ -222,23 +222,39 @@ function RecipesPage2(props) {
                             </div>
                             <div className="d-none d-md-flex col-md-10 m-auto">
                                 <div className="col-md-3 border-end border-2">
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 1.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 2.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 3.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 4.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title">Step 5.</div>
-
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(1)}>Step 1.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(2)}>Step 2.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(3)}>Step 3.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(4)}>Step 4.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(5)}>Step 5.</div>
                                 </div>
                                 <div className="col-md-9">
-                                    <h5 className="col-md-9 py-md-5 m-auto text-white">1）將洋蔥、蘑菇切成小塊；將蒜切片；<br />用鹽、胡椒將三文魚調味；米洗好並先浸20分鐘。</h5>
+                                    <h5 className={togglestate === 1 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>1）先煎好一隻太陽蛋</h5>
+                                    <h5 className={togglestate === 2 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>2）將煙肉煎至焦香</h5>
+                                    <h5 className={togglestate === 3 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>3）使用醃肉油分將麵包煎香</h5>
+                                    <h5 className={togglestate === 4 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>4）牛油果起肉，切粒，輕輕攪拌至半果溶狀態</h5>
+                                    <h5 className={togglestate === 5 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>5）將配料順序放上方型麵包及灑上鹽及胡椒調味</h5>
                                     <div className="d-flex">
-                                        <div className="col-9 text-md-center">
-                                            <img className="col-md-9" src={step1} alt="" />
+                                        <div className={togglestate === 1 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
+                                            <img className="col-md-9" src={"/recipes_img/pancake.svg"} alt="" />
+                                        </div>
+                                        <div className={togglestate === 2 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
+                                            <img className="col-md-9" src={"/recipes_img/africaEgg.svg"} alt="" />
+                                        </div>
+                                        <div className={togglestate === 3 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
+                                            <img className="col-md-9" src={"/recipes_img/plowanceStew.svg"} alt="" />
+                                        </div>
+                                        <div className={togglestate === 4 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
+                                            <img className="col-md-9" src={"/recipes_img/joetsaimeatball.svg"} alt="" />
+                                        </div>
+                                        <div className={togglestate === 5 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
+                                            <img className="col-md-9" src={"/recipes_img/whitewineclams.svg"} alt="" />
                                         </div>
                                         <div className="col-3 text-center">
                                             <div className="col-6 m-auto mt-5 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button">大廚計時器</div>
-                                            <div className="col-md-8 m-auto text-center rounded-pill border border-dark my-4 recipe_title">30:00</div>
-                                            <h5 className="col-6 m-auto mt-5 text-center">price:3000</h5>
+                                            <div className="col-md-8 m-auto text-center rounded-pill border border-dark my-4 recipe_title ">30:00</div>
+                                            <h5 className="col-6 m-auto mt-5 text-center text-white">price:300</h5>
+                                            
                                             <button className="col-6 rounded-pill m-auto mt-2 py-2 text-white btn_bgc_color text-center" type="button" onClick="" >加入購物車</button>
                                         </div>
                                     </div>

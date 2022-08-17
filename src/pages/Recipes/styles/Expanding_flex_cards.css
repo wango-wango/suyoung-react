@@ -41,7 +41,7 @@
 
 .content {
   background: var(--white)
-  url('/public/recipes_img/chickenlegpocket.png')
+  url('/public/recipes_img/chickenlegpocket.svg')
   70% / cover no-repeat;
   border-radius: 26px;
   cursor: pointer;
@@ -72,19 +72,19 @@
 }
 
 .content:nth-of-type(2) {
-  background-image: url('/public/recipes_img/hotredwine.png');
+  background-image: url('/public/recipes_img/hotredwine.svg');
 }
 
 .content:nth-of-type(3) {
-  background-image: url('/public/recipes_img/lowvarben.png');
+  background-image: url('/public/recipes_img/lowvarben.svg');
 }
 
 .content:nth-of-type(4) {
-  background-image: url('/public/recipes_img/garlicsteak.png');
+  background-image: url('/public/recipes_img/garlicsteak.svg');
 }
 
 .content:nth-of-type(5) {
-  background-image: url('/public/recipes_img/popcorn.png');
+  background-image: url('/public/recipes_img/popcorn.svg');
   margin-right: 0;
 }
 
