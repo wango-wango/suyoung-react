@@ -39,6 +39,8 @@ const Coupon = (props) => {
         getCoupon();
     }, []);
 
+    var todayDate = new Date();
+
     return (
         <>
             <motion.div
@@ -53,12 +55,14 @@ const Coupon = (props) => {
                         <div className="left">
                             {discount.map((v, i) => {
                                 return (
-                                    <div key={i} className="coupon">
+                                    <div key={i} className="coupon" style={ v.coupon_status === 1 || todayDate > new Date(v.expireDate) ? {filter:"saturate(0) brightness(0.4)",pointerEvents:"none",}: null} >
                                         <div className="coupon-number">
                                             {v.discount_number}
+                                            
                                         </div>
                                         <span className="discount-name">
                                             {v.discount_name}
+                                        
                                         </span>
                                         <span className="discount-date">
                                             使用期限:

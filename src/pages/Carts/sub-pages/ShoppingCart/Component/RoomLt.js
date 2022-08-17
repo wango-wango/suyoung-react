@@ -46,7 +46,7 @@ function RoomLt(props) {
       icon: 'success',
       title: '金額已為您折扣',
       showConfirmButton: false,
-      timer: 3000,
+      timer: 1500,
     })
   }
 

@@ -143,10 +143,10 @@ function Index(props) {
                     <div className="glass mt-3 mb-3">
                         <div class="general-container">
                             <input class="radio" type="radio" name="card" id="card-1" checked />
-                            <label class="content d-none d-md-block" for="card-1">
+                            <label class="j_content d-none d-md-block" for="card-1">
                             </label>
                             <input class="radio" type="radio" name="card" id="card-2" />
-                            <label class="content d-none d-md-block" for="card-2">
+                            <label class="j_content d-none d-md-block" for="card-2">
                                 <span class="icon">
                                     <i class="fas fa-cloud-rain"></i>
                                 </span>
@@ -156,7 +156,7 @@ function Index(props) {
                                 </h3>
                             </label>
                             <input class="radio" type="radio" name="card" id="card-3" />
-                            <label class="content" for="card-3">
+                            <label class="j_content" for="card-3">
                                 <span class="icon">
                                     <i class="fas fa-cloud-moon"></i>
                                 </span>
@@ -166,13 +166,12 @@ function Index(props) {
                                 </h3>
                             </label>
                             <input class="radio" type="radio" name="card" id="card-4" />
-                            <label class="content" for="card-4">
+                            <label class="j_content" for="card-4">
                             </label>
                             <input class="radio" type="radio" name="card" id="card-5" />
-                            <label class="content" for="card-5">
+                            <label class="j_content" for="card-5">
                             </label>
                         </div>
-
                     </div>
                 </div>
             </section>

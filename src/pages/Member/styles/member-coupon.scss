@@ -29,11 +29,7 @@ div.member-title {
             &:hover {
                 background-image: url("../../../../public/member_img/Anonymous_generic_ticket\ 2.svg");
             }
-            &:nth-child(4),
-            &:nth-child(4):hover {
-                filter: grayscale(1);
-                pointer-events: none;
-            }
+           
 
             .discount-name {
                 font-size: medium;

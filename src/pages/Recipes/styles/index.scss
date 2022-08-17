@@ -105,6 +105,10 @@
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
+.ingredient {
+    width: 50vw;
+}
+
 .recipe_material {
     color: white;
 }
@@ -178,7 +182,7 @@
     }
 
     .ingredient {
-        width: 12vw;
+        width: 14vw;
     }
 
     .recipe_material {
