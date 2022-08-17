@@ -45,9 +45,6 @@ function RecipesPage2(props) {
         })
     }, []);
 
-
-
-
     return (
         <>
             <div>
