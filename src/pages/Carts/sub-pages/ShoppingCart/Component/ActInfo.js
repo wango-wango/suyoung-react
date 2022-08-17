@@ -120,11 +120,11 @@ function ActInfo(props) {
             transition={{ duration: 1 }}
             key={item.actSid}
           >
-            <div className="act_info">
-              <div className="act_pic">
+            <div className="room_info">
+              <div className="room_pic">
                 <img src={`/act_imgs/${item.actImg}`} alt="" />
               </div>
-              <div className="act_detail">
+              <div className="room_detail_act">
                 <p>名稱：{item.actName}</p>
                 <p>日期：{item.date}</p>
                 <p>人數：{item.people}</p>

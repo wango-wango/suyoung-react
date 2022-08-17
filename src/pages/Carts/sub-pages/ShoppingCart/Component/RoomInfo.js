@@ -144,7 +144,7 @@ function RoomInfo(props) {
                 <p>兒童：{item.kids}</p>
                 <p>天數：{item.perNight}</p>
                 <div className="amount_and_del">
-                  <p>價格：${item.totalPrice}</p>
+                  <p>價格：${item.roomTotalPrice}</p>
                   <button
                     className="del_btn"
                     onClick={() => {
