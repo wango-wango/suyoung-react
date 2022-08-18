@@ -115,38 +115,40 @@ function ActInfo(props) {
 
   const displayItems = (
     <>
-      {mycart1.map((item, index) => {
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            key={item.actSid}
-          >
-            <div className="room_info">
-              <div className="room_pic">
-                <img src={`/act_imgs/${item.actImg}`} alt="" />
-              </div>
-              <div className="room_detail_act">
-                <p>名稱：{item.actName}</p>
-                <p>日期：{item.date}</p>
-                <p>人數：{item.people}</p>
-                <div className="amount_and_del">
-                  <p>價格：${item.totalPrice}</p>
-                  <button
-                    className="del_btn"
-                    onClick={() => {
-                      DeleteCartItem(mycart1)
-                    }}
-                  >
-                    刪除
-                  </button>
+      {mycart1 && mycart1.length
+        ? mycart1.map((item, index) => {
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                key={item.actSid}
+              >
+                <div className="room_info">
+                  <div className="room_pic">
+                    <img src={`/act_imgs/${item.actImg}`} alt="" />
+                  </div>
+                  <div className="room_detail_act">
+                    <p>名稱：{item.actName}</p>
+                    <p>日期：{item.date}</p>
+                    <p>人數：{item.people}</p>
+                    <div className="amount_and_del">
+                      <p>價格：${item.totalPrice}</p>
+                      <button
+                        className="del_btn"
+                        onClick={() => {
+                          DeleteCartItem(mycart1)
+                        }}
+                      >
+                        刪除
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </motion.div>
-        )
-      })}
+              </motion.div>
+            )
+          })
+        : null}
     </>
   )
   // if (mycartDisplay1.length === 0) return <></>
