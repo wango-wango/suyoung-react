@@ -151,7 +151,7 @@
             padding-top: 40px;
 
             @media screen and (max-width: 485px) {
-                transform: scale(0.8) translateY(-50px);
+                transform: scale(0.8) translateY(-50px) !important;
             }
 
             .outdoor-beginner,

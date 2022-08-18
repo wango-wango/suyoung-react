@@ -197,11 +197,11 @@
             border: none;
             background-color: transparent;
             position: absolute;
-            left: 286px;
+            left: calc(var(--h4_text) * 8);
             top: 10px;
 
             @media screen and (max-width: 375px) {
-                left: 159px;
+                left: calc(var(--h4_text) * 8);
                 top: 2px;
             }
 
@@ -222,23 +222,22 @@
     color: var(--error_color);
 }
 
-
-div.reset-password{
+div.reset-password {
     padding: 25px;
     width: 400px;
     height: 80vh;
     margin: auto;
-    @media screen and (max-width:487px) {
+    @media screen and (max-width: 487px) {
         width: 350px;
-        
     }
-    form{
+    form {
         text-align: left;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        input.password-input,input.password-comfirm{
+        input.password-input,
+        input.password-comfirm {
             border: none;
             padding: 0 20px;
             border-radius: 15px;
@@ -247,15 +246,12 @@ div.reset-password{
             background-color: var(--input_color);
             margin: 15px 0;
         }
-        button{
+        button {
             margin-top: 20px;
             @include p_button;
-            &:hover{
+            &:hover {
                 background-color: var(--primary_color_500);
             }
         }
     }
-  
-
-
 }
