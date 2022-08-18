@@ -130,7 +130,7 @@ function CartItem(props) {
 
             const actObj = {
                 order_id: orderId,
-                member_id: auth.sid,
+                member_id: auth.m_id,
                 act_id: item.actSid,
                 act_l_id: item.act_img_id,
                 num_people: item.people,
@@ -172,7 +172,7 @@ function CartItem(props) {
             const date = new Date();
 
             const roomObj = {
-                member_id: auth.sid,
+                member_id: auth.m_id,
                 room_id: item.sid,
                 room_type_id: item.room_type_id,
                 num_adults: item.adults,

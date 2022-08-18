@@ -5,7 +5,7 @@ import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 import TWZipCode from "./TWZipCode";
 import axios from "axios";
@@ -45,13 +45,12 @@ const Info = () => {
                 setAuth({ ...auth, ...res.data.user });
             } else {
                 Swal.fire({
-                    imageUrl: '/member_img/logo.svg',
-                    confirmButtonColor: '#224040',
-                    title: '糟糕！',
-                    color:"#224040",
+                    imageUrl: "/member_img/logo.svg",
+                    confirmButtonColor: "#224040",
+                    title: "糟糕！",
+                    color: "#224040",
                     text: "查無會員資料",
-                  })
-                
+                });
             }
         });
     };
@@ -77,14 +76,12 @@ const Info = () => {
             finalForm
         );
 
-       
         Swal.fire({
-            imageUrl: '/member_img/logo.svg',
-            confirmButtonColor: '#224040',
-            title: '糟糕！',
-            color:"#224040",
+            imageUrl: "/member_img/logo.svg",
+            confirmButtonColor: "#224040",
+            color: "#224040",
             text: "資料修改完成",
-          })
+        });
 
         getUserData();
 
@@ -346,6 +343,7 @@ const Info = () => {
                                                 placeholder="行動電話"
                                                 value={formik.values.phone}
                                                 onChange={formik.handleChange}
+                                                autoComplete="on"
                                             />
                                             <span className="error-msg">
                                                 <ErrorMessage name="phone" />
@@ -366,6 +364,7 @@ const Info = () => {
                                                 value={formik.values.address}
                                                 onChange={formik.handleChange}
                                                 placeholder="地址"
+                                                autoComplete="on"
                                             />
                                             <span className="error-msg">
                                                 <ErrorMessage name="address" />
