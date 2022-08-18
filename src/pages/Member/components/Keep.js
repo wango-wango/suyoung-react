@@ -48,7 +48,7 @@ const Keep = () => {
                     className="member-body"
                 >
                     <div className="keep-title">收藏清單</div>
-                    <div className="checkbox">
+                    <div className="keep-checkbox">
                         <label>
                             <input
                                 className="room-type"

@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem("auth");
         setAuth({ authorized: false, sid: 0, token: "" });
-        navigate("/Shuyoung");
+        navigate("/shuyoung");
     };
 
     // const login = async () => {

@@ -13,7 +13,7 @@ import MemberLevel from "./MemberLevel";
 import CreditCard from "./CreditCard";
 import { BsPersonCircle } from "react-icons/bs";
 import { useSpinner } from "../../../useSpinner";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 import anime from "animejs";
 import { useBackground } from "../../../utils/useBackground";
@@ -32,7 +32,7 @@ const MemberCenter = () => {
 
     useEffect(() => {
         setBackground("bglayer.svg");
-    }, [])
+    }, []);
 
     useEffect(() => {
         setLoading(true);
@@ -79,14 +79,13 @@ const MemberCenter = () => {
 
                 setAuth({ ...auth, ...newAuth });
             } else {
-                
                 Swal.fire({
-                    imageUrl: '/member_img/logo.svg',
-                    confirmButtonColor: '#224040',
-                    title: '糟糕！',
-                    color:"#224040",
+                    imageUrl: "/member_img/logo.svg",
+                    confirmButtonColor: "#224040",
+                    title: "糟糕！",
+                    color: "#224040",
                     text: "查無會員資料",
-                  })
+                });
             }
         });
     };
@@ -176,8 +175,12 @@ const MemberCenter = () => {
                 >
                     123
                 </button> */}
-                <button className="daylight" onClick={()=>{myFunction();
-                }}>
+                <button
+                    className="daylight"
+                    onClick={() => {
+                        myFunction();
+                    }}
+                >
                     <svg
                         id="dark_mode"
                         width="55"
@@ -194,93 +197,167 @@ const MemberCenter = () => {
                 </button>
                 <div className="member-container">
                     <div className="member-head">
-                        <div className="left">
-                            <ul>
-                                <li>
-                                    <div
-                                        className="member-btn"
-                                        onClick={() => {
-                                            setStep(0);
-                                        }}
-                                    >
-                                        <img
-                                            src="/member_img/PersonCircle.svg"
-                                            alt=""
-                                        />
-                                        會員中心
-                                    </div>
-                                </li>
-                                <li>
-                                    <div
-                                        className="member-btn"
-                                        onClick={() => {
-                                            setStep(2);
-                                        }}
-                                    >
-                                        <img
-                                            src="/member_img/CardList.svg"
-                                            alt=""
-                                        />
-                                        訂單查詢
-                                    </div>
-                                </li>
-                                <li>
-                                    <div
-                                        className="member-btn"
-                                        onClick={() => {
-                                            setStep(3);
-                                        }}
-                                    >
-                                        <img
-                                            src="/member_img/Vector.svg"
-                                            alt=""
-                                        />
-                                        願望清單
-                                    </div>
-                                </li>
-                                <li>
-                                    <div
-                                        className="member-btn"
-                                        onClick={() => {
-                                            setStep(1);
-                                        }}
-                                    >
-                                        <img
-                                            src="/member_img/diary.svg"
-                                            alt=""
-                                        />
-                                        基本資料
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="right">
-                            <ul>
-                                <li>
-                                    <div
-                                        className="member-btn"
-                                        onClick={() => {
-                                            setStep(6);
-                                        }}
-                                    >
-                                        {auth.m_first_name === null ? (
-                                            <>
-                                                <BsPersonCircle />
-                                                {auth.m_username}
-                                            </>
-                                        ) : (
-                                            <>
-                                                <img
-                                                    src={auth.m_avatar}
-                                                    alt=""
-                                                />
-                                                {auth.m_last_name}
-                                                {auth.m_first_name}
-                                            </>
-                                        )}
-                                    </div>
-                                </li>
-                            </ul>
+                        <div className="for-mobile">
+                            <div className="left">
+                                <ul>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(0);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/PersonCircle.svg"
+                                                alt=""
+                                            />
+                                            會員中心
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(2);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/CardList.svg"
+                                                alt=""
+                                            />
+                                            訂單查詢
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(3);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/Vector.svg"
+                                                alt=""
+                                            />
+                                            願望清單
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(1);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/diary.svg"
+                                                alt=""
+                                            />
+                                            基本資料
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul className="mobile">
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(4);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/password-edit.svg"
+                                                alt=""
+                                            />
+                                            修改密碼
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(2);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/CardList.svg"
+                                                alt=""
+                                            />
+                                            訂單查詢
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(5);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/ticket-alt.svg"
+                                                alt=""
+                                            />
+                                            我的優惠券
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(6);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/star-of-life.svg"
+                                                alt=""
+                                            />
+                                            會員等級
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(7);
+                                            }}
+                                        >
+                                            <img
+                                                src="/member_img/credit-card.svg"
+                                                alt=""
+                                            />
+                                            信用卡管理
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="right">
+                                <ul>
+                                    <li>
+                                        <div
+                                            className="member-btn"
+                                            onClick={() => {
+                                                setStep(6);
+                                            }}
+                                        >
+                                            {auth.m_first_name === null ? (
+                                                <>
+                                                    <BsPersonCircle />
+                                                    {auth.m_username}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <img
+                                                        src={auth.m_avatar}
+                                                        alt=""
+                                                    />
+                                                    {auth.m_last_name}
+                                                    {auth.m_first_name}
+                                                </>
+                                            )}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div className="member-flex-box">

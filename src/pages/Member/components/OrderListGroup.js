@@ -10,49 +10,44 @@ const OrderListGroup = (props) => {
 
     const { orderList } = props;
 
-   
-
     useEffect(() => {
-        if(orderList.length){  
+        if (orderList.length) {
             let groups = gsap.utils.toArray(".order-list-group");
             let toggles = gsap.utils.toArray(".order-list-toggle");
             let listToggles = groups.map(createAnimation);
 
             toggles.forEach((toggle) => {
-            toggle.addEventListener("click", function () {
-                toggleMenu(toggle);
+                toggle.addEventListener("click", function () {
+                    toggleMenu(toggle);
+                });
             });
-            });
 
-        function toggleMenu(clickedToggle) {
-            listToggles.forEach((toggleFn) => toggleFn(clickedToggle));
-        }
-        function createAnimation(element) {
-            let menu = element.querySelector(".order-list-toggle");
-            let box = element.querySelector(".order-list");
+            function toggleMenu(clickedToggle) {
+                listToggles.forEach((toggleFn) => toggleFn(clickedToggle));
+            }
+            function createAnimation(element) {
+                let menu = element.querySelector(".order-list-toggle");
+                let box = element.querySelector(".order-list");
 
-            gsap.set(box, { height: "auto" });
-            let animation = gsap
-                .from(box, {
-                    height: 0,
-                    duration: 0.5,
-                    ease: "power1.inOut",
-                })
-                .reverse();
+                gsap.set(box, { height: "auto" });
+                let animation = gsap
+                    .from(box, {
+                        height: 0,
+                        duration: 0.5,
+                        ease: "power1.inOut",
+                    })
+                    .reverse();
 
-            return function (clickedMenu) {
-                if (clickedMenu === menu) {
-                    animation.reversed(!animation.reversed());
-                } else {
-                    animation.reverse();
-                }
-            };
-        }
-        
+                return function (clickedMenu) {
+                    if (clickedMenu === menu) {
+                        animation.reversed(!animation.reversed());
+                    } else {
+                        animation.reverse();
+                    }
+                };
+            }
         }
     }, [orderList]);
-
-
 
     return (
         <>
@@ -76,7 +71,11 @@ const OrderListGroup = (props) => {
                             </div>
                             <div className="text">
                                 <div className="top">
-                                    <div>訂單編號:{v.order_id}</div>
+                                    <div>
+                                        訂單編號:
+                                        <br />
+                                        {v.order_id}
+                                    </div>
                                     {v.room_name}
                                 </div>
                                 <div className="bottom">
@@ -149,7 +148,7 @@ const OrderListGroup = (props) => {
                                             <span>{v.act_price}</span>元
                                         </div>
                                     </div>
-                                    
+
                                     <div className="total-price">
                                         <div className="checkmore-btn">
                                             <Link to="/shuyoung/SuMap">
@@ -162,7 +161,10 @@ const OrderListGroup = (props) => {
                                             </Link>
                                         </div>
                                         <div>
-                                            <span>{v.total_price}</span>元
+                                            <span style={{ fontSize: "1rem" }}>
+                                                折扣後
+                                            </span>
+                                            <span> {v.total_price}</span>元
                                         </div>
                                     </div>
                                 </div>

@@ -35,7 +35,45 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    #scrolldown {
+        position: absolute;
+        a {
+            position: absolute;
+            bottom: -280px;
+            left: 50%;
+            z-index: 2;
+            display: inline-block;
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            color: #fff;
+            font: normal 400 20px/1 'Josefin Sans', sans-serif;
+            letter-spacing: .1em;
+            text-decoration: none;
+            transition: opacity .3s;
 
+            @media screen and (max-width:768px) {
+                left: 43%
+            }
+            &:hover {
+                opacity: 0.5;
+            }
+
+            span {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 24px;
+                height: 24px;
+                margin-left: -12px;
+                border-left: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+                transform: rotate(-45deg);
+                animation: sdb05 1.5s infinite;
+                box-sizing: border-box;
+            }
+        }
+
+    }
     img {
         position: absolute;
         top: 0;
@@ -56,8 +94,16 @@
         
     }
 }
+.textstype {
+    @media screen and (max-width: 600px) {
+        padding: 30px;
+    }
+}
 .textCenter {
     text-align: center;
+    @media screen and (max-width: 650px) {
+        margin-bottom: 30px;
+    }
 }
 .lrSpace {
     margin: 0 30%;
@@ -66,7 +112,8 @@
 
 
 .iconGroup{
-    margin: 0 30%;
+    width: 60%;
+    margin: auto;
     color: #ffffff;
     display: flex;
     padding-bottom: 40px;
@@ -77,8 +124,8 @@
         top:0;
         display: inline-block;
         width: 100%;
-        padding: 25px;
-        font-size: 55px;
+        padding: 3rem;
+        font-size: 3rem;
         letter-spacing: 3px;
         margin: 3px;
         text-align: center;
@@ -87,6 +134,10 @@
         color: #aaa;
         -webkit-transition: all 300ms linear;
         transition: all 300ms linear;
+
+        @media screen and (max-width: 600px) {
+        padding: 1rem;
+        }
     }
     [type="radio"]:checked,
     [type="radio"]:not(:checked) {
@@ -107,7 +158,15 @@
         padding-bottom: 10px;
     }
 }
-
+.smtype{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+    @media (max-width: 1300px) {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+    }
+}
 .roompic {
     margin: 0 20px;
     
@@ -116,7 +175,9 @@
         height: 200px;
         border-radius: 1.5rem;
         object-fit: cover;
+        
     }
+    
 }
 
 .roomTitle {
@@ -133,14 +194,14 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow:hidden;
-
     }
 }
 
 .room-btn {
     a {
         button {
-            margin-left: 70%;
+        margin-bottom: 30px;
+        margin-left: 70%;
         }
     }
 }
@@ -153,6 +214,9 @@
     text-align: right;
     color: #ffffff66;
     font-weight: 300;
+    @media screen and (max-width: 600px){
+        font-size: 5rem;
+        }
 }
 
 .bgtextL {
@@ -160,6 +224,9 @@
     text-align: left;
     color: #210002;
     font-weight: 300;
+    @media screen and (max-width: 600px){
+    font-size: 5rem;
+    }
 }
 
 .whitebg {
@@ -198,7 +265,9 @@
     background-color: #ffffff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.3), 0 4px 4px rgba(0, 0, 0, 0.3), 0 8px 8px rgba(0, 0, 0, 0.3), 0 16px 16px rgba(0, 0, 0, 0.3);
     border-radius: 1.5rem;
-    
+    @media (max-width: 600px) {
+        margin-bottom: 30px;
+    }
 }
 @media (min-width: 600px) {
     .card {
@@ -375,6 +444,10 @@ background-repeat: no-repeat;
     img{
         width: 400px;
     }
+    @media screen and (max-width:600px){
+        width: 220px;
+        height: 220px;
+    }
 }
 .square:nth-child(1):before {
     background-image: url(../../../../public/index_imgs/rescipes1.jpg);
@@ -395,6 +468,10 @@ background-repeat: no-repeat;
     line-height: 1.2;
     text-align: left;
     color: #ffffff;
+    @media screen and (max-width:600px){    font-size: 1.5rem;
+        margin-bottom: 30px;
+
+    }
 }
 
 .squareDes {
@@ -405,6 +482,9 @@ background-repeat: no-repeat;
     text-align: left;
     margin-top: 30px;
     color: #ffffff;
+    @media screen and (max-width:600px){
+        display: none;
+    }
 }
 .square:before {
     content: "";
@@ -437,7 +517,7 @@ background-repeat: no-repeat;
     flex-direction: column;
     align-items:center;
     width: 100%;
-    padding: 125px 50px 50px 50px;
+    padding: 50px 50px 50px 50px;
     transition: transform var(--f) var(--g);
     z-index: 1;
 }

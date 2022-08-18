@@ -18,7 +18,6 @@ import Upstream from "./pages/Act/Upstream";
 import ActReservation from "./pages/Act/ReservationAct";
 import Booking from "./pages/Booking";
 import Member from "./pages/Member/Member";
-
 import Recipes from "./pages/Recipes";
 import RecipesPage2 from "./pages/Recipes/components/recipesPage2";
 import PhotoWall from "./pages/Recipes/components/photoWall";
@@ -50,22 +49,10 @@ function App() {
                                         <Routes>
                                             <Route
                                                 path="/"
-                                                element={
-                                                    <>
-                                                        <h1>Welcome Home</h1>{" "}
-                                                        <p>
-                                                            please insert suyouong
-                                                            in your URL, thanks.
-                                                        </p>
-                                                    </>
-                                                }
+                                                element={<Landing />}
                                             />
                                             <Route path="/shuyoung">
                                                 <Route index element={<Home />} />
-                                                <Route
-                                                    path="Landing"
-                                                    element={<Landing />}
-                                                />
                                                 <Route path="Act">
                                                     <Route
                                                         path="Atv"

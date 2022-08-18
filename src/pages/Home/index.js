@@ -120,6 +120,19 @@ function Index(props) {
             <img className="animate" data-rellax-speed="-5" src={fileName3} id="3" alt=""/>
             <img className="animate" data-rellax-speed="-4" src={fileName2} id="2" alt=""/>
             <img className="" src={fileName} id="1" alt=""/>
+            <motion.div
+                initial={{ opacity: 0, y:100 }}
+                whileInView={{ opacity: 1, y:0 }}
+                transition={{
+                delay: 0.3,
+                default: { ease: "linear" },
+            }}>
+                <div id="scrolldown">
+                    <a>
+                        <span></span>Scroll
+                    </a>
+                </div>
+            </motion.div>
         </div>
     </section>
     <section>
@@ -148,7 +161,7 @@ function Index(props) {
                     delay: 0.3,
                     default: { ease: "linear" },
                     }}>
-                        <h4 className="textCenter p-lg-5 p-sm-4">房型介紹</h4>
+                        <h4 className="textCenter p-lg-5 p-sm-4 textstype">房型介紹</h4>
                     </motion.div>
                 </div>
                 <motion.div
@@ -218,7 +231,7 @@ function Index(props) {
                     </div>
                 </motion.div>
                 <div className="lrSpace">
-                    <div className="d-flex justify-content-around p-3">
+                    <div className="justify-content-around p-3 smtype">
                         {roomType.map((rv, ri) => {
                             return(
                                     <div key={ri}>

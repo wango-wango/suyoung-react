@@ -14,7 +14,7 @@ html {
                             font-size: var(--subtitle_text);
                             padding: 0 0 30px 0;
                         }
-                        .checkbox {
+                        .keep-checkbox {
                             position: relative;
                             background-image: linear-gradient(
                                 var(--cardBackground)
@@ -45,6 +45,9 @@ html {
                                 @media screen and (max-width: 520px) {
                                     margin: 5px 0;
                                 }
+                                @media screen and (max-width: 374px) {
+                                    padding: 0 8px;
+                                }
 
                                 input {
                                     display: none;
@@ -70,9 +73,9 @@ html {
                                     @media screen and (max-width: 480px) {
                                         padding: 5px 22px;
                                     }
-                                    @media screen and (max-width: 375px) {
-                                        padding: 22px 5px;
-                                    }
+                                    // @media screen and (max-width: 375px) {
+                                    //     padding: 22px 5px;
+                                    // }
                                 }
                             }
                         }
@@ -128,7 +131,7 @@ html {
                                 }
 
                                 @media screen and (max-width: 1209px) {
-                                    flex: 0 1 40%;
+                                    flex: 0 1 50%;
                                     margin-top: 6%;
                                 }
 
@@ -136,10 +139,14 @@ html {
                                     margin-bottom: 6%;
                                     min-width: 180px;
                                 }
+                                @media screen and (max-width: 799px) {
+                                    flex: 0 1 60%;
+                                }
 
                                 @media screen and (max-width: 768px) {
                                     margin-bottom: 6%;
                                     min-width: 180px;
+                                    flex: 0 1 44%;
                                 }
 
                                 @media screen and (max-width: 520px) {

@@ -29,7 +29,6 @@ div.member-title {
             &:hover {
                 background-image: url("../../../../public/member_img/Anonymous_generic_ticket\ 2.svg");
             }
-           
 
             .discount-name {
                 font-size: medium;
@@ -48,6 +47,10 @@ div.member-title {
                 font-weight: 700;
                 letter-spacing: 2px;
             }
+
+            @media screen and (max-width: 375px) {
+                transform: scale(0.9);
+            }
         }
     }
 }
@@ -64,8 +67,15 @@ div.member-title {
         .left,
         .right {
             .coupon {
-                width: 200px;
-                height: 100px;
+                width: 295px;
+                height: 154px;
+
+                .coupon-number {
+                    font-size: 15px;
+                }
+                .discount-name {
+                    font-size: 15px;
+                }
             }
         }
     }

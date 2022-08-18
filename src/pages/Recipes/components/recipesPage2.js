@@ -21,7 +21,7 @@ function RecipesPage2(props) {
     const [seconds, setSeconds] = useState(0)
     const [minutes, setMinutes] = useState(5)
 
-    var timer;
+    let timer;
     useEffect(() => {
         timer = setInterval(() => {
             setSeconds(seconds - 1)
@@ -41,6 +41,27 @@ function RecipesPage2(props) {
     const stop = () => {
         clearInterval(timer)
     }
+
+    const step2 =()=> {
+        setMinutes(10)
+        setSeconds(0)
+    }
+
+    const step3 =()=> {
+        setMinutes(7)
+        setSeconds(0)
+    }
+
+    const step4 =()=> {
+        setMinutes(3)
+        setSeconds(0)
+    }
+
+    const step5 =()=> {
+        setMinutes(5)
+        setSeconds(0)
+    }
+
     //sid
     const { sid } = useParams()
     const pageSid = +sid
@@ -161,111 +182,60 @@ function RecipesPage2(props) {
                 </section>
                 <section className="mb-5">
                     <div className="j_container pt-md-5">
-                        <div className="glass step mb-md-3">
+                        <div className="glass step mb-md-3 text-center">
                             <div className="recipe_title border-bottom border-2 w-75 m-auto mb-3 pt-3 pb-md-5 pt-md-5 text-center">How To Do: </div>
-                            <div className="accordion col-10 m-auto mb-3 d-md-none" id="accordionExample">
-                                <div className="accordion-item glass">
-                                    <h2 className="accordion-header" id="headingOne">
-                                        <button className="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Step 1.
-                                        </button>
-                                    </h2>
-                                    <div id="collapseOne" className="accordion-collapse collapse show text-whi" aria-labelledby="headingOne"
-                                        data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                            <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                            until the collapse plugin adds the appropriate classNamees that we use to style each
-                                            element. These classNamees control the overall appearance, as well as the showing and hiding
-                                            via CSS transitions. You can modify any of this with custom CSS or overriding our
-                                            default variables. It's also worth noting that just about any HTML can go within the, though the transition does limit overflow.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="accordion-item glass">
-                                    <h2 className="accordion-header" id="headingTwo">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Step 2.
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                        data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                            <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                            until the collapse plugin adds the appropriate classNamees that we use to style each
-                                            element. These classNamees control the overall appearance, as well as the showing and hiding
-                                            via CSS transitions. You can modify any of this with custom CSS or overriding our
-                                            default variables. It's also worth noting that just about any HTML can go within the
-                                            <code>.accordion-body</code>, though the transition does limit overflow.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="accordion-item glass">
-                                    <h2 className="accordion-header" id="headingThree">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Step 3.
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree"
-                                        data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                                            the collapse plugin adds the appropriate classNamees that we use to style each element.
-                                            These classNamees control the overall appearance, as well as the showing and hiding via CSS
-                                            transitions. You can modify any of this with custom CSS or overriding our default
-                                            variables. It's also worth noting that just about any HTML can go within the
-                                            <code>.accordion-body</code>, though the transition does limit overflow.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="accordion-item glass">
-                                    <h2 className="accordion-header" id="headingThree">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Step 3.
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree"
-                                        data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                                            the collapse plugin adds the appropriate classNamees that we use to style each element.
-                                            These classNamees control the overall appearance, as well as the showing and hiding via CSS
-                                            transitions. You can modify any of this with custom CSS or overriding our default
-                                            variables. It's also worth noting that just about any HTML can go within the
-                                            <code>.accordion-body</code>, though the transition does limit overflow.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="accordion-item glass">
-                                    <h2 className="accordion-header" id="headingThree">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Step 3.
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree"
-                                        data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                                            the collapse plugin adds the appropriate classNamees that we use to style each element.
-                                            These classNamees control the overall appearance, as well as the showing and hiding via CSS
-                                            transitions. You can modify any of this with custom CSS or overriding our default
-                                            variables. It's also worth noting that just about any HTML can go within the
-                                            <code>.accordion-body</code>, though the transition does limit overflow.
-                                        </div>
-                                    </div>
+                            <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
+                                <div className="step_button m-auto text-center rounded-pill my-2 py-1 recipe_title" onClick={() => toggleTab(1)}>Step 1.</div>
+                            </div>
+                            <div className={togglestate === 1 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
+                                <div className="col-9 m-auto">準備章魚燒的餡料，將章魚切成自己喜歡的大小，高麗菜切末，青蔥切成蔥花。</div>
+                                <div><img className="col-10" 
+                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
                                 </div>
                             </div>
+                            <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
+                                <div className="step_button m-auto text-center rounded-pill my-2 py-1 recipe_title" onClick={() => toggleTab(2)}>Step 2.</div>
+                            </div>
+                            <div className={togglestate === 2 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
+                                <div className="col-9 m-auto">中小火預熱章魚燒烤盤並刷上油，將預拌好的麵糊用大湯匙舀入章魚燒盤。</div>
+                                <div><img className="col-10" 
+                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                </div>
+                            </div>
+                            <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
+                                <div className="step_button m-auto text-center rounded-pill my-2 py-1 recipe_title" onClick={() => toggleTab(3)}>Step 3.</div>
+                            </div>
+                            <div className={togglestate === 3 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
+                                <div className="col-9 m-auto">待麵糊稍微凝固後放入章魚，這樣章魚才會置中。</div>
+                                <div><img className="col-10" 
+                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                </div>
+                            </div>
+                            <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
+                                <div className="step_button m-auto text-center rounded-pill my-2 py-1 recipe_title" onClick={() => toggleTab(4)}>Step 4.</div>
+                            </div>
+                            <div className={togglestate === 4 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
+                                <div className="col-9 m-auto">撒上高麗菜末、蔥末、天婦羅花，最後再撒上一層麵糊，稍微煮一會兒至麵糊稍微變硬。</div>
+                                <div><img className="col-10" 
+                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                </div>
+                            </div>
+                            <div className="border border-dark rounded-pill col-9 m-auto d-md-none">
+                                <div className="step_button m-auto text-center rounded-pill my-2 py-1 recipe_title" onClick={() => toggleTab(5)}>Step 5.</div>
+                            </div>
+                            <div className={togglestate === 5 ?"col-9 m-auto pb-5 text-white text-center d-md-none" :"col-9 pb-5 m-auto text-white text-center d-md-none content_page"}>
+                                <div className="col-9 m-auto">依照個人喜好抹上章魚燒醬、淋上美乃滋、海苔以及柴魚片後即可食用。</div>
+                                <div><img className="col-10" 
+                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                </div>
+                            </div>                            
                             <div className="d-none d-md-flex col-md-10 m-auto">
                                 <div className="col-md-3 border-end border-2">
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(1)}>Step 1.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(2)}>Step 2.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(3)}>Step 3.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(4)}>Step 4.</div>
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(5)}>Step 5.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(2);step2()}}>Step 2.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(3);step3()}}>Step 3.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(4);step4()}}>Step 4.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(5);step5()}}>Step 5.</div>
                                 </div>
                                 <div className="col-md-9">
                                     {!!tutorial && tutorial.length ? tutorial.filter((v, i) => {
@@ -281,19 +251,19 @@ function RecipesPage2(props) {
                                                 <h5 className={togglestate === 5 ? "col-md-9 py-md-5 m-auto text-white" : "col-md-9 py-md-5 m-auto text-white content_page"}>{v.step5}</h5>
                                                 <div className="d-flex">
                                                     <div className={togglestate === 1 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
-                                                        <img className="col-md-9" src={`/recipes_img/${v.step1_img}`} alt="" />
+                                                        <img className="col-md-9 img_height" src={`/recipes_img/${v.step1_img}`} alt="" />
                                                     </div>
                                                     <div className={togglestate === 2 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
-                                                        <img className="col-md-9" src={`/recipes_img/${v.step2_img}`} alt="" />
+                                                        <img className="col-md-9 img_height" src={`/recipes_img/${v.step2_img}`} alt="" />
                                                     </div>
                                                     <div className={togglestate === 3 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
-                                                        <img className="col-md-9" src={`/recipes_img/${v.step3_img}`} alt="" />
+                                                        <img className="col-md-9 img_height" src={`/recipes_img/${v.step3_img}`} alt="" />
                                                     </div>
                                                     <div className={togglestate === 4 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
-                                                        <img className="col-md-9" src={`/recipes_img/${v.step4_img}`} alt="" />
+                                                        <img className="col-md-9 img_height" src={`/recipes_img/${v.step4_img}`} alt="" />
                                                     </div>
                                                     <div className={togglestate === 5 ? "col-9 text-md-center" : "col-9 text-md-center content_page"}>
-                                                        <img className="col-md-9" src={`/recipes_img/${v.step5_img}`} alt="" />
+                                                        <img className="col-md-9 img_height" src={`/recipes_img/${v.step5_img}`} alt="" />
                                                     </div>
                                                     <div className="col-3 text-center">
                                                         <div className="recipe_title mt-5">大廚計時器</div>
@@ -310,7 +280,7 @@ function RecipesPage2(props) {
                                         }) : null}
                                 </div>
                             </div>
-                            <h5 className="d-md-none col-4 col-md-1 rounded-pill m-auto mb-3 py-2 text-white btn_bgc_color text-center">加入購物車</h5>
+                            <h5 className="d-none col-4 col-md-1 rounded-pill m-auto mb-3 py-2 text-white btn_bgc_color text-center">加入購物車</h5>
                         </div>
                     </div>
                 </section>

@@ -16,6 +16,11 @@ function LandingIndex(props) {
     <>
         <div className="fullscreenLanding">
             <Landing/>
+                <div id="scrolldown">
+                    <a>
+                        <span></span>Scroll
+                    </a>
+                </div>
         </div>
     <div className="landingBg">
     <div class="scrollElement"></div>
