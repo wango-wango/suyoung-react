@@ -11,7 +11,7 @@ import { motion } from "framer-motion"
 
 
 function BookingCard(props) {
-    const {roomList,setRoomList, tagList, favList, setFavList,searchName} = props;
+    const {roomList,setRoomList, tagList, favList, setFavList,searchName , checkPrice} = props;
     // 篩選控制器重置
     const { setSearchName, setCheckRoomType, setRoomSelector, setValue, setTagValue, setRecommend, setPopular, setSearchContext} = props;
     // useContext
@@ -47,6 +47,23 @@ function BookingCard(props) {
         }
     };
 
+    // 用物件的key值去排序資料 價格低到高
+    function sortByKeyDown(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key]; 
+            var y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+    // 用物件的key值去排序資料 價格高到低
+    function sortByKeyUp(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key]; 
+            var y = b[key];
+            return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+        });
+    }
+
     // 如果 keep 是 unchecked 刪除該筆資料
     const deleteKeep = async (sid) => {
         const room_sid = sid;
@@ -71,6 +88,20 @@ function BookingCard(props) {
         setNewRoomList(newRoomList);
         // setNewRoomList(roomList);
     }, [roomList,searchName])
+
+    useEffect(() => {
+        // 沒有值就return 掉
+        if(checkPrice === "") return;
+        // 複製roomList
+        const DownRoomList = [...roomList];
+        const UpRoomList = [...roomList];
+        // 拿去排序
+        sortByKeyDown(DownRoomList,"room_price"); 
+        sortByKeyUp(UpRoomList,"room_price"); 
+        // 看按鈕的值 改變newRoomList 的值
+        if(checkPrice === "1") setNewRoomList(DownRoomList);
+        if(checkPrice === "2") setNewRoomList(UpRoomList);
+    }, [roomList,checkPrice])
     
     
 

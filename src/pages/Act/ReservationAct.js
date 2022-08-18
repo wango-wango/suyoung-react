@@ -34,7 +34,7 @@ function ActReser(props) {
     const { setAuth, ...auth } = useAuth();
     const navigate = useNavigate();
     //didUpdate.log
-    console.log(actBookingList);
+    // console.log(actBookingList);
 
     //日期格式調整
     const formatDate = (date) => {
@@ -63,9 +63,10 @@ function ActReser(props) {
     const [agreeMent, setAgreeMent] = useState(false);
     const [contact, setContact] = useState([]);
     const [datePick, setDatePick] = useState();
-
-    console.log("people:", value);
-    console.log("totalPrice:", actBookingList.totalPrice);
+    const [rsName, setRsName] = useState("")
+    const [rsPhone, setRsPhone] = useState("")
+    // console.log("people:", value);
+    // console.log("totalPrice:", actBookingList.totalPrice);
 
     useEffect(() => {
         if (value >= 1) {
@@ -100,7 +101,7 @@ function ActReser(props) {
         setAgreeMent(checked);
     };
 
-    console.log(agreeMent);
+    // console.log(agreeMent);
     const handleChange = (value) => {
         const at = value.match(/@[\S]*/);
         const nextData = at
@@ -209,7 +210,7 @@ function ActReser(props) {
                                                     seconds: "秒",
                                                 }}
                                                 onChange={(v) => {
-                                                    console.log(v);
+                                                    // console.log(v);
                                                     if (v) {
                                                         setActBookingList({
                                                             ...actBookingList,
@@ -306,7 +307,10 @@ function ActReser(props) {
                                 </div>
                             </motion.div>
                         </div>
-                        <div className="actRsTitle">
+                        <div className="actRsTitle" onClick={()=>{
+                            setRsName("舒小營")
+                            setRsPhone("0988468038")
+                        }}>
                             <h4>聯絡人資訊</h4>
                         </div>
                         <form action="" method="post">
@@ -322,7 +326,7 @@ function ActReser(props) {
                                         trigger="focus"
                                         speaker={<Tooltip>必填</Tooltip>}
                                     >
-                                        <Input placeholder="請填入姓名" />
+                                        <Input placeholder="請填入姓名" value={rsName}/>
                                     </Whisper>
                                 </div>
                                 <div>
@@ -336,7 +340,7 @@ function ActReser(props) {
                                         trigger="focus"
                                         speaker={<Tooltip>必填</Tooltip>}
                                     >
-                                        <Input placeholder="請填入手機號碼" />
+                                        <Input placeholder="請填入手機號碼" value={rsPhone}/>
                                     </Whisper>
                                 </div>
                                 <div>

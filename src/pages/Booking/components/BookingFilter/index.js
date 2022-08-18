@@ -15,7 +15,7 @@ import { useBookingList } from "../../../../utils/useBookingList";
 function Index(props) {
 
     // 全部的篩選控制器
-    const {searchName, setSearchName, checkroomType, setCheckRoomType, roomSelector, setRoomSelector, value, setValue, tagValue, setTagValue, recommend, setRecommend, popular, setPopular, setSearchContext, searchContext} = props;
+    const {searchName, setSearchName, checkroomType, setCheckRoomType, roomSelector, setRoomSelector, value, setValue, tagValue, setTagValue, recommend, setRecommend, popular, setPopular, setSearchContext, searchContext, checkPrice, setCheckPrice} = props;
     /* ------ useContext 的值 ------ */
     const { bookingList, setBookingList } = useBookingList();
 
@@ -85,7 +85,7 @@ function Index(props) {
                     <RoomFilterMobile checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} roomList={roomList} tagList={tagList}/>
                 </div>
                 <div className='room_filter_quick'>
-                    <RoomFilterQuick searchName={searchName} setSearchName={setSearchName} setSearchContext={setSearchContext} searchContext={searchContext} />
+                    <RoomFilterQuick searchName={searchName} setSearchName={setSearchName} setSearchContext={setSearchContext} searchContext={searchContext} checkPrice={checkPrice} setCheckPrice={setCheckPrice} />
                 </div>
                 <div className="room_filter_roomType">
                     <RoomFilterRoomType checkroomType={checkroomType} setCheckRoomType={setCheckRoomType}/>
