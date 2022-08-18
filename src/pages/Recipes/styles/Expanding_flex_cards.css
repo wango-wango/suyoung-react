@@ -29,7 +29,7 @@
 
 .general-container {
   display: flex;
-  height: 40rem;
+  height: 30rem;
   margin: 0 auto;
   max-width: 100%;
   width: 100%;
@@ -41,8 +41,8 @@
 
 .j_content {
   background: var(--white)
-  url('/public/recipes_img/chickenlegpocket.svg')
-  50% / cover no-repeat;
+  url('/public/recipes_img/hamburger-g28b07399c_1920.jpg') 50% / cover no-repeat;
+  /* background-position: 30% 50%; */
   border-radius: 26px;
   cursor: pointer;
   flex: 1;
@@ -73,11 +73,13 @@
 }
 
 .j_content:nth-of-type(2) {
-  background-image: url('/public/recipes_img/hotredwine.svg');
+  background-image: url('/public/recipes_img/homemade-duck-liver-pate-with-red-onion-jam-gourmet-appetizers-assorted-italian-appetizer-bruschetta_114941-4144.webp');
+  /* object-fit: center; */
+  background-position: 50% 100%;
 }
 
 .j_content:nth-of-type(3) {
-  background-image: url('/public/recipes_img/lowvarben.svg');
+  background-image: url('/public/recipes_img/tacos-gbe7766696_1920.jpg');
 }
 
 .j_content:nth-of-type(4) {
@@ -85,7 +87,7 @@
 }
 
 .j_content:nth-of-type(5) {
-  background-image: url('/public/recipes_img/popcorn.svg');
+  background-image: url('/public/recipes_img/marinated-chicken-wings-plate-against-dark-background_186367-3534.jpg');
   margin-right: 0;
 }
 
@@ -153,6 +155,11 @@
 
   .general-container {
     width: 90%;
+    height: 40rem;
+  }
+
+  .j_content {
+    flex: 1;
   }
 
 }

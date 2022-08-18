@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useBackground } from "../../utils/useBackground";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Import Swiper styles
@@ -26,6 +26,7 @@ function Index(props) {
     const [Next, setNext] = useState([])
     const [tryDisplay, setTryDisplay] = useState([])
     const [allFilter, setAllFilter] = useState([])
+    const fish = useNavigate()
     // 來自useBackground 的設定
     const { setBackground } = useBackground();
     // 進入該頁設定背景
@@ -104,16 +105,12 @@ function Index(props) {
 
     return (
         <>
-            <header className="d-flex justify-content-around">
+            <header className="d-flex justify-content-around mt-5">
                 <h4 className="text-center fw-bold title_color">天菜大廚</h4>
             </header>
             <section>
-                <div className="j_container">
-                    <h5 className="fw-bold title_color">點閱率搜尋</h5>
-                    <div className="d-flex align-items-center">
-                        <div className="rounded-circle hot rs_button"></div>
-                        <div className="col-md-3 col-4  range_slider rounded-pill"></div>
-                    </div>
+                <div className="j_container mt-md-5">
+                    <h5 className="fw-bold title_color">推薦食譜</h5>
                     <div className="glass mt-3 pb-3 ">
                         <Swiper
                             spaceBetween={30}
@@ -129,17 +126,20 @@ function Index(props) {
                             modules={[Autoplay, Pagination, Navigation]}
                             className="mySwiper carousel_size"
                         >
-                            <SwiperSlide><img src={"/recipes_img/pancake.svg"} alt="" /></SwiperSlide>
-                            <SwiperSlide><img src={"/recipes_img/sanFishRice.svg"} alt="" /></SwiperSlide>
-                            <SwiperSlide><img src={"/recipes_img/africaEgg.svg"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/bruschetta-gd6d6f6a39_1920.jpg"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/goat-satay-g043452594_1920.jpg"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/fried-rice-g9fe300fc3_1920.jpg"} alt="" /></SwiperSlide>
+                            <SwiperSlide><img src={"/recipes_img/kebab-g3f4e68cbd_1920.jpg"} alt="" /></SwiperSlide>
+                            <SwiperSlide>                                
+                                <img onClick={()=>{fish("/shuyoung/recipes/recipesPage2/7")}} src={"/recipes_img/salmonVeg.svg"} alt="" />
+                            </SwiperSlide>
                         </Swiper>
                     </div>
                 </div>
             </section>
             <section>
-                <div className="j_container mt-3">
-                    <h5 className="fw-bold title_color">搜尋食譜</h5>
-                    <input type="text input_label input_style" />
+                <div className="j_container mt-5">
+                    <h5 className="fw-bold title_color">熱門食譜</h5>
                     <div className="glass mt-3 mb-3">
                         <div class="general-container">
                             <input class="radio" type="radio" name="card" id="card-1" />
@@ -147,23 +147,9 @@ function Index(props) {
                             </label>
                             <input class="radio" type="radio" name="card" id="card-2" />
                             <label class="j_content d-none d-md-block" for="card-2">
-                                <span class="icon">
-                                    <i class="fas fa-cloud-rain"></i>
-                                </span>
-                                <h3 class="card-title">
-                                    París, Paris, France
-                                    <span class="subtitle">@lolaguti</span>
-                                </h3>
                             </label>
                             <input class="radio" type="radio" name="card" id="card-3" />
                             <label class="j_content" for="card-3">
-                                <span class="icon">
-                                    <i class="fas fa-cloud-moon"></i>
-                                </span>
-                                <h3 class="card-title">
-                                    La Joue du Loup, Le Dévoluy, France
-                                    <span class="subtitle">@quentindrphotography</span>
-                                </h3>
                             </label>
                             <input class="radio" type="radio" name="card" id="card-4" />
                             <label class="j_content" for="card-4">
