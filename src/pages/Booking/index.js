@@ -10,6 +10,7 @@ import { useBookingList } from "../../utils/useBookingList";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
 import Axios from "axios";
 import { motion } from "framer-motion"
+import Swal from "sweetalert2";
 
 function Index(props) {
 
@@ -51,6 +52,9 @@ function Index(props) {
     // 先儲存使用者輸入的內容
     const [searchContext, setSearchContext] = useState("");
 
+    //  價格多少狀態
+    const [checkPrice,setCheckPrice] = useState("");
+
     // 用get 取得所有的值
     const getData = async () => {
         // 從 bookingList解構
@@ -69,7 +73,7 @@ function Index(props) {
         } = bookingList;
 
         await Axios.get(
-            `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}&searchPrice=${searchPrice}`
+            `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}`
         ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
@@ -115,6 +119,7 @@ function Index(props) {
         setLoading(true);
     }, [setLoading]);
 
+
     return (
         <>
             {spinner}
@@ -125,10 +130,11 @@ function Index(props) {
                     </div>
 
                     <div className="room_area_flex">
-                        <BookingFilter searchName={searchName} setSearchName={setSearchName} checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} searchContext={searchContext} setSearchContext={setSearchContext} />
+                        <BookingFilter searchName={searchName} setSearchName={setSearchName} checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} searchContext={searchContext} setSearchContext={setSearchContext} checkPrice={checkPrice} setCheckPrice={setCheckPrice}/>
                         {roomList && roomList.length ? (
-                            <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
-                        ): (<motion.div 
+                            <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} checkPrice={checkPrice} setCheckPrice={setCheckPrice} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
+                        ): (
+                            <motion.div 
                             initial={{ opacity: 0, y: 100 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity:0, y: -100 }}
@@ -138,11 +144,31 @@ function Index(props) {
                             }}
                             className="emptyRoomFilter">
                         <h5>你所設定的條件下沒有空房，請調整篩選條件。</h5>
-                        </motion.div>)}
+                        </motion.div>
+                        )}
                         
                     </div>
                 </div>
                 <button onClick={orderDetailList}>test</button>
+                
+                        
+                                {/* Swal.fire({
+                                    icon: "warning",
+                                    title: "無剩餘空房",
+                                    text: "請重新調整篩選",
+                                    color: "#952e1f",
+                                    background: "#FFF",
+                                    showConfirmButton: true,
+                                    confirmButtonColor: "#224040",
+                                    confirmButtonText: `是`,
+                                    
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        
+                                    }
+                                }) */}
+                            
+                            
             </section>
         </>
     );
