@@ -65,8 +65,8 @@
         position: absolute;
         a {
             position: absolute;
-            bottom: -250px;
-            left: 50%;
+            top: 800px;
+            left: 800px;
             z-index: 2;
             display: inline-block;
             -webkit-transform: translate(0, -50%);
@@ -112,7 +112,7 @@
         width: 100%;
     }
     .lt1 {
-        width: 100%;
+        width: 500px;
         // height: 100px;
         position: absolute;
         top:50px;
@@ -121,7 +121,8 @@
     .landingTitle{
         position: absolute;
         left:50px;
-        top: 500px;
+        top: 730px;
+        width: 800px;
         color: #eeeeee76;
         font-size: 3rem;
         z-index: 10;
@@ -134,6 +135,34 @@
         z-index: 2;
     }
 
+    .sc2 {
+        position: absolute;
+        width: 100%;
+        // height: 1000px;
+        top: 2000px;
+        z-index: 1;
+    }
+    .sc3 {
+        position: absolute;
+        width: 100%;
+        // height: 1000px;
+        top: 3100px;
+        z-index: 1;
+    }
+    .sc4 {
+        position: absolute;
+        width: 100%;
+        // height: 1000px;
+        top: 4500px;
+        z-index: 1;
+    }
+    .sc5 {
+        position: absolute;
+        width: 100%;
+        // height: 1000px;
+        top: 5500px;
+        z-index: 1;
+    }
     .sc1title {
         position: relative;
         left: 100px;
@@ -154,39 +183,10 @@
         }
     }
 
-    .sc2 {
-        position: absolute;
-        width: 100%;
-        // height: 1000px;
-        top: 1900px;
-        z-index: 1;
-    }
-    .sc3 {
-        position: absolute;
-        width: 100%;
-        // height: 1000px;
-        top: 2890px;
-        z-index: 1;
-    }
-    .sc4 {
-        position: absolute;
-        width: 100%;
-        // height: 1000px;
-        top: 3835px;
-        z-index: 1;
-    }
-    .sc5 {
-        position: absolute;
-        width: 100%;
-        // height: 1000px;
-        top: 4780px;
-        z-index: 1;
-    }
-
     .sc1title2 {
         position: relative;
         left: 100px;
-        top: 1000px;
+        top: 1100px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -205,7 +205,7 @@
     .sc1title3 {
         position: relative;
         left: 100px;
-        top: 1750px;
+        top: 2000px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -224,7 +224,7 @@
     .sc1title4 {
         position: relative;
         left: 100px;
-        top: 2650px;
+        top: 3300px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -243,7 +243,7 @@
     .sc1title5 {
         position: relative;
         left: 100px;
-        top: 3400px;
+        top: 4200px;
         width: 100%;
         z-index: 5;
         h4 {

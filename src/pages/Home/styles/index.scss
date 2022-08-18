@@ -35,13 +35,14 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
     #scrolldown {
         position: absolute;
+        z-index: 0;
         a {
             position: absolute;
             bottom: -280px;
             left: 50%;
-            z-index: 2;
             display: inline-block;
             -webkit-transform: translate(0, -50%);
             transform: translate(0, -50%);
@@ -50,14 +51,12 @@
             letter-spacing: .1em;
             text-decoration: none;
             transition: opacity .3s;
-
             @media screen and (max-width:768px) {
                 left: 43%
             }
             &:hover {
                 opacity: 0.5;
             }
-
             span {
                 position: absolute;
                 top: 0;
@@ -72,7 +71,6 @@
                 box-sizing: border-box;
             }
         }
-
     }
     img {
         position: absolute;
