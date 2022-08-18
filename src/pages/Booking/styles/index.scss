@@ -69,9 +69,7 @@
 
         &:active {
             transform: scale(0.98);
-            /* Scaling button to 0.98 to its original size */
             box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-            /* Lowering the shadow */
             color: var(--brown_color);
         }
     }
@@ -120,12 +118,12 @@
         color: var(--primary_color);
 
         &:focus,
-        &:valid {
+        &:invalid {
             outline: 1px solid #224040;
         }
 
         &:focus~label,
-        &:valid~label {
+        &:invalid~label {
             top: calc((var(--h5_text))*(-1));
             font-size: var(--text_size);
             color: var(--primary_color);
@@ -439,10 +437,18 @@
 
                         &:nth-child(2) {
                             background-color: transparent;
-                            color: var(--primary_color_500);
+                            color: #999;
                             transition: 0.5s ease;
 
                             &:hover {
+                                color: var(--primary_color_600);
+                                transform: scale(1.3);
+                                filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.284));
+                                transform: translate(-3px, -3px);
+                            }
+                            &:active {
+                                transform: scale(0.98);
+                                filter: drop-shadow(3px 2px 22px 1px rgba(0, 0, 0, 0.24)) ;
                                 color: var(--primary_color);
                             }
                         }
@@ -465,12 +471,22 @@
                             display: flex;
                             margin: auto;
                             margin-bottom: 1rem;
+                            
                             .SearchInput{
                                 @include input_style();
                                 width: 75%;
                                 height: var(--h5_text);
                                 margin-right: 1rem;
-                            }
+                                padding-left: 1rem;
+                                font-size: var(--text_size);
+                                text-align: center;
+                                &::placeholder{
+                                    color: #ccc;
+                                }
+                                &:focus::placeholder{
+                                    color: transparent;
+                                }
+                        }
                             .SearchButton{
                                 @include p_button();
                                 width: 20%;

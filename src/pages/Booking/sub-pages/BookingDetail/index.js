@@ -129,10 +129,7 @@ function Index(props) {
           </a>
         </div>
       </section>
-      <section className="room_detail_up">
-        <div className="detail_up_title">
-          <h1>GSAP Scroll</h1>
-        </div>
+      <section className="room_detail_up">    
         <DetailPictures picList={picList} />
       </section>
       <section className="room_detail_down">
