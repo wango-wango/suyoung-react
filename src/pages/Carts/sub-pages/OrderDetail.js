@@ -41,7 +41,7 @@ function OrderDetail(props) {
       {order.roomList.map((v, i) => {
         return (
           <>
-            <React.Fragment key={v.order_id}>
+            <React.Fragment key={i}>
               <div className="item_detail">
                 <div className="item_detail_img">
                   <img
@@ -73,7 +73,7 @@ function OrderDetail(props) {
         return (
           <>
             <React.Fragment>
-              <div className="event_detail" key={v.act_id}>
+              <div className="event_detail" key={i}>
                 <div className="event_detail_img">
                   <img src={`/act_imgs/${v.act_img}`} alt="" />
                 </div>

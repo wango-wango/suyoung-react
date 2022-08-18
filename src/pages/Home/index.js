@@ -148,7 +148,7 @@ function Index(props) {
                     delay: 0.3,
                     default: { ease: "linear" },
                     }}>
-                        <h4 className="textCenter p-lg-5 p-sm-4">房型介紹</h4>
+                        <h4 className="textCenter p-lg-5 p-sm-4 textstype">房型介紹</h4>
                     </motion.div>
                 </div>
                 <motion.div
@@ -218,7 +218,7 @@ function Index(props) {
                     </div>
                 </motion.div>
                 <div className="lrSpace">
-                    <div className="d-flex justify-content-around p-3">
+                    <div className="justify-content-around p-3 smtype">
                         {roomType.map((rv, ri) => {
                             return(
                                     <div key={ri}>

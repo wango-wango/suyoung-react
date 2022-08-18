@@ -6,7 +6,7 @@ const _ = require('lodash')
 const Swal = require('sweetalert2')
 
 function ActInfo(props) {
-  const { actSum, setActSum } = props
+  const { actSum, setActSum, setOrderActList, orderActList } = props
 
   const [mycart1, setMycart1] = useState([])
   const [mycartDisplay1, setMycartDisplay1] = useState([])
@@ -84,6 +84,9 @@ function ActInfo(props) {
       localStorage.setItem('Act', JSON.stringify(currentCart))
       setMycart1(currentCart)
     }
+    const oldAct = orderActList
+    const nowAct = oldAct.filter((v) => v !== v.actSid)
+    setOrderActList(nowAct)
   }
 
   function DeleteCartItem(item) {

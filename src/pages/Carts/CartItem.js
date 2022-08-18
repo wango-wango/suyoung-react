@@ -303,7 +303,7 @@ function CartItem(props) {
       // icon: 'success',
       title: '感謝購買',
       showConfirmButton: false,
-      timer: 3000,
+      timer: 1500,
     })
   }
   function HandleAlertBuy() {
@@ -362,7 +362,8 @@ function CartItem(props) {
       await addRoomOrderInfoToSever()
       await pushOrderId()
       // await addActOrderToSever()
-      await emailSubmit()
+      // await emailSubmit()
+      setBookingCart([])
       setStep(3)
     }
     if (_.isEmpty(orderBooking)) {
@@ -394,6 +395,7 @@ function CartItem(props) {
           inputs={inputs}
           handleSubmit={handleSubmit}
           orderBooking={orderBooking}
+          setOrderBooking={setOrderBooking}
           HandleAlertBuy={HandleAlertBuy}
           HandleAlert={HandleAlert}
           scOrderId={scOrderId}
@@ -401,6 +403,8 @@ function CartItem(props) {
           setdiscountSum={setdiscountSum}
           orderType1={orderType1}
           orderType2={orderType2}
+          setOrderActList={setOrderActList}
+          orderActList={orderActList}
         />
       </div>
       {/* {step === 1 ?  <AddOn/> : null} */}

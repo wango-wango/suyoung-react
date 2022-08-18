@@ -468,7 +468,6 @@ function ActReser(props) {
                                                 );
                                                 //成功畫面
                                                 Swal.fire({
-                                                    position: "top-end",
                                                     icon: "success",
                                                     title: "已加入購物車",
                                                     text: "請盡快完成結帳",

@@ -29,7 +29,7 @@
 
 .general-container {
   display: flex;
-  height: 30rem;
+  height: 40rem;
   margin: 0 auto;
   max-width: 100%;
   width: 100%;
@@ -39,10 +39,10 @@
   display: none;
 }
 
-.content {
+.j_content {
   background: var(--white)
   url('/public/recipes_img/chickenlegpocket.svg')
-  70% / cover no-repeat;
+  50% / cover no-repeat;
   border-radius: 26px;
   cursor: pointer;
   flex: 1;
@@ -50,6 +50,7 @@
   overflow: hidden;
   position: relative;
   transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+  height: 100%;
 }
 
 .content:hover {
@@ -71,36 +72,46 @@
   width: 2.5rem;
 }
 
-.content:nth-of-type(2) {
+.j_content:nth-of-type(2) {
   background-image: url('/public/recipes_img/hotredwine.svg');
 }
 
-.content:nth-of-type(3) {
+.j_content:nth-of-type(3) {
   background-image: url('/public/recipes_img/lowvarben.svg');
 }
 
-.content:nth-of-type(4) {
+.j_content:nth-of-type(4) {
   background-image: url('/public/recipes_img/garlicsteak.svg');
 }
 
-.content:nth-of-type(5) {
+.j_content:nth-of-type(5) {
   background-image: url('/public/recipes_img/popcorn.svg');
   margin-right: 0;
 }
 
-.content:nth-of-type(2) .icon {
+.j_content:nth-of-type(6) {
+  background-image: url('/public/recipes_img/popcorn.svg');
+  margin-right: 0;
+}
+
+.j_content:nth-of-type(7) {
+  background-image: url('/public/recipes_img/popcorn.svg');
+  margin-right: 0;
+}
+
+.j_content:nth-of-type(2) .icon {
   color: var(--dark-gray);
 }
 
-.content:nth-of-type(3) .icon {
+.j_content:nth-of-type(3) .icon {
   color: var(--dark-blue);
 }
 
-.content:nth-of-type(4) .icon {
+.j_content:nth-of-type(4) .icon {
   color: var(--gray);
 }
 
-.content:nth-of-type(5) .icon {
+.j_content:nth-of-type(5) .icon {
   color: var(--golden);
 }
 
@@ -127,13 +138,13 @@
 }
 
 /* Effect */
-.radio:checked + .content {
+.radio:checked + .j_content {
   border-radius: 2rem;
   box-shadow: 0.3rem 0.3rem 0.4rem rgba(0, 0, 0, 0.3);
   flex: 10;
 }
 
-.radio:checked + .content > .card-title {
+.radio:checked + .j_content > .card-title {
   opacity: 1;
   transform: translateX(0);
 }
