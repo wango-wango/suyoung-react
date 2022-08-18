@@ -21,6 +21,7 @@ function RoomFilterRoomSelect(props) {
     // 搜尋 控制器
     const SearchHandler = (e) => {
         const value = e.target.value;
+        if(value === "") setSearchName("");
         setSearchContext(value);
     };
 
@@ -111,7 +112,7 @@ function RoomFilterRoomSelect(props) {
                             default: { ease: "linear" },
                     }} className="roomSearch_area">
                     <div className='roomSearch_input'>
-                        <input className='SearchInput' type="text" onChange={SearchHandler} value={searchContext}/>
+                        <input className='SearchInput' placeholder='輸入房間名稱搜尋' type="text" onChange={SearchHandler} value={searchContext}/>
                         <button className='SearchButton' onClick={SendSearchToBooking}>送出</button>
                     </div>
                     <div className='roomSearch_check'>
@@ -119,6 +120,7 @@ function RoomFilterRoomSelect(props) {
                             className="checkbox-priceUp"
                             type="checkbox"
                             name="priceUp"
+                            
                             id={"priceUp-1"}
                             value={1}
                             onChange={SearchPrice}

@@ -18,7 +18,7 @@ function RoomEquipment(props) {
                                     <span>{v.equipment}</span>
                                 </div>
                             );
-                        }else if (device === "mobile"){
+                        }else {
                             if (i >= 8) {
                                 return (<></>)
                             }else{

@@ -120,6 +120,19 @@ function Index(props) {
             <img className="animate" data-rellax-speed="-5" src={fileName3} id="3" alt=""/>
             <img className="animate" data-rellax-speed="-4" src={fileName2} id="2" alt=""/>
             <img className="" src={fileName} id="1" alt=""/>
+            <motion.div
+                initial={{ opacity: 0, y:100 }}
+                whileInView={{ opacity: 1, y:0 }}
+                transition={{
+                delay: 0.3,
+                default: { ease: "linear" },
+            }}>
+                <div id="scrolldown">
+                    <a>
+                        <span></span>Scroll
+                    </a>
+                </div>
+            </motion.div>
         </div>
     </section>
     <section>

@@ -72,7 +72,8 @@ const OrderListGroup = (props) => {
                             <div className="text">
                                 <div className="top">
                                     <div>
-                                        訂單編號:<br />
+                                        訂單編號:
+                                        <br />
                                         {v.order_id}
                                     </div>
                                     {v.room_name}
@@ -160,7 +161,10 @@ const OrderListGroup = (props) => {
                                             </Link>
                                         </div>
                                         <div>
-                                            <span>{v.total_price}</span>元
+                                            <span style={{ fontSize: "1rem" }}>
+                                                折扣後
+                                            </span>
+                                            <span> {v.total_price}</span>元
                                         </div>
                                     </div>
                                 </div>
