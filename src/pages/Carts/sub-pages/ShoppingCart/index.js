@@ -91,15 +91,24 @@ function Index(props) {
           roomSum={roomSum}
         />
         <RoomMo
-          setStep={setStep}
+          // setStep={setStep}
+          // sum={sum}
+          // setSum={setSum}
+          // actSum={actSum}
+          // setActSum={setActSum}
+          // OrderSubmit={OrderSubmit}
+          // discountSum={discountSum}
+          // setdiscountSum={setdiscountSum}
+          // totalPrice={totalPrice}
           sum={sum}
           setSum={setSum}
-          actSum={actSum}
           setActSum={setActSum}
           OrderSubmit={OrderSubmit}
           discountSum={discountSum}
           setdiscountSum={setdiscountSum}
           totalPrice={totalPrice}
+          actSum={actSum}
+          roomSum={roomSum}
         />
       </div>
     </>

@@ -38,9 +38,12 @@ function BookingDetailArea(props) {
             popular: "",
             recommend: "",
             roomSelector: [],
-            totalPrice: "",
+            searchPrice:"",
+            roomTotalPrice:"",
             nextDate:"",
-            memberId:""
+            orderType: "1",
+            memberId:"",
+
         });
         localStorage.removeItem("room");
     }

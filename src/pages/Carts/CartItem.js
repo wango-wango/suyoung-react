@@ -373,7 +373,7 @@ function CartItem(props) {
       HandleAlertData()
     }
     console.log(newErrors)
-    if (!_.isEmpty(orderBooking) && newErrors.length === 0) {
+    if (orderBooking && newErrors.length === 0) {
       // 購物車內有商品
       HandleAlert()
       await addCreditCardToSever()
@@ -385,7 +385,7 @@ function CartItem(props) {
       setBookingCart([])
       setStep(3)
     }
-    if (_.isEmpty(orderBooking)) {
+    if (orderBooking.length === 0 ) {
       // 如果購物車內沒有商品的話
       HandleAlertBuy()
       setStep(1)

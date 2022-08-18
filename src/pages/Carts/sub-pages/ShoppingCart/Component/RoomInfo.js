@@ -78,10 +78,11 @@ function RoomInfo(props) {
   const delItem = (item) => {
     // 先複製原有的購物車內容
     const currentCart = JSON.parse(localStorage.getItem('roomItem')) || []
+    console.log(currentCart)
 
     // 找尋是否有此筆item.id的對應資料
-    const index = currentCart.findIndex((v) => v.room_id === item.room_id)
-
+    const index = currentCart.filter((v) => v.roomSid !== item.roomSid)
+    console.log(index)
     // // 複製
     // const oldTotalBookingCart = totalBookingCart;
 
@@ -89,16 +90,16 @@ function RoomInfo(props) {
 
     // setTotalBookingCart(newTotalBookingCart);
 
-    if (index > -1) {
+  
       // 找到的話就透過splice來移除array中的那個物件
       // 再更新至localStorage cart之中並且更新Mycart
-      currentCart.splice(index, 1)
-      localStorage.setItem('roomItem', JSON.stringify(currentCart))
-      setMycart(currentCart)
-    }
+      // currentCart.splice(index, 1)
+      localStorage.setItem('roomItem', JSON.stringify(index))
+      setMycart(index)
+    
 
     const oldRoom = orderBooking
-    const nowRoom = oldRoom.filter((v) => v !== v.roomSid)
+    const nowRoom = oldRoom.filter((v) => v.roomSid !== item.roomSid)
     setOrderBooking(nowRoom)
   }
 
