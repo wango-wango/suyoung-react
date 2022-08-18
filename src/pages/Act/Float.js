@@ -44,7 +44,7 @@ function Float(props) {
             (response) => {
                 setAct(response.data.actFloat);
                 const newAct = response.data.actFloat[0];
-                setActBookingList({ ...newAct });
+                setActBookingList({ ...actBookingList, ...newAct });
                 console.log(response.data.actFloat);
             }
         );
@@ -164,61 +164,61 @@ function Float(props) {
                 <div className="emf">
                     <div className="card_bg">
                         <div className="d-flex align-items-center titleGroup">
-                        <div className="keep_button like">
-                            {auth.authorized ? (
-                                <input
-                                    className="checkbox-tools"
-                                    type="checkbox"
-                                    name="keep"
-                                    id="keepBtn"
-                                    value={favlistId}
-                                    // onClick={keepHandler}
-                                    checked={favlist.length}
-                                    onChange={(e) => {
-                                        if (favlist.length !== 0) {
-                                            deleteKeep();
-                                            alert("已移除收藏")
-                                        } else {
-                                            setMemberKeep({
-                                                ...memberKeep,
-                                                memberId: auth.m_id,
-                                                favlistId: 1,
-                                            });
-                                            alert("已加入收藏")
-                                        }
-                                    }}
-                                />
-                            ) : (
-                                <input
-                                    className="checkbox-tools"
-                                    type="checkbox"
-                                    name="keep"
-                                    id="keepBtn"
-                                    value={favlistId}
-                                    onClick={() => {
-                                        Swal.fire({
-                                            icon: "error",
-                                            title: "未登入會員",
-                                            text: "請先登入會員",
-                                            color: "#224040",
-                                            background: "#fff",
-                                            confirmButtonColor: "#224040",
-                                        });
-                                    }}
-                                />
-                            )}
-
-                            <label
-                                className="for-checkbox-tools"
-                                htmlFor="keepBtn"
-                            >
-                                {favlist.length !== 0 ? (
-                                    <AiFillHeart className="fillHeart" />
+                            <div className="keep_button like">
+                                {auth.authorized ? (
+                                    <input
+                                        className="checkbox-tools"
+                                        type="checkbox"
+                                        name="keep"
+                                        id="keepBtn"
+                                        value={favlistId}
+                                        // onClick={keepHandler}
+                                        checked={favlist.length}
+                                        onChange={(e) => {
+                                            if (favlist.length !== 0) {
+                                                deleteKeep();
+                                                alert("已移除收藏");
+                                            } else {
+                                                setMemberKeep({
+                                                    ...memberKeep,
+                                                    memberId: auth.m_id,
+                                                    favlistId: 1,
+                                                });
+                                                alert("已加入收藏");
+                                            }
+                                        }}
+                                    />
                                 ) : (
-                                    <AiOutlineHeart className="outlineHeart" />
+                                    <input
+                                        className="checkbox-tools"
+                                        type="checkbox"
+                                        name="keep"
+                                        id="keepBtn"
+                                        value={favlistId}
+                                        onClick={() => {
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: "未登入會員",
+                                                text: "請先登入會員",
+                                                color: "#224040",
+                                                background: "#fff",
+                                                confirmButtonColor: "#224040",
+                                            });
+                                        }}
+                                    />
                                 )}
-                            </label>
-                        </div>
+
+                                <label
+                                    className="for-checkbox-tools"
+                                    htmlFor="keepBtn"
+                                >
+                                    {favlist.length !== 0 ? (
+                                        <AiFillHeart className="fillHeart" />
+                                    ) : (
+                                        <AiOutlineHeart className="outlineHeart" />
+                                    )}
+                                </label>
+                            </div>
                             <div className="actEnTitle">
                                 <h3>Float</h3>
                             </div>
@@ -264,7 +264,10 @@ function Float(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -286,7 +289,10 @@ function Float(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -345,8 +351,8 @@ function Float(props) {
                                     <div className="actC">
                                         <div className="actDetail">
                                             <div className="textspace">
-                                                每人 {act[0].act_price}元，行程約 3
-                                                小時，歡迎 5~65
+                                                每人 {act[0].act_price}
+                                                元，行程約 3 小時，歡迎 5~65
                                                 歲的大小朋友預約報名唷！
                                                 <br />
                                                 活動費用含專業帶團教練
@@ -420,7 +426,10 @@ function Float(props) {
                                     <div className="actToggle">
                                         <div className="actTitle">
                                             <div className="top">
-                                            <h5><i className="fa-solid fa-circle-exclamation mr-2"/>注意事項</h5>
+                                                <h5>
+                                                    <i className="fa-solid fa-circle-exclamation mr-2" />
+                                                    注意事項
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>

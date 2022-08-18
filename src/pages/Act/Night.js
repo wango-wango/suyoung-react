@@ -45,7 +45,7 @@ function Night(props) {
             (response) => {
                 setAct(response.data.actNight);
                 const newAct = response.data.actNight[0];
-                setActBookingList({ ...newAct });
+                setActBookingList({ ...actBookingList, ...newAct });
                 console.log(response.data.actNight);
             }
         );
@@ -185,7 +185,7 @@ function Night(props) {
                                                 memberId: auth.m_id,
                                                 favlistId: 8,
                                             });
-                                            alert("已加入收藏")
+                                            alert("已加入收藏");
                                         }
                                     }}
                                 />
@@ -266,7 +266,10 @@ function Night(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -288,7 +291,10 @@ function Night(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -347,8 +353,8 @@ function Night(props) {
                                     <div className="actC">
                                         <div className="actDetail">
                                             <div className="textspace">
-                                                每人 {act[0].act_price}元，行程約 3
-                                                小時，歡迎 5~65
+                                                每人 {act[0].act_price}
+                                                元，行程約 3 小時，歡迎 5~65
                                                 歲的大小朋友預約報名唷！
                                                 <br />
                                                 活動費用含專業帶團教練
@@ -422,7 +428,10 @@ function Night(props) {
                                     <div className="actToggle">
                                         <div className="actTitle">
                                             <div className="top">
-                                            <h5><i className="fa-solid fa-circle-exclamation mr-2"/>注意事項</h5>
+                                                <h5>
+                                                    <i className="fa-solid fa-circle-exclamation mr-2" />
+                                                    注意事項
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
