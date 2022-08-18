@@ -44,9 +44,66 @@ p.spinner-text {
     position: absolute;
     width: 220px;
     opacity: 0;
-    left: 59%;
-    bottom: 47%;
+    left: 57%;
+    bottom: 48%;
     z-index: 999;
+}
+
+@media screen and (max-width: 1777px) {
+    .word {
+        left: 58%;
+    }
+}
+
+@media screen and (max-width: 1649px) {
+    .word {
+        left: 60%;
+    }
+}
+
+@media screen and (max-width: 1337px) {
+    .word {
+        left: 62%;
+    }
+}
+
+@media screen and (max-width: 1136px) {
+    .word {
+        left: 64%;
+    }
+}
+
+@media screen and (max-width: 961px) {
+    .word {
+        left: 66%;
+    }
+}
+
+@media screen and (max-width: 849px) {
+    .word {
+        left: 68%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .word {
+        left: 34%;
+        bottom: 35%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .word {
+        left: 28%;
+        bottom: 35%;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .word {
+        left: 18%;
+        bottom: 35%;
+    }
 }
 
 .letter {

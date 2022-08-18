@@ -40,6 +40,14 @@ main {
     z-index: 999;
     position: relative;
 
+    @media screen and (max-width: 1074px) {
+        min-height: 68vh;
+    }
+
+    @media screen and (max-width: 375px) {
+        min-height: 100vh;
+    }
+
     .register-container {
         position: absolute;
         top: 0;

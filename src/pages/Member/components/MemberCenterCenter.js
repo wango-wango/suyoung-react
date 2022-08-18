@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import MemberCenter from "./MemberCenter";
 import "../styles/member-center-01.scss";
 import Tilty from "react-tilty";
-import AuthContext from "../../Login/sub-pages/AuthContext";
-import Lottie from "lottie-web";
+// import AuthContext from "../../Login/sub-pages/AuthContext";
+// import Lottie from "lottie-web";
 
 import { motion } from "framer-motion";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
@@ -11,17 +11,15 @@ import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 import WheaterCard from "./WheaterCard";
-
+import { Link } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const MemberCenterCenter = () => {
     const { setAuth, ...auth } = useAuth();
-
- 
 
     const level = [
         ["初級凹鬥玩家", "野外凹鬥玩家", "凹鬥大師"],
@@ -68,11 +66,9 @@ const MemberCenterCenter = () => {
                 className="member-body"
             >
                 <div className="cover-image-container">
-                    <div className="cover-image"></div>
-                    {/* <button>
-                        <i className="fa-solid fa-image"></i>
-                        更換封面照片
-                    </button> */}
+                    <div className="cover-image">
+                        <span>welcome to shuyoung</span>
+                    </div>
                 </div>
                 <div className="member-container">
                     <Tilty
@@ -167,15 +163,83 @@ const MemberCenterCenter = () => {
                     >
                         <SwiperSlide>
                             <img src="/act_imgs/atv01.jpg"></img>
+                            <div className="act-swiper-text">
+                                <div className="act-title-atv">
+                                    ATV 全地形沙灘車
+                                </div>
+                                <div>
+                                    前進溪谷廣闊山景，享受穿越在不同地形上的樂趣！
+                                    徜徉南澳溪谷、沙灘奔馳、叢林穿越、網美拍照。親子情侶或是
+                                    三五好友都能雙載輕鬆玩，兩人即可出發！
+                                </div>
+                                <Link
+                                    className="link-to-act"
+                                    to="/shuyoung/act/atv"
+                                >
+                                    點我報名
+                                </Link>
+                            </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <img src="/act_imgs/atv02.jpg"></img>
+                            <img src="/act_imgs/upstream06.jpg"></img>
+                            <div className="act-swiper-text">
+                                <div className="act-title-atv">
+                                    Float 漂流探險
+                                </div>
+                                <div>
+                                    1. 輕鬆自在：
+                                    利用溪水漂流的方式，一覽南澳獨特山水景色，並享受沁涼
+                                    溪水的小旅行。 2. 老少咸宜：
+                                    在漂流行程中，除可讓小孩子學習獨立自主的行為態度，更
+                                    能有效促進親子關係唷！
+                                </div>
+                                <Link
+                                    className="link-to-act"
+                                    to="/shuyoung/act/float"
+                                >
+                                    點我報名
+                                </Link>
+                            </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <img src="/act_imgs/atv03.jpg"></img>
+                            <img src="/act_imgs/night02.jpg"></img>
+                            <div className="act-swiper-text">
+                                <div className="act-title-atv">
+                                    Night 夜遊觀星月
+                                </div>
+                                <div>
+                                    宜蘭五大「夢幻夜景」神級海景視野是許多攝影愛好者的朝聖之地，
+                                    從遠處就能看到清晰的龜山島。
+                                    這裡白天擁有美翻的碧海藍天風景，入夜轉變為星光熠熠夜景，非常值得一去！
+                                </div>
+                                <Link
+                                    className="link-to-act"
+                                    to="/shuyoung/act/night"
+                                >
+                                    點我報名
+                                </Link>
+                            </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <img src="/act_imgs/atv04.jpg"></img>
+                            <img src="/act_imgs/float03.jpg"></img>
+                            <div className="act-swiper-text">
+                                <div className="act-title-atv">
+                                    Float 漂流探險
+                                </div>
+                                <div>
+                                    1. 輕鬆自在：
+                                    利用溪水漂流的方式，一覽南澳獨特山水景色，並享受沁涼
+                                    溪水的小旅行。 2. 老少咸宜：
+                                    在漂流行程中，除可讓小孩子學習獨立自主的行為態度，更
+                                    能有效促進親子關係唷！
+                                </div>
+                                <Link
+                                    className="link-to-act"
+                                    to="/shuyoung/act/float"
+                                >
+                                    點我報名
+                                </Link>
+                            </div>
                         </SwiperSlide>
                         <div className="swiper-pagination"></div>
                     </Swiper>
