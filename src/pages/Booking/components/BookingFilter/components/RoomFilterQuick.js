@@ -7,17 +7,15 @@ import { TiDelete } from "react-icons/ti";
 function RoomFilterRoomSelect(props) {
 
     // 搜尋功能 
-    const {searchName, setSearchName, searchContext, setSearchContext} = props;
+    const {searchName, setSearchName, searchContext, setSearchContext,checkPrice,setCheckPrice} = props;
 
      /* ------ useContext 的值 ------ */
     const { bookingList, setBookingList } = useBookingList();
 
     // 篩選器跳出開關
     const [open, setOpen] = useState(true);
-    const [checkPrice,setCheckPrice] = useState("");
+    // const [checkPrice,setCheckPrice] = useState("");
 
-    // // 先儲存使用者輸入的內容
-    // const [searchContext, setSearchContext] = useState("");
     // 搜尋 控制器
     const SearchHandler = (e) => {
         const value = e.target.value;
