@@ -7,13 +7,13 @@
     //     height: 100%;
     //     z-index: 0;
     // }
-    .scrollElement {
-            position: absolute;
-            height: 6000px;
-            width: 100%;
-            top: 0;
-            z-index: 0;
-    }
+    // .scrollElement {
+    //         position: absolute;
+    //         height: 6000px;
+    //         width: 100%;
+    //         top: 0;
+    //         z-index: 0;
+    // }
     .f1bg {
         background-color: rgb(158, 40, 40);
         
@@ -61,11 +61,49 @@
         background: #cc7b32;
         z-index: 3;
     }
+    #scrolldown {
+        position: absolute;
+        a {
+            position: absolute;
+            bottom: -250px;
+            left: 50%;
+            z-index: 2;
+            display: inline-block;
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            color: #fff;
+            font: normal 400 20px/1 'Josefin Sans', sans-serif;
+            letter-spacing: .1em;
+            text-decoration: none;
+            transition: opacity .3s;
+            @media screen and (max-width:768px) {
+                left: 43%
+            }
+            &:hover {
+                opacity: 0.5;
+            }
+
+            span {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 24px;
+                height: 24px;
+                margin-left: -12px;
+                border-left: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+                transform: rotate(-45deg);
+                animation: sdb05 1.5s infinite;
+                box-sizing: border-box;
+            }
+        }
+
+    }
     .try {
         width: 100%;
-        height: 400px;
+        height: 850px;
         position: relative;
-        top: 800px;
+        top: 600px;
         z-index: 999;
     }
     .fullscreenLanding::before {
@@ -92,14 +130,14 @@
         position: absolute;
         width: 100%;
         height: 1000px;
-        top: 1000px;
-        z-index: 1;
+        // top: 1000px;
+        z-index: 2;
     }
 
     .sc1title {
         position: relative;
         left: 100px;
-        top: 600px;
+        top: 150px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -119,28 +157,28 @@
     .sc2 {
         position: absolute;
         width: 100%;
-        height: 1000px;
-        top: 1945px;
+        // height: 1000px;
+        top: 1900px;
         z-index: 1;
     }
     .sc3 {
         position: absolute;
         width: 100%;
-        height: 1000px;
+        // height: 1000px;
         top: 2890px;
         z-index: 1;
     }
     .sc4 {
         position: absolute;
         width: 100%;
-        height: 1000px;
+        // height: 1000px;
         top: 3835px;
         z-index: 1;
     }
     .sc5 {
         position: absolute;
         width: 100%;
-        height: 1000px;
+        // height: 1000px;
         top: 4780px;
         z-index: 1;
     }
@@ -148,7 +186,7 @@
     .sc1title2 {
         position: relative;
         left: 100px;
-        top: 1445px;
+        top: 1000px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -167,7 +205,7 @@
     .sc1title3 {
         position: relative;
         left: 100px;
-        top: 2190px;
+        top: 1750px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -186,7 +224,7 @@
     .sc1title4 {
         position: relative;
         left: 100px;
-        top: 3000px;
+        top: 2650px;
         width: 100%;
         z-index: 5;
         h4 {
@@ -205,7 +243,7 @@
     .sc1title5 {
         position: relative;
         left: 100px;
-        top: 3800px;
+        top: 3400px;
         width: 100%;
         z-index: 5;
         h4 {
