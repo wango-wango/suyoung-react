@@ -6,24 +6,23 @@ import { motion,
   MotionValue } from "framer-motion"
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useBackground } from "../utils/useBackground"
 
 
 
 function LandingIndex(props) {
+    const { setBackground } = useBackground();
     
-
+    //背景控制hook
+    useEffect(() => {
+        setBackground("indexBgw.svg");
+    }, []);
     return (
     <>
         <div className="fullscreenLanding">
             <Landing/>
-                <div id="scrolldown">
-                    <a>
-                        <span></span>Scroll
-                    </a>
-                </div>
         </div>
     <div className="landingBg">
-    <div class="scrollElement"></div>
         <div className="try"></div>
         <div className="lt1">
             <motion.div
@@ -33,16 +32,21 @@ function LandingIndex(props) {
                 delay: 0.2,
                 default: { ease: "linear" },
                 }}>
-                <h5 className="p-lg-5 p-sm-4 landingTitle">WANT TO ESCAPE THE CITY</h5>
+                <h5 className="p-lg-5 p-sm-4 landingTitle">WANT TO ESCAPE THE CITY ?</h5>
+                <div id="scrolldown">
+                    <a>
+                        <span></span>Scroll
+                    </a>
+                </div>
             </motion.div>
         </div>
     <section>
     <div className="sc1">
-                    <img src="/landing_imgs/1-5.jpeg" alt=""/>
-        </div>
+        <img src="/landing_imgs/1-5.jpeg" alt=""/>
+    </div>
         <div className="sc1">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:-500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.8,
@@ -54,7 +58,7 @@ function LandingIndex(props) {
         </div>
         <div className="sc1">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:-500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.8,
@@ -96,7 +100,7 @@ function LandingIndex(props) {
                 delay: 0.8,
                 default: { ease: "linear" },
             }}>
-                <h4 className="lt2">LOOKING FOR</h4>
+                    <h4 className="lt2 ">LOOKING FOR</h4>
             </motion.div>
         </div>            
         <div className="sc1title">
@@ -114,7 +118,7 @@ function LandingIndex(props) {
     <section>
         <div className="sc2">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:-500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.7,
@@ -126,7 +130,7 @@ function LandingIndex(props) {
         </div>
         <div className="sc2">
             <motion.div
-                    initial={{ opacity: 0, x:500 }}
+                    initial={{ opacity: 0, x:-500 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.7,
@@ -168,7 +172,7 @@ function LandingIndex(props) {
                 delay: 0.7,
                 default: { ease: "linear" },
             }}>
-                <h4 className="lt2">STICK TOGETHER</h4>
+                <h4 className="lt2 slth4-2">STICK TOGETHER</h4>
             </motion.div>
         </div>            
         <div className="sc1title2">
@@ -179,14 +183,14 @@ function LandingIndex(props) {
                 delay: 0.8,
                 default: { ease: "linear" },
             }}>
-            <span className="d-flex align-items-center"><h2 className="lt2">FRIENDSHIP</h2><h4 className="lt2">團結的考驗</h4></span>
+            <span className="d-flex align-items-center slth2-2"><h2 className="lt2">FRIENDSHIP</h2><h4 className="lt2">團結的考驗</h4></span>
             </motion.div>
         </div>
     </section>
     <section>
         <div className="sc3">
             <motion.div
-                    initial={{ opacity: 0, x:300 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.9,
@@ -282,7 +286,7 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x:300 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.9,
@@ -306,7 +310,7 @@ function LandingIndex(props) {
         </div>    
     <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x:300 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.9,
@@ -330,7 +334,7 @@ function LandingIndex(props) {
         </div>
         <div className="sc4">
             <motion.div
-                    initial={{ opacity: 0, x: 300 }}
+                    initial={{ opacity: 0, x: -300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.8,
@@ -402,7 +406,7 @@ function LandingIndex(props) {
     <section>
     <div className="sc5">
             <motion.div
-                    initial={{ opacity: 0, x:300 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.8,
@@ -414,7 +418,7 @@ function LandingIndex(props) {
         </div>
         <div className="sc5">
             <motion.div
-                    initial={{ opacity: 0, x:300 }}
+                    initial={{ opacity: 0, x:-300 }}
                     whileInView={{ opacity: 1, x:0 }}
                     transition={{
                     delay: 0.8,
