@@ -11,11 +11,17 @@ import { useAuth } from '../../pages/Login/sub-pages/AuthProvider'
 import { now } from 'lodash'
 import { formatInTimeZone } from 'date-fns-tz'
 import { useBookingCart } from '../../utils/useBookingCart'
+import { useBackground } from '../../utils/useBackground'
+import { tplTransform } from 'rsuite/esm/utils'
 
 const _ = require('lodash')
 const Swal = require('sweetalert2')
 
 function CartItem(props) {
+  const { setBackground } = useBackground()
+  useEffect(() => {
+    setBackground('bg1.svg')
+  }, [])
   const { setAuth, ...auth } = useAuth()
   const { bookingCart, setBookingCart } = useBookingCart()
 
@@ -68,8 +74,17 @@ function CartItem(props) {
 
   //購物車全部商品
   useEffect(() => {
-    if (orderBooking.length >= 1 || orderActList.length >= 1)
+    // if (orderBooking.length >= 1 || orderActList.length >= 1)
+
+    if (orderBooking && !orderActList) {
+      setTotalCart([...orderBooking])
+    } else if (!orderBooking && orderActList) {
+      setTotalCart([...orderActList])
+    } else {
       setTotalCart([...orderBooking, ...orderActList])
+    }
+
+  
     console.log(totalCart)
   }, [orderBooking, orderActList])
 
@@ -88,8 +103,12 @@ function CartItem(props) {
 
   // 第二步 - 把orderType 存進去Hook 傳給orderDetail 去做篩選
   useEffect(() => {
-    if (orderBooking.length >= 1) setOrderType1(orderBooking[0].orderType)
-    if (orderActList.length >= 1) setOrderType2(orderActList[0].orderType)
+    // if (!orderActList || !orderBooking) return
+
+    if (orderBooking && orderBooking.length >= 1)
+      setOrderType1(orderBooking[0].orderType)
+    if (orderActList && orderActList.length >= 1)
+      setOrderType2(orderActList[0].orderType)
   }, [orderBooking, orderActList])
 
   const [errors, setErrors] = useState([])
@@ -165,7 +184,7 @@ function CartItem(props) {
           date,
           'Asia/Taipei',
           'yyyy-MM-dd HH:mm:ss '
-        )
+        ),
       }
       data.orderItems.push(roomObj)
     }
@@ -410,15 +429,6 @@ function CartItem(props) {
       {/* {step === 1 ?  <AddOn/> : null} */}
     </>
   )
-
-  // function Index(props) {
-  //     const { setBackground } = useBackground();
-
-  //     useEffect(() => {
-  //         setBackground("bg1.svg");
-  //     }, []);
-
-  //     return <div>Carts</div>;
 }
 
 export default CartItem
