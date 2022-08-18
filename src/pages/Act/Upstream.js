@@ -40,7 +40,7 @@ function Upstream(props) {
         Axios.delete(
             `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
         ).then((res) => {
-            console.log(res);
+            // console.log(res);
             setFavlist([]);
             setMemberKeep({
                 // favlistId: "",
@@ -55,7 +55,7 @@ function Upstream(props) {
         Axios.get(
             `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}&actSid=${favlistId}`
         ).then((res) => {
-            console.log(res.data.resultFav);
+            // console.log(res.data.resultFav);
             setFavlist([...res.data.resultFav]);
         });
     };
@@ -63,7 +63,7 @@ function Upstream(props) {
     const postData = () => {
         Axios.post(`http://localhost:3700/member/favlist/act`, memberKeep).then(
             (res) => {
-                console.log(res);
+                // console.log(res);
                 getFav();
             }
         );
@@ -71,9 +71,9 @@ function Upstream(props) {
 
     useEffect(() => {
         // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
-        console.log({ memberKeep });
+        // console.log({ memberKeep });
         if (!!memberKeep.memberId && !!memberKeep.favlistId) {
-            console.log("postData!");
+            // console.log("postData!");
             postData();
         }
     }, [memberKeep]);
@@ -101,7 +101,7 @@ function Upstream(props) {
                 setAct(response.data.actUpstream);
                 // const newAct = response.data.actUpstream[0];
                 // setActBookingList({...newAct});
-                console.log(response.data.actUpstream);
+                // console.log(response.data.actUpstream);
             }
         );
     };

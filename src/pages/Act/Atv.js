@@ -46,7 +46,7 @@ function Atv(props) {
                 setAct(response.data.actAtv);
                 const newAct = response.data.actAtv[0];
                 setActBookingList({ ...actBookingList, ...newAct });
-                console.log(response.data.actAtv);
+                // console.log(response.data.actAtv);
             }
         );
     };
@@ -71,7 +71,7 @@ function Atv(props) {
         Axios.delete(
             `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
         ).then((res) => {
-            console.log(res);
+            // console.log(res);
             setFavlist([]);
             setMemberKeep({
                 // favlistId: "",
@@ -86,7 +86,7 @@ function Atv(props) {
         Axios.get(
             `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}&actSid=${favlistId}`
         ).then((res) => {
-            console.log(res.data.resultFav);
+            // console.log(res.data.resultFav);
             setFavlist([...res.data.resultFav]);
         });
     };
@@ -104,7 +104,7 @@ function Atv(props) {
         // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
         console.log({ memberKeep });
         if (!!memberKeep.memberId && !!memberKeep.favlistId) {
-            console.log("postData!");
+            // console.log("postData!");
             postData();
         }
     }, [memberKeep]);
