@@ -364,7 +364,7 @@ transition: all 0.5s;
     width: 200px;
     height: 150px;
     left: 110px;
-    bottom: 190px;
+    bottom: 170px;
     display: block;
 }
 
@@ -377,8 +377,8 @@ transition: all 0.5s;
     position: absolute;
     width: 150px;
     height: 100px;
-    left: 120px;
-    bottom: 420px;
+    left: 140px;
+    bottom: 400px;
     display: block;
 }
 
@@ -391,8 +391,8 @@ transition: all 0.5s;
     position: absolute;
     width: 150px;
     height: 80px;
-    left: 340px;
-    bottom: 360px;
+    left: 360px;
+    bottom: 350px;
     display: block;
 }
 
@@ -406,8 +406,8 @@ transition: all 0.5s;
     position: absolute;
     width: 150px;
     height: 80px;
-    left: 560px;
-    bottom: 440px;
+    left: 590px;
+    bottom: 430px;
     display: block;
 }
 
@@ -420,8 +420,8 @@ transition: all 0.5s;
     position: absolute;
     width: 150px;
     height: 80px;
-    left: 650px;
-    bottom: 290px;
+    left: 680px;
+    bottom: 280px;
     display: block;
 }
 
@@ -434,8 +434,8 @@ transition: all 0.5s;
     position: absolute;
     width: 150px;
     height: 100px;
-    right: 400px;
-    bottom: 335px;
+    right: 370px;
+    bottom: 325px;
     display: block;
 }
 
@@ -448,8 +448,8 @@ transition: all 0.5s;
     position: absolute;
     width: 120px;
     height: 100px;
-    left: 780px;
-    bottom: 365px;
+    left: 810px;
+    bottom: 355px;
     display: block;
 }
 
@@ -460,7 +460,7 @@ transition: all 0.5s;
 
    .luyingche1{
     position: absolute;
-    left: 580px;
+    left: 620px;
     bottom: 105px;
     display: block;
 }
@@ -486,8 +486,8 @@ transition: all 0.5s;
     position: absolute;
     width: 180px;
     height: 100px;
-    right:70px;
-    bottom: 190px;
+    right:20px;
+    bottom: 180px;
     display: block;
 }
 
@@ -500,8 +500,8 @@ transition: all 0.5s;
     position: absolute;
     width: 150px;
     height: 130px;
-    right: 300px;
-    bottom: 130px;
+    right: 270px;
+    bottom: 110px;
     display: block;
 }
 
@@ -514,8 +514,8 @@ transition: all 0.5s;
     position: absolute;
     width: 180px;
     height: 100px;
-    right:25px;
-    bottom: 60px;
+    right:-25px;
+    bottom: 40px;
     display: block;
 }
 

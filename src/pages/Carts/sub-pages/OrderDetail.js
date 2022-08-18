@@ -122,10 +122,11 @@ function OrderDetail(props) {
         </div>
         <div className="backtoHomepage">
           <button
-            className="checkOut"
+            className="checkOut1"
             onClick={() => {
-              window.location.href = 'http://localhost:3777/shuyoung'
               localStorage.removeItem('roomItem')
+              localStorage.removeItem('Act')
+              window.location.href = 'http://localhost:3777/shuyoung'
             }}
           >
             回首頁
