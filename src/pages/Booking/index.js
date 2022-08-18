@@ -87,14 +87,14 @@ function Index(props) {
         }
         
     };
-    // const orderDetailList = async() =>{
-    //     const memberId = auth.m_id;
-    //     await Axios.get(
-    //         `${BK_GET_LIST}/selectOrderDetail?memberId=${memberId}`
-    //     ).then((response) => {
-    //         console.log(response.data);
-    //     });
-    // }
+    const orderDetailList = async() =>{
+        const memberId = auth.m_id;
+        await Axios.get(
+            `${BK_GET_LIST}/selectOrderDetail?memberId=${memberId}`
+        ).then((response) => {
+            console.log(response.data);
+        });
+    }
     
     // 得到bookingList 的值就執行 getData
     useEffect(() => {
@@ -142,7 +142,7 @@ function Index(props) {
                         
                     </div>
                 </div>
-                {/* <button onClick={orderDetailList}>test</button> */}
+                <button onClick={orderDetailList}>test</button>
             </section>
         </>
     );

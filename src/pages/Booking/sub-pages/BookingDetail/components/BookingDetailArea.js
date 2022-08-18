@@ -224,6 +224,7 @@ function BookingDetailArea(props) {
                                         postRoomData();
                                         clearData();
                                         keepShopping();
+                                        insertToCart();
                                         navigate("/shuyoung/Booking");
                                     }
                                 });
