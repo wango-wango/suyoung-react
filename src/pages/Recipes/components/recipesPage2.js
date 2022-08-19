@@ -190,7 +190,7 @@ function RecipesPage2(props) {
                             <div className={togglestate === 1 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
                                 <div className="col-9 m-auto">準備章魚燒的餡料，將章魚切成自己喜歡的大小，高麗菜切末，青蔥切成蔥花。</div>
                                 <div><img className="col-10" 
-                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                src={`/recipes_img/octopusball1.svg`}></img>
                                 </div>
                             </div>
                             <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
@@ -199,7 +199,7 @@ function RecipesPage2(props) {
                             <div className={togglestate === 2 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
                                 <div className="col-9 m-auto">中小火預熱章魚燒烤盤並刷上油，將預拌好的麵糊用大湯匙舀入章魚燒盤。</div>
                                 <div><img className="col-10" 
-                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                src={`/recipes_img/octopusball2.svg`}></img>
                                 </div>
                             </div>
                             <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
@@ -208,7 +208,7 @@ function RecipesPage2(props) {
                             <div className={togglestate === 3 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
                                 <div className="col-9 m-auto">待麵糊稍微凝固後放入章魚，這樣章魚才會置中。</div>
                                 <div><img className="col-10" 
-                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                src={`/recipes_img/octopusball3.svg`}></img>
                                 </div>
                             </div>
                             <div className="border border-dark rounded-pill col-9 m-auto  d-md-none">
@@ -217,7 +217,7 @@ function RecipesPage2(props) {
                             <div className={togglestate === 4 ?"col-9 m-auto text-white text-center d-md-none" :"col-9 m-auto text-white text-center d-md-none content_page"}>
                                 <div className="col-9 m-auto">撒上高麗菜末、蔥末、天婦羅花，最後再撒上一層麵糊，稍微煮一會兒至麵糊稍微變硬。</div>
                                 <div><img className="col-10" 
-                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                src={`/recipes_img/octopusball4.svg`}></img>
                                 </div>
                             </div>
                             <div className="border border-dark rounded-pill col-9 m-auto d-md-none">
@@ -226,7 +226,7 @@ function RecipesPage2(props) {
                             <div className={togglestate === 5 ?"col-9 m-auto pb-5 text-white text-center d-md-none" :"col-9 pb-5 m-auto text-white text-center d-md-none content_page"}>
                                 <div className="col-9 m-auto">依照個人喜好抹上章魚燒醬、淋上美乃滋、海苔以及柴魚片後即可食用。</div>
                                 <div><img className="col-10" 
-                                src={`/recipes_img/bread-g4431805bb_1920.jpg`}></img>
+                                src={`/recipes_img/octopusball5.svg`}></img>
                                 </div>
                             </div>                            
                             <div className="d-none d-md-flex col-md-10 m-auto">
