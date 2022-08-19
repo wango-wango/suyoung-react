@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "../styles/member-form.scss";
 import { motion } from "framer-motion";
 import { MemberInfo } from "../../Login/sub-pages/MemberProvider";
@@ -250,7 +250,12 @@ const Info = () => {
                                 handleUpdate(values);
                             }}
                         >
-                            {(formik) => (
+                            {({
+                                values,
+                                setFieldValue,
+                                handleChange,
+                                handleBlur,
+                            }) => (
                                 <Form>
                                     <div className="name">
                                         <div>
@@ -262,13 +267,9 @@ const Info = () => {
                                                     name="lastname"
                                                     type="text"
                                                     placeholder="姓"
-                                                    value={
-                                                        formik.values.lastname
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                    onBlur={formik.handleBlur}
+                                                    value={values.lastname}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
                                                 />
 
                                                 <span className="error-msg">
@@ -285,13 +286,9 @@ const Info = () => {
                                                     type="text"
                                                     name="firstname"
                                                     placeholder="名"
-                                                    value={
-                                                        formik.values.firstname
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                    onBlur={formik.handleBlur}
+                                                    value={values.firstname}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
                                                 />
                                                 <span className="error-msg">
                                                     <ErrorMessage name="firstname" />
@@ -307,8 +304,8 @@ const Info = () => {
                                             <Field
                                                 name="birthday"
                                                 type="date"
-                                                value={formik.values.birthday}
-                                                onChange={formik.handleChange}
+                                                value={values.birthday}
+                                                onChange={handleChange}
                                             />
                                             <span className="error-msg">
                                                 <ErrorMessage name="birthday" />
@@ -324,8 +321,8 @@ const Info = () => {
                                                 name="email"
                                                 type="email"
                                                 placeholder="電子郵件"
-                                                value={formik.values.email}
-                                                onChange={formik.handleChange}
+                                                value={values.email}
+                                                onChange={handleChange}
                                             />
                                             <span className="error-msg">
                                                 <ErrorMessage name="email" />
@@ -341,8 +338,8 @@ const Info = () => {
                                                 name="phone"
                                                 type="text"
                                                 placeholder="行動電話"
-                                                value={formik.values.phone}
-                                                onChange={formik.handleChange}
+                                                value={values.phone}
+                                                onChange={handleChange}
                                                 autoComplete="on"
                                             />
                                             <span className="error-msg">
@@ -355,23 +352,41 @@ const Info = () => {
                                         <TWZipCode
                                             fields={fields}
                                             setFields={setFields}
-                                            onChange={formik.handleChange}
+                                            onChange={handleChange}
                                         />
                                         <div className="input_group">
                                             <Field
                                                 name="address"
                                                 type="text"
-                                                value={formik.values.address}
-                                                onChange={formik.handleChange}
+                                                value={values.address}
+                                                onChange={handleChange}
                                                 placeholder="地址"
-                                                autoComplete="on"
                                             />
                                             <span className="error-msg">
                                                 <ErrorMessage name="address" />
                                             </span>
                                         </div>
                                     </div>
-
+                                    <button
+                                        type="button"
+                                        style={{ marginRight: "20px" }}
+                                        onClick={() => {
+                                            setFieldValue(
+                                                "address",
+                                                "復興南路二段8號"
+                                            );
+                                            setFieldValue(
+                                                "phone",
+                                                "0987537212"
+                                            );
+                                            setFieldValue(
+                                                "birthday",
+                                                "1997-07-03"
+                                            );
+                                        }}
+                                    >
+                                        自動填入
+                                    </button>
                                     <button type="submit">更新檔案</button>
                                 </Form>
                             )}
