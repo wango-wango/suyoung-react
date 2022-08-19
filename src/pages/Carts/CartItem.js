@@ -369,7 +369,7 @@ function CartItem(props) {
 };
 
     // 處理表單送出
-    const handleSubmit =  useCallback ( (e) => {
+    const handleSubmit = (e) => {
         const newErrors = [];
         if (!inputs.number.trim()) {
             newErrors.push("number");
@@ -402,11 +402,11 @@ function CartItem(props) {
             // await emailSubmit()
             setStep(3);
         }
-        if (totalCart.length === 0) {
-            // 如果購物車內沒有商品的話
-            HandleAlertBuy();
-            setStep(1);
-        }
+        // if (totalCart.length === 0) {
+        //     // 如果購物車內沒有商品的話
+        //     HandleAlertBuy();
+        //     setStep(1);
+        // }
 
         // clear useContext from useBookingCart
         setBookingCart([]);
@@ -417,7 +417,7 @@ function CartItem(props) {
         // // 把 localStorage 清空
         // localStorage.removeItem('roomItem')
         // localStorage.removeItem('Act')
-    },[]);
+    };
 
     useEffect(() => {
         console.log("progressNames")
