@@ -46,7 +46,7 @@ function Atv(props) {
                 setAct(response.data.actAtv);
                 const newAct = response.data.actAtv[0];
                 setActBookingList({ ...actBookingList, ...newAct });
-                console.log(response.data.actAtv);
+                // console.log(response.data.actAtv);
             }
         );
     };
@@ -71,7 +71,7 @@ function Atv(props) {
         Axios.delete(
             `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
         ).then((res) => {
-            console.log(res);
+            // console.log(res);
             setFavlist([]);
             setMemberKeep({
                 // favlistId: "",
@@ -86,7 +86,7 @@ function Atv(props) {
         Axios.get(
             `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}&actSid=${favlistId}`
         ).then((res) => {
-            console.log(res.data.resultFav);
+            // console.log(res.data.resultFav);
             setFavlist([...res.data.resultFav]);
         });
     };
@@ -104,7 +104,7 @@ function Atv(props) {
         // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
         console.log({ memberKeep });
         if (!!memberKeep.memberId && !!memberKeep.favlistId) {
-            console.log("postData!");
+            // console.log("postData!");
             postData();
         }
     }, [memberKeep]);
@@ -176,14 +176,26 @@ function Atv(props) {
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
-                                            alert("已移除收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已移除收藏",
+                                            });
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 5,
                                             });
-                                            alert("已加入收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已加入收藏",
+                                            });
                                         }
                                     }}
                                 />
@@ -230,16 +242,14 @@ function Atv(props) {
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
-                                        const newActBookingList = {
-                                            ...actBookingList,
+                                        setActBookingList({...actBookingList,
                                             actSid: act[0].act_id,
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
                                             people: 1,
                                             actImg: act[0].filename,
-                                        };
-                                        setActBookingList(newActBookingList);
+                                            });
                                     }}
                                 >
                                     預約報名

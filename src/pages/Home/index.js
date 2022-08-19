@@ -80,7 +80,7 @@ function Index(props) {
 
         // console.log(roomList);
         // console.log(`roomtype${Number(value)+1}`);
-        console.log(roomList[`roomtype${Number(value)+1}`])
+        // console.log(roomList[`roomtype${Number(value)+1}`])
 
         if (checked) {
             // const  newRoomType = ([...roomList, value]);
@@ -94,7 +94,7 @@ function Index(props) {
                 `${ROOM_GET_LIST}/selectRoom`)
                 .then((response) => {
                 setRoomList(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             });
     }
 

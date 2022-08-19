@@ -34,7 +34,7 @@ function ActReser(props) {
     const { setAuth, ...auth } = useAuth();
     const navigate = useNavigate();
     //didUpdate.log
-    console.log(actBookingList);
+    // console.log(actBookingList);
 
     //日期格式調整
     const formatDate = (date) => {
@@ -63,13 +63,15 @@ function ActReser(props) {
     const [agreeMent, setAgreeMent] = useState(false);
     const [contact, setContact] = useState([]);
     const [datePick, setDatePick] = useState();
-
-    console.log("people:", value);
-    console.log("totalPrice:", actBookingList.totalPrice);
+    const [rsName, setRsName] = useState("")
+    const [rsPhone, setRsPhone] = useState("")
+    // console.log("people:", value);
+    // console.log("totalPrice:", actBookingList.totalPrice);
+    const [actCount, setActCount] = useState(0);
 
     useEffect(() => {
         if (value >= 1) {
-            const total = actBookingList.price * value;
+            const total = actBookingList.act_price * value;
             setActBookingList({ ...actBookingList, totalPrice: total });
         }
     }, [value]);
@@ -100,7 +102,7 @@ function ActReser(props) {
         setAgreeMent(checked);
     };
 
-    console.log(agreeMent);
+    // console.log(agreeMent);
     const handleChange = (value) => {
         const at = value.match(/@[\S]*/);
         const nextData = at
@@ -122,6 +124,10 @@ function ActReser(props) {
         localStorage.setItem("Act", JSON.stringify([actBookingList]));
     }, [actBookingList]);
 
+    useEffect(() => {
+        setActBookingList({...actBookingList,actCount:actCount});
+    }, [actCount]);
+
     // const data = [actBookingList.price]
     return (
         <>
@@ -139,7 +145,7 @@ function ActReser(props) {
                             }}
                         >
                             <div className="actEnTitle titleGroup">
-                                <h3>{actBookingList.actName}</h3>
+                                <h3>{actBookingList.actName || actBookingList.act_name}</h3>
                                 <h4>預約報名</h4>
                             </div>
                         </motion.div>
@@ -209,7 +215,7 @@ function ActReser(props) {
                                                     seconds: "秒",
                                                 }}
                                                 onChange={(v) => {
-                                                    console.log(v);
+                                                    // console.log(v);
                                                     if (v) {
                                                         setActBookingList({
                                                             ...actBookingList,
@@ -258,7 +264,7 @@ function ActReser(props) {
                                                 className="disableinput"
                                                 type="text"
                                                 disabled
-                                                value={actBookingList.price}
+                                                value={actBookingList.act_price}
                                             />
                                         </div>
                                         <div className="orderItem">
@@ -306,7 +312,10 @@ function ActReser(props) {
                                 </div>
                             </motion.div>
                         </div>
-                        <div className="actRsTitle">
+                        <div className="actRsTitle" onClick={()=>{
+                            setRsName("舒小營")
+                            setRsPhone("0988468038")
+                        }}>
                             <h4>聯絡人資訊</h4>
                         </div>
                         <form action="" method="post">
@@ -322,7 +331,7 @@ function ActReser(props) {
                                         trigger="focus"
                                         speaker={<Tooltip>必填</Tooltip>}
                                     >
-                                        <Input placeholder="請填入姓名" />
+                                        <Input placeholder="請填入姓名" value={rsName}/>
                                     </Whisper>
                                 </div>
                                 <div>
@@ -336,7 +345,7 @@ function ActReser(props) {
                                         trigger="focus"
                                         speaker={<Tooltip>必填</Tooltip>}
                                     >
-                                        <Input placeholder="請填入手機號碼" />
+                                        <Input placeholder="請填入手機號碼" value={rsPhone}/>
                                     </Whisper>
                                 </div>
                                 <div>
@@ -482,6 +491,7 @@ function ActReser(props) {
                                                         timer: 1500,
                                                     }).then(() => {
                                                         postRoomData();
+                                                        setActCount(actCount+1);
                                                     });
                                                 } else {
                                                     Swal.fire({
