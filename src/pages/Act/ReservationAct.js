@@ -279,7 +279,7 @@ function ActReser(props) {
                                             />
                                         </div>
                                         <div className="orderItem">
-                                            <button
+                                            {/* <button
                                                 className="btn btn-dark"
                                                 onClick={() => {
                                                     setActBookingList({
@@ -301,7 +301,7 @@ function ActReser(props) {
                                                 }}
                                             >
                                                 取消預約
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 </div>
@@ -458,6 +458,14 @@ function ActReser(props) {
                                 須同意以上切結事項，方可報名，感謝您。
                             </div>
                             <div className="agreeBtn">
+                            <div>
+                                    <Checkbox
+                                        value={value}
+                                        onChange={handleCheck}
+                                    >
+                                        我已閱讀並同意以上切結事項
+                                    </Checkbox>
+                                </div>
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
@@ -549,14 +557,7 @@ function ActReser(props) {
                                 >
                                     預約報名
                                 </button>
-                                <div>
-                                    <Checkbox
-                                        value={value}
-                                        onChange={handleCheck}
-                                    >
-                                        我已閱讀並同意以上切結事項
-                                    </Checkbox>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
