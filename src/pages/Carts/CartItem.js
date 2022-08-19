@@ -22,121 +22,119 @@ const Swal = require("sweetalert2");
 const progressNames = ["商品資訊", "付款方式", "購物完成"];
 
 function CartItem(props) {
-    // console.log("fff");
+  const { setBackground } = useBackground()
+  useEffect(() => {
+    setBackground('bg1.svg')
+  }, [])
+  const { setAuth, ...auth } = useAuth()
+  const { bookingCart, setBookingCart } = useBookingCart()
 
-    const { setBackground } = useBackground();
-    useEffect(() => {
-        setBackground("bg1.svg");
-    }, []);
-    // const { setAuth, ...auth } = useAuth();
+  const maxSteps = 3
 
-    const { bookingCart, setBookingCart } = useBookingCart();
+  const [step, setStep] = useState(1)
 
-    const maxSteps = 3;
+  // const [roomItem, setRoomItem] = useState(() => {
+  //     const roomItem = localStorage.getItem('roomItem');
+  //     return roomItem ? JSON.parse(roomItem) : [];
+  // }, [])
 
-    const [step, setStep] = useState(1);
+  const [sum, setSum] = useState(0)
 
-    // const [roomItem, setRoomItem] = useState(() => {
-    //     const roomItem = localStorage.getItem('roomItem');
-    //     return roomItem ? JSON.parse(roomItem) : [];
-    // }, [])
+  const [actSum, setActSum] = useState(0)
 
-    const [sum, setSum] = useState(0);
+  const [orderId, setOrderId] = useState()
 
-    const [actSum, setActSum] = useState(0);
+  const [orderBooking, setOrderBooking] = useState([])
+  const [orderActList, setOrderActList] = useState([])
+  const [totalCart, setTotalCart] = useState([])
 
-    const [orderId, setOrderId] = useState();
+  console.log(orderActList)
 
-    const [orderBooking, setOrderBooking] = useState([]);
-    const [orderActList, setOrderActList] = useState([]);
-    const [totalCart, setTotalCart] = useState([]);
-
-    // console.log(orderActList);
-
-    // 判斷是房間訂單還是活動訂單
-    const [orderType1, setOrderType1] = useState(0);
-    const [orderType2, setOrderType2] = useState(0);
+  // 判斷是房間訂單還是活動訂單
+  const [orderType1, setOrderType1] = useState(0)
+  const [orderType2, setOrderType2] = useState(0)
 
     // 折扣後總金額
     const [discountSum, setdiscountSum] = useState(0);
 
-    const pushOrderId = () => {
-        setOrderId(orderBooking.order_id);
-    };
+  const pushOrderId = () => {
+    setOrderId(orderBooking.order_id)
+  }
 
-    const components = [ShoppingCart, CreditCard, OrderDetail];
+  const components = [ShoppingCart, CreditCard, OrderDetail]
 
-    const BlockComponent = components[step - 1];
+  const BlockComponent = components[step - 1]
 
+  const progressNames = ['商品資訊', '付款方式', '購物完成']
 
-    const [inputs, setInputs] = useState({
-        name: "", //信用卡號碼
-        number: "", //信用卡持卡人姓名
-        expiry: "", //信用卡有效日期
-        cvc: "", //信用卡安全碼
-    });
+  const [inputs, setInputs] = useState({
+    name: '', //信用卡號碼
+    number: '', //信用卡持卡人姓名
+    expiry: '', //信用卡有效日期
+    cvc: '', //信用卡安全碼
+  })
 
-    const Swal = require("sweetalert2");
+  const Swal = require('sweetalert2')
 
-    //購物車全部商品
-    useEffect(() => {
-        // if (orderBooking.length >= 1 || orderActList.length >= 1)
+  //購物車全部商品
+  useEffect(() => {
+    // if (orderBooking.length >= 1 || orderActList.length >= 1)
+
+    if (orderBooking && !orderActList) {
+      setTotalCart([...orderBooking])
+    } else if (!orderBooking && orderActList) {
+      setTotalCart([...orderActList])
+    } else {
+      setTotalCart([...orderBooking, ...orderActList])
+    }
+
+    console.log(totalCart)
         
-        if (orderBooking && !orderActList) {
-            setTotalCart([...orderBooking]);
-        } else if (!orderBooking && orderActList) {
-            setTotalCart([...orderActList]);
-        } else {
-            setTotalCart([...orderBooking, ...orderActList]);
-        }
+  }, [orderBooking, orderActList])
 
-        console.log(totalCart);
-        
-    }, [orderBooking, orderActList]);
-
-    // 進購物車第一步
-    // 取得loalStorage的值
-    useEffect(() => {
+  // 進購物車第一步
+  // 取得loalStorage的值
+  useEffect(() => {
         
 
-        // 從localStorage取出購物車資訊，往子女元件傳遞
-        setOrderBooking(JSON.parse(localStorage.getItem("roomItem")));
-        // const orderItemsStr = JSON.parse(orderItems)
-        // console.log(orderItems)
+    // 從localStorage取出購物車資訊，往子女元件傳遞
+    setOrderBooking(JSON.parse(localStorage.getItem('roomItem')))
+    // const orderItemsStr = JSON.parse(orderItems)
+    // console.log(orderItems)
 
-        setOrderActList(JSON.parse(localStorage.getItem("Act")));
-        // const orderActStr = (orderAct)
-        // console.log(orderActStr)
+    setOrderActList(JSON.parse(localStorage.getItem('Act')))
+    // const orderActStr = (orderAct)
+    // console.log(orderActStr)
         
-    }, []);
+  }, [])
 
-    // 第二步 - 把orderType 存進去Hook 傳給orderDetail 去做篩選
-    useEffect(() => {
-        // if (!orderActList || !orderBooking) return
-        
-        if (orderBooking && orderBooking.length >= 1) setOrderType1(1);
-    }, [orderBooking]);
-    useEffect(() => {
-        // if (!orderActList || !orderBooking) return
-        
-        if (orderActList && orderActList.length >= 1) setOrderType2(2);
-    }, [orderActList]);
+  // 第二步 - 把orderType 存進去Hook 傳給orderDetail 去做篩選
+  useEffect(() => {
+    // if (!orderActList || !orderBooking) return
 
-    const [errors, setErrors] = useState([]);
+    if (orderBooking && orderBooking.length >= 1) setOrderType1(1)
+  }, [orderBooking])
+  useEffect(() => {
+    // if (!orderActList || !orderBooking) return
 
-    const [scOrderId, setScOrderId] = useState(0); //訂單編號
+    if (orderActList && orderActList.length >= 1) setOrderType2(2)
+  }, [orderActList])
 
-    //寫入活動預約
-    async function addActOrderToSever(e) {
-        const orderId = +new Date();
-        setScOrderId(orderId);
+  const [errors, setErrors] = useState([])
 
-        let data = {
-            orderAct: [],
-        };
+  const [scOrderId, setScOrderId] = useState(0) //訂單編號
 
-        for (let item of orderActList) {
-            const date = new Date();
+  //寫入活動預約
+  async function addActOrderToSever(e) {
+    const orderId = +new Date()
+    setScOrderId(orderId)
+
+    let data = {
+      orderAct: [],
+    }
+
+    for (let item of orderActList) {
+      const date = new Date()
 
             const actObj = {
                 order_id: orderId,
@@ -232,24 +230,24 @@ function CartItem(props) {
         // 連接的伺服器資料網址
         const url = "http://localhost:3700/cart/card/add";
 
-        // 注意資料格式要設定，伺服器才知道是json格式
-        // 轉成json檔傳到伺服器
-        const request = new Request(url, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: new Headers({
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            }),
-        });
-        console.log("JSON", JSON.stringify(data));
-        // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
+    // 注意資料格式要設定，伺服器才知道是json格式
+    // 轉成json檔傳到伺服器
+    const request = new Request(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+    console.log('JSON', JSON.stringify(data))
+    // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
 
-        const response = await fetch(request);
-        const dataRes = await response.json();
+    const response = await fetch(request)
+    const dataRes = await response.json()
 
-        console.log("伺服器回傳的json資料", dataRes);
-    }
+    console.log('伺服器回傳的json資料', dataRes)
+  }
 
     //將房型與活動訂單細節寫入資料庫
     async function addRoomOrderInfoToSever(e) {
@@ -318,14 +316,14 @@ function CartItem(props) {
         console.log("伺服器回傳的json資料", dataRes);
     }
 
-    const emailSubmit = async () => {
-        const res = await axios.post(
-            "http://localhost:3700/cart/orderDetail-email",
-            orderId
-        );
+  const emailSubmit = async () => {
+    const res = await axios.post(
+      'http://localhost:3700/cart/orderDetail-email',
+      orderId
+    )
 
-        console.log(res);
-    };
+    console.log(res)
+  }
 
     const HandleAlert = useCallback(() =>{
         Swal.fire({
@@ -464,4 +462,4 @@ function CartItem(props) {
     );
 }
 
-export default CartItem;
+export default CartItem

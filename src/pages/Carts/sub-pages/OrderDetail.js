@@ -40,26 +40,24 @@ function OrderDetail(props) {
     <>
       {order && order.roomList.map((v, i) => {
         return (
-          <>
-            <React.Fragment key={i}>
-              <div className="item_detail">
-                <div className="item_detail_img">
-                  <img
-                    src={`/room_imgs/${v.room_folder}/${v.room_image}`}
-                    alt=""
-                  />
-                </div>
-                <div className="item_detail_text">
-                  <p>房型：{v.room_name}</p>
-                  <p>入住：{v.start_date}</p>
-                  <p>退房：{v.end_date}</p>
-                  <p>人數：{v.adults}</p>
-                  <p>天數：{v.perNight}</p>
-                  <p>價格：{v.room_price}</p>
-                </div>
+          <React.Fragment key={i}>
+            <div className="item_detail">
+              <div className="item_detail_img">
+                <img
+                  src={`/room_imgs/${v.room_folder}/${v.room_image}`}
+                  alt=""
+                />
               </div>
-            </React.Fragment>
-          </>
+              <div className="item_detail_text">
+                <p>房型：{v.room_name}</p>
+                <p>入住：{v.start_date}</p>
+                <p>退房：{v.end_date}</p>
+                <p>人數：{v.adults}</p>
+                <p>天數：{v.perNight}</p>
+                <p>價格：{v.room_price}</p>
+              </div>
+            </div>
+          </React.Fragment>
         )
       })}
     </>
@@ -71,21 +69,19 @@ function OrderDetail(props) {
     <>
       {order && order.actList.map((v, i) => {
         return (
-          <>
-            <React.Fragment>
-              <div className="event_detail" key={i}>
-                <div className="event_detail_img">
-                  <img src={`/act_imgs/${v.act_img}`} alt="" />
-                </div>
-                <div className="event_detail_text">
-                  <p>名稱：{v.act_name}</p>
-                  <p>日期：{v.act_day}</p>
-                  <p>人數：{v.act_people}</p>
-                  <p>價格：{v.act_price}</p>
-                </div>
+          <React.Fragment key={i}>
+            <div className="event_detail">
+              <div className="event_detail_img">
+                <img src={`/act_imgs/${v.act_img}`} alt="" />
               </div>
-            </React.Fragment>
-          </>
+              <div className="event_detail_text">
+                <p>名稱：{v.act_name}</p>
+                <p>日期：{v.act_day}</p>
+                <p>人數：{v.act_people}</p>
+                <p>價格：{v.act_price}</p>
+              </div>
+            </div>
+          </React.Fragment>
         )
       })}
     </>

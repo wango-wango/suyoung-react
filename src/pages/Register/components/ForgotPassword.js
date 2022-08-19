@@ -78,6 +78,7 @@ const ForgotPassword = () => {
                     <label className="reset-password">重設密碼：</label>
                     <input
                         name="newPassword"
+                        value={password.newPassword}
                         className="password-input"
                         onChange={handleFieldsChange}
                         type="password"
@@ -86,9 +87,21 @@ const ForgotPassword = () => {
                     <input
                         name="comfirmPassword"
                         className="password-comfirm"
+                        value={password.comfirmPassword}
                         onChange={handleFieldsChange}
                         type="password"
                     />
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setPassword({
+                                newPassword: "bearbear",
+                                comfirmPassword: "bearbear",
+                            });
+                        }}
+                    >
+                        自動填入
+                    </button>
                     <button type="submit">送出</button>
                 </form>
             </div>
