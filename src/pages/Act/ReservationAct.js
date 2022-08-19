@@ -67,10 +67,11 @@ function ActReser(props) {
     const [rsPhone, setRsPhone] = useState("")
     // console.log("people:", value);
     // console.log("totalPrice:", actBookingList.totalPrice);
+    const [actCount, setActCount] = useState(0);
 
     useEffect(() => {
         if (value >= 1) {
-            const total = actBookingList.price * value;
+            const total = actBookingList.act_price * value;
             setActBookingList({ ...actBookingList, totalPrice: total });
         }
     }, [value]);
@@ -123,6 +124,10 @@ function ActReser(props) {
         localStorage.setItem("Act", JSON.stringify([actBookingList]));
     }, [actBookingList]);
 
+    useEffect(() => {
+        setActBookingList({...actBookingList,actCount:actCount});
+    }, [actCount]);
+
     // const data = [actBookingList.price]
     return (
         <>
@@ -140,7 +145,7 @@ function ActReser(props) {
                             }}
                         >
                             <div className="actEnTitle titleGroup">
-                                <h3>{actBookingList.actName}</h3>
+                                <h3>{actBookingList.actName || actBookingList.act_name}</h3>
                                 <h4>預約報名</h4>
                             </div>
                         </motion.div>
@@ -259,7 +264,7 @@ function ActReser(props) {
                                                 className="disableinput"
                                                 type="text"
                                                 disabled
-                                                value={actBookingList.price}
+                                                value={actBookingList.act_price}
                                             />
                                         </div>
                                         <div className="orderItem">
@@ -486,6 +491,7 @@ function ActReser(props) {
                                                         timer: 1500,
                                                     }).then(() => {
                                                         postRoomData();
+                                                        setActCount(actCount+1);
                                                     });
                                                 } else {
                                                     Swal.fire({

@@ -76,6 +76,17 @@ function BookingCard(props) {
         console.log(res);
     };
 
+    const deleteTemporaryCart = async (sid) => {
+        const room_sid = sid;
+        const oldFavList = favList;
+        const newFavList = oldFavList.filter((v) => v !== +sid);
+        setFavList(newFavList);
+        const res = await Axios.delete(
+            `${BK_GET_LIST}/deleteKeep?memberId=${auth.m_id}&roomSid=${room_sid}`
+        );
+        console.log(res);
+    };
+
     // 把會員收藏存進去資料庫
     const postKeep = async (newMemberKeep) => {
         await Axios.post(`${BK_GET_LIST}/addKeep`, newMemberKeep);
@@ -83,6 +94,7 @@ function BookingCard(props) {
 
     useEffect(() => {
         const oldRoomList = roomList;
+        // const newRoomList = oldRoomList.filter((v)=>Object.values(v).join("").includes(searchName));
         const newRoomList = oldRoomList.filter((v)=>v.room_name.includes(searchName));
         console.log(newRoomList);
         setNewRoomList(newRoomList);

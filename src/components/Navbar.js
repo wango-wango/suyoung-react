@@ -5,12 +5,57 @@ import { useAuth } from "../pages/Login/sub-pages/AuthProvider";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useBookingCart } from "../utils/useBookingCart";
+import Axios from "axios";
+import {BK_GET_LIST} from "../pages/Booking/config/ajax-path"
+
+
+
 
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+    const { bookingCart, setBookingCart } = useBookingCart();
     const { authorized, logout } = useAuth();
+    const [totalCount, setTotalCount] = useState(0);
+    
+
+    
+
+    const getMemberCart = async() => {
+       
+            await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
+                (response) => {
+                    // setFavList(response.data);
+                    setBookingCart(response.data);
+                }
+            );
+
+    }
+
+    useEffect(() => {
+        if(auth.authorized || auth.success){
+            getMemberCart();
+        }
+        if(!auth.authorized){
+            // setBookingCart([]);
+            setTotalCount(0);
+        }
+    }, [auth])
+
+    useEffect(() => {
+      if(totalCount === 0) setBookingCart([])
+    }, [totalCount])
+    
+
+    useEffect(() => {
+        if(bookingCart.length || actBookingList.actCount)
+        setTotalCount(bookingCart.length + actBookingList.actCount);
+        // console.log(bookingCart.length + actBookingList.actCount);
+    }, [bookingCart,actBookingList])
+
 
     return (
         <>
@@ -117,6 +162,7 @@ export default function Navbar() {
                                     className="iconCart"
                                     size="30px"
                                 />
+                                {totalCount > 0 ? (<div className="CartCount"><p>{totalCount}</p></div>):null}
                             </Link>
                         </div>):(
                             <div
@@ -129,6 +175,8 @@ export default function Navbar() {
                                     className="iconCart"
                                     size="30px"
                                 />
+                                {totalCount > 0 ? (<div className="CartCount"><p>{totalCount}</p></div>):null}
+
                             </Link>
                         </div>
                         )}

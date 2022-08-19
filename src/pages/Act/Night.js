@@ -232,16 +232,14 @@ function Night(props) {
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
-                                        const newActBookingList = {
-                                            ...actBookingList,
+                                        setActBookingList({...actBookingList,
                                             actSid: act[0].act_id,
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
                                             people: 1,
                                             actImg: act[0].filename,
-                                        };
-                                        setActBookingList(newActBookingList);
+                                            });
                                     }}
                                 >
                                     預約報名

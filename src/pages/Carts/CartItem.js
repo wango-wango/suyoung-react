@@ -13,6 +13,8 @@ import { formatInTimeZone } from "date-fns-tz";
 import { useBookingCart } from "../../utils/useBookingCart";
 import { useBackground } from "../../utils/useBackground";
 import { tplTransform } from "rsuite/esm/utils";
+import Axios from "axios";
+
 
 const _ = require("lodash");
 const Swal = require("sweetalert2");
@@ -175,12 +177,12 @@ function CartItem(props) {
                 member_id: auth.sid,
                 room_id: item.sid,
                 room_type_id: item.room_type_id,
-                num_adults: item.adults,
-                num_children: item.kids > 1 ? item.kids : 0,
+                num_adults: item.adults || item.num_adults,
+                num_children: item.kids || item.num_children > 1 ? item.kids : 0,
                 perNight: item.perNight,
                 total_price: item.room_price,
-                start_date: item.startDate,
-                end_date: item.endDate,
+                start_date: item.startDate || item.start_date,
+                end_date: item.endDate || item.end_date,
                 Booking_Date: formatInTimeZone(
                     date,
                     "Asia/Taipei",
@@ -256,18 +258,18 @@ function CartItem(props) {
             const orderInfo = {
                 order_id: orderId,
                 member_id: auth.m_id,
-                order_Type: item.orderType,
-                adults: item.adults,
-                kids: item.kids > 1 ? item.kids : 0,
-                room_price: item.roomTotalPrice,
+                order_Type: item.orderType || item.order_type,
+                adults: item.adults || item.num_adults,
+                kids: item.kids || item.num_children > 1 ? item.kids : 0,
+                room_price: item.roomTotalPrice || item.total_price,
                 room_id: item.sid,
                 room_type_id: item.room_type_id,
                 room_folder: item.room_folder,
                 room_image: item.room_image,
                 room_name: item.room_name,
                 perNight: item.perNight,
-                start_date: item.startDate,
-                end_date: item.endDate,
+                start_date: item.startDate || item.start_date,
+                end_date: item.endDate || item.end_date,
                 act_id: item.actSid,
                 act_name: item.actName,
                 act_img: item.actImg,
@@ -351,6 +353,17 @@ function CartItem(props) {
         });
     }
 
+    // 刪除購物車的商品
+  const deleteTemporaryCartAll = async () => {
+
+    const memberId = auth.m_id;
+
+    const res = await Axios.delete(
+        `http://localhost:3700/Booking/deleteTemporaryCartAll?memberId=${memberId}`
+    );
+    console.log(res);
+};
+
     // 處理表單送出
     const handleSubmit = async (e) => {
         const newErrors = [];
@@ -383,7 +396,6 @@ function CartItem(props) {
             await pushOrderId();
             // await addActOrderToSever()
             // await emailSubmit()
-            setBookingCart([]);
             setStep(3);
         }
         if (orderBooking.length === 0) {
@@ -394,6 +406,13 @@ function CartItem(props) {
 
         // clear useContext from useBookingCart
         setBookingCart([]);
+
+        // 把購物車清空
+        deleteTemporaryCartAll();
+
+        // 把 localStorage 清空
+        localStorage.removeItem('roomItem')
+        localStorage.removeItem('Act')
     };
 
     return (
