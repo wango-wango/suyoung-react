@@ -93,6 +93,18 @@ export default function Navbar() {
                                                 logout();
                                                 setBookingCart([]);
                                                 localStorage.removeItem("roomItem");
+                                                setActBookingList({
+                                                    actSid: '',
+                                                    actName: '',
+                                                    people: '',
+                                                    Maxpeople: '',
+                                                    date: '',
+                                                    price: '',
+                                                    totalPrice: '',
+                                                    memberId: '',
+                                                    orderType: '2',
+                                                    actCount: 0,
+                                                });
                                             }}
                                         />
                                     </Link>
@@ -126,6 +138,18 @@ export default function Navbar() {
                                                     logout();
                                                     setBookingCart([]);
                                                     localStorage.removeItem("roomItem");
+                                                    setActBookingList({
+                                                        actSid: '',
+                                                        actName: '',
+                                                        people: '',
+                                                        Maxpeople: '',
+                                                        date: '',
+                                                        price: '',
+                                                        totalPrice: '',
+                                                        memberId: '',
+                                                        orderType: '2',
+                                                        actCount: 0,
+                                                    });
                                                 }}
                                         >
                                             登出

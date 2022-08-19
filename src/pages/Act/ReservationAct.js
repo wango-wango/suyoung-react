@@ -71,7 +71,7 @@ function ActReser(props) {
 
     useEffect(() => {
         if (value >= 1) {
-            const total = actBookingList.act_price * value;
+            const total = actBookingList.price * value;
             setActBookingList({ ...actBookingList, totalPrice: total });
         }
     }, [value]);
@@ -264,7 +264,7 @@ function ActReser(props) {
                                                 className="disableinput"
                                                 type="text"
                                                 disabled
-                                                value={actBookingList.act_price}
+                                                value={actBookingList.price}
                                             />
                                         </div>
                                         <div className="orderItem">

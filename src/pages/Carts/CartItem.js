@@ -138,7 +138,7 @@ function CartItem(props) {
 
             const actObj = {
                 order_id: orderId,
-                // member_id: auth.m_id,
+                member_id: auth.m_id,
                 act_id: item.actSid,
                 act_l_id: item.act_img_id,
                 num_people: item.people,
@@ -180,7 +180,7 @@ function CartItem(props) {
             const date = new Date();
 
             const roomObj = {
-                // member_id: auth.m_id,
+                member_id: auth.m_id,
                 room_id: item.sid,
                 room_type_id: item.room_type_id,
                 num_adults: item.adults || item.num_adults,
@@ -222,7 +222,7 @@ function CartItem(props) {
     //將信用卡資訊寫入資料庫
     async function addCreditCardToSever(e) {
         let data = {
-            // member_id: auth.m_id,
+            member_id: auth.m_id,
             card_number: inputs.number,
             expire_date: inputs.expiry,
         };
@@ -263,7 +263,7 @@ function CartItem(props) {
 
             const orderInfo = {
                 order_id: orderId,
-                // member_id: auth.m_id,
+                member_id: auth.m_id,
                 order_Type: item.orderType || item.order_type,
                 adults: item.adults || item.num_adults,
                 kids: item.kids || item.num_children > 1 ? item.kids : 0,
@@ -362,16 +362,14 @@ function CartItem(props) {
     // 刪除購物車的商品
   const deleteTemporaryCartAll = async () => {
 
-    // const memberId = auth.m_id;
-
     const res = await Axios.delete(
-        `http://localhost:3700/Booking/deleteTemporaryCartAll`
+        `http://localhost:3700/Booking/deleteTemporaryCartAll?memberId=${auth.m_id}`
     );
     console.log(res);
 };
 
     // 處理表單送出
-    const handleSubmit =  useCallback ( async (e) => {
+    const handleSubmit =  useCallback ( (e) => {
         const newErrors = [];
         if (!inputs.number.trim()) {
             newErrors.push("number");
@@ -393,18 +391,18 @@ function CartItem(props) {
             HandleAlertData();
         }
         console.log(newErrors);
-        if (orderBooking && newErrors.length === 0) {
+        if (totalCart && newErrors.length === 0) {
             // 購物車內有商品
             HandleAlert();
-            await addCreditCardToSever();
-            await addOrderToSever();
-            await addRoomOrderInfoToSever();
-            await pushOrderId();
+            addCreditCardToSever();
+            addOrderToSever();
+            addRoomOrderInfoToSever();
+            pushOrderId();
             // await addActOrderToSever()
             // await emailSubmit()
             setStep(3);
         }
-        if (orderBooking.length === 0) {
+        if (totalCart.length === 0) {
             // 如果購物車內沒有商品的話
             HandleAlertBuy();
             setStep(1);
@@ -416,9 +414,9 @@ function CartItem(props) {
         // 把購物車清空
         deleteTemporaryCartAll();
 
-        // 把 localStorage 清空
-        localStorage.removeItem('roomItem')
-        localStorage.removeItem('Act')
+        // // 把 localStorage 清空
+        // localStorage.removeItem('roomItem')
+        // localStorage.removeItem('Act')
     },[]);
 
     useEffect(() => {
