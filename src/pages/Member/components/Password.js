@@ -8,6 +8,16 @@ import Swal from "sweetalert2";
 const Password = () => {
     const { setAuth, ...auth } = useAuth();
 
+    if (auth.m_google_id !== null) {
+        Swal.fire({
+            imageUrl: "/member_img/logo.svg",
+            confirmButtonColor: "#224040",
+
+            color: "#224040",
+            text: "您使用google登入，無法修改密碼",
+        });
+    }
+
     const [password, setPassword] = useState({
         oldPassword: "",
         newPassword: "",
@@ -27,6 +37,18 @@ const Password = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
+        if (auth.m_google_id !== null) {
+            Swal.fire({
+                imageUrl: "/member_img/logo.svg",
+                confirmButtonColor: "#224040",
+
+                color: "#224040",
+                text: "您使用google登入，無法修改密碼",
+            });
+
+            return;
+        }
 
         if (
             password.oldPassword === "" ||
