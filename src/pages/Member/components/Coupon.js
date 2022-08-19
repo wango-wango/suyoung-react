@@ -26,8 +26,8 @@ const Coupon = (props) => {
                     discount: v.coupon_discount,
                     discount_number: v.discount_number,
                     discount_name: v.discount_name,
-                    start_date: v.start_date,
-                    expireDate: v.expire_date,
+                    start_date: v.m_start_date,
+                    expireDate: v.m_expire_date,
                     coupon_status: v.coupon_status,
                 });
                 return coupon;
@@ -55,14 +55,24 @@ const Coupon = (props) => {
                         <div className="left">
                             {discount.map((v, i) => {
                                 return (
-                                    <div key={i} className="coupon" style={ v.coupon_status === 1 || todayDate > new Date(v.expireDate) ? {filter:"saturate(0) brightness(0.4)",pointerEvents:"none",}: null} >
+                                    <div
+                                        key={i}
+                                        className="coupon"
+                                        style={
+                                            v.coupon_status === 1 ||
+                                            todayDate > new Date(v.expireDate)
+                                                ? {
+                                                      filter: "saturate(0) brightness(0.4)",
+                                                      pointerEvents: "none",
+                                                  }
+                                                : null
+                                        }
+                                    >
                                         <div className="coupon-number">
                                             {v.discount_number}
-                                            
                                         </div>
                                         <span className="discount-name">
                                             {v.discount_name}
-                                        
                                         </span>
                                         <span className="discount-date">
                                             使用期限:
