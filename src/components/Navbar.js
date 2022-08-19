@@ -22,39 +22,23 @@ export default function Navbar() {
     const [totalCount, setTotalCount] = useState(0);
     
 
-    
-
-    const getMemberCart = async() => {
-       
-            await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
-                (response) => {
-                    // setFavList(response.data);
-                    setBookingCart(response.data);
-                }
-            );
-
-    }
-
-    useEffect(() => {
-        if(auth.authorized || auth.success){
-            getMemberCart();
-        }
-        if(!auth.authorized){
-            // setBookingCart([]);
-            setTotalCount(0);
-        }
-    }, [auth])
-
     useEffect(() => {
       if(totalCount === 0) setBookingCart([])
     }, [totalCount])
     
 
     useEffect(() => {
-        if(bookingCart.length || actBookingList.actCount)
+        // if(bookingCart.length || actBookingList.actCount)
         setTotalCount(bookingCart.length + actBookingList.actCount);
+        // console.log(bookingCart.length);
         // console.log(bookingCart.length + actBookingList.actCount);
     }, [bookingCart,actBookingList])
+
+    useEffect(() => {
+        if(bookingCart.length )
+        localStorage.setItem("roomItem",JSON.stringify(bookingCart));
+        // console.log(bookingCart.length + actBookingList.actCount);
+    }, [bookingCart])
 
 
     return (
@@ -107,6 +91,8 @@ export default function Navbar() {
                                             size="30px"
                                             onClick={() => {
                                                 logout();
+                                                setBookingCart([]);
+                                                localStorage.removeItem("roomItem");
                                             }}
                                         />
                                     </Link>
@@ -138,6 +124,8 @@ export default function Navbar() {
                                         <li
                                             onClick={() => {
                                                     logout();
+                                                    setBookingCart([]);
+                                                    localStorage.removeItem("roomItem");
                                                 }}
                                         >
                                             登出

@@ -38,7 +38,7 @@ function OrderDetail(props) {
 
   const OrderDisplay = () => (
     <>
-      {order.roomList.map((v, i) => {
+      {order && order.roomList.map((v, i) => {
         return (
           <>
             <React.Fragment key={i}>
@@ -65,11 +65,11 @@ function OrderDetail(props) {
     </>
   )
 
-  console.log(order)
+  console.log("order",order)
 
   const OrderActDisplay = () => (
     <>
-      {order.actList.map((v, i) => {
+      {order && order.actList.map((v, i) => {
         return (
           <>
             <React.Fragment>

@@ -7,7 +7,7 @@ export const BookingProvider = ({ children }) => {
     const [bookingList, setBookingList] = useState({
         roomSid: "",
         adults: "",
-        kids: "0",
+        kids: 0,
         startDate: "",
         endDate: "",
         perNight: "",
@@ -23,6 +23,8 @@ export const BookingProvider = ({ children }) => {
         nextDate:"",
         orderType: "1",
     });
+
+    
 
   return (
     // 傳送整個房型資訊

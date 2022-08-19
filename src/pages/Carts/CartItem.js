@@ -14,17 +14,22 @@ import { useBookingCart } from "../../utils/useBookingCart";
 import { useBackground } from "../../utils/useBackground";
 import { tplTransform } from "rsuite/esm/utils";
 import Axios from "axios";
+import { useCallback } from "react";
 
 
 const _ = require("lodash");
 const Swal = require("sweetalert2");
+const progressNames = ["商品資訊", "付款方式", "購物完成"];
 
 function CartItem(props) {
+    // console.log("fff");
+
     const { setBackground } = useBackground();
     useEffect(() => {
         setBackground("bg1.svg");
     }, []);
-    const { setAuth, ...auth } = useAuth();
+    // const { setAuth, ...auth } = useAuth();
+
     const { bookingCart, setBookingCart } = useBookingCart();
 
     const maxSteps = 3;
@@ -46,7 +51,7 @@ function CartItem(props) {
     const [orderActList, setOrderActList] = useState([]);
     const [totalCart, setTotalCart] = useState([]);
 
-    console.log(orderActList);
+    // console.log(orderActList);
 
     // 判斷是房間訂單還是活動訂單
     const [orderType1, setOrderType1] = useState(0);
@@ -63,7 +68,6 @@ function CartItem(props) {
 
     const BlockComponent = components[step - 1];
 
-    const progressNames = ["商品資訊", "付款方式", "購物完成"];
 
     const [inputs, setInputs] = useState({
         name: "", //信用卡號碼
@@ -77,7 +81,7 @@ function CartItem(props) {
     //購物車全部商品
     useEffect(() => {
         // if (orderBooking.length >= 1 || orderActList.length >= 1)
-
+        
         if (orderBooking && !orderActList) {
             setTotalCart([...orderBooking]);
         } else if (!orderBooking && orderActList) {
@@ -87,11 +91,14 @@ function CartItem(props) {
         }
 
         console.log(totalCart);
+        
     }, [orderBooking, orderActList]);
 
     // 進購物車第一步
     // 取得loalStorage的值
     useEffect(() => {
+        
+
         // 從localStorage取出購物車資訊，往子女元件傳遞
         setOrderBooking(JSON.parse(localStorage.getItem("roomItem")));
         // const orderItemsStr = JSON.parse(orderItems)
@@ -100,17 +107,18 @@ function CartItem(props) {
         setOrderActList(JSON.parse(localStorage.getItem("Act")));
         // const orderActStr = (orderAct)
         // console.log(orderActStr)
+        
     }, []);
 
     // 第二步 - 把orderType 存進去Hook 傳給orderDetail 去做篩選
     useEffect(() => {
         // if (!orderActList || !orderBooking) return
-
+        
         if (orderBooking && orderBooking.length >= 1) setOrderType1(1);
     }, [orderBooking]);
     useEffect(() => {
         // if (!orderActList || !orderBooking) return
-
+        
         if (orderActList && orderActList.length >= 1) setOrderType2(2);
     }, [orderActList]);
 
@@ -132,7 +140,7 @@ function CartItem(props) {
 
             const actObj = {
                 order_id: orderId,
-                member_id: auth.m_id,
+                // member_id: auth.m_id,
                 act_id: item.actSid,
                 act_l_id: item.act_img_id,
                 num_people: item.people,
@@ -174,11 +182,11 @@ function CartItem(props) {
             const date = new Date();
 
             const roomObj = {
-                member_id: auth.m_id,
+                // member_id: auth.m_id,
                 room_id: item.sid,
                 room_type_id: item.room_type_id,
                 num_adults: item.adults || item.num_adults,
-                num_children: item.kids || item.num_children > 1 ? item.kids : 0,
+                num_children: item.kids || item.num_children,
                 perNight: item.perNight,
                 total_price: item.room_price,
                 start_date: item.startDate || item.start_date,
@@ -216,7 +224,7 @@ function CartItem(props) {
     //將信用卡資訊寫入資料庫
     async function addCreditCardToSever(e) {
         let data = {
-            member_id: auth.m_id,
+            // member_id: auth.m_id,
             card_number: inputs.number,
             expire_date: inputs.expiry,
         };
@@ -257,7 +265,7 @@ function CartItem(props) {
 
             const orderInfo = {
                 order_id: orderId,
-                member_id: auth.m_id,
+                // member_id: auth.m_id,
                 order_Type: item.orderType || item.order_type,
                 adults: item.adults || item.num_adults,
                 kids: item.kids || item.num_children > 1 ? item.kids : 0,
@@ -319,7 +327,7 @@ function CartItem(props) {
         console.log(res);
     };
 
-    function HandleAlert() {
+    const HandleAlert = useCallback(() =>{
         Swal.fire({
             imageUrl: "/cart_imgs/5.gif",
             // icon: 'success',
@@ -327,8 +335,8 @@ function CartItem(props) {
             showConfirmButton: false,
             timer: 1500,
         });
-    }
-    function HandleAlertBuy() {
+    },[Swal])
+    const HandleAlertBuy = useCallback(() =>{
         Swal.fire({
             // icon: 'error',
             imageUrl: "/cart_imgs/3.gif",
@@ -342,8 +350,8 @@ function CartItem(props) {
             },
             timer: 3000,
         });
-    }
-    function HandleAlertData() {
+    },[Swal]);
+    const HandleAlertData = useCallback(() =>{
         Swal.fire({
             imageUrl: "/cart_imgs/warning.gif",
             // icon: 'error',
@@ -351,21 +359,21 @@ function CartItem(props) {
             text: "有資料沒填喔～!",
             timer: 3000,
         });
-    }
+    },[Swal])
 
     // 刪除購物車的商品
   const deleteTemporaryCartAll = async () => {
 
-    const memberId = auth.m_id;
+    // const memberId = auth.m_id;
 
     const res = await Axios.delete(
-        `http://localhost:3700/Booking/deleteTemporaryCartAll?memberId=${memberId}`
+        `http://localhost:3700/Booking/deleteTemporaryCartAll`
     );
     console.log(res);
 };
 
     // 處理表單送出
-    const handleSubmit = async (e) => {
+    const handleSubmit =  useCallback ( async (e) => {
         const newErrors = [];
         if (!inputs.number.trim()) {
             newErrors.push("number");
@@ -413,7 +421,12 @@ function CartItem(props) {
         // 把 localStorage 清空
         localStorage.removeItem('roomItem')
         localStorage.removeItem('Act')
-    };
+    },[]);
+
+    useEffect(() => {
+        console.log("progressNames")
+    }, [progressNames])
+    
 
     return (
         <>
