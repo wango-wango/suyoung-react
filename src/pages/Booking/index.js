@@ -7,6 +7,7 @@ import { useBackground } from "../../utils/useBackground";
 import { useSpinner } from "../../useSpinner";
 import { BK_GET_LIST } from "./config/ajax-path";
 import { useBookingList } from "../../utils/useBookingList";
+import { useBookingCart } from "../../utils/useBookingCart";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
 import Axios from "axios";
 import { motion } from "framer-motion"
@@ -16,9 +17,10 @@ function Index(props) {
 
 
     const { setBackground } = useBackground();
-    const { spinner, setLoading } = useSpinner(4000);
+    const { spinner, setLoading } = useSpinner(2000);
      // useContext
      const { bookingList, setBookingList } = useBookingList();
+     const { bookingCart, setBookingCart } = useBookingCart();
      const { setAuth, ...auth } = useAuth();
 
     // 所有room 列表
@@ -73,7 +75,7 @@ function Index(props) {
         } = bookingList;
 
         await Axios.get(
-            `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}`
+            `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}&searchPrice=${searchPrice}`
         ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
@@ -88,17 +90,25 @@ function Index(props) {
                 setFavList(response.data.map((v) => +v.fav_list_kind));
             }
         );
+        await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
+            (response) => {
+                // setFavList(response.data);
+                setBookingCart(response.data);
+            }
+        );
+
         }
         
     };
-    const orderDetailList = async() =>{
-        const memberId = auth.m_id;
-        await Axios.get(
-            `${BK_GET_LIST}/selectOrderDetail?memberId=${memberId}`
-        ).then((response) => {
-            console.log(response.data);
-        });
-    }
+    // 測試後端撈資料
+    // const orderDetailList = async() =>{
+    //     const memberId = auth.m_id;
+    //     await Axios.get(
+    //         `${BK_GET_LIST}/selectOrderDetail?memberId=${memberId}`
+    //     ).then((response) => {
+    //         console.log(response.data);
+    //     });
+    // }
     
     // 得到bookingList 的值就執行 getData
     useEffect(() => {
@@ -149,7 +159,7 @@ function Index(props) {
                         
                     </div>
                 </div>
-                <button onClick={orderDetailList}>test</button>
+                {/* <button onClick={orderDetailList}>test</button> */}
                 
                         
                                 {/* Swal.fire({

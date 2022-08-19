@@ -183,6 +183,7 @@
 		animation-duration: 1s;
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
+        cursor: pointer;
 }
 
 @keyframes wobble-horizontal {
@@ -249,6 +250,7 @@
 margin-top: 0%;
 box-shadow: 0 0 20px 2px #747373;
 transition: all 0.5s;
+cursor: pointer;
 }
 
 .des_content_wangmei{
@@ -371,6 +373,7 @@ transition: all 0.5s;
 .yingbenbu:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .xingkong{
@@ -385,6 +388,7 @@ transition: all 0.5s;
 .xingkong:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .qingzi1{
@@ -399,7 +403,7 @@ transition: all 0.5s;
 .qingzi1:hover{
     transform: scale(1.15);
     transition: 0.5s;
-    
+    cursor: pointer;
    }
 
 .qingzi2{
@@ -414,6 +418,7 @@ transition: all 0.5s;
 .qingzi2:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .buqiuren{
@@ -428,6 +433,7 @@ transition: all 0.5s;
 .buqiuren:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
    .buqiuren2{
@@ -442,6 +448,7 @@ transition: all 0.5s;
 .buqiuren2:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .buqiuren3{
@@ -456,6 +463,7 @@ transition: all 0.5s;
 .buqiuren3:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
    .luyingche1{
@@ -468,6 +476,7 @@ transition: all 0.5s;
    .luyingche1:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
    .luyingche2{
@@ -480,6 +489,7 @@ transition: all 0.5s;
    .luyingche2:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .wangmei1{
@@ -494,6 +504,7 @@ transition: all 0.5s;
 .wangmei1:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .wangmei2{
@@ -508,6 +519,7 @@ transition: all 0.5s;
 .wangmei2:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .wangmei3{
@@ -522,6 +534,7 @@ transition: all 0.5s;
 .wangmei3:hover{
     transform: scale(1.15);
     transition: 0.5s;
+    cursor: pointer;
    }
 
 .Backdrop_shadow{

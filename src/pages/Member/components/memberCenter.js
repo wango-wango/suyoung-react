@@ -14,7 +14,7 @@ import CreditCard from "./CreditCard";
 import { BsPersonCircle } from "react-icons/bs";
 import { useSpinner } from "../../../useSpinner";
 import Swal from "sweetalert2";
-
+import { useBookingCart } from "../../../utils/useBookingCart";
 import anime from "animejs";
 import { useBackground } from "../../../utils/useBackground";
 
@@ -30,6 +30,7 @@ const MemberCenter = () => {
 
     const { background, setBackground } = useBackground();
 
+    const {getMemberCart} = useBookingCart();
     useEffect(() => {
         setBackground("bglayer.svg");
     }, []);
@@ -68,6 +69,7 @@ const MemberCenter = () => {
                     localStorage.setItem("auth", JSON.stringify(newAuth));
                 }
             });
+            getMemberCart();
     };
 
     const getUserData = () => {
@@ -88,6 +90,7 @@ const MemberCenter = () => {
                 });
             }
         });
+        getMemberCart();
     };
 
     //==============dark mode============

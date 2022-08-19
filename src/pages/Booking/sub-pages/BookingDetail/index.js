@@ -120,14 +120,11 @@ function Index(props) {
                 roomList={roomList}
                 localRoomList={localRoomList}
               />
+              
             </div>
           </div>
         </div>
-        <div id="scrolldown">
-          <a>
-            <span></span>Scroll
-          </a>
-        </div>
+        
       </section>
       <section className="room_detail_up">    
         <DetailPictures picList={picList} />

@@ -36,7 +36,7 @@ const SuMapContent = (props) => {
     setDisplayModal(true)
     // setStep(i);
   }
-console.log(modalOpen.setmapPicIndex)
+// console.log(modalOpen.setmapPicIndex)
 
 
   const modalClose = () => {

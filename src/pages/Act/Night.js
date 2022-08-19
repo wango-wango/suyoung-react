@@ -32,7 +32,7 @@ function Night(props) {
     // 先把localStorage 的資料存進 localRoom 裡
     useEffect(() => {
         if (auth.authorized) {
-            setActBookingList({ ...actBookingList, memberId: auth.sid });
+            setActBookingList({ ...actBookingList, memberId: auth.m_id });
         }
     }, []);
 
@@ -178,14 +178,26 @@ function Night(props) {
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
-                                            alert("已移除收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已移除收藏",
+                                            });
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 8,
                                             });
-                                            alert("已加入收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已加入收藏",
+                                            });
                                         }
                                     }}
                                 />
@@ -232,16 +244,14 @@ function Night(props) {
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
-                                        const newActBookingList = {
-                                            ...actBookingList,
+                                        setActBookingList({...actBookingList,
                                             actSid: act[0].act_id,
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
                                             people: 1,
                                             actImg: act[0].filename,
-                                        };
-                                        setActBookingList(newActBookingList);
+                                            });
                                     }}
                                 >
                                     預約報名

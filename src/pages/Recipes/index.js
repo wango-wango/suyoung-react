@@ -131,7 +131,7 @@ function Index(props) {
                             <SwiperSlide><img src={"/recipes_img/fried-rice-g9fe300fc3_1920.jpg"} alt="" /></SwiperSlide>
                             <SwiperSlide><img src={"/recipes_img/kebab-g3f4e68cbd_1920.jpg"} alt="" /></SwiperSlide>
                             <SwiperSlide>                                
-                                <img onClick={()=>{fish("/shuyoung/recipes/recipesPage2/7")}} src={"/recipes_img/salmonVeg.svg"} alt="" />
+                                <img onClick={()=>{fish("/shuyoung/recipes/recipesPage2/6")}} src={"/recipes_img/africaEgg.svg"} alt="" />
                             </SwiperSlide>
                         </Swiper>
                     </div>
@@ -172,8 +172,8 @@ function Index(props) {
                             <div className="col-3 col-md-1 rounded-pill fw-bold d-flex align-items-center justify-content-center btn_font_color menu_button"
                                 onClick={() => three()}><div>創意料理</div></div>
                         </div>
-                        <div className="d-md-flex align-items-end w-100 m-auto">
-                            <div className="col-9 border-1 mt-3 mb-3 pb-3 pb-md-0 m-auto row justify-content-center">
+                        <div className="d-md-flex align-items-end m-auto">
+                            <div className="col-8 border-1 mt-3 mb-3 pb-3 pb-md-0 m-auto row justify-content-center">
                                 {!!recipes && recipes.length ? tryDisplay
                                     .map((v, i) => {
                                         return (

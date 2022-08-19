@@ -176,14 +176,26 @@ function Atv(props) {
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
-                                            alert("已移除收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已移除收藏",
+                                            });
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 5,
                                             });
-                                            alert("已加入收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已加入收藏",
+                                            });
                                         }
                                     }}
                                 />
@@ -230,16 +242,14 @@ function Atv(props) {
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
-                                        const newActBookingList = {
-                                            ...actBookingList,
+                                        setActBookingList({...actBookingList,
                                             actSid: act[0].act_id,
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
                                             people: 1,
                                             actImg: act[0].filename,
-                                        };
-                                        setActBookingList(newActBookingList);
+                                            });
                                     }}
                                 >
                                     預約報名

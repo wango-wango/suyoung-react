@@ -826,54 +826,7 @@ p {
 
     }
 
-    #scrolldown {
-        position: relative;
-
-        a {
-            padding-top: 70px;
-            position: absolute;
-            bottom: -95px;
-            left: 48%;
-            z-index: 2;
-            display: inline-block;
-            -webkit-transform: translate(0, -50%);
-            transform: translate(0, -50%);
-            color: #fff;
-            font: normal 400 20px/1 'Josefin Sans', sans-serif;
-            letter-spacing: .1em;
-            text-decoration: none;
-            transition: opacity .3s;
-
-            @media screen and (max-width:768px) {
-                left: 43%;
-                padding-top: 90px;
-                bottom: -90px;
-                font: normal 400 14px/1 'Josefin Sans', sans-serif;
-            }
-            &:hover {
-                opacity: 0.5;
-            }
-
-            span {
-                position: absolute;
-                top: 10px;
-                left: 50%;
-                width: 24px;
-                height: 24px;
-                margin-left: -12px;
-                border-left: 1px solid #fff;
-                border-bottom: 1px solid #fff;
-                transform: rotate(-45deg);
-                animation: sdb05 1.5s infinite;
-                box-sizing: border-box;
-                @media screen and (max-width:768px) {
-                    width: 16px;
-                    height: 16px;
-                }
-            }
-        }
-
-    }
+    
 }
 
 
@@ -881,22 +834,23 @@ p {
 
 .room_detail_up {
     padding: var(--h2_text);
-    height: 265vh;
+    height: 2800px;
     background-color: #415f4d;
     position: relative;
     width: 100%;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
     @media (max-width: 1680px) {
-        height: 265vh;
+        height: 2800px;
     }
 
     @media (max-width: 768px) {
-        height: 200vh;
+        height: 2200px;
+
     }
 
     @media (max-width: 480px) {
-        height: 220vh;
+        height: 1550px;
         padding-top : var(--h1_text);
     }
 
@@ -928,6 +882,9 @@ p {
             font-weight: 600;
             color: var(--background_color);
             letter-spacing: .5rem;
+            @media (max-width: 480px) {
+                font-size: var(--h2_text);
+            }
         }
 
         .outline-text1,
@@ -943,6 +900,9 @@ p {
             -webkit-text-stroke-color: var(--background_color);
             color: transparent;
             letter-spacing: .5rem;
+            @media (max-width: 480px) {
+                font-size: var(--h2_text);
+            }
         }
 
         .image1,

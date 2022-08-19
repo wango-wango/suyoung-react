@@ -122,17 +122,32 @@ const MemberLevel = () => {
                             </div>
                             <div className="member-upgrade">
                                 <div className="one">
-                                    <span>2022/12/31前再消費</span>
-                                    <span>NT {15000 - auth.m_score}</span>
+                                    {auth.m_score < 15000 ? (
+                                        <>
+                                            {" "}
+                                            <span>2022/12/31前再消費</span>
+                                            <span>
+                                                NT {15000 - auth.m_score}
+                                            </span>
+                                        </>
+                                    ) : null}
                                 </div>
                                 <div className="two">
-                                    <span>可立即升級為</span>{" "}
-                                    <span>{nextLevel}</span>
+                                    {auth.m_score < 15000 ? (
+                                        <>
+                                            <span>可立即升級為</span>{" "}
+                                            <span>{nextLevel}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>您已成為凹鬥大師</span>
+                                        </>
+                                    )}
                                 </div>
-                                <div className="three">
+                                {/* <div className="three">
                                     <span>享消費金額</span>
                                     <span> {discount}折 </span> 優惠
-                                </div>
+                                </div> */}
                             </div>
                         </motion.div>
                     </div>

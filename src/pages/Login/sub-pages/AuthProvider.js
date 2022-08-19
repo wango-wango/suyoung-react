@@ -33,7 +33,10 @@ export const AuthProvider = ({ children }) => {
 
     const [auth, setAuth] = useState(localAuth);
     // const [auth, setAuth] = useState({});
-
+    useEffect(() => {
+        console.log("authProvider");
+    }, [auth])
+    
     const navigate = useNavigate();
 
     const logout = () => {
