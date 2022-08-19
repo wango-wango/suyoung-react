@@ -118,7 +118,7 @@
     }
     @media screen and (max-width: 376px) {
         width: 75vw;
-        height: 29vh;
+        height: 34vh;
     }
 
     & > * {
@@ -130,7 +130,7 @@
         cursor: pointer;
     }
     .drop-zone {
-        padding-bottom: 20px;
+        padding: 20px;
         cursor: pointer;
         display: flex;
         flex-direction: column;

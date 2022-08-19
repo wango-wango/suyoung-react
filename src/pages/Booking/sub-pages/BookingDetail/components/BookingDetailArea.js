@@ -38,9 +38,12 @@ function BookingDetailArea(props) {
             popular: "",
             recommend: "",
             roomSelector: [],
-            totalPrice: "",
+            searchPrice:"",
+            roomTotalPrice:"",
             nextDate:"",
-            memberId:""
+            orderType: "1",
+            memberId:"",
+
         });
         localStorage.removeItem("room");
     }
@@ -221,6 +224,7 @@ function BookingDetailArea(props) {
                                         postRoomData();
                                         clearData();
                                         keepShopping();
+                                        insertToCart();
                                         navigate("/shuyoung/Booking");
                                     }
                                 });

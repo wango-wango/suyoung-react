@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import 'animate.css'
 import { motion } from 'framer-motion'
+import Axios from "axios";
+import { useBookingCart } from "../../../../../utils/useBookingCart";
+
+
 const _ = require('lodash')
 const Swal = require('sweetalert2')
 
@@ -15,6 +19,8 @@ function RoomInfo(props) {
   } = props
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
+  const { bookingCart, setBookingCart } = useBookingCart();
+
 
   //房型
   function getCartFromLocalStorage() {
@@ -33,7 +39,7 @@ function RoomInfo(props) {
   const sum = (items) => {
     let total = 0
     for (let i = 0; i < items.length; i++) {
-      total += items[i].roomTotalPrice
+      total += items[i].roomTotalPrice || items[i].total_price
     }
     // setSum(total)
     setRoomSum(total)
@@ -77,11 +83,13 @@ function RoomInfo(props) {
   // 製作按下X按鈕執行delItem函式刪除localStorage單筆資料
   const delItem = (item) => {
     // 先複製原有的購物車內容
-    const currentCart = JSON.parse(localStorage.getItem('roomItem')) || []
+    const currentCart = mycart;
+    // console.log(currentCart)
 
-    // 找尋是否有此筆item.id的對應資料
-    const index = currentCart.findIndex((v) => v.room_id === item.room_id)
-
+    
+    // 剔除該筆資料存進新的陣列 newCart 
+    const newCart = currentCart.filter((v) => v.sid !== item.sid)
+    
     // // 複製
     // const oldTotalBookingCart = totalBookingCart;
 
@@ -89,18 +97,38 @@ function RoomInfo(props) {
 
     // setTotalBookingCart(newTotalBookingCart);
 
-    if (index > -1) {
+  
       // 找到的話就透過splice來移除array中的那個物件
       // 再更新至localStorage cart之中並且更新Mycart
-      currentCart.splice(index, 1)
-      localStorage.setItem('roomItem', JSON.stringify(currentCart))
-      setMycart(currentCart)
-    }
+      // currentCart.splice(index, 1)
+
+      // 存進 localStorage
+      localStorage.setItem('roomItem', JSON.stringify(newCart))
+      // 更新 myCart
+      setMycart(newCart)
+    
 
     const oldRoom = orderBooking
-    const nowRoom = oldRoom.filter((v) => v !== v.roomSid)
+    const nowRoom = oldRoom.filter((v) => v.roomSid !== item.roomSid)
     setOrderBooking(nowRoom)
+    
+    setBookingCart(newCart)
+    deleteTemporaryCart(item)
   }
+
+  // 刪除購物車的商品
+  const deleteTemporaryCart = async (item) => {
+
+    const roomSid = item.roomSid || item.sid;
+    const memberId = item.memberId || item.member_id;
+    const startDate = item.startDate || item.start_date;
+    const endDate = item.endDate || item.end_date;
+
+    const res = await Axios.delete(
+        `http://localhost:3700/Booking/deleteTemporaryCart?memberId=${memberId}&roomSid=${roomSid}&startDate=${startDate}&endDate=${endDate}`
+    );
+    console.log(res);
+};
 
   function DeleteCartItem(item) {
     Swal.fire({
@@ -136,7 +164,7 @@ function RoomInfo(props) {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            key={item}
+            key={index}
           >
             <div className="room_info">
               <div className="room_pic">
@@ -147,13 +175,13 @@ function RoomInfo(props) {
               </div>
               <div className="room_detail">
                 <p>房型：{item.room_name}</p>
-                <p>入住：{item.startDate}</p>
-                <p>退房：{item.endDate}</p>
-                <p>成人：{item.adults}</p>
-                <p>兒童：{item.kids}</p>
+                <p>入住：{item.startDate || item.start_date}</p>
+                <p>退房：{item.endDate || item.end_date}</p>
+                <p>成人：{item.adults || item.num_adults}</p>
+                <p>兒童：{item.kids || item.num_children}</p>
                 <p>天數：{item.perNight}</p>
                 <div className="amount_and_del">
-                  <p>價格：${item.roomTotalPrice}</p>
+                  <p>價格：${item.roomTotalPrice || item.total_price}</p>
                   <button
                     className="del_btn"
                     onClick={() => {

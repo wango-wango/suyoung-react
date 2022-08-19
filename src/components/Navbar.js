@@ -5,12 +5,41 @@ import { useAuth } from "../pages/Login/sub-pages/AuthProvider";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useBookingCart } from "../utils/useBookingCart";
+import Axios from "axios";
+import {BK_GET_LIST} from "../pages/Booking/config/ajax-path"
+
+
+
 
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { setAuth, ...auth } = useAuth();
+    const { bookingCart, setBookingCart } = useBookingCart();
     const { authorized, logout } = useAuth();
+    const [totalCount, setTotalCount] = useState(0);
+    
+
+    useEffect(() => {
+      if(totalCount === 0) setBookingCart([])
+    }, [totalCount])
+    
+
+    useEffect(() => {
+        // if(bookingCart.length || actBookingList.actCount)
+        setTotalCount(bookingCart.length + actBookingList.actCount);
+        // console.log(bookingCart.length);
+        // console.log(bookingCart.length + actBookingList.actCount);
+    }, [bookingCart,actBookingList])
+
+    useEffect(() => {
+        if(bookingCart.length )
+        localStorage.setItem("roomItem",JSON.stringify(bookingCart));
+        // console.log(bookingCart.length + actBookingList.actCount);
+    }, [bookingCart])
+
 
     return (
         <>
@@ -62,6 +91,8 @@ export default function Navbar() {
                                             size="30px"
                                             onClick={() => {
                                                 logout();
+                                                setBookingCart([]);
+                                                localStorage.removeItem("roomItem");
                                             }}
                                         />
                                     </Link>
@@ -93,6 +124,8 @@ export default function Navbar() {
                                         <li
                                             onClick={() => {
                                                     logout();
+                                                    setBookingCart([]);
+                                                    localStorage.removeItem("roomItem");
                                                 }}
                                         >
                                             登出
@@ -117,6 +150,7 @@ export default function Navbar() {
                                     className="iconCart"
                                     size="30px"
                                 />
+                                {totalCount > 0 ? (<div className="CartCount"><p>{totalCount}</p></div>):null}
                             </Link>
                         </div>):(
                             <div
@@ -129,6 +163,8 @@ export default function Navbar() {
                                     className="iconCart"
                                     size="30px"
                                 />
+                                {totalCount > 0 ? (<div className="CartCount"><p>{totalCount}</p></div>):null}
+
                             </Link>
                         </div>
                         )}

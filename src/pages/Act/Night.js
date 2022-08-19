@@ -32,7 +32,7 @@ function Night(props) {
     // 先把localStorage 的資料存進 localRoom 裡
     useEffect(() => {
         if (auth.authorized) {
-            setActBookingList({ ...actBookingList, memberId: auth.sid });
+            setActBookingList({ ...actBookingList, memberId: auth.m_id });
         }
     }, []);
 
@@ -45,8 +45,8 @@ function Night(props) {
             (response) => {
                 setAct(response.data.actNight);
                 const newAct = response.data.actNight[0];
-                setActBookingList({ ...newAct });
-                console.log(response.data.actNight);
+                setActBookingList({ ...actBookingList, ...newAct });
+                // console.log(response.data.actNight);
             }
         );
     };
@@ -71,7 +71,7 @@ function Night(props) {
         Axios.delete(
             `http://localhost:3700/member/favlist/act/delete?memberId=${auth.m_id}&favlistId=${favlistId}`
         ).then((res) => {
-            console.log(res);
+            // console.log(res);
             setFavlist([]);
             setMemberKeep({
                 // favlistId: "",
@@ -86,7 +86,7 @@ function Night(props) {
         Axios.get(
             `http://localhost:3700/member/act/favlist/?memberId=${auth.m_id}&actSid=${favlistId}`
         ).then((res) => {
-            console.log(res.data.resultFav);
+            // console.log(res.data.resultFav);
             setFavlist([...res.data.resultFav]);
         });
     };
@@ -94,7 +94,7 @@ function Night(props) {
     const postData = () => {
         Axios.post(`http://localhost:3700/member/favlist/act`, memberKeep).then(
             (res) => {
-                console.log(res);
+                // console.log(res);
                 getFav();
             }
         );
@@ -102,9 +102,9 @@ function Night(props) {
 
     useEffect(() => {
         // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
-        console.log({ memberKeep });
+        // console.log({ memberKeep });
         if (!!memberKeep.memberId && !!memberKeep.favlistId) {
-            console.log("postData!");
+            // console.log("postData!");
             postData();
         }
     }, [memberKeep]);
@@ -178,14 +178,26 @@ function Night(props) {
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
-                                            alert("已移除收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已移除收藏",
+                                            });
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 8,
                                             });
-                                            alert("已加入收藏")
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已加入收藏",
+                                            });
                                         }
                                     }}
                                 />
@@ -232,16 +244,14 @@ function Night(props) {
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
-                                        const newActBookingList = {
-                                            ...actBookingList,
+                                        setActBookingList({...actBookingList,
                                             actSid: act[0].act_id,
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
                                             people: 1,
                                             actImg: act[0].filename,
-                                        };
-                                        setActBookingList(newActBookingList);
+                                            });
                                     }}
                                 >
                                     預約報名
@@ -266,7 +276,10 @@ function Night(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -288,7 +301,10 @@ function Night(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -347,8 +363,8 @@ function Night(props) {
                                     <div className="actC">
                                         <div className="actDetail">
                                             <div className="textspace">
-                                                每人 {act[0].act_price}元，行程約 3
-                                                小時，歡迎 5~65
+                                                每人 {act[0].act_price}
+                                                元，行程約 3 小時，歡迎 5~65
                                                 歲的大小朋友預約報名唷！
                                                 <br />
                                                 活動費用含專業帶團教練
@@ -422,7 +438,10 @@ function Night(props) {
                                     <div className="actToggle">
                                         <div className="actTitle">
                                             <div className="top">
-                                            <h5><i className="fa-solid fa-circle-exclamation mr-2"/>注意事項</h5>
+                                                <h5>
+                                                    <i className="fa-solid fa-circle-exclamation mr-2" />
+                                                    注意事項
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>

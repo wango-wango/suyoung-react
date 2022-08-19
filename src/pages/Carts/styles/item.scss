@@ -248,6 +248,15 @@ box-sizing: border-box;
     display: flex;
 }
 
+.first_colum_act{
+    display: flex;
+    justify-content: space-between;
+}
+
+.first_colum_act p{
+    display: flex;
+}
+
 .second_colum{
     display: flex;
     justify-content: space-between;
@@ -731,6 +740,7 @@ justify-content: start;
 .room_price_2{
 justify-content: end;
 }
+
 
 .checkoutbtn{
 width: 100%;

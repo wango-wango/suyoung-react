@@ -12,6 +12,7 @@ import {
 } from './utils'
 
 import 'react-credit-cards/es/styles-compiled.css'
+import { clearConfigCache } from 'prettier'
 
 export default class App extends React.Component {
   state = {
@@ -36,6 +37,21 @@ export default class App extends React.Component {
     })
   }
 
+  autoInput = ({ target }) => {
+    this.props.setInputs({
+      number: '5568 8556 8855 6885',
+      name: 'bearbear',
+      expiry: '0857',
+      cvc: '688',
+    });
+    this.setState({
+      number: '5568 8556 8855 6885',
+      name: 'bearbear',
+      expiry: '0857',
+      cvc: '688',
+    })
+  }
+
   handleInputChange = ({ target }) => {
     if (target.name === 'number') {
       target.value = formatCreditCardNumber(target.value)
@@ -47,7 +63,7 @@ export default class App extends React.Component {
 
     //console.log(this.props)
     this.props.setInputs({ ...this.props.inputs, [target.name]: target.value })
-
+    console.log(this.props.inputs)
     this.setState({ [target.name]: target.value })
   }
 
@@ -99,6 +115,7 @@ export default class App extends React.Component {
                       maxLength="19"
                       onChange={this.handleInputChange}
                       onFocus={this.handleInputFocus}
+                      value={this.state.number}
                     />
                   </div>
                   <div className="form-group">
@@ -109,6 +126,7 @@ export default class App extends React.Component {
                       placeholder="姓名"
                       onChange={this.handleInputChange}
                       onFocus={this.handleInputFocus}
+                      value={this.state.name}
                     />
                   </div>
                   <div className="row">
@@ -121,6 +139,7 @@ export default class App extends React.Component {
                         pattern="\d\d/\d\d"
                         onChange={this.handleInputChange}
                         onFocus={this.handleInputFocus}
+                        value={this.state.expiry}
                       />
                     </div>
                     <div className="col-6">
@@ -133,6 +152,7 @@ export default class App extends React.Component {
                         pattern="\d{3,4}"
                         onChange={this.handleInputChange}
                         onFocus={this.handleInputFocus}
+                        value={this.state.cvc}
                       />
                     </div>
                   </div>
@@ -142,6 +162,9 @@ export default class App extends React.Component {
               <div className="form-actions submit">
                 <button className="btn" onClick={handleSubmit}>
                   送出
+                </button>
+                <button className="btn" onClick={this.autoInput}>
+                  自動填入
                 </button>
               </div>
             </div>

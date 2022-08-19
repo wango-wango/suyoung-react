@@ -11,7 +11,7 @@ function RoomLt(props) {
     setdiscountSum,
     actSum,
     totalPrice,
-    roomSum,
+    roomSum
   } = props
 
   const navigate = useNavigate()
@@ -105,9 +105,9 @@ function RoomLt(props) {
           <p className="room_price_1">房價</p>
           <p className="room_price_2">${roomSum}</p>
         </div>
-        <div className="first_colum">
-          <p className="none">活動</p>
-          <p className="room_price_2">${actSum}</p>
+        <div className="first_colum_act">
+          <p className="act_price_1">活動</p>
+          <p className="act_price_2">${actSum}</p>
         </div>
         <p className="none">折扣碼：</p>
         <div className="discount_wrap">

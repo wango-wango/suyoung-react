@@ -14,6 +14,7 @@ export const ActBookingProvider = ({ children }) => {
     totalPrice: '',
     memberId: '',
     orderType: '2',
+    actCount: 0,
   })
 
   return (

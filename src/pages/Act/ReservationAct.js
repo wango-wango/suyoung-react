@@ -19,11 +19,9 @@ import { useAuth } from "../Login/sub-pages/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { ACT_GET_LIST } from "./config/ajax-path";
 import { motion } from "framer-motion";
-import isBefore from 'date-fns/isBefore';
+import isBefore from "date-fns/isBefore";
 import { date } from "yup";
 import { Value } from "sass";
-
-
 
 function ActReser(props) {
     //活動資料存放處
@@ -36,7 +34,7 @@ function ActReser(props) {
     const { setAuth, ...auth } = useAuth();
     const navigate = useNavigate();
     //didUpdate.log
-    console.log(actBookingList);
+    // console.log(actBookingList);
 
     //日期格式調整
     const formatDate = (date) => {
@@ -50,8 +48,8 @@ function ActReser(props) {
 
         return [year, month, day].join("-");
     };
-    const today =new Date()
-    
+    const today = new Date();
+
     //信箱提示data
     const suffixes = [
         "@gmail.com",
@@ -65,13 +63,15 @@ function ActReser(props) {
     const [agreeMent, setAgreeMent] = useState(false);
     const [contact, setContact] = useState([]);
     const [datePick, setDatePick] = useState();
-
-    console.log("people:", value);
-    console.log("totalPrice:", actBookingList.totalPrice);
+    const [rsName, setRsName] = useState("")
+    const [rsPhone, setRsPhone] = useState("")
+    // console.log("people:", value);
+    // console.log("totalPrice:", actBookingList.totalPrice);
+    const [actCount, setActCount] = useState(0);
 
     useEffect(() => {
         if (value >= 1) {
-            const total = actBookingList.price * value;
+            const total = actBookingList.act_price * value;
             setActBookingList({ ...actBookingList, totalPrice: total });
         }
     }, [value]);
@@ -102,15 +102,15 @@ function ActReser(props) {
         setAgreeMent(checked);
     };
 
-    console.log(agreeMent);
+    // console.log(agreeMent);
     const handleChange = (value) => {
         const at = value.match(/@[\S]*/);
         const nextData = at
             ? suffixes
-                .filter((item) => item.indexOf(at[0]) >= 0)
-                .map((item) => {
-                        return `${value}${item.replace(at[0], "")}`;
-                })
+                  .filter((item) => item.indexOf(at[0]) >= 0)
+                  .map((item) => {
+                      return `${value}${item.replace(at[0], "")}`;
+                  })
             : suffixes.map((item) => `${value}${item}`);
 
         setEmailData(nextData);
@@ -124,59 +124,66 @@ function ActReser(props) {
         localStorage.setItem("Act", JSON.stringify([actBookingList]));
     }, [actBookingList]);
 
+    useEffect(() => {
+        setActBookingList({...actBookingList,actCount:actCount});
+    }, [actCount]);
+
     // const data = [actBookingList.price]
     return (
         <>
             <section>
                 <div className="emf">
                     <div className="card_bg">
-                    <motion.div
-                        className="keep-card"
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                            delay: 0.5,
-
-                            default: { ease: "linear" },
-                        }}>
-                        <div className="actEnTitle titleGroup">
-                            <h3>{actBookingList.actName}</h3>
-                            <h4>預約報名</h4>
-                        </div>
-
-                    </motion.div>
-                        <div className="d-flex calendar">
                         <motion.div
                             className="keep-card"
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
                             transition={{
-                            delay: 0.5,
-                            default: { ease: "linear" },
-                        }}>
-                            <div className="calendarLeft">
-                                <Calendar
-                                    value={datePick}
-                                    onChange={(v) => {
-                                        if (v){
-                                        setDatePick(v);
-                                        setActBookingList({
-                                            ...actBookingList,
-                                            date: formatDate(v),
-                                        });
-                                    }}}
-                                />
+                                delay: 0.5,
+
+                                default: { ease: "linear" },
+                            }}
+                        >
+                            <div className="actEnTitle titleGroup">
+                                <h3>{actBookingList.actName || actBookingList.act_name}</h3>
+                                <h4>預約報名</h4>
+                            </div>
+                        </motion.div>
+                        <div className="d-flex calendar">
+                            <motion.div
+                                className="keep-card"
+                                initial={{ opacity: 0, y: 100 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    delay: 0.5,
+                                    default: { ease: "linear" },
+                                }}
+                            >
+                                <div className="calendarLeft">
+                                    <Calendar
+                                        value={datePick}
+                                        onChange={(v) => {
+                                            if (v) {
+                                                setDatePick(v);
+                                                setActBookingList({
+                                                    ...actBookingList,
+                                                    date: formatDate(v),
+                                                });
+                                            }
+                                        }}
+                                    />
                                 </div>
                             </motion.div>
                             <motion.div
-                                    className="keep-card"
-                                    initial={{ opacity: 0, y: 100 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
+                                className="keep-card"
+                                initial={{ opacity: 0, y: 100 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
                                     delay: 0.7,
                                     default: { ease: "linear" },
-                                }}>
-                            <div className="calendarRight">
+                                }}
+                            >
+                                <div className="calendarRight">
                                     <div className="actOrder">
                                         <h4>預約內容</h4>
                                         <div className="orderItem">
@@ -189,24 +196,26 @@ function ActReser(props) {
                                             <DatePicker
                                                 placeholder="請選擇活動日期"
                                                 value={datePick}
-                                                disabledDate={date => isBefore(date, new Date())}
+                                                disabledDate={(date) =>
+                                                    isBefore(date, new Date())
+                                                }
                                                 locale={{
-                                                    sunday: '日',
-                                                    monday: '一',
-                                                    tuesday: '二',
-                                                    wednesday: '三',
-                                                    thursday: '四',
-                                                    friday: '五',
-                                                    saturday: '六',
-                                                    ok: '确定',
-                                                    today: '今天',
-                                                    yesterday: '昨天',
-                                                    hours: '时',
-                                                    minutes: '分',
-                                                    seconds: '秒'
+                                                    sunday: "日",
+                                                    monday: "一",
+                                                    tuesday: "二",
+                                                    wednesday: "三",
+                                                    thursday: "四",
+                                                    friday: "五",
+                                                    saturday: "六",
+                                                    ok: "确定",
+                                                    today: "今天",
+                                                    yesterday: "昨天",
+                                                    hours: "时",
+                                                    minutes: "分",
+                                                    seconds: "秒",
                                                 }}
                                                 onChange={(v) => {
-                                                    console.log(v);
+                                                    // console.log(v);
                                                     if (v) {
                                                         setActBookingList({
                                                             ...actBookingList,
@@ -255,7 +264,7 @@ function ActReser(props) {
                                                 className="disableinput"
                                                 type="text"
                                                 disabled
-                                                value={actBookingList.price}
+                                                value={actBookingList.act_price}
                                             />
                                         </div>
                                         <div className="orderItem">
@@ -269,7 +278,9 @@ function ActReser(props) {
                                                 className="disableinput"
                                                 type="text"
                                                 disabled
-                                                value={actBookingList.totalPrice}
+                                                value={
+                                                    actBookingList.totalPrice
+                                                }
                                             />
                                         </div>
                                         <div className="orderItem">
@@ -286,8 +297,11 @@ function ActReser(props) {
                                                         price: "",
                                                         totalPrice: "",
                                                         memberId: "",
+                                                        orderType: "2",
                                                     });
-                                                    localStorage.removeItem("Act");
+                                                    localStorage.removeItem(
+                                                        "Act"
+                                                    );
                                                     navigate(-1);
                                                 }}
                                             >
@@ -298,7 +312,10 @@ function ActReser(props) {
                                 </div>
                             </motion.div>
                         </div>
-                        <div className="actRsTitle">
+                        <div className="actRsTitle" onClick={()=>{
+                            setRsName("舒小營")
+                            setRsPhone("0988468038")
+                        }}>
                             <h4>聯絡人資訊</h4>
                         </div>
                         <form action="" method="post">
@@ -314,7 +331,7 @@ function ActReser(props) {
                                         trigger="focus"
                                         speaker={<Tooltip>必填</Tooltip>}
                                     >
-                                        <Input placeholder="請填入姓名" />
+                                        <Input placeholder="請填入姓名" value={rsName}/>
                                     </Whisper>
                                 </div>
                                 <div>
@@ -328,7 +345,7 @@ function ActReser(props) {
                                         trigger="focus"
                                         speaker={<Tooltip>必填</Tooltip>}
                                     >
-                                        <Input placeholder="請填入手機號碼" />
+                                        <Input placeholder="請填入手機號碼" value={rsPhone}/>
                                     </Whisper>
                                 </div>
                                 <div>
@@ -350,53 +367,52 @@ function ActReser(props) {
                                 <h4>參與人資料</h4>
                             </div>
                             {vArray.map((v, i) => {
-                                return(
+                                return (
                                     <div
-                                    className="d-flex justify-content-around actForm"
-                                    key={i}
-                                >
-                                    <div>
-                                        <label
-                                            htmlFor="actName"
-                                            className="actlabel"
-                                        >
-                                            姓名
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="actName"
-                                            className="actText"
-                                        />
+                                        className="d-flex justify-content-around actForm"
+                                        key={i}
+                                    >
+                                        <div>
+                                            <label
+                                                htmlFor="actName"
+                                                className="actlabel"
+                                            >
+                                                姓名
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="actName"
+                                                className="actText"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                htmlFor="actBd"
+                                                className="actlabel"
+                                            >
+                                                出生年月日
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="actBd"
+                                                className="actText"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                htmlFor="idNum"
+                                                className="actlabel"
+                                            >
+                                                身分證字號
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="idNum"
+                                                className="actText"
+                                            />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label
-                                            htmlFor="actBd"
-                                            className="actlabel"
-                                        >
-                                            出生年月日
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="actBd"
-                                            className="actText"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label
-                                            htmlFor="idNum"
-                                            className="actlabel"
-                                        >
-                                            身分證字號
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="idNum"
-                                            className="actText"
-                                        />
-                                    </div>
-                                </div>
-                                )
-                               
+                                );
                             })}
                         </form>
                         <div className="actRsTitle">
@@ -453,83 +469,89 @@ function ActReser(props) {
                                         //檢查會員是否登入
                                         if (auth.authorized) {
                                             //檢查日期與人數參與人是否有選擇與填入
-                                            if(
-                                            // actBookingList.contactName &&
-                                            actBookingList.date &&
-                                            actBookingList.people
-                                            ){ 
+                                            if (
+                                                // actBookingList.contactName &&
+                                                actBookingList.date &&
+                                                actBookingList.people
+                                            ) {
                                                 //檢查是否勾選同意書
-                                                if (agreeMent){
-                                                localStorage.setItem(
-                                                    "Act",
-                                                    JSON.stringify(
-                                                        [actBookingList]
-                                                    )
-                                                );
-                                                //成功畫面
-                                                Swal.fire({
-                                                    icon: "success",
-                                                    title: "已加入購物車",
-                                                    text: "請盡快完成結帳",
-                                                    showConfirmButton: false,
-                                                    timer: 1500,
-                                                }).then(() => {
-                                                    postRoomData();
-                                                });
-                                                    }else{
-                                                        Swal.fire({
-                                                            icon: "error",
-                                                            title: "尚未勾選",
-                                                            text: "請勾選同意書",
-                                                            color: "#224040",
-                                                            background: "#FFF",
-                                                            confirmButtonColor:
-                                                                "#224040",
-                                                    });}
-                                                }else{
+                                                if (agreeMent) {
+                                                    localStorage.setItem(
+                                                        "Act",
+                                                        JSON.stringify([
+                                                            actBookingList,
+                                                        ])
+                                                    );
+                                                    //成功畫面
+                                                    Swal.fire({
+                                                        icon: "success",
+                                                        title: "已加入購物車",
+                                                        text: "請盡快完成結帳",
+                                                        showConfirmButton: false,
+                                                        timer: 1500,
+                                                    }).then(() => {
+                                                        postRoomData();
+                                                        setActCount(actCount+1);
+                                                    });
+                                                } else {
                                                     Swal.fire({
                                                         icon: "error",
-                                                        title: "輸入資料有誤",
-                                                        text: "請選擇活動日期及報名人數",
+                                                        title: "尚未勾選",
+                                                        text: "請勾選同意書",
                                                         color: "#224040",
                                                         background: "#FFF",
-                                                        confirmButtonColor: "#224040",
-                                                    });}
-                                            }else{
+                                                        confirmButtonColor:
+                                                            "#224040",
+                                                    });
+                                                }
+                                            } else {
                                                 Swal.fire({
                                                     icon: "error",
-                                                    title: "未登入會員",
-                                                    text: "請先登入會員",
+                                                    title: "輸入資料有誤",
+                                                    text: "請選擇活動日期及報名人數",
                                                     color: "#224040",
-                                                    background: "#fff",
-                                                    showConfirmButton: true,
-                                                    confirmButtonColor:"#224040",
-                                                    confirmButtonText: `登入會員`,
-                                                    showDenyButton: true,
-                                                    denyButtonText: `取消`,
-                                                    denyButtonColor: "#c1a688",
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        navigate("/shuyoung/loging");
-                                                    } else if (result.isDenied) {
-                                                        navigate(-1);
-                                                    };
+                                                    background: "#FFF",
+                                                    confirmButtonColor:
+                                                        "#224040",
                                                 });
-                                                setActBookingList({
-                                                    ...actBookingList,
-                                                    actSid: "",
-                                                    actName: "",
-                                                    people: "",
-                                                    Maxpeople: "",
-                                                    date: "",
-                                                    price: "",
-                                                    totalPrice: "",
-                                                    memberId: "",
-                                                });
-                                                localStorage.removeItem("Act");
+                                            }
+                                        } else {
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: "未登入會員",
+                                                text: "請先登入會員",
+                                                color: "#224040",
+                                                background: "#fff",
+                                                showConfirmButton: true,
+                                                confirmButtonColor: "#224040",
+                                                confirmButtonText: `登入會員`,
+                                                showDenyButton: true,
+                                                denyButtonText: `取消`,
+                                                denyButtonColor: "#c1a688",
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    navigate(
+                                                        "/shuyoung/loging"
+                                                    );
+                                                } else if (result.isDenied) {
+                                                    navigate(-1);
+                                                }
+                                            });
+                                            setActBookingList({
+                                                ...actBookingList,
+                                                actSid: "",
+                                                actName: "",
+                                                people: "",
+                                                Maxpeople: "",
+                                                date: "",
+                                                price: "",
+                                                totalPrice: "",
+                                                memberId: "",
+                                                orderType: "2",
+                                            });
+                                            localStorage.removeItem("Act");
                                         }
-                                    }
-                                }
+                                    }}
                                 >
                                     預約報名
                                 </button>

@@ -15,7 +15,14 @@ function DetailParagraph(props) {
     if (ruleList.length === 0) return;
     return (
         <>
+            
             <div className="room_detail_paragraph">
+                
+                <ScrollMotionContainer element="div" className="detail_paragraph_title">
+                    <ScrollMotionItem element="h1" className="project-text">
+                        NOTICE
+                    </ScrollMotionItem>
+                </ScrollMotionContainer>
                 <ScrollMotionContainer element="div" className="description">
                     <ScrollMotionItem element="h4" className="project-text">
                         營業時間
