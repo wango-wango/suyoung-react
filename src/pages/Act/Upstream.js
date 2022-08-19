@@ -87,7 +87,7 @@ function Upstream(props) {
     // 先把localStorage 的資料存進 localRoom 裡
     useEffect(() => {
         if (auth.authorized) {
-            setActBookingList({ ...actBookingList, memberId: auth.sid });
+            setActBookingList({ ...actBookingList, memberId: auth.m_id });
         }
     }, []);
 
@@ -173,19 +173,30 @@ function Upstream(props) {
                                     name="keep"
                                     id="keepBtn"
                                     value={favlistId}
-                                    
                                     checked={favlist.length}
                                     onChange={(e) => {
                                         if (favlist.length !== 0) {
                                             deleteKeep();
-                                            alert("已移除收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已移除收藏",
+                                            });
                                         } else {
                                             setMemberKeep({
                                                 ...memberKeep,
                                                 memberId: auth.m_id,
                                                 favlistId: 3,
                                             });
-                                            alert("已加入收藏");
+                                            Swal.fire({
+                                                imageUrl:
+                                                    "/member_img/logo.svg",
+                                                confirmButtonColor: "#224040",
+                                                color: "#224040",
+                                                text: "已加入收藏",
+                                            });
                                         }
                                     }}
                                 />
@@ -264,7 +275,10 @@ function Upstream(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -286,7 +300,10 @@ function Upstream(props) {
                                         return (
                                             <SwiperSlide key={ai}>
                                                 <img
-                                                    src={"/act_imgs/" + av.filename}
+                                                    src={
+                                                        "/act_imgs/" +
+                                                        av.filename
+                                                    }
                                                     alt=""
                                                 />
                                             </SwiperSlide>
@@ -345,8 +362,8 @@ function Upstream(props) {
                                     <div className="actC">
                                         <div className="actDetail">
                                             <div className="textspace">
-                                                每人 {act[0].act_price}元，行程約 3
-                                                小時，歡迎 5~65
+                                                每人 {act[0].act_price}
+                                                元，行程約 3 小時，歡迎 5~65
                                                 歲的大小朋友預約報名唷！
                                                 <br />
                                                 活動費用含專業帶團教練
@@ -420,7 +437,10 @@ function Upstream(props) {
                                     <div className="actToggle">
                                         <div className="actTitle">
                                             <div className="top">
-                                            <h5><i className="fa-solid fa-circle-exclamation mr-2"/>注意事項</h5>
+                                                <h5>
+                                                    <i className="fa-solid fa-circle-exclamation mr-2" />
+                                                    注意事項
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
