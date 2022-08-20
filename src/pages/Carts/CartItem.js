@@ -15,6 +15,7 @@ import { useBackground } from "../../utils/useBackground";
 import { tplTransform } from "rsuite/esm/utils";
 import Axios from "axios";
 import { useCallback } from "react";
+import { useActBookingList } from "../../utils/useActBookingList";
 
 
 const _ = require("lodash");
@@ -28,6 +29,8 @@ function CartItem(props) {
   }, [])
   const { setAuth, ...auth } = useAuth()
   const { bookingCart, setBookingCart } = useBookingCart()
+  const { actBookingList, setActBookingList } = useActBookingList()
+
 
   const maxSteps = 3
 
@@ -413,7 +416,7 @@ function CartItem(props) {
 
         // 把購物車清空
         deleteTemporaryCartAll();
-
+        setActBookingList({...actBookingList,actCount:0})
         // // 把 localStorage 清空
         // localStorage.removeItem('roomItem')
         // localStorage.removeItem('Act')

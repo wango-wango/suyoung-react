@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
@@ -9,9 +9,8 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion"
 
-
 function BookingCard(props) {
-    const {roomList,setRoomList, tagList, favList, setFavList,searchName , checkPrice} = props;
+    const {roomList,tagValue, tagList, favList, setFavList,searchName , checkPrice} = props;
     // 篩選控制器重置
     const { setSearchName, setCheckRoomType, setRoomSelector, setValue, setTagValue, setRecommend, setPopular, setSearchContext} = props;
     // useContext
@@ -41,11 +40,87 @@ function BookingCard(props) {
             // 存進狀態
             setMemberKeep(newMemberKeep);
             setFavList([...favList, +roomSid]);
+            memberAlertConfirm();
         } else {
             // 刪除資料
             deleteKeep(roomSid);
+            memberAlertDeny();
         }
     };
+    const memberAlertConfirm = () => {
+        Swal.fire({
+            imageUrl: "/member_img/logo.svg",
+            title: "收藏成功",
+            text: "下次訂房可於會員中心快速查詢哦!",
+            color: "#224040",
+            background:
+                "#FFF",
+            confirmButtonColor: "#224040",
+        })
+    }
+    const memberAlertDeny = () => {
+        Swal.fire({
+            imageUrl: "/member_img/logo.svg",
+            title: "取消收藏",
+            text: "不喜歡嗎?!確定不再看看其他間嗎?!",
+            color: "#224040",
+            background:
+                "#FFF",
+            showConfirmButton: false,
+            showDenyButton: true,
+            denyButtonColor: "#952E1F",
+            denyButtonText: "我再看看其他間",
+        }).then((result)=>{
+            if(result.isDenied)
+            Swal.fire({
+                imageUrl: "/member_img/logo.svg",
+                title: "好吧！放你一馬",
+                text: "再給我去挑其他間!",
+                color: "#224040",
+                background:
+                    "#FFF",
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        })
+    }
+
+    const alertSearchError = () =>{
+        Swal.fire({
+            icon: "error",
+            title: "輸入資料有誤",
+            text: "請重新調整篩選內容!",
+            color: "#952E1F",
+            background:
+                "#FFF",
+            confirmButtonColor:
+                "#952E1F",
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                setSearchName("");
+                setSearchContext("");
+            }
+        })
+        
+    }
+    
+
+    // 如果 keep 是 unchecked 刪除該筆資料
+    const deleteKeep = async (sid) => {
+        const room_sid = sid;
+        const oldFavList = favList;
+        const newFavList = oldFavList.filter((v) => v !== +sid);
+        setFavList(newFavList);
+        const res = await Axios.delete(
+            `${BK_GET_LIST}/deleteKeep?memberId=${auth.m_id}&roomSid=${room_sid}`
+        );
+        console.log(res);
+    };
+
+    // 把會員收藏存進去資料庫
+    const postKeep = async (newMemberKeep) => {
+        await Axios.post(`${BK_GET_LIST}/addKeep`, newMemberKeep);
+    };   
 
     // 用物件的key值去排序資料 價格低到高
     function sortByKeyDown(array, key) {
@@ -64,41 +139,17 @@ function BookingCard(props) {
         });
     }
 
-    // 如果 keep 是 unchecked 刪除該筆資料
-    const deleteKeep = async (sid) => {
-        const room_sid = sid;
-        const oldFavList = favList;
-        const newFavList = oldFavList.filter((v) => v !== +sid);
-        setFavList(newFavList);
-        const res = await Axios.delete(
-            `${BK_GET_LIST}/deleteKeep?memberId=${auth.m_id}&roomSid=${room_sid}`
-        );
-        console.log(res);
-    };
-
-    const deleteTemporaryCart = async (sid) => {
-        const room_sid = sid;
-        const oldFavList = favList;
-        const newFavList = oldFavList.filter((v) => v !== +sid);
-        setFavList(newFavList);
-        const res = await Axios.delete(
-            `${BK_GET_LIST}/deleteKeep?memberId=${auth.m_id}&roomSid=${room_sid}`
-        );
-        console.log(res);
-    };
-
-    // 把會員收藏存進去資料庫
-    const postKeep = async (newMemberKeep) => {
-        await Axios.post(`${BK_GET_LIST}/addKeep`, newMemberKeep);
-    };   
-
     useEffect(() => {
+        
         const oldRoomList = roomList;
+        // 把整個資料接成一個陣列
         // const newRoomList = oldRoomList.filter((v)=>Object.values(v).join("").includes(searchName));
         const newRoomList = oldRoomList.filter((v)=>v.room_name.includes(searchName));
-        console.log(newRoomList);
         setNewRoomList(newRoomList);
-        // setNewRoomList(roomList);
+
+        // 如果篩選後沒有值 跳提醒
+        if(newRoomList.length === 0) alertSearchError();
+        
     }, [roomList,searchName])
 
     useEffect(() => {
@@ -116,14 +167,23 @@ function BookingCard(props) {
     }, [roomList,checkPrice])
     
     
-
+    
+    
     return (
         <>
             <div className="room_card_flex">
                 {newRoomList && newRoomList.length ? (
                     newRoomList.map((v, i) => {
                         return (
-                            <div className="room_card_area" key={v.sid}>
+                            <motion.div 
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity:0, y: -100 }}
+                            transition={{
+                                    duration: 0.5,
+                                    default: { ease: "linear" },
+                            }}
+                            className="room_card_area" key={v.sid}>
                                 <div className="room_card_img_area">
                                     <div className="room_card_img">
                                         <img
@@ -151,14 +211,27 @@ function BookingCard(props) {
                                     <div className="room_card_tag">
                                         {tagList.map((t, ti) => {
                                             return v.sid === t.sid ? (
-                                                <div
-                                                    className="room_card_tag_btn"
-                                                    key={ti}
-                                                >
-                                                    <span className="text">
-                                                        {t.type}
-                                                    </span>
-                                                </div>
+                                                <Fragment key={ti}>
+                                                    <input
+                                                        className="room_card_tag_btn"
+                                                        type="checkbox"
+                                                        name="tagBtn"
+                                                        id={"tagBtn-" + (ti + 1)}
+                                                        value={t.t_id}
+                                                        readOnly
+                                                        checked={tagValue.includes(
+                                                            t.t_id + ""
+                                                        )}
+                                                    />
+                                                    <label
+                                                        className="for-room_card_tag_btn"
+                                                        htmlFor={"tagBtn-" + (ti + 1)}
+                                                    >
+                                                        <span className="text">
+                                                            {t.type}
+                                                        </span>
+                                                    </label>
+                                                </Fragment>
                                             ) : null;
                                         })}
                                     </div>
@@ -234,7 +307,8 @@ function BookingCard(props) {
                                                     name="keep"
                                                     id={"keepBtn" + i}
                                                     value={v.sid}
-                                                    onClick={keepHandler}
+                                                    onChange={keepHandler}
+                                                    checked={favList.includes(v.sid)}
                                                 />
                                             ) : (
                                                 <input
@@ -243,7 +317,8 @@ function BookingCard(props) {
                                                     name="keep"
                                                     id={"keepBtn" + i}
                                                     value={v.sid}
-                                                    onClick={() => {
+                                                    checked={favList.includes(v.sid)}
+                                                    onChange={() => {
                                                         Swal.fire({
                                                             icon: "error",
                                                             title: "未登入會員",
@@ -270,7 +345,7 @@ function BookingCard(props) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })):(<motion.div 
                             initial={{ opacity: 0, y: 100 }}
@@ -284,6 +359,14 @@ function BookingCard(props) {
                         <h5>你所搜尋的條件下沒有空房，請調整搜尋內容。</h5>
                         </motion.div>)}
             </div>
+            {/* <div
+                    className="room_card_tag_btn"
+                    key={ti}
+                >
+                    <span className="text">
+                        {t.type}
+                    </span>
+                </div> */}
         </>
     );
 }

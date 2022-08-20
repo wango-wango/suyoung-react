@@ -19,12 +19,13 @@ function Index(props) {
     const { setBackground } = useBackground();
     const { spinner, setLoading } = useSpinner(2000);
      // useContext
-     const { bookingList, setBookingList } = useBookingList();
-     const { bookingCart, setBookingCart } = useBookingCart();
-     const { setAuth, ...auth } = useAuth();
+    const { bookingList, setBookingList } = useBookingList();
+    const { bookingCart, setBookingCart } = useBookingCart();
+    const { setAuth, ...auth } = useAuth();
 
     // 所有room 列表
     const [roomList, setRoomList] = useState([]);
+    
     // 所有Tag 列表
     const [tagList, setTagList] = useState([]);
     // 會員的 favList roomsid
@@ -57,6 +58,7 @@ function Index(props) {
     //  價格多少狀態
     const [checkPrice,setCheckPrice] = useState("");
 
+    
     // 用get 取得所有的值
     const getData = async () => {
         // 從 bookingList解構
@@ -84,22 +86,24 @@ function Index(props) {
 
         if(auth.m_id){
             // 取得所有favlist 的 roomSid
-        await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.m_id}`).then(
-            (response) => {
-                // setFavList(response.data);
-                setFavList(response.data.map((v) => +v.fav_list_kind));
-            }
-        );
-        await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
-            (response) => {
-                // setFavList(response.data);
-                setBookingCart(response.data);
-            }
-        );
+            await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.m_id}`).then(
+                (response) => {
+                    // setFavList(response.data);
+                    setFavList(response.data.map((v) => +v.fav_list_kind));
+                }
+            );
+            await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
+                (response) => {
+                    // setFavList(response.data);
+                    setBookingCart(response.data);
+                }
+            );
 
         }
         
     };
+
+
     // 測試後端撈資料
     // const orderDetailList = async() =>{
     //     const memberId = auth.m_id;
@@ -109,11 +113,16 @@ function Index(props) {
     //         console.log(response.data);
     //     });
     // }
+
+  
     
     // 得到bookingList 的值就執行 getData
     useEffect(() => {
+        if(bookingList.length===0) return; 
         getData();
     }, [bookingList]);
+
+    
     
     //設定背景
     useEffect(() => {
@@ -129,7 +138,7 @@ function Index(props) {
         setLoading(true);
     }, [setLoading]);
 
-
+    if(roomList.length===0)return;
     return (
         <>
             {spinner}
@@ -141,43 +150,13 @@ function Index(props) {
 
                     <div className="room_area_flex">
                         <BookingFilter searchName={searchName} setSearchName={setSearchName} checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} searchContext={searchContext} setSearchContext={setSearchContext} checkPrice={checkPrice} setCheckPrice={setCheckPrice}/>
-                        {roomList && roomList.length ? (
-                            <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} checkPrice={checkPrice} setCheckPrice={setCheckPrice} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
-                        ): (
-                            <motion.div 
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity:0, y: -100 }}
-                            transition={{
-                                    duration: 0.5,
-                                    default: { ease: "linear" },
-                            }}
-                            className="emptyRoomFilter">
-                        <h5>你所設定的條件下沒有空房，請調整篩選條件。</h5>
-                        </motion.div>
-                        )}
+                        
+                        <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} checkPrice={checkPrice} setCheckPrice={setCheckPrice} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
+                        
                         
                     </div>
                 </div>
-                {/* <button onClick={orderDetailList}>test</button> */}
                 
-                        
-                                {/* Swal.fire({
-                                    icon: "warning",
-                                    title: "無剩餘空房",
-                                    text: "請重新調整篩選",
-                                    color: "#952e1f",
-                                    background: "#FFF",
-                                    showConfirmButton: true,
-                                    confirmButtonColor: "#224040",
-                                    confirmButtonText: `是`,
-                                    
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        
-                                    }
-                                }) */}
-                            
                             
             </section>
         </>

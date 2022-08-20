@@ -3,7 +3,6 @@ import { formatInTimeZone } from 'date-fns-tz';
 import { DateRangePicker, InputNumber, InputGroup } from "rsuite";
 import { useBookingList } from "../../../utils/useBookingList";
 import useRWD from "../../../utils/useRWD";
-import { calcLength } from "framer-motion";
 const { allowedMaxDays, beforeToday, combine } = DateRangePicker;
 
 function BookingArea(props) {
@@ -19,9 +18,11 @@ function BookingArea(props) {
     });
     const [adultValue, setAdultValue] = useState(0);
     const [kidsValue, setKidsValue] = useState(0);
+    const [isActive,setIsActive] = useState(false);
 
     const device = useRWD();
 
+    // 轉換日期格式
     const formatDate = (date) => {
         var d = new Date(date),
             month = "" + (d.getMonth() + 1),
@@ -33,6 +34,48 @@ function BookingArea(props) {
 
         return [year, month, day].join("-");
     };
+
+    const dateRangePickHandler = (v) => {
+        if(v){
+            // 創造一個新的日期
+            // 切勿直接用 nextDate = v[0]; 會改變v[0]的值
+            const nextDate = new Date(v[0]);
+            // 日期＋1
+            nextDate.setDate(nextDate.getDate()+1);
+            // 轉換格式
+            const v2 = formatInTimeZone(nextDate, 'Asia/Taipei', 'yyyy-MM-dd');
+            setBookingList({
+            ...bookingList,
+            startDate: formatDate(v[0].toDateString()),
+            endDate: formatDate(v[1].toDateString()),
+            nextDate: v2,
+            perNight: (v[1] - v[0]) / 86400000,
+        });
+        setDatePicer({
+            ...datePicker,
+            startDate:formatDate(v[0].toDateString()),
+            endDate: formatDate(v[1].toDateString()),
+            perNight: (v[1] - v[0]) / 86400000,
+        });
+        setIsActive(true);
+        }else{
+            setBookingList({
+            ...bookingList,
+            startDate: "",
+            endDate: "",
+            perNight:"",
+        });
+        setDatePicer({
+            ...datePicker,
+            startDate: "",
+            endDate: "",
+            perNight: "",
+        });
+        setIsActive(false);
+        }
+    }
+
+    // 計算人數增加減少 A for Adults K for kids
     const handleMinusA = () => {
         if (adultValue > 0) {
             setAdultValue(parseInt(adultValue, 10) - 1);
@@ -93,94 +136,26 @@ function BookingArea(props) {
                 {device === "mobile" ? (<DateRangePicker
                         block
                         showOneCalendar
+                        placeholder={"請輸入入住與退房日期"}
                         disabledDate={combine(allowedMaxDays(7), beforeToday())}
                         onChange={(v) => {
-                            console.log(v);
-                            // 創造一個新的日期
-                            // 切勿直接用 nextDate = v[0]; 會改變v[0]的值
-                            const nextDate = new Date(v[0]);
-                             // 日期＋1
-                            nextDate.setDate(nextDate.getDate()+1);
-                            // 轉換格式
-                            const v2 = formatInTimeZone(nextDate, 'Asia/Taipei', 'yyyy-MM-dd');
-                            // console.log(v2);
-                            
-                            if(v){
-                                setBookingList({
-                                ...bookingList,
-                                startDate: formatDate(v[0].toDateString()),
-                                endDate: formatDate(v[1].toDateString()),
-                                nextDate: v2,
-                                perNight: (v[1] - v[0]) / 86400000,
-                            });
-                            setDatePicer({
-                                ...datePicker,
-                                startDate:formatDate(v[0].toDateString()),
-                                endDate: formatDate(v[1].toDateString()),
-                                perNight: (v[1] - v[0]) / 86400000,
-                            });
-                            }else{
-                                setBookingList({
-                                ...bookingList,
-                                startDate: "",
-                                endDate: "",
-                                perNight:"",
-                            });
-                            setDatePicer({
-                                ...datePicker,
-                                startDate: "",
-                                endDate: "",
-                                perNight: "",
-                            });
-                            }
+                            dateRangePickHandler(v);
                         }}
                     />) : (<DateRangePicker
-                        
+                        placeholder={"請輸入入住與退房日期"}
                         disabledDate={combine(allowedMaxDays(7), beforeToday())}
                         onChange={(v) => {
-                            
-                            // 日期＋1
-                            const nextDate = new Date(v[0]);
-                            nextDate.setDate(nextDate.getDate()+1);
-                            
-                            // 轉換格式
-                            const v2 = formatInTimeZone(nextDate, 'Asia/Taipei', 'yyyy-MM-dd');
-                            if(v){
-                                setBookingList({
-                                ...bookingList,
-                                startDate: formatDate(v[0].toDateString()),
-                                endDate: formatDate(v[1].toDateString()),
-                                nextDate: v2,
-                                perNight: (v[1] - v[0]) / 86400000,
-                            });
-                            setDatePicer({
-                                ...datePicker,
-                                startDate: formatDate(v[0].toDateString()),
-                                endDate: formatDate(v[1].toDateString()),
-                                perNight: (v[1] - v[0]) / 86400000,
-                            });
-                            }else{
-                                setBookingList({
-                                ...bookingList,
-                                startDate: "",
-                                endDate: "",
-                                perNight:"",
-                            });
-                            setDatePicer({
-                                ...datePicker,
-                                startDate: "",
-                                endDate: "",
-                                perNight: "",
-                            });
-                            }
+                            dateRangePickHandler(v);
                         }}
                     />)}
                     
                 </div>
                 <div className="booking_result_date">
-                    <p>
-                        共 <span>{datePicker.perNight}</span> 晚
-                    </p>
+                    {isActive ? (
+                        <p>
+                            共 <span>{datePicker.perNight}</span> 晚
+                        </p>
+                    ):null}
                     <div className="booking_result_datePicer">
                         <p>
                             入住日期: <span>{datePicker.startDate}</span>

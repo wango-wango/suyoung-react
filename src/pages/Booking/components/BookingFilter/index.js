@@ -82,7 +82,7 @@ function Index(props) {
         <div className="room_filter_container">
             <div className="room_filter_area">
                 <div className="room_filter_btn">
-                    <RoomFilterMobile checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} roomList={roomList} tagList={tagList}/>
+                    <RoomFilterMobile checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} roomList={roomList} tagList={tagList} checkPrice={checkPrice} setCheckPrice={setCheckPrice}/>
                 </div>
                 <div className='room_filter_quick'>
                     <RoomFilterQuick searchName={searchName} setSearchName={setSearchName} setSearchContext={setSearchContext} searchContext={searchContext} checkPrice={checkPrice} setCheckPrice={setCheckPrice} />

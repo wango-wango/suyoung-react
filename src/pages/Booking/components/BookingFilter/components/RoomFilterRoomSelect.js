@@ -64,7 +64,7 @@ function RoomFilterRoomSelect(props) {
                 placement="top"
                 speaker={
                     <Popover arrow={false}>
-                        點我篩選
+                        Click
                     </Popover>
                 }
             >

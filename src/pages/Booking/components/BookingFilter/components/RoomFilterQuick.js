@@ -19,14 +19,16 @@ function RoomFilterRoomSelect(props) {
     // 搜尋 控制器
     const SearchHandler = (e) => {
         const value = e.target.value;
-        if(value === "") setSearchName("");
         setSearchContext(value);
+        //如果狀態清空了 searchName 也一起清空
+        if(value === "") setSearchName("");
     };
 
     const SendSearchToBooking = () => {
         setSearchName(searchContext);
     }
 
+    // 價格排序
     const SearchPrice = (e) => {
         const value = e.target.value;
 
@@ -49,8 +51,6 @@ function RoomFilterRoomSelect(props) {
                     searchPrice: value,
                 });
                 setCheckPrice(value);
-            
-            
         }
         
         
@@ -78,7 +78,7 @@ function RoomFilterRoomSelect(props) {
                 placement="top"
                 speaker={
                     <Popover arrow={false}>
-                        點我篩選
+                        Click
                     </Popover>
                 }
             >

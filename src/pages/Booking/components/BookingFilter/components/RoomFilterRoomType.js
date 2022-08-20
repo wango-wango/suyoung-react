@@ -66,7 +66,7 @@ function RoomFIlterRoomType(props) {
                 placement="top"
                 speaker={
                     <Popover arrow={false}>
-                        點我篩選
+                        Click
                     </Popover>
                 }
             >
@@ -104,7 +104,7 @@ function RoomFIlterRoomType(props) {
                     name="tools"
                     id="tool-1"
                     value={1}
-                    onClick={RoomTypeHandler}
+                    onChange={RoomTypeHandler}
                     checked={checkroomType.includes("1")}
                 />
                 <label
@@ -120,7 +120,7 @@ function RoomFIlterRoomType(props) {
                     name="tools"
                     id="tool-2"
                     value={2}
-                    onClick={RoomTypeHandler}
+                    onChange={RoomTypeHandler}
                     checked={checkroomType.includes("2")}
                 />
                 <label
@@ -136,7 +136,7 @@ function RoomFIlterRoomType(props) {
                     name="tools"
                     id="tool-3"
                     value={3}
-                    onClick={RoomTypeHandler}
+                    onChange={RoomTypeHandler}
                     checked={checkroomType.includes("3")}
                 />
                 <label
@@ -152,7 +152,7 @@ function RoomFIlterRoomType(props) {
                     name="tools"
                     id="tool-4"
                     value={4}
-                    onClick={RoomTypeHandler}
+                    onChange={RoomTypeHandler}
                     checked={checkroomType.includes("4")}
                 />
                 <label
