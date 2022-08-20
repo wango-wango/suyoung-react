@@ -139,8 +139,8 @@ button.daylight {
     }
 
     @media screen and (max-width: 768px) {
-        right: -10%;
-        bottom: initial;
+        right: -15%;
+        bottom: 0;
         z-index: 20;
         svg {
             width: 40px;
@@ -295,6 +295,9 @@ section.member-center {
                     text-decoration: none;
                     // padding: 20px 30px;
                     padding: 20px 0;
+                    @media screen and (max-width: 376px) {
+                        padding: 22px 0;
+                    }
                     max-width: 170px;
                     border-bottom: 2px solid transparent;
                     color: rgba(255, 255, 255, 0.574);
