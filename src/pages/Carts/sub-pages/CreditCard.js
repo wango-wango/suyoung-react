@@ -41,13 +41,13 @@ export default class App extends React.Component {
     this.props.setInputs({
       number: '5568 8556 8855 6885',
       name: 'bearbear',
-      expiry: '0857',
+      expiry: '1227',
       cvc: '688',
     });
     this.setState({
       number: '5568 8556 8855 6885',
       name: 'bearbear',
-      expiry: '0857',
+      expiry: '1227',
       cvc: '688',
     })
   }
@@ -93,7 +93,7 @@ export default class App extends React.Component {
           transition={{ duration: 1 }}
         >
           <div key="Payment">
-            <h1 className="first_component_title">Payment Information</h1>
+            <h1 className="first_component_title">信用卡付款</h1>
             <div className="App-payment">
               <div className="card_flex">
                 <Card
