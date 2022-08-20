@@ -7,11 +7,7 @@ import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useBookingCart } from "../utils/useBookingCart";
 import Axios from "axios";
-import {BK_GET_LIST} from "../pages/Booking/config/ajax-path"
-
-
-
-
+import { BK_GET_LIST } from "../pages/Booking/config/ajax-path";
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
@@ -20,26 +16,23 @@ export default function Navbar() {
     const { bookingCart, setBookingCart } = useBookingCart();
     const { authorized, logout } = useAuth();
     const [totalCount, setTotalCount] = useState(0);
-    
 
     useEffect(() => {
-      if(totalCount === 0) setBookingCart([])
-    }, [totalCount])
-    
+        if (totalCount === 0) setBookingCart([]);
+    }, [totalCount]);
 
     useEffect(() => {
         // if(bookingCart.length || actBookingList.actCount)
         setTotalCount(bookingCart.length + actBookingList.actCount);
         // console.log(bookingCart.length);
         // console.log(bookingCart.length + actBookingList.actCount);
-    }, [bookingCart,actBookingList])
+    }, [bookingCart, actBookingList]);
 
     useEffect(() => {
-        if(bookingCart.length )
-        localStorage.setItem("roomItem",JSON.stringify(bookingCart));
+        if (bookingCart.length)
+            localStorage.setItem("roomItem", JSON.stringify(bookingCart));
         // console.log(bookingCart.length + actBookingList.actCount);
-    }, [bookingCart])
-
+    }, [bookingCart]);
 
     return (
         <>
@@ -62,18 +55,57 @@ export default function Navbar() {
                                 活動導覽
                                 <ul className="dropdown_menu dropdown_menu--animated dropdown_menu-2">
                                     <li className="dropdown_item-1">
-                                    <Link to="/shuyoung/act/upstream" onClick={()=>{
-                                        setActBookingList({...actBookingList,actSid:3})
-                                    }}>親子溯溪</Link></li>
-                                    <li className="dropdown_item-2" onClick={()=>{
-                                        setActBookingList({...actBookingList,actSid:1})
-                                    }}><Link to="/shuyoung/act/float">漂流探險</Link></li>
-                                    <li className="dropdown_item-3" onClick={()=>{
-                                        setActBookingList({...actBookingList,actSid:8})
-                                    }}><Link to="/shuyoung/act/night">夜遊觀星</Link></li>
-                                    <li className="dropdown_item-4" onClick={()=>{
-                                        setActBookingList({...actBookingList,actSid:5})
-                                    }}><Link to="/shuyoung/act/atv">全地形車</Link></li>
+                                        <Link
+                                            to="/shuyoung/act/upstream"
+                                            onClick={() => {
+                                                setActBookingList({
+                                                    ...actBookingList,
+                                                    actSid: 3,
+                                                });
+                                            }}
+                                        >
+                                            親子溯溪
+                                        </Link>
+                                    </li>
+                                    <li
+                                        className="dropdown_item-2"
+                                        onClick={() => {
+                                            setActBookingList({
+                                                ...actBookingList,
+                                                actSid: 1,
+                                            });
+                                        }}
+                                    >
+                                        <Link to="/shuyoung/act/float">
+                                            漂流探險
+                                        </Link>
+                                    </li>
+                                    <li
+                                        className="dropdown_item-3"
+                                        onClick={() => {
+                                            setActBookingList({
+                                                ...actBookingList,
+                                                actSid: 8,
+                                            });
+                                        }}
+                                    >
+                                        <Link to="/shuyoung/act/night">
+                                            夜遊觀星
+                                        </Link>
+                                    </li>
+                                    <li
+                                        className="dropdown_item-4"
+                                        onClick={() => {
+                                            setActBookingList({
+                                                ...actBookingList,
+                                                actSid: 5,
+                                            });
+                                        }}
+                                    >
+                                        <Link to="/shuyoung/act/atv">
+                                            全地形車
+                                        </Link>
+                                    </li>
                                 </ul>
                             </li>
                             <li className="hover">
@@ -82,7 +114,7 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div className="right-icon">
-                        {authorized ? (
+                        {authorized || auth.success === true ? (
                             <>
                                 <div className="login">
                                     <Link className="auth" to="/shuyoung">
@@ -92,17 +124,19 @@ export default function Navbar() {
                                             onClick={() => {
                                                 logout();
                                                 setBookingCart([]);
-                                                localStorage.removeItem("roomItem");
+                                                localStorage.removeItem(
+                                                    "roomItem"
+                                                );
                                                 setActBookingList({
-                                                    actSid: '',
-                                                    actName: '',
-                                                    people: '',
-                                                    Maxpeople: '',
-                                                    date: '',
-                                                    price: '',
-                                                    totalPrice: '',
-                                                    memberId: '',
-                                                    orderType: '2',
+                                                    actSid: "",
+                                                    actName: "",
+                                                    people: "",
+                                                    Maxpeople: "",
+                                                    date: "",
+                                                    price: "",
+                                                    totalPrice: "",
+                                                    memberId: "",
+                                                    orderType: "2",
                                                     actCount: 0,
                                                 });
                                             }}
@@ -122,77 +156,84 @@ export default function Navbar() {
                                 </div>
                             </>
                         )}
-                        
-                            {authorized ? (
-                                <div className="hover-list">
-                                    <ul>
-                                        <li
-                                            
-                                        >
-                                            <Link to="/shuyoung/member">
-                                                前往會員中心
-                                            </Link>
-                                        </li>
-                                        <li
-                                            onClick={() => {
-                                                    logout();
-                                                    setBookingCart([]);
-                                                    localStorage.removeItem("roomItem");
-                                                    setActBookingList({
-                                                        actSid: '',
-                                                        actName: '',
-                                                        people: '',
-                                                        Maxpeople: '',
-                                                        date: '',
-                                                        price: '',
-                                                        totalPrice: '',
-                                                        memberId: '',
-                                                        orderType: '2',
-                                                        actCount: 0,
-                                                    });
-                                                }}
-                                        >
-                                            登出
-                                        </li>
-                                    </ul>
-                                </div>
-                            ) : (
-                              null
-                            )}
-                        
 
-                        {isActive ? (<div
-                            className="cart"
-                            onClick={() => {
-                                setIsActive(!isActive);
-                            }}>
-                            <Link
-                                to="/shuyoung/Cart"
-                                className={isActive ? " auth active" : "auth"}
-                            >
-                                <FaShoppingCart
-                                    className="iconCart"
-                                    size="30px"
-                                />
-                                {totalCount > 0 ? (<div className="CartCount"><p>{totalCount}</p></div>):null}
-                            </Link>
-                        </div>):(
+                        {authorized || auth.success === true ? (
+                            <div className="hover-list">
+                                <ul>
+                                    <li>
+                                        <Link to="/shuyoung/member">
+                                            前往會員中心
+                                        </Link>
+                                    </li>
+                                    <li
+                                        onClick={() => {
+                                            logout();
+                                            setBookingCart([]);
+                                            localStorage.removeItem("roomItem");
+                                            setActBookingList({
+                                                actSid: "",
+                                                actName: "",
+                                                people: "",
+                                                Maxpeople: "",
+                                                date: "",
+                                                price: "",
+                                                totalPrice: "",
+                                                memberId: "",
+                                                orderType: "2",
+                                                actCount: 0,
+                                            });
+                                        }}
+                                    >
+                                        登出
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : null}
+
+                        {isActive ? (
                             <div
-                            className="cart">
-                            <Link
-                                to="/shuyoung/Cart"
-                                className={isActive ? " auth active" : "auth"}
+                                className="cart"
+                                onClick={() => {
+                                    setIsActive(!isActive);
+                                }}
                             >
-                                <FaShoppingCart
-                                    className="iconCart"
-                                    size="30px"
-                                />
-                                {totalCount > 0 ? (<div className="CartCount"><p>{totalCount}</p></div>):null}
-
-                            </Link>
-                        </div>
+                                <Link
+                                    to="/shuyoung/Cart"
+                                    className={
+                                        isActive ? " auth active" : "auth"
+                                    }
+                                >
+                                    <FaShoppingCart
+                                        className="iconCart"
+                                        size="30px"
+                                    />
+                                    {totalCount > 0 ? (
+                                        <div className="CartCount">
+                                            <p>{totalCount}</p>
+                                        </div>
+                                    ) : null}
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="cart">
+                                <Link
+                                    to="/shuyoung/Cart"
+                                    className={
+                                        isActive ? " auth active" : "auth"
+                                    }
+                                >
+                                    <FaShoppingCart
+                                        className="iconCart"
+                                        size="30px"
+                                    />
+                                    {totalCount > 0 ? (
+                                        <div className="CartCount">
+                                            <p>{totalCount}</p>
+                                        </div>
+                                    ) : null}
+                                </Link>
+                            </div>
                         )}
-                        
 
                         <button
                             className="hamburger"

@@ -317,13 +317,28 @@ const Info = () => {
                                             電子郵件：
                                         </div>
                                         <div className="input_group">
-                                            <Field
-                                                name="email"
-                                                type="email"
-                                                placeholder="電子郵件"
-                                                value={values.email}
-                                                onChange={handleChange}
-                                            />
+                                            {auth.m_google_id ? (
+                                                <>
+                                                    {" "}
+                                                    <Field
+                                                        name="email"
+                                                        type="email"
+                                                        placeholder="電子郵件"
+                                                        value={values.email}
+                                                        onChange={handleChange}
+                                                        disabled
+                                                    />
+                                                </>
+                                            ) : (
+                                                <Field
+                                                    name="email"
+                                                    type="email"
+                                                    placeholder="電子郵件"
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                />
+                                            )}
+
                                             <span className="error-msg">
                                                 <ErrorMessage name="email" />
                                             </span>

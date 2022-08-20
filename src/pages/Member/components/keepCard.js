@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -11,7 +11,18 @@ const KeepCard = (props) => {
 
     const { bookingList, setBookingList } = useBookingList();
 
-    const { favlist1 } = props;
+    const { favlist1, setFavlist1 } = props;
+
+    const getData = async () => {
+        const res = await axios.get(
+            `http://localhost:3700/member/favlist/${auth.m_id}`
+        );
+
+        console.log(res.data);
+        const favlist = res.data;
+
+        setFavlist1(favlist.room);
+    };
 
     const deleteKeep = async (sid) => {
         const room_sid = sid;
@@ -21,6 +32,8 @@ const KeepCard = (props) => {
         );
 
         console.log(res);
+
+        getData();
     };
 
     return (

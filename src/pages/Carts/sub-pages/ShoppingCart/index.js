@@ -57,7 +57,7 @@ function Index(props) {
 
   return (
     <>
-      <h1 className="first_component_title">SHOPPING CART</h1>
+      <h1 className="first_component_title">購物車內容</h1>
       <div className="room_info_and_web_component1">
         <div className="w100">
           <RoomInfo
