@@ -24,7 +24,7 @@ function Index(props) {
     const { setAuth, ...auth } = useAuth();
 
     // 所有room 列表
-    const [roomList, setRoomList] = useState([]);
+    const [roomList, setRoomList] = useState();
     
     // 所有Tag 列表
     const [tagList, setTagList] = useState([]);
@@ -81,7 +81,7 @@ function Index(props) {
         ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
-            console.log(response.data.roomList);
+            // console.log(response.data.roomList);
         });
 
         if(auth.m_id){
@@ -118,7 +118,7 @@ function Index(props) {
     
     // 得到bookingList 的值就執行 getData
     useEffect(() => {
-        if(bookingList.length===0) return; 
+        if(bookingList.length===0)return;
         getData();
     }, [bookingList]);
 
@@ -138,7 +138,7 @@ function Index(props) {
         setLoading(true);
     }, [setLoading]);
 
-    if(roomList.length===0)return;
+    // if(roomList.length===0)return;
     return (
         <>
             {spinner}

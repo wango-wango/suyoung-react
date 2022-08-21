@@ -140,7 +140,7 @@ function BookingCard(props) {
     }
 
     useEffect(() => {
-        
+        if(!roomList) return;
         const oldRoomList = roomList;
         // 把整個資料接成一個陣列
         // const newRoomList = oldRoomList.filter((v)=>Object.values(v).join("").includes(searchName));
@@ -148,9 +148,19 @@ function BookingCard(props) {
         setNewRoomList(newRoomList);
 
         // 如果篩選後沒有值 跳提醒
-        if(newRoomList.length === 0) alertSearchError();
-        
+
     }, [roomList,searchName])
+
+    useEffect(() => {
+        
+        if(!newRoomList) return;
+        if(newRoomList.length === 0){
+            alertSearchError();
+        }
+    }, [newRoomList])
+    
+
+
 
     useEffect(() => {
         // 沒有值就return 掉
@@ -357,6 +367,7 @@ function BookingCard(props) {
                             }}
                             className="emptyRoomSearch">
                         <h5>你所搜尋的條件下沒有空房，請調整搜尋內容。</h5>
+                        {/* {alertSearchError()} */}
                         </motion.div>)}
             </div>
             {/* <div

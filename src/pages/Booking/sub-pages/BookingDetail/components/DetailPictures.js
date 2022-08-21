@@ -17,18 +17,18 @@ function DetailPictures(props) {
         if(device === "PC"){
             textMoveX = 700;
             imgMoveX = 500;
-            console.log("PC");
-            console.log(textMoveX,imgMoveX);
+            // console.log("PC");
+            // console.log(textMoveX,imgMoveX);
         }else if (device === "tablet"){
             textMoveX = 500;
             imgMoveX = 500;
-            console.log("tablet");
-            console.log(textMoveX,imgMoveX);
+            // console.log("tablet");
+            // console.log(textMoveX,imgMoveX);
         }else if ( device ==="mobile"){
             textMoveX = 100;
             imgMoveX = 100;
-            console.log("mobile");
-            console.log(textMoveX,imgMoveX);
+            // console.log("mobile");
+            // console.log(textMoveX,imgMoveX);
         }
 
         for (let i = 1; i <= 5; i += 2) {

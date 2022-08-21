@@ -35,7 +35,7 @@ function Index(props) {
     const [ruleList, setRuleList] = useState([]);
 
     // 專門存來自bookingList 和 後端傳回來的roomList
-    const [localRoomList, setlocalRoomList] = useState({});
+    const [localRoomList, setLocalRoomList] = useState({});
 
     // 把 room的資料存進去
     const [localRoom, setLocalRoom] = useState({});
@@ -54,35 +54,38 @@ function Index(props) {
 
     // getData 後 取得 roomList 
     useEffect(() => {
-        // 如果roomList 有值的話
+        // 如果roomList 有值的話 計算 totalPrice 
         if (roomList.length >= 1) {
-            // 計算 totalPrice 
             const total =
                 roomList[0].room_price * localRoom.perNight +
                 localRoom.kids * 200;
-                console.log("total:",total);
-
+                // console.log("total:",total);
+            /* ------- bookingList和room 存不存沒差 ------- */
             // 把total 金額存進去bookingList
             setBookingList({ ...bookingList, roomTotalPrice: total });
             // 先把舊localStorage的取出來
-            const newLocalStorage = JSON.parse(localStorage.getItem("room"));
+            const oldLocalStorage = JSON.parse(localStorage.getItem("room"));
             // 再用解構的方式 加入 totalPrice 
             localStorage.setItem(
                 "room",
-                JSON.stringify({ ...newLocalStorage, roomTotalPrice: total })
+                JSON.stringify({ ...oldLocalStorage, roomTotalPrice: total })
             );
+
+            /* ------ 這裡才是重點 ------ */
+            // 把 localStorge 和 roomList roomTotalPrice 全部存進去localRoomList中
+            setLocalRoomList({ ...localRoom, ...roomList[0],roomTotalPrice: total})
         }
         
     }, [roomList]);
     
     
 
-    useEffect(() => {
-        //確認 roomList 有值 才把資料存進去localRoomList
-    if (roomList.length >= 1) {
-      setlocalRoomList({ ...bookingList, ...roomList[0] })
-    }
-  }, [bookingList])
+  //   useEffect(() => {
+  //       //確認 roomList 有值 才把資料存進去localRoomList
+  //   if (roomList.length >= 1) {
+  //     setlocalRoomList({ ...localRoom, ...roomList[0] })
+  //   }
+  // }, [bookingList])
 
 
 
