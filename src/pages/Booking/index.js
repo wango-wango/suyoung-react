@@ -34,6 +34,16 @@ function Index(props) {
 
     /* ------ 監控所有篩選按鍵的狀態 ------ */
 
+    // 確認日期狀態
+    const [datePicker, setDatePicer] = useState({
+        startDate: "",
+        endDate: "",
+        perNight: "",
+        nextDate:"",
+    });
+    // 確認人數狀態
+    const [adultValue, setAdultValue] = useState(0);
+    const [kidsValue, setKidsValue] = useState(0);
     // 房型確認狀態
     const [checkroomType, setCheckRoomType] = useState([]);
 
@@ -92,6 +102,7 @@ function Index(props) {
                     setFavList(response.data.map((v) => +v.fav_list_kind));
                 }
             );
+            // 取得會員購物車內的資料 登入時就可以直接匯入購物車資料
             await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
                 (response) => {
                     // setFavList(response.data);
@@ -145,14 +156,13 @@ function Index(props) {
             <section className="Booking">
                 <div className="Booking_container">
                     <div className="booking_area_container">
-                        <BookingArea />
+                        <BookingArea adultValue={adultValue} setAdultValue={setAdultValue} kidsValue={kidsValue} setKidsValue={setKidsValue} datePicker={datePicker} setDatePicer={setDatePicer}/>
                     </div>
 
                     <div className="room_area_flex">
                         <BookingFilter searchName={searchName} setSearchName={setSearchName} checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} searchContext={searchContext} setSearchContext={setSearchContext} checkPrice={checkPrice} setCheckPrice={setCheckPrice}/>
                         
                         <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} checkPrice={checkPrice} setCheckPrice={setCheckPrice} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
-                        
                         
                     </div>
                 </div>
