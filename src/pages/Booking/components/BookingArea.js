@@ -208,7 +208,7 @@ function BookingArea(props) {
                     <div className="booking_result_PersonNum">
                         <p>
                             <span>{personCount.adults}</span> 位成人 |{" "}
-                            <span>{personCount.kids}</span>位小孩
+                            <span>{personCount.kids}</span> 位小孩
                         </p>
                         <p>每加一位小孩需付人頭費(NT.200)</p>
                     </div>
