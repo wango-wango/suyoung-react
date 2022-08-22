@@ -42,23 +42,28 @@ function RecipesPage2(props) {
         clearInterval(timer)
     }
 
-    const step2 =()=> {
-        setMinutes(10)
+    const step1 =()=> {
+        setMinutes(5)
         setSeconds(0)
     }
 
-    const step3 =()=> {
+    const step2 =()=> {
         setMinutes(7)
         setSeconds(0)
     }
 
+    const step3 =()=> {
+        setMinutes(5)
+        setSeconds(0)
+    }
+
     const step4 =()=> {
-        setMinutes(3)
+        setMinutes(4)
         setSeconds(0)
     }
 
     const step5 =()=> {
-        setMinutes(5)
+        setMinutes(3)
         setSeconds(0)
     }
 
@@ -231,7 +236,7 @@ function RecipesPage2(props) {
                             </div>                            
                             <div className="d-none d-md-flex col-md-10 m-auto">
                                 <div className="col-md-3 border-end border-2">
-                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => toggleTab(1)}>Step 1.</div>
+                                    <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(1);step1()}}>Step 1.</div>
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(2);step2()}}>Step 2.</div>
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(3);step3()}}>Step 3.</div>
                                     <div className="step_button col-md-7 m-auto text-center rounded-pill border border-dark my-5 py-1 recipe_title" onClick={() => {toggleTab(4);step4()}}>Step 4.</div>
