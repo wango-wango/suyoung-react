@@ -24,6 +24,29 @@ export const BookingProvider = ({ children }) => {
         orderType: "1",
     });
 
+    const clearBookingList = () => {
+      setBookingList(
+        {...bookingList,
+          roomSid: "",
+          adults: "",
+          kids: 0,
+          startDate: "",
+          endDate: "",
+          perNight: "",
+          roomType: [],
+          startPrice: "",
+          endPrice: "",
+          tagCheck: [],
+          popular: "",
+          recommend: "",
+          roomSelector: [],
+          searchPrice:"",
+          roomTotalPrice:"",
+          nextDate:"",
+          orderType: "1",
+      }
+      )
+    }
     
 
   return (

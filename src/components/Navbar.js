@@ -6,12 +6,14 @@ import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useBookingCart } from "../utils/useBookingCart";
+import { useBookingList } from "../utils/useBookingList";
 import Axios from "axios";
 import { BK_GET_LIST } from "../pages/Booking/config/ajax-path";
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const { actBookingList, setActBookingList } = useActBookingList();
+    const { clearBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
     const { bookingCart, setBookingCart } = useBookingCart();
     const { authorized, logout } = useAuth();
@@ -109,7 +111,7 @@ export default function Navbar() {
                                 </ul>
                             </li>
                             <li className="hover">
-                                <Link to="/shuyoung/Booking">預約訂位</Link>
+                                <Link to="/shuyoung/Booking" onClick={()=>clearBookingList()}>預約訂位</Link>
                             </li>
                         </ul>
                     </div>
@@ -127,6 +129,7 @@ export default function Navbar() {
                                                 localStorage.removeItem(
                                                     "roomItem"
                                                 );
+                                                clearBookingList();
                                                 setActBookingList({
                                                     actSid: "",
                                                     actName: "",
@@ -170,6 +173,7 @@ export default function Navbar() {
                                             logout();
                                             setBookingCart([]);
                                             localStorage.removeItem("roomItem");
+                                            clearBookingList();
                                             setActBookingList({
                                                 actSid: "",
                                                 actName: "",
