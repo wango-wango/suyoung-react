@@ -36,8 +36,8 @@ const OrderList = () => {
         const act = res.data.act;
         const room = res.data.room;
 
-        console.log(act);
-        console.log(room);
+        // console.log(act);
+        // console.log(room);
 
         function mergeDuplicateObject(arr1, arr2) {
             const newArr = arr1.map((item, index) => {
@@ -78,7 +78,7 @@ const OrderList = () => {
                 return Object.values(item).join("").includes(searchInput);
             });
 
-            console.log(filterData);
+            // console.log(filterData);
 
             setOrderList(filterData);
         } else {
@@ -126,7 +126,7 @@ const OrderList = () => {
                                         value={v}
                                         onChange={(e) => {
                                             setMonth(e.target.value);
-                                            console.log(e.target.value);
+                                            // console.log(e.target.value);
                                         }}
                                     />
                                     <span className="month-round button">

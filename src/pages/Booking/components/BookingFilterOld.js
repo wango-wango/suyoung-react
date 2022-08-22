@@ -111,7 +111,7 @@ function BookingFilter(props) {
     // RoomType 房型控制器
     const RoomTypeHandler = (e) => {
         const value = e.target.value;
-        console.log(typeof value);
+        // console.log(typeof value);
         //先判斷是否有在likeList狀態陣列中
         if (checkroomType.includes(e.target.value)) {
             // if有 -> 移出陣列
@@ -221,11 +221,11 @@ function BookingFilter(props) {
         getData();
     }, []);
     useEffect(() => {
-        if(bookingList.roomSelector.length !== 0){
+        if (bookingList.roomSelector.length !== 0) {
             setRoomSelector(bookingList.roomSelector);
         }
-    }, [bookingList])
-    
+    }, [bookingList]);
+
     return (
         <>
             <div className="room_filter_container">

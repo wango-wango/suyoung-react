@@ -13,8 +13,10 @@ const WheaterCard = () => {
 
     useEffect(() => {
         const getWheaterData = () => {
-            
-            var todayDate = new Date().toLocaleDateString().split('/').join('-');
+            var todayDate = new Date()
+                .toLocaleDateString()
+                .split("/")
+                .join("-");
 
             const location = [];
             const sunRiseTime = [];
@@ -25,7 +27,7 @@ const WheaterCard = () => {
                     `https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001?Authorization=CWB-C1B66493-77AD-47A1-9DCD-8DDE1B0F2090&offset=0&format=JSON&locationName=&dataTime=${todayDate}&timeFrom=2022-08-03&timeTo=${todayDate}&sort=locationName`
                 )
                 .then((res) => {
-                    console.log(res.data.records.locations.location);
+                    // console.log(res.data.records.locations.location);
                     const neededData = res.data.records.locations.location;
 
                     neededData.map((v, i) => {
@@ -40,14 +42,14 @@ const WheaterCard = () => {
                             sunRiseTime: sunRiseTime[data],
                             sunSetTime: sunSetTime[data],
                         };
-                        console.log(cityData);
+                        // console.log(cityData);
                         setCurrentSun({ dataTime: todayDate, ...cityData });
                     }
                     getCityData(4);
                 })
 
                 .catch((err) => {
-                    console.log("err:", err);
+                    // console.log("err:", err);
                 });
         };
 

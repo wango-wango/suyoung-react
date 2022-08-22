@@ -17,7 +17,7 @@ const Coupon = (props) => {
             );
 
             const result = res.data.result;
-            console.log(result);
+            // console.log(result);
 
             let coupon = [];
 

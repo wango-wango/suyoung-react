@@ -36,12 +36,12 @@ const Info = () => {
         area: auth.m_area ? auth.m_area : "",
     });
 
-    console.log(fields);
+    // console.log(fields);
 
     const getUserData = () => {
         axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
             if (res) {
-                console.log(res.data.user);
+                // console.log(res.data.user);
                 setAuth({ ...auth, ...res.data.user });
             } else {
                 Swal.fire({
@@ -62,14 +62,14 @@ const Info = () => {
     const handleUpdate = async (values) => {
         // e.preventDefault();
 
-        console.log(values);
+        // console.log(values);
 
         const county = fields.county;
         const area = fields.area;
 
         const finalForm = { ...values, county: county, area: area };
 
-        console.log(finalForm);
+        // console.log(finalForm);
 
         const res = await axios.put(
             `http://localhost:3700/member/${auth.m_id}`,
@@ -85,13 +85,13 @@ const Info = () => {
 
         getUserData();
 
-        console.log(res);
+        // console.log(res);
     };
 
     const changeHandler = (e) => {
         const file = e.target.files[0];
 
-        console.log(file.name);
+        // console.log(file.name);
 
         if (file) {
             setIsFilePicked(true);
@@ -109,7 +109,7 @@ const Info = () => {
 
         formData.append("avatar", selectedFile);
 
-        console.log(formData);
+        // console.log(formData);
 
         fetch(
             `http://localhost:3700/member/upload-avatar/${auth.m_id}`, //server url
@@ -120,7 +120,7 @@ const Info = () => {
         )
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
+                // console.log(result);
                 setImgServerUrl(
                     "http://localhost:3700/avatar_img/" + result.data.name
                 );
@@ -163,7 +163,7 @@ const Info = () => {
         }
 
         const objectUrl = URL.createObjectURL(selectedFile);
-        console.log(objectUrl);
+        // console.log(objectUrl);
         setPreview(objectUrl);
 
         // 當元件unmounted時清除記憶體
@@ -246,7 +246,7 @@ const Info = () => {
                                     .required("此欄位不可為空"),
                             })}
                             onSubmit={(values) => {
-                                console.log(values);
+                                // console.log(values);
                                 handleUpdate(values);
                             }}
                         >
