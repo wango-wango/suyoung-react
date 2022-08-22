@@ -18,7 +18,7 @@ const KeepCard = (props) => {
             `http://localhost:3700/member/favlist/${auth.m_id}`
         );
 
-        console.log(res.data);
+        // console.log(res.data);
         const favlist = res.data;
 
         setFavlist1(favlist.room);
@@ -31,7 +31,7 @@ const KeepCard = (props) => {
             `http://localhost:3700/member/favlist?member=${auth.m_id}&roomSid=${room_sid}`
         );
 
-        console.log(res);
+        // console.log(res);
 
         getData();
     };

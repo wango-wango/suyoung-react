@@ -94,7 +94,7 @@ function Atv(props) {
     const postData = () => {
         Axios.post(`http://localhost:3700/member/favlist/act`, memberKeep).then(
             (res) => {
-                console.log(res);
+                // console.log(res);
                 getFav();
             }
         );
@@ -102,7 +102,7 @@ function Atv(props) {
 
     useEffect(() => {
         // if (memberKeep.memberId !== "" && memberKeep.favlistId !== "") {
-        console.log({ memberKeep });
+        // console.log({ memberKeep });
         if (!!memberKeep.memberId && !!memberKeep.favlistId) {
             // console.log("postData!");
             postData();
@@ -242,14 +242,15 @@ function Atv(props) {
                                 <button
                                     className="btn btn-dark"
                                     onClick={() => {
-                                        setActBookingList({...actBookingList,
+                                        setActBookingList({
+                                            ...actBookingList,
                                             actSid: act[0].act_id,
                                             Maxpeople: act[0].max_people,
                                             price: act[0].act_price,
                                             actName: act[0].act_name,
                                             people: 1,
                                             actImg: act[0].filename,
-                                            });
+                                        });
                                     }}
                                 >
                                     預約報名

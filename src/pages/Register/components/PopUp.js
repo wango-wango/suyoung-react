@@ -25,7 +25,7 @@ function Example() {
             field
         );
 
-        console.log(res);
+        // console.log(res);
         handleClose();
 
         Swal.fire({

@@ -26,11 +26,11 @@ const MemberCenter = () => {
 
     const [step, setStep] = useState(0);
 
-    const { spinner, setLoading } = useSpinner(4000);
+    const { spinner, setLoading } = useSpinner(2000);
 
     const { background, setBackground } = useBackground();
 
-    const {getMemberCart} = useBookingCart();
+    const { getMemberCart } = useBookingCart();
     useEffect(() => {
         setBackground("bglayer.svg");
     }, []);
@@ -63,19 +63,19 @@ const MemberCenter = () => {
             )
             .then((res) => {
                 if (res) {
-                    console.log(res.data);
+                    // console.log(res.data);
                     const newAuth = res.data;
                     setAuth({ ...auth, ...newAuth, authorized: true });
                     localStorage.setItem("auth", JSON.stringify(newAuth));
                 }
             });
-            getMemberCart();
+        getMemberCart();
     };
 
     const getUserData = () => {
         axios.get(`http://localhost:3700/member/${auth.m_id}`).then((res) => {
             if (res) {
-                console.log(res);
+                // console.log(res);
 
                 const newAuth = res.data.user;
 

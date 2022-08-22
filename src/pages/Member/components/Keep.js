@@ -18,7 +18,7 @@ const Keep = () => {
             `http://localhost:3700/member/favlist/${auth.m_id}`
         );
 
-        console.log(res);
+        // console.log(res);
 
         const favlist = res.data;
 

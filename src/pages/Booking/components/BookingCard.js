@@ -7,12 +7,29 @@ import { useBookingList } from "../../../utils/useBookingList";
 import { useAuth } from "../../Login/sub-pages/AuthProvider";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 function BookingCard(props) {
-    const {roomList,tagValue, tagList, favList, setFavList,searchName , checkPrice} = props;
+    const {
+        roomList,
+        tagValue,
+        tagList,
+        favList,
+        setFavList,
+        searchName,
+        checkPrice,
+    } = props;
     // 篩選控制器重置
-    const { setSearchName, setCheckRoomType, setRoomSelector, setValue, setTagValue, setRecommend, setPopular, setSearchContext} = props;
+    const {
+        setSearchName,
+        setCheckRoomType,
+        setRoomSelector,
+        setValue,
+        setTagValue,
+        setRecommend,
+        setPopular,
+        setSearchContext,
+    } = props;
     // useContext
     const { bookingList, setBookingList } = useBookingList();
     const { setAuth, ...auth } = useAuth();
@@ -24,7 +41,7 @@ function BookingCard(props) {
         favType: 1,
     });
 
-    const [ newRoomList, setNewRoomList ] = useState(roomList);
+    const [newRoomList, setNewRoomList] = useState();
     // 控制 收藏功能
     const keepHandler = (e) => {
         const checked = e.target.checked;
@@ -33,8 +50,11 @@ function BookingCard(props) {
 
         if (checked) {
             // 先存一個新的
-            const newMemberKeep = {...memberKeep,roomSid: roomSid,
-                memberId: memberId};
+            const newMemberKeep = {
+                ...memberKeep,
+                roomSid: roomSid,
+                memberId: memberId,
+            };
             // 存進資料庫
             postKeep(newMemberKeep);
             // 存進狀態
@@ -53,57 +73,50 @@ function BookingCard(props) {
             title: "收藏成功",
             text: "下次訂房可於會員中心快速查詢哦!",
             color: "#224040",
-            background:
-                "#FFF",
+            background: "#FFF",
             confirmButtonColor: "#224040",
-        })
-    }
+        });
+    };
     const memberAlertDeny = () => {
         Swal.fire({
             imageUrl: "/member_img/logo.svg",
             title: "取消收藏",
             text: "不喜歡嗎?!確定不再看看其他間嗎?!",
             color: "#224040",
-            background:
-                "#FFF",
+            background: "#FFF",
             showConfirmButton: false,
             showDenyButton: true,
             denyButtonColor: "#952E1F",
             denyButtonText: "我再看看其他間",
-        }).then((result)=>{
-            if(result.isDenied)
-            Swal.fire({
-                imageUrl: "/member_img/logo.svg",
-                title: "好吧！放你一馬",
-                text: "再給我去挑其他間!",
-                color: "#224040",
-                background:
-                    "#FFF",
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        })
-    }
+        }).then((result) => {
+            if (result.isDenied)
+                Swal.fire({
+                    imageUrl: "/member_img/logo.svg",
+                    title: "好吧！放你一馬",
+                    text: "再給我去挑其他間!",
+                    color: "#224040",
+                    background: "#FFF",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+        });
+    };
 
-    const alertSearchError = () =>{
+    const alertSearchError = () => {
         Swal.fire({
             icon: "error",
             title: "輸入資料有誤",
             text: "請重新調整篩選內容!",
             color: "#952E1F",
-            background:
-                "#FFF",
-            confirmButtonColor:
-                "#952E1F",
-        }).then((result)=>{
+            background: "#FFF",
+            confirmButtonColor: "#952E1F",
+        }).then((result) => {
             if (result.isConfirmed) {
                 setSearchName("");
                 setSearchContext("");
             }
-        })
-        
-    }
-    
+        });
+    };
 
     // 如果 keep 是 unchecked 刪除該筆資料
     const deleteKeep = async (sid) => {
@@ -114,87 +127,83 @@ function BookingCard(props) {
         const res = await Axios.delete(
             `${BK_GET_LIST}/deleteKeep?memberId=${auth.m_id}&roomSid=${room_sid}`
         );
-        console.log(res);
+        // console.log(res);
     };
 
     // 把會員收藏存進去資料庫
     const postKeep = async (newMemberKeep) => {
         await Axios.post(`${BK_GET_LIST}/addKeep`, newMemberKeep);
-    };   
+    };
 
     // 用物件的key值去排序資料 價格低到高
     function sortByKeyDown(array, key) {
-        return array.sort(function(a, b) {
-            var x = a[key]; 
+        return array.sort(function (a, b) {
+            var x = a[key];
             var y = b[key];
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            return x < y ? -1 : x > y ? 1 : 0;
         });
     }
 
     // 用物件的key值去排序資料 價格高到低
     function sortByKeyUp(array, key) {
-        return array.sort(function(a, b) {
-            var x = a[key]; 
+        return array.sort(function (a, b) {
+            var x = a[key];
             var y = b[key];
-            return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+            return x < y ? 1 : x > y ? -1 : 0;
         });
     }
 
     useEffect(() => {
-        if(!roomList) return;
+        if (!roomList) return;
         const oldRoomList = roomList;
         // 把整個資料接成一個陣列
         // const newRoomList = oldRoomList.filter((v)=>Object.values(v).join("").includes(searchName));
-        const newRoomList = oldRoomList.filter((v)=>v.room_name.includes(searchName));
+        const newRoomList = oldRoomList.filter((v) =>
+            v.room_name.includes(searchName)
+        );
         setNewRoomList(newRoomList);
 
         // 如果篩選後沒有值 跳提醒
-
-    }, [roomList,searchName])
+    }, [roomList, searchName]);
 
     useEffect(() => {
-        
-        if(!newRoomList) return;
-        if(newRoomList.length === 0){
+        if (!newRoomList) return;
+        if (newRoomList.length === 0) {
             alertSearchError();
         }
-    }, [newRoomList])
-    
-
-
+    }, [newRoomList]);
 
     useEffect(() => {
         // 沒有值就return 掉
-        if(checkPrice === "") return;
+        if (checkPrice === "") return;
         // 複製roomList
         const DownRoomList = [...roomList];
         const UpRoomList = [...roomList];
         // 拿去排序
-        sortByKeyDown(DownRoomList,"room_price"); 
-        sortByKeyUp(UpRoomList,"room_price"); 
+        sortByKeyDown(DownRoomList, "room_price");
+        sortByKeyUp(UpRoomList, "room_price");
         // 看按鈕的值 改變newRoomList 的值
-        if(checkPrice === "1") setNewRoomList(DownRoomList);
-        if(checkPrice === "2") setNewRoomList(UpRoomList);
-    }, [roomList,checkPrice])
-    
-    
-    
-    
+        if (checkPrice === "1") setNewRoomList(DownRoomList);
+        if (checkPrice === "2") setNewRoomList(UpRoomList);
+    }, [roomList, checkPrice]);
+
     return (
         <>
             <div className="room_card_flex">
                 {newRoomList && newRoomList.length ? (
                     newRoomList.map((v, i) => {
                         return (
-                            <motion.div 
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity:0, y: -100 }}
-                            transition={{
+                            <motion.div
+                                initial={{ opacity: 0, y: 100 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -100 }}
+                                transition={{
                                     duration: 0.5,
                                     default: { ease: "linear" },
-                            }}
-                            className="room_card_area" key={v.sid}>
+                                }}
+                                className="room_card_area"
+                                key={v.sid}
+                            >
                                 <div className="room_card_img_area">
                                     <div className="room_card_img">
                                         <img
@@ -227,7 +236,9 @@ function BookingCard(props) {
                                                         className="room_card_tag_btn"
                                                         type="checkbox"
                                                         name="tagBtn"
-                                                        id={"tagBtn-" + (ti + 1)}
+                                                        id={
+                                                            "tagBtn-" + (ti + 1)
+                                                        }
                                                         value={t.t_id}
                                                         readOnly
                                                         checked={tagValue.includes(
@@ -236,7 +247,9 @@ function BookingCard(props) {
                                                     />
                                                     <label
                                                         className="for-room_card_tag_btn"
-                                                        htmlFor={"tagBtn-" + (ti + 1)}
+                                                        htmlFor={
+                                                            "tagBtn-" + (ti + 1)
+                                                        }
                                                     >
                                                         <span className="text">
                                                             {t.type}
@@ -266,7 +279,6 @@ function BookingCard(props) {
                                                 <button
                                                     className="room_card_button"
                                                     onClick={() => {
-
                                                         if (
                                                             bookingList &&
                                                             bookingList.startDate &&
@@ -319,7 +331,9 @@ function BookingCard(props) {
                                                     id={"keepBtn" + i}
                                                     value={v.sid}
                                                     onChange={keepHandler}
-                                                    checked={favList.includes(v.sid)}
+                                                    checked={favList.includes(
+                                                        v.sid
+                                                    )}
                                                 />
                                             ) : (
                                                 <input
@@ -328,7 +342,9 @@ function BookingCard(props) {
                                                     name="keep"
                                                     id={"keepBtn" + i}
                                                     value={v.sid}
-                                                    checked={favList.includes(v.sid)}
+                                                    checked={favList.includes(
+                                                        v.sid
+                                                    )}
                                                     onChange={() => {
                                                         Swal.fire({
                                                             icon: "error",
@@ -342,7 +358,7 @@ function BookingCard(props) {
                                                     }}
                                                 />
                                             )}
-                                            
+
                                             <label
                                                 className="for-checkbox-tools"
                                                 htmlFor={"keepBtn" + i}
@@ -358,18 +374,22 @@ function BookingCard(props) {
                                 </div>
                             </motion.div>
                         );
-                    })):(<motion.div 
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity:0, y: -100 }}
-                            transition={{
-                                    duration: 0.5,
-                                    default: { ease: "linear" },
-                            }}
-                            className="emptyRoomSearch">
+                    })
+                ) : (
+                    <motion.div
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -100 }}
+                        transition={{
+                            duration: 0.5,
+                            default: { ease: "linear" },
+                        }}
+                        className="emptyRoomSearch"
+                    >
                         <h5>你所搜尋的條件下沒有空房，請調整搜尋內容。</h5>
                         {/* {alertSearchError()} */}
-                        </motion.div>)}
+                    </motion.div>
+                )}
             </div>
             {/* <div
                     className="room_card_tag_btn"

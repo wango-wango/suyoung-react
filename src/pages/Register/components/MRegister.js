@@ -11,7 +11,7 @@ import {
     MouseParallaxChild,
 } from "react-parallax-mouse";
 import { nodeName } from "rsuite/esm/DOMHelper";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 //============前端驗證=============
 
@@ -50,7 +50,7 @@ const validate = (values) => {
 const MRegister = (props) => {
     const { setBackground } = useBackground();
 
-    const {flipped , setFlipped} = props;
+    const { flipped, setFlipped } = props;
 
     useEffect(() => {
         setBackground("bglayer.svg");
@@ -109,7 +109,7 @@ const MRegister = (props) => {
 
         const { ...registerFields } = formInfo;
 
-        console.log(registerFields);
+        // console.log(registerFields);
 
         const res = await axios.post(
             "http://localhost:3700/join/register",
@@ -117,32 +117,29 @@ const MRegister = (props) => {
         );
 
         if (res.data.message === "fail") {
-           
             Swal.fire({
-                imageUrl: '/member_img/logo.svg',
-                confirmButtonColor: '#224040',
-                title: '糟糕！',
-                color:"#224040",
+                imageUrl: "/member_img/logo.svg",
+                confirmButtonColor: "#224040",
+                title: "糟糕！",
+                color: "#224040",
                 text: "使用者名稱已經存在",
-              })
+            });
         } else if (res.data.message === "缺少資料") {
-          
             Swal.fire({
-                imageUrl: '/member_img/logo.svg',
-                confirmButtonColor: '#224040',
-                title: '糟糕！',
-                color:"#224040",
+                imageUrl: "/member_img/logo.svg",
+                confirmButtonColor: "#224040",
+                title: "糟糕！",
+                color: "#224040",
                 text: "資料填寫不完整",
-              })
+            });
         } else {
-        
             Swal.fire({
-                imageUrl: '/member_img/logo.svg',
-                confirmButtonColor: '#224040',
-                color:"#224040",
+                imageUrl: "/member_img/logo.svg",
+                confirmButtonColor: "#224040",
+                color: "#224040",
                 text: "註冊成功！即將跳轉回登入頁面...",
-              })
-              setFlipped(!flipped);
+            });
+            setFlipped(!flipped);
         }
     };
 

@@ -16,7 +16,7 @@ const CreditCardCard = () => {
         //         return i === 1 || i === 2 ? "****" : number;
         //     });
         // });
-        res.data.result.map((item,index) => {
+        res.data.result.map((item, index) => {
             item.card_number_hidden = item.card_number.map((number, i) => {
                 return i === 1 || i === 2 ? "****" : number;
             });
@@ -34,7 +34,7 @@ const CreditCardCard = () => {
                 `http://localhost:3700/member/creditcard/?memberId=${auth.m_id}&cardSid=${cardSid}`
             )
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 getCreditCard();
             });
     };

@@ -43,7 +43,7 @@ const MLogin = () => {
     const whenSubmit = (event) => {
         event.preventDefault();
 
-        console.log(myform);
+        // console.log(myform);
         // TODO: 欄位檢查
 
         fetch("http://localhost:3700/join/login", {
@@ -63,7 +63,7 @@ const MLogin = () => {
                         color: "#224040",
                         text: "登入成功，即將跳轉至會員頁面",
                     });
-                    console.log({ ...result.data });
+                    // console.log({ ...result.data });
                     setAuth({
                         ...result.data,
                         authorized: true,

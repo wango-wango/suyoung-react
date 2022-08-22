@@ -49,7 +49,7 @@ const ForgotPassword = () => {
                 `http://localhost:3700/join/reset-password?token=${token}`,
                 password
             );
-            console.log(res);
+            // console.log(res);
 
             if (res.data.success === true) {
                 Swal.fire({

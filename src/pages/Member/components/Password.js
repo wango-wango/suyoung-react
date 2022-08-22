@@ -83,7 +83,7 @@ const Password = () => {
                 `http://localhost:3700/member/updatePassword/${auth.m_id}`,
                 password
             );
-            console.log(res);
+            // console.log(res);
 
             if (res.data.success === true) {
                 Swal.fire({
