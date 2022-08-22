@@ -108,9 +108,9 @@ function RoomInfo(props) {
       setMycart(newCart)
     
 
-    const oldRoom = orderBooking
-    const nowRoom = oldRoom.filter((v) => v !== item)
-    setOrderBooking(nowRoom)
+    // const oldRoom = orderBooking
+    // const nowRoom = oldRoom.filter((v) => v !== item)
+    setOrderBooking(newCart)
 
     setBookingCart(newCart)
     deleteTemporaryCart(item)
