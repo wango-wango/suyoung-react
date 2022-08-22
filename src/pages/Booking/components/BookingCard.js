@@ -24,7 +24,7 @@ function BookingCard(props) {
         favType: 1,
     });
 
-    const [ newRoomList, setNewRoomList ] = useState();
+    const [ newRoomList, setNewRoomList ] = useState(roomList);
     // 控制 收藏功能
     const keepHandler = (e) => {
         const checked = e.target.checked;
@@ -130,6 +130,7 @@ function BookingCard(props) {
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
     }
+
     // 用物件的key值去排序資料 價格高到低
     function sortByKeyUp(array, key) {
         return array.sort(function(a, b) {

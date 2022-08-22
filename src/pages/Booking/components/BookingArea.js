@@ -6,18 +6,20 @@ import useRWD from "../../../utils/useRWD";
 const { allowedMaxDays, beforeToday, combine } = DateRangePicker;
 
 function BookingArea(props) {
+    const {kidsValue, setKidsValue, adultValue, setAdultValue, datePicker, setDatePicer} = props;
     const { bookingList, setBookingList } = useBookingList();
-    const [datePicker, setDatePicer] = useState({
-        startDate: "",
-        endDate: "",
-        perNight: "",
-    });
+    // const [datePicker, setDatePicer] = useState({
+    //     startDate: "",
+    //     endDate: "",
+    //     perNight: "",
+    //     nextDate:"",
+    // });
     const [personCount, setPersonCount] = useState({
         adults: "",
         kids: "",
     });
-    const [adultValue, setAdultValue] = useState(0);
-    const [kidsValue, setKidsValue] = useState(0);
+    // const [adultValue, setAdultValue] = useState(0);
+    // const [kidsValue, setKidsValue] = useState(0);
     const [isActive,setIsActive] = useState(false);
 
     const device = useRWD();
@@ -56,6 +58,7 @@ function BookingArea(props) {
             startDate:formatDate(v[0].toDateString()),
             endDate: formatDate(v[1].toDateString()),
             perNight: (v[1] - v[0]) / 86400000,
+            nextDate: v2,
         });
         setIsActive(true);
         }else{
@@ -64,12 +67,14 @@ function BookingArea(props) {
             startDate: "",
             endDate: "",
             perNight:"",
+            nextDate:"",
         });
         setDatePicer({
             ...datePicker,
             startDate: "",
             endDate: "",
             perNight: "",
+            nextDate: "",
         });
         setIsActive(false);
         }
