@@ -88,7 +88,7 @@ function RoomInfo(props) {
 
     
     // 剔除該筆資料存進新的陣列 newCart 
-    const newCart = currentCart.filter((v) => v.sid !== item.sid)
+    const newCart = currentCart.filter((v) => v!==item )
     
     // // 複製
     // const oldTotalBookingCart = totalBookingCart;
@@ -109,7 +109,7 @@ function RoomInfo(props) {
     
 
     const oldRoom = orderBooking
-    const nowRoom = oldRoom.filter((v) => v.sid !== item.sid)
+    const nowRoom = oldRoom.filter((v) => v !== item)
     setOrderBooking(nowRoom)
 
     setBookingCart(newCart)
