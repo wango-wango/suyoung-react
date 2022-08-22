@@ -420,8 +420,8 @@ box-sizing: border-box;
 
 .item_detail img{
     border-radius: 4px;
-    width: 240px;
-    height: 180px;
+    width: 255px;
+    height: 210px;
 }
 
 .item_detail_text{
@@ -429,7 +429,10 @@ box-sizing: border-box;
     line-height: 1.3;
     align-items: center;
     font-size: 24px;
+}
 
+.item_detail_text p{
+    font-size: 18px;
 }
 
 .act_detail{
@@ -458,8 +461,8 @@ box-sizing: border-box;
 
 .event_detail img{
     border-radius: 4px;
-    width: 240px;
-    height: 180px;
+    width: 255px;
+    height: 210px;
 }
 
 .event_detail_text{
@@ -467,6 +470,10 @@ box-sizing: border-box;
     line-height: 2;
     align-items: center;
     font-size: 24px;
+}
+
+.event_detail_text p{
+    font-size: 18px;
 }
 
 .food_detail{
