@@ -8,7 +8,7 @@ function GuessYouLike(props) {
     const { bookingList, setBookingList } = useBookingList();
     const seeMore = (v) => {
         const roomSid =  v;
-        console.log(roomSid);
+        // console.log(roomSid);
         setBookingList({
             ...bookingList,
             roomSelector: [roomSid + ""],

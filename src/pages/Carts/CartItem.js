@@ -51,7 +51,7 @@ function CartItem(props) {
   const [orderActList, setOrderActList] = useState([])
   const [totalCart, setTotalCart] = useState([])
 
-  console.log(orderActList)
+//   console.log(orderActList)
 
   // 判斷是房間訂單還是活動訂單
   const [orderType1, setOrderType1] = useState(0)
@@ -91,7 +91,7 @@ function CartItem(props) {
       setTotalCart([...orderBooking, ...orderActList])
     }
 
-    console.log(totalCart)
+    // console.log(totalCart)
         
   }, [orderBooking, orderActList])
 
@@ -164,13 +164,13 @@ function CartItem(props) {
                 "Content-Type": "application/json",
             }),
         });
-        console.log("JSON", JSON.stringify(data));
+        // console.log("JSON", JSON.stringify(data));
         // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
 
         const response = await fetch(request);
         const dataRes = await response.json();
 
-        console.log("伺服器回傳的json資料", dataRes);
+        // console.log("伺服器回傳的json資料", dataRes);
     }
 
     //寫入房型預約
@@ -214,13 +214,13 @@ function CartItem(props) {
                 "Content-Type": "application/json",
             }),
         });
-        console.log("JSON", JSON.stringify(data));
+        // console.log("JSON", JSON.stringify(data));
         // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
 
         const response = await fetch(request);
         const dataRes = await response.json();
 
-        console.log("伺服器回傳的json資料", dataRes);
+        // console.log("伺服器回傳的json資料", dataRes);
     }
     //將信用卡資訊寫入資料庫
     async function addCreditCardToSever(e) {
@@ -243,13 +243,13 @@ function CartItem(props) {
         'Content-Type': 'application/json',
       }),
     })
-    console.log('JSON', JSON.stringify(data))
+    // console.log('JSON', JSON.stringify(data))
     // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
 
     const response = await fetch(request)
     const dataRes = await response.json()
 
-    console.log('伺服器回傳的json資料', dataRes)
+    // console.log('伺服器回傳的json資料', dataRes)
   }
 
     //將房型與活動訂單細節寫入資料庫
@@ -295,7 +295,7 @@ function CartItem(props) {
 
             data1.orderDetail.push(orderInfo);
         }
-        console.log(data1);
+        // console.log(data1);
         // 連接的伺服器資料網址
         const url = "http://localhost:3700/cart/orderDetail/add";
 
@@ -309,14 +309,14 @@ function CartItem(props) {
                 "Content-Type": "application/json",
             }),
         });
-        console.log("JSON", JSON.stringify(data1));
+        // console.log("JSON", JSON.stringify(data1));
         // console.log('JSON parse',JSON.parse(JSON.stringify(data)).orderItems)
 
         const response = await fetch(request);
         const dataRes = await response.json();
 
-        console.log(orderId);
-        console.log("伺服器回傳的json資料", dataRes);
+        // console.log(orderId);
+        // console.log("伺服器回傳的json資料", dataRes);
     }
 
   const emailSubmit = async () => {
@@ -325,7 +325,7 @@ function CartItem(props) {
       orderId
     )
 
-    console.log(res)
+    // console.log(res)
   }
 
     const HandleAlert = useCallback(() =>{
@@ -368,7 +368,7 @@ function CartItem(props) {
     const res = await Axios.delete(
         `http://localhost:3700/Booking/deleteTemporaryCartAll?memberId=${auth.m_id}`
     );
-    console.log(res);
+    // console.log(res);
 };
 
     // 處理表單送出
@@ -393,7 +393,7 @@ function CartItem(props) {
         if (newErrors.length !== 0) {
             HandleAlertData();
         }
-        console.log(newErrors);
+        // console.log(newErrors);
         if (totalCart && newErrors.length === 0) {
             // 購物車內有商品
             HandleAlert();
@@ -423,7 +423,7 @@ function CartItem(props) {
     };
 
     useEffect(() => {
-        console.log("progressNames")
+        // console.log("progressNames")
     }, [progressNames])
     
 

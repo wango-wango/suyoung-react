@@ -91,7 +91,7 @@ function Index(props) {
         ).then((response) => {
             setRoomList(response.data.roomList);
             setTagList(response.data.tagList);
-            console.log("roomList:",response.data.roomList);
+            // console.log("roomList:",response.data.roomList);
         });
 
         if(auth.m_id){

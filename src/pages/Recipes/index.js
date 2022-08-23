@@ -67,7 +67,7 @@ function Index(props) {
     //         </Link>
     //     </div>
     //data送資料到front,[]只會跑一次
-    console.log("recipes:", recipes);
+    // console.log("recipes:", recipes);
 
     const [food, setFood] = useState("山珍野味");
 

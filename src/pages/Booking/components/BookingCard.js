@@ -162,7 +162,7 @@ function BookingCard(props) {
             v.room_name.includes(searchName)
         );
         setNewRoomList(newRoomList);
-        console.log("newRoomList:",newRoomList);
+        // console.log("newRoomList:",newRoomList);
 
         // 如果篩選後沒有值 跳提醒
     }, [roomList, searchName]);
@@ -186,8 +186,8 @@ function BookingCard(props) {
         // 看按鈕的值 改變newRoomList 的值
         if (checkPrice === "1") setNewRoomList(DownRoomList);
         if (checkPrice === "2") setNewRoomList(UpRoomList);
-        console.log("DownRoomList:",DownRoomList);
-        console.log("UpRoomList:",UpRoomList);
+        // console.log("DownRoomList:",DownRoomList);
+        // console.log("UpRoomList:",UpRoomList);
     }, [roomList, checkPrice]);
 
     return (

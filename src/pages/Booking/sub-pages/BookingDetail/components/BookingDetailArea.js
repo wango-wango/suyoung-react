@@ -91,7 +91,7 @@ function BookingDetailArea(props) {
         setBookingCart(newArray);
         localStorage.setItem("roomItem", JSON.stringify(newArray));
 
-        console.log(newArray);
+        // console.log(newArray);
         
     };
 

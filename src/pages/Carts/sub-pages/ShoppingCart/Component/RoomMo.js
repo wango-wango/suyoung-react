@@ -26,7 +26,7 @@ function RoomMo(props) {
   
     const Swal = require('sweetalert2')
   
-    console.log(couponId)
+    // console.log(couponId)
   
     function HandleAlertData() {
       Swal.fire({
@@ -54,11 +54,11 @@ function RoomMo(props) {
         if (!res.data.coupon) {
           HandleAlertData()
         } else {
-          console.log(res)
+          // console.log(res)
   
           const couponDiscountNumber = res.data.coupon
   
-          console.log(couponDiscountNumber)
+          // console.log(couponDiscountNumber)
   
           setcouponDiscount(couponDiscountNumber)
   
@@ -70,7 +70,7 @@ function RoomMo(props) {
       }, 0)
     }
   
-    console.log(sum)
+    // console.log(sum)
   
     const couponDiscountRange = () => {
       if (couponDiscount > 1) {
@@ -81,7 +81,7 @@ function RoomMo(props) {
       }
     }
   
-    console.log(discountSum)
+    // console.log(discountSum)
   
     useEffect(() => {
       if (totalPrice) setdiscountSum(totalPrice)

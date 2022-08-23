@@ -101,7 +101,7 @@ function Index(props) {
       setEqiList(response.data.eqiList)
       setOtherRoomList(response.data.otherRoomList)
       setRuleList(response.data.ruleList)
-      console.log(response.data)
+      // console.log(response.data)
     })
   }
 

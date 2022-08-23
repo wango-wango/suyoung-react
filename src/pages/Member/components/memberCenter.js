@@ -47,10 +47,10 @@ const MemberCenter = () => {
         if (token) {
             getGoogleUser();
 
-            console.log("getting google userdata");
+            // console.log("getting google userdata");
         } else {
             getUserData();
-            console.log("getting userdata");
+            // console.log("getting userdata");
         }
     }, []);
 

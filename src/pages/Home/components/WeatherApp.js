@@ -79,7 +79,7 @@ const WeatherApp = (props) => {
     
     const [tempValue, setTempValue] = useState('')
 
-    console.log('--- invoke function component ---');
+    // console.log('--- invoke function component ---');
     const storageCity = localStorage.getItem('cityName');
     const [currentCity, setCurrentCity] = useState(storageCity || '臺北市');
     const currentLocation = findLocation(currentCity) || {};
