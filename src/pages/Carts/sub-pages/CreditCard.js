@@ -63,7 +63,7 @@ export default class App extends React.Component {
 
     //console.log(this.props)
     this.props.setInputs({ ...this.props.inputs, [target.name]: target.value })
-    console.log(this.props.inputs)
+    // console.log(this.props.inputs)
     this.setState({ [target.name]: target.value })
   }
 

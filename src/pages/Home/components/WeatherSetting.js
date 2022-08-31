@@ -102,7 +102,7 @@ const WeatherSetting = ({ setCurrentPage, cityName, setCurrentCity }) => {
     //比對名字
     if (locations.includes(locationName)) {
       // TODO: 儲存地區資訊...
-      console.log(`儲存的地區資訊為：${locationName}`);
+      // console.log(`儲存的地區資訊為：${locationName}`);
       setCurrentPage('WeatherCard');
       setCurrentCity(locationName)
     } else {

@@ -17,7 +17,7 @@ function ActInfo(props) {
 
     // updateQty()
 
-    console.log(JSON.parse(newCart))
+    // console.log(JSON.parse(newCart))
     setMycart1(JSON.parse(newCart))
   }
   useEffect(() => {
@@ -34,7 +34,7 @@ function ActInfo(props) {
     return total
   }
   useEffect(() => {
-    console.log(mycart1)
+    // console.log(mycart1)
     sum(mycart1)
   }, [mycart1])
   // componentDidUpdate
@@ -65,7 +65,7 @@ function ActInfo(props) {
   // const myCartPrice = mycart1[0].totalPrice
   // setTotalPrice({ ...totalPrice, actPrice: myCartPrice })
 
-  console.log([mycart1])
+  // console.log([mycart1])
 
   // console.log([mycartDisplay1])
 
@@ -105,7 +105,7 @@ function ActInfo(props) {
         popup: 'animate__animated animate__fadeOutUp',
       },
     }).then((result) => {
-      console.log(result.isConfirmed)
+      // console.log(result.isConfirmed)
       if (result.isConfirmed) {
         delItem(item)
         Swal.fire('已刪除!', '您的商品已刪除！', 'success')

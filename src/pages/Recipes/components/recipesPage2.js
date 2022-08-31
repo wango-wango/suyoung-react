@@ -93,7 +93,7 @@ function RecipesPage2(props) {
     useEffect(() => {
         axios.get('http://localhost:3700/recipes/api/tutorial').then((response) => {
             setTutorial(response.data);
-            console.log('11', response.data)
+            // console.log('11', response.data)
         })
     }, []);
 

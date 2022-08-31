@@ -28,7 +28,7 @@ function RoomInfo(props) {
 
     // updateQty()
 
-    console.log(JSON.parse(newCart))
+    // console.log(JSON.parse(newCart))
     setMycart(JSON.parse(newCart))
   }
   useEffect(() => {
@@ -43,11 +43,11 @@ function RoomInfo(props) {
     }
     // setSum(total)
     setRoomSum(total)
-    console.log(total)
+    // console.log(total)
     // return total
   }
   useEffect(() => {
-    console.log(mycart)
+    // console.log(mycart)
     sum(mycart)
   }, [mycart])
 
@@ -76,7 +76,7 @@ function RoomInfo(props) {
   //   setMycartDisplay(newMycartDisplay)
   // }, [mycart])
 
-  console.log([mycart])
+  // console.log([mycart])
 
   // console.log([mycartDisplay])
 
@@ -127,7 +127,7 @@ function RoomInfo(props) {
     const res = await Axios.delete(
         `http://localhost:3700/Booking/deleteTemporaryCart?memberId=${memberId}&roomSid=${roomSid}&startDate=${startDate}&endDate=${endDate}`
     );
-    console.log(res);
+    // console.log(res);
 };
 
   function DeleteCartItem(item) {
@@ -146,7 +146,7 @@ function RoomInfo(props) {
         popup: 'animate__animated animate__fadeOutUp',
       },
     }).then((result) => {
-      console.log(result.isConfirmed)
+      // console.log(result.isConfirmed)
       if (result.isConfirmed) {
         delItem(item)
         Swal.fire('已刪除!', '您的商品已刪除！', 'success')

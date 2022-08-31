@@ -22,10 +22,10 @@ function OrderDetail(props) {
 
     const response = await fetch(request)
     const data = await response.json()
-    console.log('訂單dataRes', data)
+    // console.log('訂單dataRes', data)
     setOrder(data)
 
-    console.log('訂單scOrderId', scOrderId)
+    // console.log('訂單scOrderId', scOrderId)
     // console.log('訂單order', order) //會是空的因為setOrder異步執行
     setOrderAll(data.data)
   }
@@ -34,7 +34,7 @@ function OrderDetail(props) {
     getOrderListFromServer()
   }, [])
 
-  console.log(order.actList)
+  // console.log(order.actList)
 
   const OrderDisplay = () => (
     <>
@@ -63,7 +63,7 @@ function OrderDetail(props) {
     </>
   )
 
-  console.log("order",order)
+  // console.log("order",order)
 
   const OrderActDisplay = () => (
     <>
