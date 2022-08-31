@@ -47,7 +47,7 @@ export default class App extends React.Component {
     this.setState({
       number: '5568 8556 8855 6885',
       name: 'bearbear',
-      expiry: '1227',
+      expiry: '12/27',
       cvc: '688',
     })
   }
