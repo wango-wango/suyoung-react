@@ -1,4 +1,4 @@
-import React, { useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import BookingArea from "./components/BookingArea";
 import BookingCard from "./components/BookingCard";
 import BookingFilter from "./components/BookingFilter";
@@ -10,27 +10,24 @@ import { useBookingList } from "../../utils/useBookingList";
 import { useBookingCart } from "../../utils/useBookingCart";
 import { useAuth } from "../Login/sub-pages/AuthProvider";
 import Axios from "axios";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 
 function Index(props) {
-
-
     const { setBackground } = useBackground();
     const { spinner, setLoading } = useSpinner(2000);
-     // useContext
+    // useContext
     const { bookingList, setBookingList } = useBookingList();
     const { bookingCart, setBookingCart } = useBookingCart();
     const { setAuth, ...auth } = useAuth();
 
     // 所有room 列表
     const [roomList, setRoomList] = useState();
-    
+
     // 所有Tag 列表
     const [tagList, setTagList] = useState([]);
     // 會員的 favList roomsid
     const [favList, setFavList] = useState([]);
-    
 
     /* ------ 監控所有篩選按鍵的狀態 ------ */
 
@@ -39,7 +36,7 @@ function Index(props) {
         startDate: "",
         endDate: "",
         perNight: "",
-        nextDate:"",
+        nextDate: "",
     });
     // 確認人數狀態
     const [adultValue, setAdultValue] = useState(0);
@@ -66,11 +63,10 @@ function Index(props) {
     const [searchContext, setSearchContext] = useState("");
 
     //  價格多少狀態
-    const [checkPrice,setCheckPrice] = useState("");
+    const [checkPrice, setCheckPrice] = useState("");
 
-    
     // 用get 取得所有的值
-    const getData = async () => {
+    const getData = () => {
         // 從 bookingList解構
         const {
             adults,
@@ -83,10 +79,10 @@ function Index(props) {
             popular,
             recommend,
             roomSelector,
-            searchPrice
+            searchPrice,
         } = bookingList;
 
-        await Axios.get(
+        Axios.get(
             `${BK_GET_LIST}/selectRoom?adults=${adults}&nextDate=${nextDate}&endDate=${endDate}&roomType=${roomType}&startPrice=${startPrice}&endPrice=${endPrice}&tagCheck=${tagCheck}&popular=${popular}&recommend=${recommend}&roomSelector=${roomSelector}&searchPrice=${searchPrice}`
         ).then((response) => {
             setRoomList(response.data.roomList);
@@ -94,26 +90,23 @@ function Index(props) {
             // console.log("roomList:",response.data.roomList);
         });
 
-        if(auth.m_id){
+        if (auth.m_id) {
             // 取得所有favlist 的 roomSid
-            await Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.m_id}`).then(
+            Axios.get(`${BK_GET_LIST}/favlist?memberId=${auth.m_id}`).then(
                 (response) => {
                     // setFavList(response.data);
                     setFavList(response.data.map((v) => +v.fav_list_kind));
                 }
             );
             // 取得會員購物車內的資料 登入時就可以直接匯入購物車資料
-            await Axios.get(`${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`).then(
-                (response) => {
-                    // setFavList(response.data);
-                    setBookingCart(response.data);
-                }
-            );
-
+            Axios.get(
+                `${BK_GET_LIST}/selectMemberCart?memberId=${auth.m_id}`
+            ).then((response) => {
+                // setFavList(response.data);
+                setBookingCart(response.data);
+            });
         }
-        
     };
-
 
     // 測試後端撈資料
     // const orderDetailList = async() =>{
@@ -125,26 +118,22 @@ function Index(props) {
     //     });
     // }
 
-  
-    
     // 得到bookingList 的值就執行 getData
     useEffect(() => {
         // if(Object.keys(bookingList).length > 0)return;
         getData();
     }, [bookingList]);
 
-    
-    
     //設定背景
     useEffect(() => {
         setBackground("bg1.svg");
-           // 取得會員資料就存進去bookingList
-        if(auth.authorized || auth.success){
-            setBookingList({...bookingList,memberId: auth.m_id});
+        // 取得會員資料就存進去bookingList
+        if (auth.authorized || auth.success) {
+            setBookingList({ ...bookingList, memberId: auth.m_id });
         }
     }, []);
 
-    // 設定 spinner 
+    // 設定 spinner
     useEffect(() => {
         setLoading(true);
     }, [setLoading]);
@@ -156,18 +145,59 @@ function Index(props) {
             <section className="Booking">
                 <div className="Booking_container">
                     <div className="booking_area_container">
-                        <BookingArea adultValue={adultValue} setAdultValue={setAdultValue} kidsValue={kidsValue} setKidsValue={setKidsValue} datePicker={datePicker} setDatePicer={setDatePicer}/>
+                        <BookingArea
+                            adultValue={adultValue}
+                            setAdultValue={setAdultValue}
+                            kidsValue={kidsValue}
+                            setKidsValue={setKidsValue}
+                            datePicker={datePicker}
+                            setDatePicer={setDatePicer}
+                        />
                     </div>
 
                     <div className="room_area_flex">
-                        <BookingFilter searchName={searchName} setSearchName={setSearchName} checkroomType={checkroomType} setCheckRoomType={setCheckRoomType} roomSelector={roomSelector} setRoomSelector={setRoomSelector} value={value} setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} recommend={recommend} setRecommend={setRecommend} popular={popular} setPopular={setPopular} searchContext={searchContext} setSearchContext={setSearchContext} checkPrice={checkPrice} setCheckPrice={setCheckPrice}/>
-                        
-                        <BookingCard roomList={roomList} setRoomList={setRoomList} tagList={tagList} favList={favList} setFavList={setFavList} searchName={searchName} checkPrice={checkPrice} setCheckPrice={setCheckPrice} setSearchName={setSearchName} setCheckRoomType={setCheckRoomType} setRoomSelector={setRoomSelector}  setValue={setValue} tagValue={tagValue} setTagValue={setTagValue} setRecommend={setRecommend} setPopular={setPopular} setSearchContext={setSearchContext}  />
-                        
+                        <BookingFilter
+                            searchName={searchName}
+                            setSearchName={setSearchName}
+                            checkroomType={checkroomType}
+                            setCheckRoomType={setCheckRoomType}
+                            roomSelector={roomSelector}
+                            setRoomSelector={setRoomSelector}
+                            value={value}
+                            setValue={setValue}
+                            tagValue={tagValue}
+                            setTagValue={setTagValue}
+                            recommend={recommend}
+                            setRecommend={setRecommend}
+                            popular={popular}
+                            setPopular={setPopular}
+                            searchContext={searchContext}
+                            setSearchContext={setSearchContext}
+                            checkPrice={checkPrice}
+                            setCheckPrice={setCheckPrice}
+                        />
+
+                        <BookingCard
+                            roomList={roomList}
+                            setRoomList={setRoomList}
+                            tagList={tagList}
+                            favList={favList}
+                            setFavList={setFavList}
+                            searchName={searchName}
+                            checkPrice={checkPrice}
+                            setCheckPrice={setCheckPrice}
+                            setSearchName={setSearchName}
+                            setCheckRoomType={setCheckRoomType}
+                            setRoomSelector={setRoomSelector}
+                            setValue={setValue}
+                            tagValue={tagValue}
+                            setTagValue={setTagValue}
+                            setRecommend={setRecommend}
+                            setPopular={setPopular}
+                            setSearchContext={setSearchContext}
+                        />
                     </div>
                 </div>
-                
-                            
             </section>
         </>
     );
